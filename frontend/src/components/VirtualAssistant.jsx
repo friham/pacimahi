@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FaClipboardCheck, FaTimes, FaPaperPlane, FaWhatsapp, FaRobot, FaUser } from 'react-icons/fa';
+import { FaComments, FaTimes, FaPaperPlane, FaWhatsapp, FaRobot, FaUser } from 'react-icons/fa';
 import './VirtualAssistant.css';
 
 const quickFaqs = [
@@ -77,7 +77,7 @@ function VirtualAssistant() {
           onClick={() => setIsOpen(true)}
           title="Tanya Asisten SAPA PA Cimahi"
         >
-          <FaClipboardCheck className="va-btn-icon" />
+          <FaComments className="va-btn-icon" />
           <span className="va-btn-text">Tanya SAPA</span>
           <span className="va-btn-pulse"></span>
         </button>
