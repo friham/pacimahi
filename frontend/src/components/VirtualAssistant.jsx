@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaClipboardCheck, FaTimes, FaPaperPlane, FaWhatsapp, FaRobot, FaUser } from 'react-icons/fa';
 import './VirtualAssistant.css';
 
@@ -58,6 +58,16 @@ function VirtualAssistant() {
       setMessages(prev => [...prev, { sender: 'bot', text: reply }]);
     }, 500);
   };
+
+  // Hide accessibility button when chatbox is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('va-open');
+    } else {
+      document.body.classList.remove('va-open');
+    }
+    return () => document.body.classList.remove('va-open');
+  }, [isOpen]);
 
   return (
     <div className="virtual-assistant">

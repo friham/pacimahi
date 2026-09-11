@@ -1,6 +1,14 @@
 /* ============================================
    Virtual Assistant (SAPA) Styles
    ============================================ */
+
+/* Hide accessibility button when SAPA chatbox is open */
+body.va-open .a11y-widget-root,
+body.va-open .aco-floating-wrapper {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
 .virtual-assistant {
   position: fixed;
   bottom: 28px;
