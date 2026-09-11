@@ -8,37 +8,46 @@
   z-index: 9999;
 }
 
-/* Floating Trigger Button */
+/* Floating Trigger Button - Matching CCTV & Accessibility style */
 .va-floating-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  max-width: 48px;
+  max-height: 48px;
+  border-radius: 50%;
   background: linear-gradient(135deg, var(--gold-500), var(--gold-600));
   color: var(--primary-950);
   border: none;
-  padding: 14px 24px;
-  border-radius: var(--radius-full);
-  font-size: 0.92rem;
-  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
   position: relative;
   transition: all var(--transition-normal);
 }
 
 .va-floating-btn:hover {
-  transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 14px 35px rgba(212, 175, 55, 0.45);
+  transform: translateY(-2px) scale(1.04);
   background: var(--gold-400);
+  box-shadow: 0 0 0 8px rgba(212, 175, 55, 0.32), 0 12px 28px rgba(212, 175, 55, 0.45);
 }
 
 .va-btn-icon {
   font-size: 1.3rem;
   width: 26px;
   height: 26px;
+  min-width: 26px;
+  min-height: 26px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.va-btn-text {
+  display: none;
 }
 
 .va-btn-pulse {
@@ -322,4 +331,36 @@
 
 .va-wa-btn:hover {
   background: #bbf7d0;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+@media (max-width: 480px) {
+  .virtual-assistant {
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .va-floating-btn {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+    max-width: 48px;
+    max-height: 48px;
+  }
+
+  .va-btn-icon {
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    min-height: 26px;
+  }
+
+  .va-chatbox {
+    width: calc(100vw - 32px);
+    right: 0;
+    left: 0;
+  }
 }
