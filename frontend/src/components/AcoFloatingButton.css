@@ -35,6 +35,8 @@
   flex-shrink: 0;
   outline: none;
   overflow: hidden;
+  animation: floatBounce 3s ease-in-out infinite;
+  animation-delay: 1s;
 }
 
 /* Hover Interaction: Scale and Gold Glow matching other buttons */

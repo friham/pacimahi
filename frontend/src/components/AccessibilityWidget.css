@@ -49,6 +49,8 @@
   position: relative;
   flex-shrink: 0;
   overflow: hidden;
+  animation: floatBounce 3s ease-in-out infinite;
+  animation-delay: 0.5s;
 }
 
 /* Hover State - Glowing Golden Halo Ring */
