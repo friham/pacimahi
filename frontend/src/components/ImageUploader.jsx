@@ -2,9 +2,7 @@ import { useState, useRef } from 'react';
 import axios from 'axios';
 import { FaImage, FaUpload } from 'react-icons/fa';
 
-const API_URL = 'http://localhost:5000/api';
-// Base URL server backend, dipakai untuk menampilkan preview gambar yang sudah tersimpan di server
-const SERVER_URL = 'http://localhost:5000';
+import { API_URL, SERVER_URL } from '../config';
 
 /**
  * Komponen upload gambar melalui file explorer (drag & drop / klik pilih file).

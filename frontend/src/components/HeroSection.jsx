@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaSearch, FaShieldAlt, FaGavel, FaListAlt, FaBullhorn, FaTimes, FaExpandAlt, FaCopy, FaCheck } from 'react-icons/fa';
+import { API_URL } from '../config';
 import './HeroSection.css';
 
 function HeroSection({ onOpenCaseModal }) {
@@ -18,7 +19,7 @@ function HeroSection({ onOpenCaseModal }) {
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/settings');
+        const res = await axios.get(`${API_URL}/settings`);
         if (res.data.success && Object.keys(res.data.data).length > 0) {
           setHeroSettings(prev => ({ ...prev, ...res.data.data }));
         }
@@ -98,7 +99,7 @@ function HeroSection({ onOpenCaseModal }) {
       <div className="hero__content container">
         {/* Main Heading */}
         <h1 className="hero__title animate-fade-in-up">
-          {heroSettings.hero_title.includes('Pengadilan Agama') ? (
+          {heroSettings.hero_title?.includes('Pengadilan Agama') ? (
             <>
               {heroSettings.hero_title.split('Pengadilan Agama')[0]}
               <span className="hero__title-highlight"> Pengadilan Agama</span>

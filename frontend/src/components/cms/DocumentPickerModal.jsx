@@ -3,7 +3,7 @@ import axios from 'axios';
 import { FaTimes, FaSearch, FaUpload, FaTrash, FaFilePdf, FaCalendarAlt, FaSpinner } from 'react-icons/fa';
 import './MediaLibraryModal.css';
 
-const API_URL = 'http://localhost:5000/api';
+import { API_URL } from '../../config';
 
 export default function DocumentPickerModal({ isOpen, onClose, onSelect, token }) {
   const [documents, setDocuments] = useState([]);

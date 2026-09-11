@@ -6,7 +6,7 @@ import {
 } from 'react-icons/fa';
 import './MediaLibraryModal.css';
 
-const API_URL = 'http://localhost:5000/api';
+import { API_URL, SERVER_URL } from '../../config';
 
 export default function MediaLibraryModal({ isOpen, onClose, onSelect, token }) {
   const [mediaList, setMediaList] = useState([]);
@@ -93,7 +93,7 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelect, token }) 
 
   const handleCopyUrl = (url, id, e) => {
     e?.stopPropagation();
-    const fullUrl = url.startsWith('/') ? `http://localhost:5000${url}` : url;
+    const fullUrl = url.startsWith('/') ? `${SERVER_URL}${url}` : url;
     navigator.clipboard.writeText(fullUrl);
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
@@ -102,7 +102,7 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelect, token }) 
   const handleConfirmSelect = () => {
     if (!selectedItem) return;
     const fullUrl = selectedItem.file_url.startsWith('/') 
-      ? `http://localhost:5000${selectedItem.file_url}` 
+      ? `${SERVER_URL}${selectedItem.file_url}` 
       : selectedItem.file_url;
     onSelect(fullUrl, selectedItem.alt_text || selectedItem.original_name, selectedItem);
     onClose();
@@ -210,7 +210,7 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelect, token }) 
                 {mediaList.map((item) => {
                   const isSelected = selectedItem?.id === item.id;
                   const isImg = item.mime_type?.startsWith('image/');
-                  const fullUrl = item.file_url.startsWith('/') ? `http://localhost:5000${item.file_url}` : item.file_url;
+                  const fullUrl = item.file_url.startsWith('/') ? `${SERVER_URL}${item.file_url}` : item.file_url;
 
                   return (
                     <div 
@@ -268,7 +268,7 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelect, token }) 
               <div className="media-details__preview">
                 {selectedItem.mime_type?.startsWith('image/') ? (
                   <img 
-                    src={selectedItem.file_url.startsWith('/') ? `http://localhost:5000${selectedItem.file_url}` : selectedItem.file_url} 
+                    src={selectedItem.file_url.startsWith('/') ? `${SERVER_URL}${selectedItem.file_url}` : selectedItem.file_url} 
                     alt={selectedItem.original_name} 
                   />
                 ) : (

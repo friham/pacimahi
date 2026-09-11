@@ -5,7 +5,7 @@ import { FaBars, FaTimes, FaChevronDown, FaChevronRight, FaUserShield } from 're
 import logoImg from '../assets/logo.png';
 import './Navbar.css';
 
-const API_URL = 'http://localhost:5000/api';
+import { API_URL } from '../config';
 
 const defaultMenuItems = [
   {

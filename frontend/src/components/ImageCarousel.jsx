@@ -38,7 +38,7 @@ const defaultSlides = [
   },
 ];
 
-const SERVER_URL = 'http://localhost:5000';
+import { API_URL, SERVER_URL } from '../config';
 
 const resolveImage = (slide, index) => {
   if (slide.image) return slide.image;
@@ -63,7 +63,7 @@ function ImageCarousel() {
   useEffect(() => {
     const fetchSliders = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/sliders');
+        const res = await axios.get(`${API_URL}/sliders`);
         if (res.data.success && res.data.data.length > 0) {
           setSlides(res.data.data);
         }

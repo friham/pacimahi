@@ -4,6 +4,8 @@ import {
   FaSearch, FaCalendarAlt, FaClipboardList, FaLaptop, 
   FaEdit, FaBullhorn, FaInfoCircle, FaHandsHelping 
 } from 'react-icons/fa';
+import { API_URL } from '../config';
+import useScrollReveal from '../hooks/useScrollReveal';
 import './QuickAccess.css';
 
 const iconMap = {
@@ -29,12 +31,14 @@ const defaultServices = [
 ];
 
 function QuickAccess({ onOpenCaseModal }) {
+  const headerRef = useScrollReveal();
+  const gridRef = useScrollReveal({ threshold: 0.08 });
   const [services, setServices] = useState(defaultServices);
 
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/services');
+        const res = await axios.get(`${API_URL}/services`);
         if (res.data.success && res.data.data.length > 0) {
           setServices(res.data.data);
         }
@@ -57,13 +61,13 @@ function QuickAccess({ onOpenCaseModal }) {
   return (
     <section className="quick-access" id="layanan">
       <div className="container">
-        <div className="quick-access__header">
+        <div ref={headerRef} className="quick-access__header scroll-reveal">
           <span className="service-guide__tag">Layanan Digital</span>
           <h2 className="section-title">Yang Anda Butuhkan?</h2>
           <p className="section-subtitle">Akses cepat ke layanan utama dan aplikasi peradilan online kami</p>
         </div>
 
-        <div className="quick-access__grid">
+        <div ref={gridRef} className="quick-access__grid scroll-reveal-stagger">
           {services.map((service, index) => {
             const IconComponent = iconMap[service.icon] || FaSearch;
             const isExternal = service.link?.startsWith('http');

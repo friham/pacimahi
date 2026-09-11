@@ -42,7 +42,7 @@ const login = async (req, res) => {
     // Generate JWT
     const token = jwt.sign(
       { id: admin.id, username: admin.username, role: admin.role },
-      process.env.JWT_SECRET || 'pa_cimahi_super_secret_jwt_key_2026',
+      process.env.JWT_SECRET,
       { expiresIn: process.env.JWT_EXPIRES_IN || '24h' }
     );
 
@@ -144,7 +144,7 @@ const updateProfile = async (req, res) => {
     // Generate refreshed token
     const token = jwt.sign(
       { id: updatedAdmin.id, username: updatedAdmin.username, role: updatedAdmin.role },
-      process.env.JWT_SECRET || 'pa_cimahi_super_secret_jwt_key_2026',
+      process.env.JWT_SECRET,
       { expiresIn: process.env.JWT_EXPIRES_IN || '24h' }
     );
 

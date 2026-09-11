@@ -4,7 +4,7 @@ import axios from 'axios';
 import DynamicCMSPage from './DynamicCMSPage';
 import { FaSpinner } from 'react-icons/fa';
 
-const API_URL = 'http://localhost:5000/api';
+import { API_URL } from '../config';
 
 export default function DynamicPageResolver() {
   const location = useLocation();

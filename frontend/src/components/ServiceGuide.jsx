@@ -3,6 +3,7 @@ import {
   FaCalculator, FaRoute, FaHandHoldingHeart, FaCalendarAlt, 
   FaCheck, FaInfoCircle, FaFileSignature, FaUserTie, FaMoneyBillWave, FaClock
 } from 'react-icons/fa';
+import useScrollReveal from '../hooks/useScrollReveal';
 import './ServiceGuide.css';
 
 const stepsData = [
@@ -74,10 +75,13 @@ function ServiceGuide() {
   const totalPanggilan = Math.round(((rateP * 2) + (rateT * selectedCase.panggilanCount)) * ecourtDiscount);
   const totalEstimasi = selectedCase.pendaftaran + selectedCase.redaksi + selectedCase.meterai + selectedCase.pnbpPanggilan + totalPanggilan;
 
+  const headerRef = useScrollReveal();
+  const contentRef = useScrollReveal({ threshold: 0.05 });
+
   return (
     <section className="service-guide-section" id="panduan">
       <div className="container">
-        <div className="service-guide__header">
+        <div ref={headerRef} className="service-guide__header scroll-reveal">
           <span className="service-guide__tag">Panduan Layanan Terpadu</span>
           <h2 className="section-title">Pusat Bantuan & Prosedur Perkara</h2>
           <p className="section-subtitle">
@@ -114,7 +118,7 @@ function ServiceGuide() {
 
         {/* TAB 1: ALUR BERPERKARA */}
         {activeTab === 'alur' && (
-          <div className="guide-timeline animate-fade-in-up">
+          <div ref={contentRef} className="guide-timeline scroll-reveal">
             {stepsData.map((item, idx) => {
               const Icon = item.icon;
               return (
@@ -133,7 +137,7 @@ function ServiceGuide() {
 
         {/* TAB 2: KALKULATOR PANJAR BIAYA */}
         {activeTab === 'kalkulator' && (
-          <div className="calculator-box animate-fade-in-up">
+          <div ref={contentRef} className="calculator-box scroll-reveal">
             <div className="calculator-box__grid">
               <div className="calculator-form">
                 <h3 className="calculator-form__title">
@@ -228,7 +232,7 @@ function ServiceGuide() {
 
         {/* TAB 3: POSBAKUM & PRODEO */}
         {activeTab === 'posbakum' && (
-          <div className="posbakum-box animate-fade-in-up">
+          <div ref={contentRef} className="posbakum-box scroll-reveal">
             <div className="posbakum-box__intro">
               <div className="posbakum-icon">⚖️</div>
               <div>
@@ -265,7 +269,7 @@ function ServiceGuide() {
 
         {/* TAB 4: JADWAL SIDANG */}
         {activeTab === 'jadwal' && (
-          <div className="jadwal-box animate-fade-in-up">
+          <div ref={contentRef} className="jadwal-box scroll-reveal">
             <div className="jadwal-table-wrapper">
               <table className="jadwal-table">
                 <thead>

@@ -159,7 +159,7 @@
 /* Panel membuka ke atas dari posisi button */
 .a11y-pos-right .a11y-floating-panel {
   position: fixed;
-  bottom: 164px;
+  bottom: 200px;
   right: 28px;
   z-index: 10000;
   width: 380px;
@@ -632,7 +632,7 @@
 /* Responsive tweaks */
 @media (max-width: 480px) {
   .a11y-pos-right .a11y-floating-wrapper {
-    bottom: 72px;
+    bottom: 76px;
     right: 20px;
   }
 

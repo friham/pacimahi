@@ -6,8 +6,8 @@
 .aco-floating-wrapper {
   position: fixed;
   bottom: 148px; /* SAPA(28px) + ~50px SAPA height + gap + a11y(48px) + gap */
-  right: 24px;
-  z-index: 9999;
+  right: 28px;
+  z-index: 9998;
   display: flex;
   align-items: center;
 }
@@ -103,30 +103,30 @@
 
 @media (max-width: 480px) {
   .aco-floating-wrapper {
-    bottom: 136px;
-    right: 18px;
+    bottom: 132px;
+    right: 20px;
   }
 
   .aco-floating-btn {
-    width: 44px;
-    height: 44px;
-    min-width: 44px;
-    min-height: 44px;
-    max-width: 44px;
-    max-height: 44px;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+    max-width: 48px;
+    max-height: 48px;
   }
 
   .aco-icon-container {
-    width: 22px;
-    height: 22px;
-    min-width: 22px;
-    min-height: 22px;
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    min-height: 26px;
   }
 
   .aco-svg-icon {
-    width: 22px;
-    height: 22px;
-    min-width: 22px;
-    min-height: 22px;
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    min-height: 26px;
   }
 }

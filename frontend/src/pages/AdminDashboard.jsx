@@ -20,10 +20,10 @@ import {
   FaInfo, FaDownload, FaEyeDropper, FaSortAmountDown, FaArrowUp, FaArrowDown
 } from 'react-icons/fa';
 import logoPaCimahi from '../assets/logo-pa-cimahi.png';
+import { sanitizeHtml } from '../sanitize';
 import './AdminDashboard.css';
 
-const API_URL = 'http://localhost:5000/api';
-const SERVER_URL = 'http://localhost:5000';
+import { API_URL, SERVER_URL } from '../config';
 
 // Helper untuk memastikan URL avatar mengarah ke server backend jika berupa relative upload path
 const getAvatarUrl = (url) => {
@@ -2563,7 +2563,7 @@ function AdminDashboard() {
                                         contentEditable
                                         suppressContentEditableWarning
                                         data-placeholder="Ketikkan teks konten atau artikel di sini..."
-                                        dangerouslySetInnerHTML={{ __html: bContent.html || bContent.text || '' }}
+                                        dangerouslySetInnerHTML={{ __html: sanitizeHtml(bContent.html || bContent.text || '') }}
                                         onBlur={e => updateBlockContent(idx, 'html', e.currentTarget.innerHTML)}
                                       />
                                       <p className="cms-rte-hint">Tip: Pilih teks lalu klik tombol di toolbar untuk memformat. Konten otomatis tersimpan saat klik di luar editor.</p>
@@ -2900,7 +2900,7 @@ function AdminDashboard() {
                     {previewPage.blocks && previewPage.blocks.length > 0 ? (
                       <BlockRenderer blocks={previewPage.blocks} />
                     ) : (
-                      <div className="cms-page-preview" dangerouslySetInnerHTML={{ __html: previewPage.content_html || '' }} />
+                      <div className="cms-page-preview" dangerouslySetInnerHTML={{ __html: sanitizeHtml(previewPage.content_html || '') }} />
                     )}
                   </div>
                 </div>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { FaPlay, FaYoutube, FaExternalLinkAlt, FaTimes, FaShareAlt } from 'react-icons/fa';
+import useScrollReveal from '../hooks/useScrollReveal';
 import './VideoProfileSection.css';
 
 function VideoProfileSection({
@@ -8,6 +9,8 @@ function VideoProfileSection({
   title = 'Video Profil Pengadilan Agama Kota Cimahi',
   subtitle = 'Mengenal lebih dekat komitmen integritas, tata kelola modern, dan inovasi pelayanan prima Pengadilan Agama Kota Cimahi bagi masyarakat.',
 }) {
+  const headerRef = useScrollReveal();
+  const videoRef = useScrollReveal({ threshold: 0.1 });
   const [isPlaying, setIsPlaying] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -24,14 +27,14 @@ function VideoProfileSection({
     <section className="video-profile-section" id="profil-video">
       <div className="container">
         {/* Section Header */}
-        <div className="video-profile__header">
+        <div ref={headerRef} className="video-profile__header scroll-reveal">
           <span className="video-profile__tag">Profil & Galeri Video</span>
           <h2 className="section-title">{title}</h2>
           <p className="section-subtitle">{subtitle}</p>
         </div>
 
         {/* Video Player Card Container (Reference Design Image 2) */}
-        <div className="video-card-wrapper animate-fade-in-up">
+        <div ref={videoRef} className="video-card-wrapper scroll-reveal">
           <div className="video-card">
             {!isPlaying ? (
               /* Video Cover / Banner State */

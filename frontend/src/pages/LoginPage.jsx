@@ -18,11 +18,14 @@ function LoginPage() {
     document.title = 'Login Admin | Pengadilan Agama Kota Cimahi Kelas IA';
   }, []);
 
-  // If already logged in, redirect
-  if (user) {
-    navigate('/admin/dashboard', { replace: true });
-    return null;
-  }
+  // If already logged in, redirect (in useEffect to avoid render-phase side effect)
+  useEffect(() => {
+    if (user) {
+      navigate('/admin/dashboard', { replace: true });
+    }
+  }, [user, navigate]);
+
+  if (user) return null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();

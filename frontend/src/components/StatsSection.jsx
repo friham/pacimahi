@@ -1,56 +1,46 @@
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import { FaGavel, FaCheckCircle, FaPercent, FaSmile, FaClock, FaHandshake } from 'react-icons/fa';
+import useScrollReveal from '../hooks/useScrollReveal';
+import { API_URL } from '../config';
 import './StatsSection.css';
 
-const statsData = [
-  {
-    icon: FaGavel,
-    number: '3.420',
-    label: 'Perkara Diterima',
-    detail: 'Tahun Berjalan 2026',
-    color: '#2e7d32'
-  },
-  {
-    icon: FaCheckCircle,
-    number: '3.365',
-    label: 'Perkara Diputus',
-    detail: 'Berkekuatan Hukum Tetap',
-    color: '#1565c0'
-  },
-  {
-    icon: FaPercent,
-    number: '98,4%',
-    label: 'Tingkat Penyelesaian',
-    detail: 'Standar Kinerja Mahkamah Agung',
-    color: '#c69c3f'
-  },
-  {
-    icon: FaSmile,
-    number: '97,8%',
-    label: 'Indeks Kepuasan (IKM)',
-    detail: 'Predikat Sangat Baik',
-    color: '#7b1fa2'
-  },
-  {
-    icon: FaClock,
-    number: '< 30 Hari',
-    label: 'Rata-rata Waktu Putus',
-    detail: 'Asas Cepat & Biaya Ringan',
-    color: '#00838f'
-  },
-  {
-    icon: FaHandshake,
-    number: '74,2%',
-    label: 'Mediasi Berhasil / Damai',
-    detail: 'Kamar Mediasi Terpadu',
-    color: '#d84315'
-  }
+const defaultStats = [
+  { icon: FaGavel, key: 'stat_diterima', fallback: '3.420', label: 'Perkara Diterima', detail: 'Tahun Berjalan 2026', color: '#2e7d32' },
+  { icon: FaCheckCircle, key: 'stat_diputus', fallback: '3.365', label: 'Perkara Diputus', detail: 'Berkekuatan Hukum Tetap', color: '#1565c0' },
+  { icon: FaPercent, key: 'stat_persentase', fallback: '98,4%', label: 'Tingkat Penyelesaian', detail: 'Standar Kinerja Mahkamah Agung', color: '#c69c3f' },
+  { icon: FaSmile, key: 'stat_ikm', fallback: '97,8%', label: 'Indeks Kepuasan (IKM)', detail: 'Predikat Sangat Baik', color: '#7b1fa2' },
+  { icon: FaClock, key: null, fallback: '< 30 Hari', label: 'Rata-rata Waktu Putus', detail: 'Asas Cepat & Biaya Ringan', color: '#00838f' },
+  { icon: FaHandshake, key: null, fallback: '74,2%', label: 'Mediasi Berhasil / Damai', detail: 'Kamar Mediasi Terpadu', color: '#d84315' },
 ];
 
 function StatsSection() {
+  const headerRef = useScrollReveal();
+  const gridRef = useScrollReveal({ threshold: 0.1 });
+  const [stats, setStats] = useState(defaultStats);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const res = await axios.get(`${API_URL}/settings`);
+        if (res.data.success && Object.keys(res.data.data).length > 0) {
+          const s = res.data.data;
+          setStats(prev => prev.map(item => ({
+            ...item,
+            number: item.key && s[item.key] ? s[item.key] : item.number || item.fallback
+          })));
+        }
+      } catch {
+        // Use defaults
+      }
+    };
+    fetchStats();
+  }, []);
+
   return (
     <section className="stats-section">
       <div className="container">
-        <div className="stats-section__header">
+        <div ref={headerRef} className="stats-section__header scroll-reveal">
           <span className="stats-section__tag">Transparansi & Kinerja</span>
           <h2 className="section-title">Statistik Penanganan Perkara</h2>
           <p className="section-subtitle">
@@ -58,14 +48,14 @@ function StatsSection() {
           </p>
         </div>
 
-        <div className="stats-section__grid">
-          {statsData.map((s, idx) => {
+        <div ref={gridRef} className="stats-section__grid scroll-reveal">
+          {stats.map((s, idx) => {
             const Icon = s.icon;
             return (
               <div
                 key={idx}
                 className="stat-box"
-                style={{ '--stat-accent': s.color }}
+                style={{ '--stat-accent': s.color, transitionDelay: `${idx * 0.08}s` }}
               >
                 <div className="stat-box__icon-wrapper">
                   <Icon className="stat-box__icon" />

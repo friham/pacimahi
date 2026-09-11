@@ -8,6 +8,7 @@ import {
 import MediaLibraryModal from './MediaLibraryModal';
 import DocumentPickerModal from './DocumentPickerModal';
 import RichTextEditor from './RichTextEditor';
+import { SERVER_URL } from '../../config';
 import './BlockEditor.css';
 
 const BLOCK_TYPES = [
@@ -361,7 +362,7 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
                         <div className="cms-image-editor__preview">
                           {block.content?.url ? (
                             <img 
-                              src={block.content.url.startsWith('/') ? `http://localhost:5000${block.content.url}` : block.content.url} 
+                              src={block.content.url.startsWith('/') ? `${SERVER_URL}${block.content.url}` : block.content.url} 
                               alt={block.content.alt || ''} 
                             />
                           ) : (
@@ -456,7 +457,7 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
                         <div className="cms-gallery-preview-list">
                           {(block.content?.images || []).map((img, i) => (
                             <div key={i} className="cms-gallery-preview-item">
-                              <img src={img.url.startsWith('/') ? `http://localhost:5000${img.url}` : img.url} alt="" />
+                              <img src={img.url.startsWith('/') ? `${SERVER_URL}${img.url}` : img.url} alt="" />
                               <button 
                                 type="button" 
                                 className="remove-img"

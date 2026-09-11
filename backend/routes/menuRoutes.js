@@ -12,8 +12,14 @@ const {
   toggleMenuStatus
 } = require('../controllers/menuController');
 
-// Public endpoints
-router.get('/', getMenus);
+// Public endpoints (only published menus)
+router.get('/', (req, res, next) => {
+  // For public access, only return published menus
+  if (!req.headers.authorization) {
+    req.query.status = 'published';
+  }
+  next();
+}, getMenus);
 router.get('/tree', getMenuTree);
 
 // Protected endpoints (CMS management)

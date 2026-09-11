@@ -5,6 +5,7 @@ import {
   FaQuoteRight, FaLink, FaImage, FaTable, FaCode, FaUndo, FaRedo,
   FaHeading
 } from 'react-icons/fa';
+import { SERVER_URL } from '../../config';
 import './RichTextEditor.css';
 
 export default function RichTextEditor({ value = '', onChange, onOpenMediaLibrary }) {
@@ -93,7 +94,7 @@ export default function RichTextEditor({ value = '', onChange, onOpenMediaLibrar
   const handleInsertImage = () => {
     if (onOpenMediaLibrary) {
       onOpenMediaLibrary((imgUrl, alt) => {
-        const fullUrl = imgUrl.startsWith('/') ? `http://localhost:5000${imgUrl}` : imgUrl;
+        const fullUrl = imgUrl.startsWith('/') ? `${SERVER_URL}${imgUrl}` : imgUrl;
         const imgHtml = `<p><img src="${fullUrl}" alt="${alt || 'Gambar'}" style="max-width: 100%; height: auto; border-radius: 6px;" /></p><p></p>`;
         executeCommand('insertHTML', imgHtml);
       });

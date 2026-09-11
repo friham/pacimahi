@@ -18,7 +18,7 @@ const handleDocUpload = (req, res, next) => {
   });
 };
 
-router.get('/', getDocuments);
+router.get('/', authMiddleware, getDocuments);
 // Route 1: Upload file langsung (multipart)
 router.post('/', authMiddleware, checkRole(['superadmin', 'admin', 'editor']), handleDocUpload, createDocument);
 // Route 2: Daftarkan dokumen dari URL yang sudah di-upload (via DocumentUploader)

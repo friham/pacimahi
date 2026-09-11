@@ -8,7 +8,7 @@ import {
 import MenuFormModal from './MenuFormModal';
 import './MenuTreeManager.css';
 
-const API_URL = 'http://localhost:5000/api';
+import { API_URL } from '../../config';
 
 export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, token, userRole }) {
   const [search, setSearch] = useState('');

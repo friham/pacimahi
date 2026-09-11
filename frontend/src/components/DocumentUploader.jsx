@@ -2,8 +2,7 @@ import { useState, useRef } from 'react';
 import axios from 'axios';
 import { FaFilePdf, FaFileImage, FaUpload, FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
 
-const API_URL = 'http://localhost:5000/api';
-const SERVER_URL = 'http://localhost:5000';
+import { API_URL, SERVER_URL } from '../config';
 
 /**
  * Komponen upload dokumen (PDF & Gambar) untuk Admin Panel.

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaNewspaper, FaCalendarAlt, FaUser, FaArrowRight, FaTimes, FaTag } from 'react-icons/fa';
+import useScrollReveal from '../hooks/useScrollReveal';
+import { API_URL, SERVER_URL } from '../config';
 import './NewsSection.css';
 
 const defaultFallbackNews = [
@@ -44,7 +46,7 @@ function NewsSection() {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/news');
+        const res = await axios.get(`${API_URL}/news`);
         if (res.data.success && res.data.data.length > 0) {
           setNewsList(res.data.data);
         }
@@ -59,10 +61,12 @@ function NewsSection() {
     ? newsList
     : newsList.filter(n => n.category === activeCategory);
 
+  const headerRef = useScrollReveal();
+
   return (
     <section className="news-section" id="berita">
       <div className="container">
-        <div className="news-section__header">
+        <div ref={headerRef} className="news-section__header scroll-reveal">
           <span className="news-section__tag">Publikasi Terkini</span>
           <h2 className="section-title">Berita & Informasi Pengadilan</h2>
           <p className="section-subtitle">
@@ -86,7 +90,7 @@ function NewsSection() {
           {filteredNews.map((item, idx) => {
             const isPdf = item.image_url && item.image_url.toLowerCase().endsWith('.pdf');
             const fileUrl = item.image_url && item.image_url.startsWith('/')
-              ? `http://localhost:5000${item.image_url}`
+              ? `${SERVER_URL}${item.image_url}`
               : item.image_url;
 
             return (
@@ -170,7 +174,7 @@ function NewsSection() {
                     <div style={{ fontSize: '4rem' }}>📑</div>
                     <h3 style={{ color: '#9f1239', margin: '0.5rem 0' }}>Lampiran Dokumen PDF</h3>
                     <a
-                      href={selectedNews.image_url.startsWith('/') ? `http://localhost:5000${selectedNews.image_url}` : selectedNews.image_url}
+                      href={selectedNews.image_url.startsWith('/') ? `${SERVER_URL}${selectedNews.image_url}` : selectedNews.image_url}
                       target="_blank"
                       rel="noreferrer"
                       style={{
@@ -189,7 +193,7 @@ function NewsSection() {
                   </div>
                 ) : (
                   <img
-                    src={selectedNews.image_url?.startsWith('/') ? `http://localhost:5000${selectedNews.image_url}` : (selectedNews.image_url || 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80')}
+                    src={selectedNews.image_url?.startsWith('/') ? `${SERVER_URL}${selectedNews.image_url}` : (selectedNews.image_url || 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80')}
                     alt={selectedNews.title}
                     className="news-modal__header-img"
                   />
@@ -220,7 +224,7 @@ function NewsSection() {
                     <strong>📄 Dokumen Terlampir:</strong>
                     <div style={{ marginTop: '6px' }}>
                       <a
-                        href={selectedNews.image_url.startsWith('/') ? `http://localhost:5000${selectedNews.image_url}` : selectedNews.image_url}
+                        href={selectedNews.image_url.startsWith('/') ? `${SERVER_URL}${selectedNews.image_url}` : selectedNews.image_url}
                         target="_blank"
                         rel="noreferrer"
                         style={{ color: '#2563eb', fontWeight: 600 }}

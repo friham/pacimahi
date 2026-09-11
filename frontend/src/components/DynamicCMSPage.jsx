@@ -1,11 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { sanitizeHtml } from '../sanitize';
 import ProfileLayout from '../pages/tentang-pengadilan/ProfileLayout';
 import BlockRenderer from './cms/BlockRenderer';
 import { FaCalendarAlt, FaUser, FaSpinner } from 'react-icons/fa';
 
-const API_URL = 'http://localhost:5000/api';
+import { API_URL } from '../config';
 
 export default function DynamicCMSPage({ customSlug, fallbackComponent: Fallback }) {
   const { slug: routeSlug } = useParams();
@@ -118,7 +119,7 @@ export default function DynamicCMSPage({ customSlug, fallbackComponent: Fallback
         ) : page.content_html ? (
           <div 
             className="cms-text-block"
-            dangerouslySetInnerHTML={{ __html: page.content_html }}
+            dangerouslySetInnerHTML={{ __html: sanitizeHtml(page.content_html) }}
           />
         ) : null}
       </article>

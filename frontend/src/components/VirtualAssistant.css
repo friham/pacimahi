@@ -33,7 +33,12 @@
 }
 
 .va-btn-icon {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .va-btn-pulse {

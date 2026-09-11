@@ -106,9 +106,9 @@ const updateNews = async (req, res) => {
     const current = currentRows[0];
     const newSlug = slugify(title) + '-' + id; // Keep it clean & unique
 
-    // If publishing now for the first time or republishing
+    // Only set published_at when publishing for the first time (draft → published)
     let published_at = null;
-    if (is_published) {
+    if (is_published && !current.is_published) {
       published_at = new Date();
     }
 

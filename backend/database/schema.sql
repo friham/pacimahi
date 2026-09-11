@@ -86,7 +86,9 @@ INSERT INTO site_settings (setting_key, setting_value, setting_group) VALUES
 ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value);
 
 
--- Default admin (password: admin123)
+-- ⚠️ SECURITY WARNING: Default admin password is 'admin123'
+-- You MUST change this password immediately after first login!
+-- To generate a new hash: node -e "console.log(require('bcryptjs').hashSync('your_new_password', 10))"
 INSERT INTO admins (username, password, name, email, role) VALUES
 ('admin', '$2b$10$M0aPgOC.xoRQEAPfq0ZiReFRxWayIpNoiIDc19mOBa0aF7QZVCZDW', 'Administrator', 'admin@pa-cimahi.go.id', 'superadmin');
 

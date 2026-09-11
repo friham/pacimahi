@@ -4,6 +4,8 @@ import {
   FaExternalLinkAlt, FaCalendarAlt, FaFileAlt, FaMapMarkerAlt,
   FaPlayCircle, FaInfoCircle
 } from 'react-icons/fa';
+import { sanitizeHtml } from '../../sanitize';
+import { SERVER_URL } from '../../config';
 import './BlockRenderer.css';
 
 // Convert YouTube or Vimeo URL to embed URL
@@ -76,7 +78,7 @@ export default function BlockRenderer({ blocks = [] }) {
               <div 
                 key={blockId} 
                 className="cms-text-block"
-                dangerouslySetInnerHTML={{ __html: html }}
+                dangerouslySetInnerHTML={{ __html: sanitizeHtml(html) }}
               />
             );
           }
@@ -84,7 +86,7 @@ export default function BlockRenderer({ blocks = [] }) {
           case 'image': {
             const align = settings.align || 'center';
             const width = settings.width ? (String(settings.width).includes('%') || String(settings.width).includes('px') ? settings.width : `${settings.width}px`) : '100%';
-            const imgUrl = content.url?.startsWith('/') ? `http://localhost:5000${content.url}` : content.url;
+            const imgUrl = content.url?.startsWith('/') ? `${SERVER_URL}${content.url}` : content.url;
 
             return (
               <figure key={blockId} className={`cms-image-figure cms-align-${align}`}>
@@ -109,7 +111,7 @@ export default function BlockRenderer({ blocks = [] }) {
             return (
               <div key={blockId} className={`cms-gallery-grid cms-gallery-cols-${cols}`}>
                 {images.map((img, i) => {
-                  const src = img.url?.startsWith('/') ? `http://localhost:5000${img.url}` : img.url;
+                  const src = img.url?.startsWith('/') ? `${SERVER_URL}${img.url}` : img.url;
                   return (
                     <div key={i} className="cms-gallery-item">
                       <img src={src} alt={img.alt || img.caption || `Galeri ${i+1}`} loading="lazy" />
@@ -125,7 +127,7 @@ export default function BlockRenderer({ blocks = [] }) {
             const rawUrl = content.url || '';
             const embedUrl = getEmbedUrl(rawUrl);
             const isEmbed = embedUrl.includes('youtube') || embedUrl.includes('vimeo');
-            const videoSrc = rawUrl.startsWith('/') ? `http://localhost:5000${rawUrl}` : rawUrl;
+            const videoSrc = rawUrl.startsWith('/') ? `${SERVER_URL}${rawUrl}` : rawUrl;
 
             return (
               <div key={blockId} className="cms-video-container">
@@ -191,7 +193,7 @@ export default function BlockRenderer({ blocks = [] }) {
           }
 
           case 'document': {
-            const docUrl = content.file_url?.startsWith('/') ? `http://localhost:5000${content.file_url}` : content.file_url;
+            const docUrl = content.file_url?.startsWith('/') ? `${SERVER_URL}${content.file_url}` : content.file_url;
             return (
               <div key={blockId} className="cms-document-card">
                 <div className="cms-document-card__icon">
@@ -325,7 +327,7 @@ export default function BlockRenderer({ blocks = [] }) {
               <div 
                 key={blockId} 
                 className="cms-custom-html"
-                dangerouslySetInnerHTML={{ __html: content.html || content.code || '' }}
+                dangerouslySetInnerHTML={{ __html: sanitizeHtml(content.html || content.code || '') }}
               />
             );
           }

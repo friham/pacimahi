@@ -1,5 +1,6 @@
 import { FaTimes, FaDesktop, FaTabletAlt, FaMobileAlt, FaCalendarAlt, FaUser } from 'react-icons/fa';
 import BlockRenderer from './BlockRenderer';
+import { sanitizeHtml } from '../../sanitize';
 import { useState } from 'react';
 
 export default function PagePreviewModal({ isOpen, onClose, pageData = {} }) {
@@ -108,7 +109,7 @@ export default function PagePreviewModal({ isOpen, onClose, pageData = {} }) {
             ) : pageData.content_html ? (
               <div 
                 className="cms-text-block"
-                dangerouslySetInnerHTML={{ __html: pageData.content_html }}
+                dangerouslySetInnerHTML={{ __html: sanitizeHtml(pageData.content_html) }}
               />
             ) : (
               <p style={{ color: '#94a3b8', fontStyle: 'italic' }}>Konten halaman belum diisi.</p>

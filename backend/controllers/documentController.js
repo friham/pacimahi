@@ -38,10 +38,7 @@ const createDocument = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Nama/Judul dokumen wajib diisi.' });
     }
 
-    const isPdf = req.file.mimetype === 'application/pdf';
-    const fileUrl = isPdf
-      ? `/documents/${req.file.filename}`
-      : `/documents/${req.file.filename}`;
+    const fileUrl = `/documents/${req.file.filename}`;
 
     const [result] = await pool.execute(
       `INSERT INTO documents (file_name, original_name, file_url, mime_type, file_size, doc_title, doc_number, doc_date, description)

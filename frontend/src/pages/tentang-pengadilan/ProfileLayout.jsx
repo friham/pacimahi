@@ -18,6 +18,7 @@ import {
   FaWhatsapp,
   FaExternalLinkAlt
 } from 'react-icons/fa';
+import { API_URL } from '../../config';
 import './ProfileLayout.css';
 import './tentang-pengadilan.css';
 
@@ -107,7 +108,7 @@ function ProfileLayout({ title, subtitle, breadcrumb, children }) {
 
   const fetchSidebarMenus = useCallback(async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/menus/tree?scope=public');
+      const res = await axios.get(`${API_URL}/menus/tree?scope=public`);
       if (res.data?.success && Array.isArray(res.data.data)) {
         const profilNode = res.data.data.find(m => m.slug === 'profil-pengadilan' || m.title?.toLowerCase().includes('profil'));
         if (profilNode && Array.isArray(profilNode.children) && profilNode.children.length > 0) {
