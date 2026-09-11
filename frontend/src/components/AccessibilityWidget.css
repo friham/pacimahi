@@ -164,7 +164,7 @@
   z-index: 10000;
   width: 380px;
   max-width: calc(100vw - 36px);
-  max-height: calc(100vh - 180px);
+  max-height: calc(100vh - 240px);
 }
 
 .a11y-pos-left .a11y-floating-panel {
@@ -657,12 +657,12 @@
   }
 
   .a11y-pos-right .a11y-floating-panel {
-    bottom: 188px;
+    bottom: 160px;
     right: 14px;
     left: 14px;
     width: auto;
     max-width: none;
-    max-height: calc(100vh - 200px);
+    max-height: calc(100vh - 180px);
   }
 
   .a11y-pos-left .a11y-floating-panel {
