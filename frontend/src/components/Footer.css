@@ -84,10 +84,10 @@
 }
 
 .footer__social:hover {
-  background: var(--primary-700);
+  background: #0d3311;
   color: white;
   transform: translateY(-3px);
-  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  box-shadow: 0 4px 15px rgba(13, 51, 17, 0.5);
 }
 
 /* Column titles */

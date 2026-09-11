@@ -140,8 +140,9 @@ const getPageById = async (req, res) => {
 
 // POST /api/pages
 const createPage = async (req, res) => {
-  const connection = await pool.getConnection();
+  let connection;
   try {
+    connection = await pool.getConnection();
     const {
       title,
       subtitle,
@@ -233,18 +234,19 @@ const createPage = async (req, res) => {
       data: { id: newPageId, slug }
     });
   } catch (error) {
-    await connection.rollback();
+    if (connection) await connection.rollback();
     console.error('createPage error:', error);
     res.status(500).json({ success: false, message: 'Gagal membuat halaman.' });
   } finally {
-    connection.release();
+    if (connection) connection.release();
   }
 };
 
 // PUT /api/pages/:id
 const updatePage = async (req, res) => {
-  const connection = await pool.getConnection();
+  let connection;
   try {
+    connection = await pool.getConnection();
     const { id } = req.params;
     const {
       title,
@@ -343,11 +345,11 @@ const updatePage = async (req, res) => {
 
     res.json({ success: true, message: 'Halaman berhasil diperbarui.' });
   } catch (error) {
-    await connection.rollback();
+    if (connection) await connection.rollback();
     console.error('updatePage error:', error);
     res.status(500).json({ success: false, message: 'Gagal memperbarui halaman.' });
   } finally {
-    connection.release();
+    if (connection) connection.release();
   }
 };
 
@@ -363,6 +365,10 @@ const deletePage = async (req, res) => {
 
     const pageTitle = existing[0].title;
 
+    // Remove associated content blocks first to prevent orphan data
+    await pool.execute('DELETE FROM content_blocks WHERE page_id = ?', [id]);
+
+    // Remove the page
     await pool.execute('DELETE FROM pages WHERE id = ?', [id]);
 
     await recordAuditLog({

@@ -15,10 +15,13 @@
   overflow: hidden;
 }
 
-/* Announcement Ticker - Positioned directly near navbar */
+/* Announcement Ticker - Positioned directly near navbar.
+   SATU-SATUNYA sumber jarak navbar ↔ pengumuman (single source of truth):
+   top = navbar-top + navbar-height + gap 15px. Jangan tambah top/margin
+   lain untuk ticker di file mana pun agar tidak double spacing. */
 .hero__ticker {
   position: absolute;
-  top: calc(var(--navbar-height, 70px) + 12px);
+  top: calc(var(--navbar-top, 12px) + var(--navbar-height, 70px) + var(--navbar-announce-gap, 15px));
   left: 50%;
   transform: translateX(-50%);
   z-index: 25;
@@ -116,7 +119,7 @@
 
 .hero__ticker-reopen-btn {
   position: absolute;
-  top: calc(var(--navbar-height, 70px) + 12px);
+  top: calc(var(--navbar-top, 12px) + var(--navbar-height, 70px) + var(--navbar-announce-gap, 15px));
   right: 24px;
   z-index: 25;
   display: inline-flex;
@@ -233,8 +236,8 @@
 }
 
 .hero__title-city {
-  color: var(--gold-400);
-  text-shadow: 0 2px 15px rgba(212, 175, 55, 0.3);
+  color: #ffffff;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
 }
 
 /* Subtitle */
@@ -294,13 +297,16 @@
 
 /* Search */
 .hero__search {
-  max-width: 580px;
+    width: 100%;
+  max-width: 90vw;
   margin: 0 auto;
 }
 
 .hero__search-wrapper {
   display: flex;
   align-items: center;
+  width: 100%;
+  max-width: none;
   background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -557,24 +563,24 @@
 }
 
 .hero-announcement-modal__btn--copy {
-  background: #f1f5f9;
-  color: #334155;
-  border: 1px solid #cbd5e1;
+  background: rgba(13, 51, 17, 0.1);
+  color: #0d3311;
+  border: 1px solid rgba(13, 51, 17, 0.25);
 }
 
 .hero-announcement-modal__btn--copy:hover {
-  background: #e2e8f0;
-  color: #0f172a;
+  background: rgba(13, 51, 17, 0.18);
+  color: #0d3311;
 }
 
 .hero-announcement-modal__btn--primary {
-  background: #1b5e20;
+  background: #0d3311;
   color: white;
   border: none;
 }
 
 .hero-announcement-modal__btn--primary:hover {
-  background: #144818;
+  background: #0a2e14;
 }
 
 @keyframes modalScaleIn {
@@ -586,4 +592,371 @@
     opacity: 1;
     transform: scale(1);
   }
+}
+/* ============================================================
+   OVERRIDE ELEGANT — header hero resmi
+   (CATATAN: jarak navbar ↔ pengumuman TIDAK diatur di sini;
+   satu-satunya sumber ada di .hero__ticker di atas,
+   memakai --navbar-announce-gap: 15px dari index.css)
+   ============================================================ */
+
+/* 1. Pengumuman: panel terpisah yang lega (tanpa top — top ikut aturan .hero__ticker di atas) */
+.hero__ticker {
+  padding: 9px 12px 9px 16px;
+  border-radius: 14px;
+  background: rgba(13, 51, 17, 0.94);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.hero__ticker-reopen-btn {
+  top: calc(var(--navbar-height, 70px) + 28px);
+}
+
+/* 2. Ruangan hero menyesuaikan ticker yang turun */
+.hero {
+  padding: calc(var(--navbar-height) + 6.5rem) 1.5rem 3rem;
+}
+
+/* 3. Panel sambutan resmi — kop instansi dengan garis emas ganda */
+.hero__content {
+  max-width: 1100px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.hero__content::before,
+.hero__content::after {
+  content: none;
+}
+
+/* 4. Badge resmi instansi */
+.hero__badge {
+  background: rgba(212, 175, 55, 0.14);
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  padding: 7px 18px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 1.15rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* 5. Judul serif elegan, putih kontras tinggi */
+.hero__title {
+  font-family: Georgia, 'Times New Roman', 'Playfair Display', serif;
+  font-size: clamp(2rem, 4.5vw, 3.1rem);
+  font-weight: 700;
+  line-height: 1.22;
+  color: #ffffff;
+  letter-spacing: 0.01em;
+  margin-bottom: 0.4rem;
+  text-shadow: 0 3px 14px rgba(0, 0, 0, 0.55);
+}
+
+.hero__title-highlight {
+  background: none;
+  -webkit-background-clip: initial;
+  -webkit-text-fill-color: #ffffff;
+  background-clip: initial;
+  color: #ffffff;
+}
+
+/* 6. Penegas instansi — kapital spasi lega */
+.hero__title-city {
+  font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
+  font-size: clamp(0.85rem, 1.6vw, 1.02rem);
+  font-weight: 800;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-top: 0.55rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* 7. Garis pemisah emas di bawah judul */
+.hero__divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 1.15rem auto 1.05rem;
+}
+
+.hero__divider::before,
+.hero__divider::after {
+  content: "";
+  height: 1px;
+  width: 72px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.8));
+}
+
+.hero__divider::after {
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.8), transparent);
+}
+
+.hero__divider-dot {
+  width: 7px;
+  height: 7px;
+  transform: rotate(45deg);
+  background: var(--gold-400);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+}
+
+/* 8. Sub-judul lengkap — terang & terbaca */
+.hero__subtitle {
+  font-size: clamp(0.98rem, 1.8vw, 1.12rem);
+  line-height: 1.85;
+  color: rgba(255, 255, 255, 0.94);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
+}
+
+.hero__subtitle strong {
+  color: var(--gold-300);
+  font-weight: 700;
+}
+
+/* 9. Mobile: CATATAN — jarak navbar ↔ ticker ikut aturan terpusat
+   (--navbar-top: 8px + --navbar-height + --navbar-announce-gap: 15px),
+   jadi TIDAK ada top terpisah di sini (anti double spacing) */
+@media (max-width: 768px) {
+  .hero {
+    padding: calc(var(--navbar-height) + 6rem) 1rem 2.5rem;
+  }
+
+  .hero__ticker {
+    width: calc(100% - 1.5rem);
+  }
+
+  .hero__content {
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  .hero__title-city {
+    letter-spacing: 0.18em;
+  }
+}
+/* ============================================================
+   HERO REDESIGN — resmi, elegan, modern khas instansi pemerintah
+   ============================================================ */
+
+/* Background: foto gedung terlihat, hijau dominan, teks jelas */
+.hero__bg-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url('/images/hero-bg-gedung.png');
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  opacity: 0.85;
+  transform: scale(1.02);
+  pointer-events: none;
+}
+
+.hero__bg-overlay {
+  background: linear-gradient(
+    to right,
+    rgba(13, 46, 33, 0.85) 0%,
+    rgba(13, 46, 33, 0.55) 40%,
+    rgba(13, 46, 33, 0.15) 75%,
+    rgba(13, 46, 33, 0) 100%
+  );
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.hero__bg-pattern {
+  background-image: linear-gradient(rgba(212, 175, 55, 0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(212, 175, 55, 0.055) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 75% 70% at 50% 38%, black 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 38%, black 30%, transparent 75%);
+  opacity: 0.35;
+}
+
+/* Ruang napas antar blok hero — transparan, tanpa panel */
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.hero__content::before,
+.hero__content::after {
+  content: none;
+}
+
+/* Judul baris 1: serif putih berwibawa — besar, lebar & terbaca jelas */
+.hero__title-main {
+  display: block;
+  font-family: Georgia, 'Times New Roman', 'Playfair Display', serif;
+  font-size: clamp(3.2rem, 7.5vw, 5.2rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  text-wrap: pretty;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6), 0 1px 3px rgba(0, 0, 0, 0.5);
+  max-width: 100%;
+}
+
+/* Judul baris 2 Kota Cimahi: putih bersih, menonjol */
+.hero__title-city {
+  display: block;
+  font-family: Georgia, 'Times New Roman', 'Playfair Display', serif;
+  font-size: clamp(3rem, 7.5vw, 5rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 0.35rem;
+  color: #ffffff;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6), 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Subtitle formal ringkas */
+.hero__subtitle {
+  max-width: 640px;
+}
+
+/* Tombol: ukuran & tinggi konsisten */
+.hero__buttons {
+  align-items: stretch;
+}
+
+.hero__btn {
+  min-height: 52px;
+  min-width: 220px;
+  padding: 0.85rem 1.9rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.hero__btn--primary {
+  background: rgba(255, 255, 255, 0.15);
+  color: #0d3d1e;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.hero__btn--primary:hover {
+  background: var(--gold-300);
+  border-color: var(--gold-300);
+  color: #0d3d1e;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
+}
+
+.hero__btn--secondary {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.hero__btn--secondary:hover {
+  background: rgba(212, 175, 55, 0.18);
+  border-color: var(--gold-300);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Search premium: ringkas, glass ringan, tombol Cari emas */
+.hero__search {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero__search-wrapper {
+  padding: 5px 5px 5px 16px;
+  gap: 10px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.hero__search-input {
+  font-size: 0.9rem;
+  color: #ffffff;
+}
+
+.hero__search-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+}
+
+.hero__search-btn {
+  padding: 11px 26px;
+  font-size: 0.88rem;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--gold-400), var(--gold-600));
+  color: #0d3d1e;
+  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.35);
+}
+
+.hero__search-btn:hover {
+  background: linear-gradient(135deg, var(--gold-300), var(--gold-500));
+  box-shadow: 0 8px 22px rgba(212, 175, 55, 0.45);
+}
+/* Animasi halus khas institusi: fade-up 0.7s */
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero__title, .hero__subtitle, .hero__buttons, .hero__search {
+  animation: heroFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero__title { animation-delay: 0.05s; }
+.hero__subtitle { animation-delay: 0.18s; }
+.hero__buttons { animation-delay: 0.32s; }
+.hero__search { animation-delay: 0.45s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__title, .hero__subtitle, .hero__buttons, .hero__search { animation: none; }
+}
+
+@media (max-width: 900px) {
+  .hero__content { max-width: 720px; }
+}
+
+@media (max-width: 600px) {
+  .hero__title-main { font-size: clamp(1.6rem, 7vw, 2rem); }
+  .hero__title-city { font-size: clamp(2.2rem, 11vw, 2.8rem); letter-spacing: 0.08em; }
+  .hero__divider::before, .hero__divider::after { width: 48px; }
+  .hero__subtitle { font-size: 0.92rem; line-height: 1.75; }
+  .hero__buttons { flex-direction: column; width: 100%; max-width: 340px; margin-left: auto; margin-right: auto; }
+  .hero__btn { width: 100%; min-width: 0; }
+  .hero__search { max-width: 100%; }
+  .hero__search-wrapper { flex-wrap: nowrap; }
+  .hero__search-input::placeholder { font-size: 0.78rem; }
+  .hero__search-btn { padding: 11px 18px; flex-shrink: 0; }
 }
