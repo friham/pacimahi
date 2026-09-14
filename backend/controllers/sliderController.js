@@ -1,4 +1,5 @@
 const pool = require('../config/db');
+const { recordAuditLog } = require('./auditLogController');
 
 // Get only active sliders (for homepage)
 const getSliders = async (req, res) => {
@@ -40,6 +41,16 @@ const createSlider = async (req, res) => {
       [title, image_url, description || '', link || '', sort_order || 0, is_active !== undefined ? is_active : true]
     );
 
+    await recordAuditLog({
+      adminId: req.user?.id,
+      adminName: req.user?.name || req.user?.username,
+      action: 'CREATE_SLIDER',
+      objectType: 'slider',
+      objectId: result.insertId,
+      details: `Membuat slider: "${title}"`,
+      ip: req.ip
+    });
+
     res.status(201).json({
       success: true,
       message: 'Slider berhasil ditambahkan.',
@@ -70,6 +81,16 @@ const updateSlider = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Slider tidak ditemukan.' });
     }
 
+    await recordAuditLog({
+      adminId: req.user?.id,
+      adminName: req.user?.name || req.user?.username,
+      action: 'UPDATE_SLIDER',
+      objectType: 'slider',
+      objectId: id,
+      details: `Mengubah slider: "${title}"`,
+      ip: req.ip
+    });
+
     res.json({ success: true, message: 'Slider berhasil diperbarui.' });
   } catch (error) {
     console.error('UpdateSlider error:', error);
@@ -86,6 +107,16 @@ const deleteSlider = async (req, res) => {
     if (result.affectedRows === 0) {
       return res.status(404).json({ success: false, message: 'Slider tidak ditemukan.' });
     }
+
+    await recordAuditLog({
+      adminId: req.user?.id,
+      adminName: req.user?.name || req.user?.username,
+      action: 'DELETE_SLIDER',
+      objectType: 'slider',
+      objectId: id,
+      details: `Menghapus slider ID ${id}`,
+      ip: req.ip
+    });
 
     res.json({ success: true, message: 'Slider berhasil dihapus.' });
   } catch (error) {

@@ -53,7 +53,7 @@
 
 .pa-callout--gold {
   background: linear-gradient(135deg, #fefce8 0%, #fef08a 100%);
-  border-left-color: var(--gold-500);
+  border-left-color: var(--primary-500);
 }
 
 .pa-callout h4 {
@@ -67,7 +67,7 @@
 .pa-quote {
   position: relative;
   background: #f8fafc;
-  border-left: 4px solid var(--gold-500);
+  border-left: 4px solid var(--primary-500);
   padding: 1.5rem 2rem;
   border-radius: var(--radius-md);
   margin: 1.5rem 0;
@@ -81,7 +81,7 @@
   position: absolute;
   top: -10px;
   left: 10px;
-  color: var(--gold-300);
+  color: var(--primary-300);
   opacity: 0.4;
   font-family: serif;
 }
@@ -97,7 +97,7 @@
 .motto-card {
   position: relative;
   background: #ffffff;
-  border: 1.5px solid rgba(212, 175, 55, 0.4);
+  border: 1.5px solid rgba(76, 175, 80, 0.4);
   border-top: 4px solid #1b5e20;
   border-radius: 14px;
   padding: 1.4rem 0.85rem 1.25rem;
@@ -126,7 +126,7 @@
   font-size: 1.5rem;
   font-weight: 900;
   border-radius: 50%;
-  border: 2.5px solid #d4af37;
+  border: 2.5px solid #4caf50;
   box-shadow: 0 4px 12px rgba(27, 94, 32, 0.25);
   margin-bottom: 0.85rem;
   flex-shrink: 0;
@@ -240,7 +240,7 @@
 .pimpinan-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-xl);
-  border-color: var(--gold-400);
+  border-color: var(--primary-400);
 }
 
 .pimpinan-photo-wrapper {
@@ -269,7 +269,7 @@
   top: 10px;
   left: 10px;
   background: rgba(27, 94, 32, 0.9);
-  color: var(--gold-400);
+  color: var(--primary-400);
   font-weight: 700;
   font-size: 0.75rem;
   padding: 4px 10px;

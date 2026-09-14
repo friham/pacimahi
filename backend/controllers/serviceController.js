@@ -1,4 +1,5 @@
 const pool = require('../config/db');
+const { recordAuditLog } = require('./auditLogController');
 
 // Get active services (for homepage)
 const getServices = async (req, res) => {
@@ -40,6 +41,16 @@ const createService = async (req, res) => {
       [name, icon, description || '', link || '', sort_order || 0, is_active !== undefined ? is_active : true]
     );
 
+    await recordAuditLog({
+      adminId: req.user?.id,
+      adminName: req.user?.name || req.user?.username,
+      action: 'CREATE_SERVICE',
+      objectType: 'service',
+      objectId: result.insertId,
+      details: `Membuat layanan: "${name}"`,
+      ip: req.ip
+    });
+
     res.status(201).json({
       success: true,
       message: 'Layanan berhasil ditambahkan.',
@@ -70,6 +81,16 @@ const updateService = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Layanan tidak ditemukan.' });
     }
 
+    await recordAuditLog({
+      adminId: req.user?.id,
+      adminName: req.user?.name || req.user?.username,
+      action: 'UPDATE_SERVICE',
+      objectType: 'service',
+      objectId: id,
+      details: `Mengubah layanan: "${name}"`,
+      ip: req.ip
+    });
+
     res.json({ success: true, message: 'Layanan berhasil diperbarui.' });
   } catch (error) {
     console.error('UpdateService error:', error);
@@ -86,6 +107,16 @@ const deleteService = async (req, res) => {
     if (result.affectedRows === 0) {
       return res.status(404).json({ success: false, message: 'Layanan tidak ditemukan.' });
     }
+
+    await recordAuditLog({
+      adminId: req.user?.id,
+      adminName: req.user?.name || req.user?.username,
+      action: 'DELETE_SERVICE',
+      objectType: 'service',
+      objectId: id,
+      details: `Menghapus layanan ID ${id}`,
+      ip: req.ip
+    });
 
     res.json({ success: true, message: 'Layanan berhasil dihapus.' });
   } catch (error) {

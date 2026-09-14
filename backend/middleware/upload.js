@@ -19,12 +19,13 @@ const imageStorage = multer.diskStorage({
 });
 
 const imageFilter = (req, file, cb) => {
-  const allowedExt = /^\.(jpe?g|png|gif|webp|svg)$/i;
+  // NOTE: SVG is intentionally NOT allowed to prevent stored XSS via embedded scripts.
+  const allowedExt = /^\.(jpe?g|png|gif|webp)$/i;
   const ext = path.extname(file.originalname).toLowerCase();
   if (allowedExt.test(ext)) {
     cb(null, true);
   } else {
-    cb(new Error('Hanya file gambar (JPEG, JPG, PNG, GIF, WEBP, SVG) yang diperbolehkan.'));
+    cb(new Error('Hanya file gambar (JPEG, JPG, PNG, GIF, WEBP) yang diperbolehkan.'));
   }
 };
 

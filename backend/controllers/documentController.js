@@ -181,7 +181,7 @@ const deleteDocument = async (req, res) => {
       try {
         fs.unlinkSync(filePath);
       } catch (err) {
-        console.warn('Could not delete disk file:', err.message);
+        console.error('Could not delete disk file:', err.message);
       }
     }
 

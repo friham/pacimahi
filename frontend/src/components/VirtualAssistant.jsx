@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FaComments, FaTimes, FaPaperPlane, FaWhatsapp, FaRobot, FaUser } from 'react-icons/fa';
+import { FaComments, FaTimes, FaPaperPlane, FaWhatsapp, FaRobot, FaUser, FaShieldAlt } from 'react-icons/fa';
 import './VirtualAssistant.css';
 
 const quickFaqs = [
@@ -88,7 +88,7 @@ function VirtualAssistant() {
           {/* Header */}
           <div className="va-chatbox__header">
             <div className="va-header-info">
-              <div className="va-avatar">🤖</div>
+              <div className="va-avatar"><FaShieldAlt /></div>
               <div>
                 <h4 className="va-title">SAPA - Asisten Virtual</h4>
                 <p className="va-status"><span className="status-dot"></span> Online • Siap Melayani</p>
@@ -160,7 +160,7 @@ function VirtualAssistant() {
             <div className="va-whatsapp-link">
               <span>Butuh bantuan petugas langsung?</span>
               <a
-                href="https://wa.me/6281234567890?text=Halo%20Admin%20PTSP%20PA%20Cimahi,%20saya%20ingin%20bertanya%20informasi%20layanan"
+                href="https://wa.me/6281121111522?text=Halo%20Admin%20PTSP%20PA%20Cimahi,%20saya%20ingin%20bertanya%20informasi%20layanan"
                 target="_blank"
                 rel="noreferrer"
                 className="va-wa-btn"

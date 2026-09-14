@@ -3,11 +3,8 @@ import {
   FaMapMarkerAlt, 
   FaPhoneAlt, 
   FaEnvelope, 
-  FaGlobe, 
-  FaDirections, 
   FaBus, 
   FaCar, 
-  FaWhatsapp,
   FaClock
 } from 'react-icons/fa';
 

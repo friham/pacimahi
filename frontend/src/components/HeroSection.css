@@ -28,7 +28,7 @@
   width: calc(100% - 3rem);
   max-width: var(--container-max);
   background: rgba(13, 51, 17, 0.90);
-  border: 1px solid rgba(212, 175, 55, 0.35);
+  border: 1px solid rgba(76, 175, 80, 0.35);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
@@ -42,7 +42,7 @@
 
 .hero__ticker:hover {
   background: rgba(13, 51, 17, 0.97);
-  border-color: rgba(212, 175, 55, 0.6);
+  border-color: rgba(76, 175, 80, 0.6);
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
 }
 
@@ -50,14 +50,16 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: var(--gold-500);
-  color: var(--primary-950);
+  background: #0d3311;
+  color: #ffffff;
   padding: 4px 12px;
   border-radius: var(--radius-sm);
   font-size: 0.76rem;
   font-weight: 800;
   white-space: nowrap;
   margin-right: 12px;
+  border-right: 1px solid rgba(255, 255, 255, 0.4);
+  padding-right: 16px;
   flex-shrink: 0;
   cursor: pointer;
 }
@@ -105,9 +107,9 @@
 }
 
 .hero__ticker-action-btn:hover {
-  background: rgba(212, 175, 55, 0.35);
-  color: var(--gold-300);
-  border-color: var(--gold-400);
+  background: rgba(76, 175, 80, 0.35);
+  color: #ffffff;
+  border-color: #ffffff;
   transform: scale(1.08);
 }
 
@@ -126,8 +128,8 @@
   align-items: center;
   gap: 8px;
   background: rgba(13, 51, 17, 0.92);
-  border: 1px solid rgba(212, 175, 55, 0.4);
-  color: var(--gold-400);
+  border: 1px solid rgba(76, 175, 80, 0.4);
+  color: #ffffff;
   padding: 6px 14px;
   border-radius: var(--radius-md);
   font-size: 0.78rem;
@@ -141,7 +143,7 @@
 
 .hero__ticker-reopen-btn:hover {
   background: rgba(20, 72, 24, 0.98);
-  border-color: var(--gold-400);
+  border-color: #ffffff;
   color: #fff;
   transform: translateY(-1px);
 }
@@ -202,10 +204,10 @@
   align-items: center;
   gap: 8px;
   padding: 8px 20px;
-  background: rgba(212, 175, 55, 0.15);
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  background: rgba(76, 175, 80, 0.15);
+  border: 1px solid rgba(76, 175, 80, 0.3);
   border-radius: var(--radius-full);
-  color: var(--gold-300);
+  color: var(--primary-300);
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.05em;
@@ -215,7 +217,7 @@
 
 .hero__badge-icon {
   font-size: 0.9rem;
-  color: var(--gold-400);
+  color: var(--primary-400);
 }
 
 /* Title */
@@ -229,7 +231,7 @@
 }
 
 .hero__title-highlight {
-  background: linear-gradient(135deg, #ffffff 0%, var(--gold-300) 100%);
+  background: linear-gradient(135deg, #ffffff 0%, var(--primary-300) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -343,8 +345,8 @@
 
 .hero__search-btn {
   padding: 10px 28px;
-  background: var(--gold-500);
-  color: var(--primary-950);
+  background: #0d3311;
+  color: #ffffff;
   font-size: 0.85rem;
   font-weight: 700;
   border-radius: var(--radius-full);
@@ -353,7 +355,7 @@
 }
 
 .hero__search-btn:hover {
-  background: var(--gold-400);
+  background: #0a2e14;
   transform: scale(1.03);
 }
 
@@ -481,9 +483,9 @@
   width: 38px;
   height: 38px;
   border-radius: 10px;
-  background: rgba(212, 175, 55, 0.2);
-  border: 1px solid rgba(212, 175, 55, 0.4);
-  color: var(--gold-400);
+  background: rgba(76, 175, 80, 0.2);
+  border: 1px solid rgba(76, 175, 80, 0.4);
+  color: var(--primary-400);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -635,8 +637,8 @@
 
 /* 4. Badge resmi instansi */
 .hero__badge {
-  background: rgba(212, 175, 55, 0.14);
-  border: 1px solid rgba(212, 175, 55, 0.55);
+  background: rgba(76, 175, 80, 0.14);
+  border: 1px solid rgba(76, 175, 80, 0.55);
   padding: 7px 18px;
   font-size: 0.78rem;
   font-weight: 700;
@@ -692,19 +694,19 @@
   content: "";
   height: 1px;
   width: 72px;
-  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.8));
+  background: linear-gradient(90deg, transparent, rgba(76, 175, 80, 0.8));
 }
 
 .hero__divider::after {
-  background: linear-gradient(90deg, rgba(212, 175, 55, 0.8), transparent);
+  background: linear-gradient(90deg, rgba(76, 175, 80, 0.8), transparent);
 }
 
 .hero__divider-dot {
   width: 7px;
   height: 7px;
   transform: rotate(45deg);
-  background: var(--gold-400);
-  box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+  background: var(--primary-400);
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.8);
 }
 
 /* 8. Sub-judul lengkap — terang & terbaca */
@@ -716,7 +718,7 @@
 }
 
 .hero__subtitle strong {
-  color: var(--gold-300);
+  color: var(--primary-300);
   font-weight: 700;
 }
 
@@ -774,7 +776,7 @@
 }
 
 .hero__bg-pattern {
-  background-image: linear-gradient(rgba(212, 175, 55, 0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(212, 175, 55, 0.055) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(76, 175, 80, 0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(76, 175, 80, 0.055) 1px, transparent 1px);
   background-size: 56px 56px;
   mask-image: radial-gradient(ellipse 75% 70% at 50% 38%, black 30%, transparent 75%);
   -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 38%, black 30%, transparent 75%);
@@ -860,9 +862,9 @@
 }
 
 .hero__btn--primary:hover {
-  background: var(--gold-300);
-  border-color: var(--gold-300);
-  color: #0d3d1e;
+  background: #0a2e14;
+  border-color: #0a2e14;
+  color: #ffffff;
   transform: translateY(-2px);
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
 }
@@ -877,8 +879,8 @@
 }
 
 .hero__btn--secondary:hover {
-  background: rgba(212, 175, 55, 0.18);
-  border-color: var(--gold-300);
+  background: rgba(76, 175, 80, 0.18);
+  border-color: var(--primary-300);
   color: #ffffff;
   transform: translateY(-2px);
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.3);
@@ -916,14 +918,14 @@
   padding: 11px 26px;
   font-size: 0.88rem;
   border-radius: 10px;
-  background: linear-gradient(135deg, var(--gold-400), var(--gold-600));
-  color: #0d3d1e;
-  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.35);
+  background: linear-gradient(135deg, #0d3311, #1b5e20);
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(76, 175, 80, 0.35);
 }
 
 .hero__search-btn:hover {
-  background: linear-gradient(135deg, var(--gold-300), var(--gold-500));
-  box-shadow: 0 8px 22px rgba(212, 175, 55, 0.45);
+  background: linear-gradient(135deg, #0a2e14, #0d3311);
+  box-shadow: 0 8px 22px rgba(13, 51, 17, 0.45);
 }
 /* Animasi halus khas institusi: fade-up 0.7s */
 @keyframes heroFadeUp {

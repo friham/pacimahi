@@ -1,17 +1,29 @@
 import { FaWhatsapp, FaInstagram, FaYoutube, FaFacebookF } from 'react-icons/fa';
+import { useSettings } from '../context/SettingsContext';
 import './SocialSidebar.css';
 
-const socialLinks = [
-  { icon: FaWhatsapp, href: 'https://wa.me/6281121111522?text=Info', label: 'WhatsApp', color: '#25D366' },
-  { icon: FaInstagram, href: 'https://www.instagram.com/pa.kotacimahi/', label: 'Instagram', color: '#E4405F' },
-  { icon: FaYoutube, href: 'https://www.youtube.com/channel/UCEEumbm787379_CQ9AQblCg', label: 'YouTube', color: '#FF0000' },
-  { icon: FaFacebookF, href: 'https://www.facebook.com/share/1CcnHbJVdC/?mibextid=wwXIfr', label: 'Facebook', color: '#1877F2' },
+const defaultLinks = [
+  { icon: FaWhatsapp, key: 'social_whatsapp', label: 'WhatsApp', buildHref: (v) => `https://wa.me/${v}?text=Info` },
+  { icon: FaInstagram, key: 'social_instagram', label: 'Instagram', buildHref: (v) => v },
+  { icon: FaYoutube, key: 'social_youtube', label: 'YouTube', buildHref: (v) => v },
+  { icon: FaFacebookF, key: 'social_facebook', label: 'Facebook', buildHref: (v) => v },
 ];
 
 function SocialSidebar() {
+  const { settings } = useSettings();
+
+  const links = defaultLinks
+    .filter(item => settings[item.key])
+    .map(item => ({
+      ...item,
+      href: item.buildHref(settings[item.key])
+    }));
+
+  if (links.length === 0) return null;
+
   return (
     <aside className="social-sidebar">
-      {socialLinks.map((social, index) => {
+      {links.map((social, index) => {
         const Icon = social.icon;
         return (
           <a
@@ -22,7 +34,7 @@ function SocialSidebar() {
             className="social-sidebar__link"
             aria-label={social.label}
             title={social.label}
-            style={{ '--hover-color': social.color }}
+
           >
             <Icon />
           </a>

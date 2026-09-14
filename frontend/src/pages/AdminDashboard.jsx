@@ -301,7 +301,7 @@ function AdminDashboard() {
     hero_badge: 'Zona Integritas WBK & WBBM',
     hero_title: 'Selamat Datang di Pengadilan Agama Kota Cimahi',
     hero_subtitle: 'Mewujudkan Peradilan Agama yang Agung, Bersih, dan Melayani dengan Sepenuh Hati untuk Masyarakat Kota Cimahi.',
-    running_text: 'Selamat Datang di Website Resmi Pengadilan Agama Kota Cimahi Kelas II • Pelayanan PTSP Buka Senin-Jumat • Stop Pungli & Gratifikasi • Layanan e-Court MA RI Tersedia 24 Jam',
+    running_text: 'Selamat Datang di Website Resmi Pengadilan Agama Kota Cimahi Kelas IA • Pelayanan PTSP Buka Senin-Kamis & Jumat • Stop Pungli & Gratifikasi • Layanan e-Court MA RI Tersedia 24 Jam',
     stat_diterima: '3.420',
     stat_diputus: '3.365',
     stat_persentase: '98,4%',
@@ -309,7 +309,17 @@ function AdminDashboard() {
     court_address: 'Jl. Encep Kartawiria No. 28, Cimahi Tengah, Kota Cimahi 40526',
     court_phone: '(022) 6631 334',
     court_email: 'info@pa-cimahi.go.id',
-    court_whatsapp: '6281234567890'
+    court_whatsapp: '6281121111522',
+    social_facebook: 'https://www.facebook.com/share/1CcnHbJVdC/?mibextid=wwXIfr',
+    social_instagram: 'https://www.instagram.com/pa.kotacimahi/',
+    social_youtube: 'https://www.youtube.com/channel/UCEEumbm787379_CQ9AQblCg',
+    social_whatsapp: '6281121111522',
+    footer_description: 'Mewujudkan peradilan agama yang agung, bersih, dan melayani dengan sepenuh hati untuk masyarakat Kota Cimahi dan sekitarnya.',
+    footer_hours_weekday: '08.00 – 16.30 WIB',
+    footer_hours_friday: '07.30 – 16.30 WIB',
+    video_url: 'https://youtu.be/62bIsvRcPv0?si=Fow524ngSa3DIkBs',
+    video_title: 'Video Profil Pengadilan Agama Kota Cimahi',
+    video_subtitle: 'Mengenal lebih dekat komitmen integritas, tata kelola modern, dan inovasi pelayanan prima Pengadilan Agama Kota Cimahi bagi masyarakat.',
   });
 
   // Form states
@@ -328,10 +338,32 @@ function AdminDashboard() {
     setTimeout(() => setMessage({ text: '', type: '' }), 4000);
   };
 
-  const handleLogout = () => {
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const logoutModalRef = useRef(null);
+
+  const handleLogout = () => setShowLogoutModal(true);
+
+  const confirmLogout = () => {
+    setShowLogoutModal(false);
     logout();
     navigate('/admin/login');
   };
+
+  const cancelLogout = () => setShowLogoutModal(false);
+
+  // Accessibility: focus modal on open & close on Escape
+  useEffect(() => {
+    if (!showLogoutModal) return;
+    logoutModalRef.current?.focus();
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        setShowLogoutModal(false);
+      }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [showLogoutModal]);
 
   // API fetches
   const fetchSliders = useCallback(async () => {
@@ -1467,7 +1499,7 @@ function AdminDashboard() {
               {[
                 { icon: FaMapMarkerAlt, title: 'Alamat Kantor', val: settings.court_address || 'Jl. Encep Kartawiria No. 28, Cimahi Tengah', iconBg: '#e0f2fe', iconColor: '#0284c7' },
                 { icon: FaPhoneAlt, title: 'Telepon Kantor', val: settings.court_phone || '(022) 6631 334', iconBg: '#fef9c3', iconColor: '#a16207' },
-                { icon: FaWhatsapp, title: 'WhatsApp PTSP', val: `+${settings.court_whatsapp || '6281234567890'}`, iconBg: '#dcfce7', iconColor: '#15803d' },
+                { icon: FaWhatsapp, title: 'WhatsApp PTSP', val: `+${settings.court_whatsapp || '6281121111522'}`, iconBg: '#dcfce7', iconColor: '#15803d' },
                 { icon: FaEnvelope, title: 'Email Resmi', val: settings.court_email || 'info@pa-cimahi.go.id', iconBg: '#fce7f3', iconColor: '#be185d' },
               ].map((info, i) => {
                 const InfoIcon = info.icon;
@@ -1604,6 +1636,94 @@ function AdminDashboard() {
                     type="text"
                     value={settings.court_whatsapp || ''}
                     onChange={(e) => setSettings({ ...settings, court_whatsapp: e.target.value })}
+                  />
+                </div>
+              </div>
+
+              <h3 style={{ fontSize: '1rem', color: 'var(--primary-800)', marginTop: '1.5rem', marginBottom: '1rem', borderBottom: '2px solid var(--primary-100)', paddingBottom: '6px' }}>
+                4. Media Sosial & Tautan Eksternal
+              </h3>
+              <div className="crud-form__grid">
+                <div className="crud-form__group">
+                  <label>URL Facebook</label>
+                  <input type="text" placeholder="https://facebook.com/..."
+                    value={settings.social_facebook || ''}
+                    onChange={(e) => setSettings({ ...settings, social_facebook: e.target.value })}
+                  />
+                </div>
+                <div className="crud-form__group">
+                  <label>URL Instagram</label>
+                  <input type="text" placeholder="https://instagram.com/..."
+                    value={settings.social_instagram || ''}
+                    onChange={(e) => setSettings({ ...settings, social_instagram: e.target.value })}
+                  />
+                </div>
+                <div className="crud-form__group">
+                  <label>URL YouTube</label>
+                  <input type="text" placeholder="https://youtube.com/..."
+                    value={settings.social_youtube || ''}
+                    onChange={(e) => setSettings({ ...settings, social_youtube: e.target.value })}
+                  />
+                </div>
+                <div className="crud-form__group">
+                  <label>URL WhatsApp (format: 62812xxxxxx)</label>
+                  <input type="text" placeholder="6281121111522"
+                    value={settings.social_whatsapp || ''}
+                    onChange={(e) => setSettings({ ...settings, social_whatsapp: e.target.value })}
+                  />
+                </div>
+              </div>
+
+              <h3 style={{ fontSize: '1rem', color: 'var(--primary-800)', marginTop: '1.5rem', marginBottom: '1rem', borderBottom: '2px solid var(--primary-100)', paddingBottom: '6px' }}>
+                5. Footer & Deskripsi Website
+              </h3>
+              <div className="crud-form__grid">
+                <div className="crud-form__group col-span-2">
+                  <label>Deskripsi singkat website (ditampilkan di footer)</label>
+                  <textarea rows="2"
+                    value={settings.footer_description || ''}
+                    onChange={(e) => setSettings({ ...settings, footer_description: e.target.value })}
+                  />
+                </div>
+                <div className="crud-form__group">
+                  <label>Jam Senin – Kamis</label>
+                  <input type="text" placeholder="08.00 – 16.30 WIB"
+                    value={settings.footer_hours_weekday || ''}
+                    onChange={(e) => setSettings({ ...settings, footer_hours_weekday: e.target.value })}
+                  />
+                </div>
+                <div className="crud-form__group">
+                  <label>Jam Jumat</label>
+                  <input type="text" placeholder="07.30 – 16.30 WIB"
+                    value={settings.footer_hours_friday || ''}
+                    onChange={(e) => setSettings({ ...settings, footer_hours_friday: e.target.value })}
+                  />
+                </div>
+              </div>
+
+              <h3 style={{ fontSize: '1rem', color: 'var(--primary-800)', marginTop: '1.5rem', marginBottom: '1rem', borderBottom: '2px solid var(--primary-100)', paddingBottom: '6px' }}>
+                6. Video Profil
+              </h3>
+              <div className="crud-form__grid">
+                <div className="crud-form__group col-span-2">
+                  <label>URL Video YouTube (contoh: https://youtu.be/xxxxx)</label>
+                  <input type="text"
+                    value={settings.video_url || ''}
+                    onChange={(e) => setSettings({ ...settings, video_url: e.target.value })}
+                  />
+                </div>
+                <div className="crud-form__group">
+                  <label>Judul Video</label>
+                  <input type="text"
+                    value={settings.video_title || ''}
+                    onChange={(e) => setSettings({ ...settings, video_title: e.target.value })}
+                  />
+                </div>
+                <div className="crud-form__group">
+                  <label>Subtitle Video</label>
+                  <input type="text"
+                    value={settings.video_subtitle || ''}
+                    onChange={(e) => setSettings({ ...settings, video_subtitle: e.target.value })}
                   />
                 </div>
               </div>
@@ -3228,6 +3348,52 @@ function AdminDashboard() {
         )}
 
       </main>
+{/* Logout Confirmation Modal */}
+        {showLogoutModal && (
+          <div
+            className="cms-modal-overlay logout-modal__overlay"
+            onClick={cancelLogout}
+          >
+            <div
+              className="cms-modal logout-confirm-modal"
+              role="alertdialog"
+              aria-modal="true"
+              aria-labelledby="logout-confirm-title"
+              tabIndex={-1}
+              ref={logoutModalRef}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="cms-modal__header logout-modal__header">
+                <FaSignOutAlt className="logout-modal__icon" aria-hidden="true" />
+                <h3 id="logout-confirm-title">Keluar dari Dashboard?</h3>
+              </div>
+              <div className="logout-modal__body">
+                <p>
+                  Apakah Anda yakin ingin keluar dari dashboard admin? Anda perlu login
+                  kembali untuk mengakses dashboard.
+                </p>
+              </div>
+              <div className="logout-modal__actions">
+                <button
+                  type="button"
+                  className="logout-modal__btn-secondary"
+                  onClick={cancelLogout}
+                  title="Batal logout"
+                >
+                  Batal
+                </button>
+                <button
+                  type="button"
+                  className="logout-modal__btn-danger"
+                  onClick={confirmLogout}
+                  title="Konfirmasi logout"
+                >
+                  Ya, Keluar
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
     </div>
   );
 }

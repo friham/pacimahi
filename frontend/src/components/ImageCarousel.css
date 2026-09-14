@@ -40,7 +40,7 @@
   overflow: hidden;
   box-shadow: var(--shadow-xl);
   background: linear-gradient(135deg, #09260d 0%, #15451a 50%, #0d3311 100%);
-  border: 1px solid rgba(212, 175, 55, 0.25);
+  border: 1px solid rgba(76, 175, 80, 0.25);
 }
 
 /* Track */
@@ -91,7 +91,7 @@
   background: rgba(13, 51, 17, 0.85);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 2px solid var(--gold-400);
+  border: 2px solid var(--primary-400);
   color: white;
   font-size: 1.1rem;
   display: flex;
@@ -104,11 +104,11 @@
 }
 
 .carousel__arrow:hover {
-  background: var(--gold-500);
-  color: var(--primary-950);
+  background: #0d3311;
+  color: #ffffff;
   border-color: white;
   transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+  box-shadow: 0 6px 20px rgba(13, 51, 17, 0.5);
 }
 
 .carousel__arrow--prev {
@@ -151,10 +151,10 @@
 }
 
 .carousel__dot--active {
-  background: var(--gold-400);
+  background: #0d3311;
   width: 28px;
   border-radius: var(--radius-full);
-  box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+  box-shadow: 0 0 10px rgba(13, 51, 17, 0.6);
 }
 
 /* Responsive Styles */

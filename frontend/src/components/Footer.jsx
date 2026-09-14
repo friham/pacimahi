@@ -5,9 +5,15 @@ import {
   FaFacebookF, FaInstagram, FaYoutube, FaWhatsapp,
   FaChevronRight, FaClock, FaExternalLinkAlt
 } from 'react-icons/fa';
+import { useSettings } from '../context/SettingsContext';
 import './Footer.css';
 
 function Footer() {
+  const { settings } = useSettings();
+
+  const s = settings;
+  const whatsappNum = s.social_whatsapp || '6281121111522';
+
   return (
     <footer className="footer">
       {/* Top decorative line */}
@@ -26,23 +32,30 @@ function Footer() {
               </div>
             </div>
             <p className="footer__desc">
-              Mewujudkan peradilan agama yang agung, bersih, dan melayani dengan sepenuh hati 
-              untuk masyarakat Kota Cimahi dan sekitarnya.
+              {s.footer_description || 'Mewujudkan peradilan agama yang agung, bersih, dan melayani dengan sepenuh hati untuk masyarakat Kota Cimahi dan sekitarnya.'}
             </p>
             {/* Jam Operasional */}
             <div className="footer__hours">
               <div className="footer__hours-title">
                 <FaClock className="footer__contact-icon" /> Jam Pelayanan PTSP
               </div>
-              <div className="footer__hours-row"><span>Senin – Kamis</span><span>08.00 – 16.30 WIB</span></div>
-              <div className="footer__hours-row"><span>Jumat</span><span>07.30 – 16.30 WIB</span></div>
+              <div className="footer__hours-row"><span>Senin – Kamis</span><span>{s.footer_hours_weekday || '08.00 – 16.30 WIB'}</span></div>
+              <div className="footer__hours-row"><span>Jumat</span><span>{s.footer_hours_friday || '07.30 – 16.30 WIB'}</span></div>
               <div className="footer__hours-row footer__hours-closed"><span>Sabtu – Minggu</span><span>Tutup</span></div>
             </div>
             <div className="footer__socials" style={{ marginTop: '1.25rem' }}>
-              <a href="https://www.facebook.com/share/1CcnHbJVdC/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="footer__social" aria-label="Facebook"><FaFacebookF /></a>
-              <a href="https://www.instagram.com/pa.kotacimahi/" target="_blank" rel="noopener noreferrer" className="footer__social" aria-label="Instagram"><FaInstagram /></a>
-              <a href="https://www.youtube.com/channel/UCEEumbm787379_CQ9AQblCg" target="_blank" rel="noopener noreferrer" className="footer__social" aria-label="YouTube"><FaYoutube /></a>
-              <a href="https://wa.me/6281121111522?text=Info%20Layanan%20PA%20Cimahi" target="_blank" rel="noopener noreferrer" className="footer__social" aria-label="WhatsApp"><FaWhatsapp /></a>
+              {s.social_facebook && (
+                <a href={s.social_facebook} target="_blank" rel="noopener noreferrer" className="footer__social" aria-label="Facebook"><FaFacebookF /></a>
+              )}
+              {s.social_instagram && (
+                <a href={s.social_instagram} target="_blank" rel="noopener noreferrer" className="footer__social" aria-label="Instagram"><FaInstagram /></a>
+              )}
+              {s.social_youtube && (
+                <a href={s.social_youtube} target="_blank" rel="noopener noreferrer" className="footer__social" aria-label="YouTube"><FaYoutube /></a>
+              )}
+              {whatsappNum && (
+                <a href={`https://wa.me/${whatsappNum}?text=Info%20Layanan%20PA%20Cimahi`} target="_blank" rel="noopener noreferrer" className="footer__social" aria-label="WhatsApp"><FaWhatsapp /></a>
+              )}
             </div>
           </div>
 
@@ -107,27 +120,35 @@ function Footer() {
           <div className="footer__col">
             <h4 className="footer__col-title">Hubungi Kami</h4>
             <div className="footer__contacts">
-              <a
-                className="footer__contact"
-                href="https://maps.google.com/?q=Pengadilan+Agama+Kota+Cimahi"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FaMapMarkerAlt className="footer__contact-icon" />
-                <span>Jl. Encep Kartawiria No. 28, Kelurahan Utama, Kec. Cimahi Selatan, Kota Cimahi 40533</span>
-              </a>
-              <a className="footer__contact" href="tel:+622166631334">
-                <FaPhone className="footer__contact-icon" />
-                <span>(022) 6631 334</span>
-              </a>
-              <a className="footer__contact" href="mailto:pa.kotacimahi@gmail.com">
-                <FaEnvelope className="footer__contact-icon" />
-                <span>pa.kotacimahi@gmail.com</span>
-              </a>
-              <a className="footer__contact" href="https://www.pa-cimahi.go.id" target="_blank" rel="noopener noreferrer">
-                <FaGlobe className="footer__contact-icon" />
-                <span>www.pa-cimahi.go.id</span>
-              </a>
+              {s.court_address && (
+                <a
+                  className="footer__contact"
+                  href={`https://maps.google.com/?q=${encodeURIComponent(s.court_address)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaMapMarkerAlt className="footer__contact-icon" />
+                  <span>{s.court_address}</span>
+                </a>
+              )}
+              {s.court_phone && (
+                <a className="footer__contact" href={`tel:${s.court_phone.replace(/[^0-9+]/g, '')}`}>
+                  <FaPhone className="footer__contact-icon" />
+                  <span>{s.court_phone}</span>
+                </a>
+              )}
+              {s.court_email && (
+                <a className="footer__contact" href={`mailto:${s.court_email}`}>
+                  <FaEnvelope className="footer__contact-icon" />
+                  <span>{s.court_email}</span>
+                </a>
+              )}
+              {s.court_website && (
+                <a className="footer__contact" href={s.court_website} target="_blank" rel="noopener noreferrer">
+                  <FaGlobe className="footer__contact-icon" />
+                  <span>{s.court_website.replace(/https?:\/\//, '')}</span>
+                </a>
+              )}
             </div>
           </div>
 

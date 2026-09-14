@@ -71,7 +71,7 @@ function VideoProfileSection({
                       <svg
                         viewBox="0 0 24 24"
                         fill="none"
-                        stroke="#d4af37"
+                        stroke="#4caf50"
                         strokeWidth="2"
                         className="video-cover__avatar-svg"
                       >

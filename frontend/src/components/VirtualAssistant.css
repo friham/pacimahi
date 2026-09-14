@@ -36,8 +36,8 @@ body.va-open .aco-floating-wrapper {
   max-width: 48px;
   max-height: 48px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--gold-500), var(--gold-600));
-  color: var(--primary-950);
+  background: linear-gradient(135deg, #0d3311, #1b5e20);
+  color: #ffffff;
   border: none;
   display: flex;
   align-items: center;
@@ -52,8 +52,8 @@ body.va-open .aco-floating-wrapper {
 
 .va-floating-btn:hover {
   transform: translateY(-2px) scale(1.04);
-  background: var(--gold-400);
-  box-shadow: 0 0 0 8px rgba(212, 175, 55, 0.32), 0 12px 28px rgba(212, 175, 55, 0.45);
+  background: #0a2e14;
+  box-shadow: 0 0 0 8px rgba(76, 175, 80, 0.32), 0 12px 28px rgba(76, 175, 80, 0.45);
 }
 
 .va-btn-icon {
@@ -146,7 +146,7 @@ body.va-open .aco-floating-wrapper {
 
 .va-status {
   font-size: 0.72rem;
-  color: var(--gold-300);
+  color: var(--primary-300);
   display: flex;
   align-items: center;
   gap: 5px;

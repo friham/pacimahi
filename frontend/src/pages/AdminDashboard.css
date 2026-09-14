@@ -988,8 +988,8 @@
 .gauge-container {
   position: relative;
   width: 100%;
-  max-width: 180px;
-  margin: 0.5rem auto 0;
+  max-width: 200px;
+  margin: 1rem auto;
   text-align: center;
 }
 
@@ -1010,12 +1010,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 8px;
+  padding-top: 12px;
   pointer-events: none;
 }
 
 .gauge-percent {
-  font-size: 2.15rem;
+  font-size: 2.4rem;
   font-weight: 800;
   color: var(--gray-900);
   line-height: 1;
@@ -1025,34 +1025,35 @@
 
 .gauge-bottom-label {
   text-align: center;
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: var(--gray-600);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-top: 4px;
-  margin-bottom: 6px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .gauge-stats-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-top: 6px;
-  padding-top: 10px;
+  gap: 10px;
+  margin-top: 8px;
+  padding-top: 14px;
   border-top: 1px solid #f1f5f9;
 }
 
 .gauge-stat-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.78rem;
+  gap: 10px;
+  font-size: 0.82rem;
+  padding: 4px 0;
 }
 
 .gauge-stat-dot {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   flex-shrink: 0;
 }
@@ -1063,6 +1064,7 @@
 .gauge-stat-name {
   color: var(--gray-600);
   flex: 1;
+  font-weight: 500;
 }
 
 .gauge-stat-val {
@@ -1708,7 +1710,7 @@
 
   .admin-main {
     margin-left: 0;
-    padding: 1.5rem;
+    padding: 1rem;
   }
 
   .admin-header {
@@ -1718,7 +1720,42 @@
   }
 
   .admin-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .dash-analytics-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .dash-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+
+  .dash-banner__title {
+    font-size: 1.3rem;
+  }
+
+  .dash-banner__sub {
+    font-size: 0.82rem;
+  }
+
+  .dash-banner__emblem-wrap {
+    width: 100px;
+    height: 100px;
+    padding: 8px;
+  }
+
+  .gauge-container {
+    max-width: 160px;
+  }
+
+  .gauge-percent {
+    font-size: 1.8rem;
   }
 
   .crud-form__grid {
@@ -1727,6 +1764,26 @@
 
   .col-span-2 {
     grid-column: span 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-main {
+    padding: 0.75rem;
+  }
+
+  .dash-banner {
+    padding: 1.25rem;
+    border-radius: 14px;
+  }
+
+  .dash-banner__emblem-wrap {
+    width: 80px;
+    height: 80px;
   }
 }
 
@@ -3447,7 +3504,109 @@
 .cms-page-preview table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
 .cms-page-preview th, .cms-page-preview td { border: 1px solid #e5e7eb; padding: 0.5rem 0.75rem; text-align: left; }
 .cms-page-preview th { background: #f8fafc; font-weight: 600; }
-.cms-page-preview hr { border: none; border-top: 2px solid #e5e7eb; margin: 1.5rem 0; }
+/* ============================================
+   Logout Confirmation Modal
+   ============================================ */
+.logout-modal__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 20, 21, 0.6);
+  backdrop-filter: blur(3px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease;
+}
+
+.logout-confirm-modal {
+  width: 100%;
+  max-width: 440px;
+  max-height: none;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.logout-modal__header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem 1.35rem;
+  background: #fef2f2;
+  border-bottom: 1px solid #fecaca;
+}
+
+.logout-modal__icon {
+  color: #dc2626;
+  font-size: 1.25rem;
+}
+
+.logout-modal__header h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #7f1d1d;
+}
+
+.logout-modal__body {
+  color: #374151;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  padding: 1.15rem 1.35rem;
+  margin: 0;
+}
+.logout-modal__body p { margin: 0; }
+
+.logout-modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.65rem;
+  padding: 0.85rem 1.35rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.logout-modal__btn-secondary {
+  background: #ffffff;
+  border: 1.5px solid #d1d5db;
+  color: #374151;
+  font-weight: 700;
+  border-radius: 9px;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.logout-modal__btn-secondary:hover { background: #f3f4f6; border-color: #9ca3af; }
+
+.logout-modal__btn-danger {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  color: #ffffff;
+  font-weight: 800;
+  border: none;
+  border-radius: 9px;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 12px rgba(220, 38, 38, 0.25);
+}
+.logout-modal__btn-danger:hover {
+  background: linear-gradient(135deg, #b91c1c, #991b1b);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 16px rgba(220, 38, 38, 0.3);
+}
+
+.logout-modal__btn-secondary:focus-visible,
+.logout-modal__btn-danger:focus-visible {
+  outline: 2.5px solid #16a34a;
+  outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .logout-confirm-modal { max-width: 100%; }
+  .logout-modal__actions { flex-direction: column-reverse; }
+}
 
 /* ============================================
    CMS: Media Library

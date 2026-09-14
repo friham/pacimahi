@@ -46,7 +46,11 @@ const getMenus = async (req, res) => {
 // GET /api/menus/tree (Public & Admin)
 const getMenuTree = async (req, res) => {
   try {
-    const isPublic = req.query.scope === 'public';
+    // Public access: explicit scope=public, OR any request WITHOUT a valid
+    // Authorization header (safe default). Admin requests with a Bearer token
+    // and no scope still receive all menus (published + drafts).
+    const hasAuth = !!(req.headers.authorization && req.headers.authorization.startsWith('Bearer '));
+    const isPublic = req.query.scope === 'public' || !hasAuth;
     let query = 'SELECT * FROM menus';
     const params = [];
 
@@ -249,13 +253,14 @@ const deleteMenu = async (req, res) => {
 // PUT /api/menus/reorder
 // Accepts array of { id, parent_id, sort_order }
 const reorderMenus = async (req, res) => {
-  const connection = await pool.getConnection();
+  let connection;
   try {
     const { items } = req.body;
     if (!Array.isArray(items)) {
       return res.status(400).json({ success: false, message: 'Format data urutan tidak valid.' });
     }
 
+    connection = await pool.getConnection();
     await connection.beginTransaction();
 
     for (const item of items) {
@@ -279,11 +284,11 @@ const reorderMenus = async (req, res) => {
 
     res.json({ success: true, message: 'Urutan menu berhasil diperbarui.' });
   } catch (error) {
-    await connection.rollback();
+    if (connection) await connection.rollback();
     console.error('reorderMenus error:', error);
     res.status(500).json({ success: false, message: 'Gagal mengatur ulang urutan menu.' });
   } finally {
-    connection.release();
+    if (connection) connection.release();
   }
 };
 
@@ -298,6 +303,16 @@ const toggleMenuStatus = async (req, res) => {
     }
 
     await pool.execute('UPDATE menus SET status = ? WHERE id = ?', [status, id]);
+
+    await recordAuditLog({
+      adminId: req.user?.id,
+      adminName: req.user?.name || req.user?.username,
+      action: 'TOGGLE_MENU_STATUS',
+      objectType: 'menu',
+      objectId: id,
+      details: `Mengubah status menu ID ${id} menjadi ${status}`,
+      ip: req.ip
+    });
 
     res.json({ success: true, message: `Status menu berhasil diubah menjadi ${status}.` });
   } catch (error) {

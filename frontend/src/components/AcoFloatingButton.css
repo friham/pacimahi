@@ -21,8 +21,8 @@
   max-width: 48px;
   max-height: 48px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--gold-500), var(--gold-600));
-  color: var(--primary-950);
+  background: linear-gradient(135deg, #0d3311, #1b5e20);
+  color: #ffffff;
   border: none;
   display: flex;
   align-items: center;
@@ -42,8 +42,8 @@
 /* Hover Interaction: Scale and Gold Glow matching other buttons */
 .aco-floating-btn:hover {
   transform: translateY(-2px) scale(1.04);
-  background: var(--gold-400);
-  box-shadow: 0 0 0 8px rgba(212, 175, 55, 0.32), 0 12px 28px rgba(212, 175, 55, 0.45);
+  background: #0a2e14;
+  box-shadow: 0 0 0 8px rgba(76, 175, 80, 0.32), 0 12px 28px rgba(76, 175, 80, 0.45);
 }
 
 /* Active Press State */
@@ -54,7 +54,7 @@
 
 /* Accessible Focus Outline */
 .aco-floating-btn:focus-visible {
-  outline: 2.5px solid var(--gold-500);
+  outline: 2.5px solid var(--primary-500);
   outline-offset: 3px;
 }
 
@@ -67,7 +67,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--primary-950);
+  color: #ffffff;
   flex-shrink: 0;
 }
 

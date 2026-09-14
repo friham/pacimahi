@@ -2,7 +2,6 @@ import { Link, useLocation } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import SocialSidebar from '../../components/SocialSidebar';
-import VirtualAssistant from '../../components/VirtualAssistant';
 import AccessibilityWidget from '../../components/AccessibilityWidget';
 import AcoFloatingButton from '../../components/AcoFloatingButton';
 import { 
@@ -157,7 +156,6 @@ function PublikasiLayout({ title, subtitle, breadcrumb, children }) {
         </main>
       </div>
 
-      <VirtualAssistant />
       <AccessibilityWidget />
       <AcoFloatingButton cctvUrl="https://cctv.badilag.net/display/satker/3f0217881b5ba82ead3967e1032f6421" />
       <Footer />

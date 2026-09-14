@@ -1,12 +1,9 @@
 import { useState } from 'react';
 import PublikasiLayout from './PublikasiLayout';
 import { 
-  FaBullhorn, 
   FaCalendarAlt, 
-  FaDownload, 
   FaFilePdf, 
   FaSearch, 
-  FaExclamationCircle 
 } from 'react-icons/fa';
 
 const announcementList = [

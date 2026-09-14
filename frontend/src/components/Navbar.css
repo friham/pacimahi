@@ -18,14 +18,14 @@
   box-sizing: border-box;
 }
 
-/* Scroll: hijau hilang → kaca bening (frosted glass), teks jadi hijau tua agar terbaca */
+/* Scroll: putih glass (frosted), teks hijau gelap */
 .navbar--scrolled {
   height: 62px;
   background: rgba(255, 255, 255, 0.72);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border-color: rgba(28, 115, 57, 0.14);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .navbar--scrolled .navbar__logo-title {
@@ -42,12 +42,12 @@
 
 .navbar--scrolled .navbar__link:hover {
   color: #0d3311;
-  background: rgba(13, 51, 17, 0.1);
+  background: rgba(13, 51, 17, 0.08);
 }
 
 .navbar--scrolled .navbar__link--active {
   color: #0d3311;
-  background: rgba(13, 51, 17, 0.12);
+  background: rgba(13, 51, 17, 0.1);
   box-shadow: inset 0 -2px 0 rgba(184, 134, 11, 0.6);
 }
 
@@ -56,7 +56,7 @@
 }
 
 .navbar--scrolled .navbar__toggle:hover {
-  background: rgba(13, 51, 17, 0.1);
+  background: rgba(13, 51, 17, 0.08);
 }
 
 .navbar__container {

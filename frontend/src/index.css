@@ -75,7 +75,12 @@
   --transition-bounce: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* Layout */
-  --navbar-height: 72px;
+  /* Jarak navbar ↔ announcement bar diatur TERPUSAT di sini.
+     Jangan tulis top/margin lain untuk .hero__ticker di file mana pun
+     agar tidak terjadi double spacing. */
+  --navbar-height: 70px;
+  --navbar-top: 12px;
+  --navbar-announce-gap: 15px;
   --container-max: 1280px;
   --container-padding: 1.5rem;
 }
@@ -489,9 +494,9 @@ html[data-a11y-contrast="dark"] h1:not(.a11y-widget-root *),
 html[data-a11y-contrast="dark"] h2:not(.a11y-widget-root *),
 html[data-a11y-contrast="dark"] h3:not(.a11y-widget-root *),
 html[data-a11y-contrast="dark"] h4:not(.a11y-widget-root *),
-html[data-a11y-contrast="dark"] p:not(.a11y-widget-root *),
-html[data-a11y-contrast="dark"] span:not(.a11y-widget-root *):not(.a11y-card-badge):not(.a11y-active-badge),
-html[data-a11y-contrast="dark"] a:not(.a11y-widget-root *) {
+html[data-a11y-contrast="dark"] p:not(.a11y-widget-root *):not(.virtual-assistant *):not(.aco-floating-wrapper *),
+html[data-a11y-contrast="dark"] span:not(.a11y-widget-root *):not(.virtual-assistant *):not(.aco-floating-wrapper *):not(.a11y-card-badge):not(.a11y-active-badge),
+html[data-a11y-contrast="dark"] a:not(.a11y-widget-root *):not(.virtual-assistant *):not(.aco-floating-wrapper *) {
   color: #ffff00 !important;
 }
 html[data-a11y-contrast="dark"] .hero-title,
@@ -670,8 +675,18 @@ html[data-a11y-contrast="invert"] video,
 html[data-a11y-contrast="invert"] iframe {
   filter: invert(100%) hue-rotate(180deg) !important;
 }
-/* Widget di-invert balik supaya tetap tampil normal */
-html[data-a11y-contrast="invert"] .a11y-widget-root {
+/* Fixed chrome di-invert balik supaya tetap tampil normal.
+   IMPORTANT: re-invert toegepast op de POSITION:FIXED leaf elements zelf
+   (niet op .a11y-widget-root static wrapper), omdat een filter op een
+   ancestor een containing-block maakt voor fixed descendants -> widget
+   zou verschuiven bij scroll (bug "pindah posisi"). */
+html[data-a11y-contrast="invert"] .a11y-floating-wrapper,
+html[data-a11y-contrast="invert"] .a11y-floating-panel,
+html[data-a11y-contrast="invert"] .a11y-restore-trigger,
+html[data-a11y-contrast="invert"] .virtual-assistant,
+html[data-a11y-contrast="invert"] .va-floating-btn,
+html[data-a11y-contrast="invert"] .va-chatbox,
+html[data-a11y-contrast="invert"] .aco-floating-wrapper {
   filter: invert(100%) hue-rotate(180deg) !important;
 }
 
@@ -732,5 +747,59 @@ html[data-a11y-tooltip="true"] [title]:not(.a11y-widget-root *):hover,
 html[data-a11y-tooltip="true"] [aria-label]:not(.a11y-widget-root *):hover {
   outline: 2px dashed #0284c7 !important;
   outline-offset: 2px !important;
+}
+/* ============================================
+   Global Keyboard Focus (Accessibility)
+   Visible fallback outline for every interactive
+   element when focused via keyboard. Component
+   specific :focus-visible rules still win.
+   ============================================ */
+:focus-visible {
+  outline: 2.5px solid var(--primary-500, #4caf50);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   Reduced Motion (Accessibility)
+   Respect OS "reduce motion" preference — stop
+   decorative/infinite animations & smooth-scroll.
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================
+   Polish: text selection & scrollbar
+   ============================================ */
+::selection {
+  background: var(--primary-200, #a5d6a7);
+  color: var(--gray-900, #0f172a);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--gray-300, #cbd5e1) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gray-300, #cbd5e1);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-400, #94a3b8);
 }
 

@@ -92,8 +92,8 @@
   position: absolute;
   top: 12px;
   left: 12px;
-  background: var(--gold-500);
-  color: var(--primary-950);
+  background: #0d3311;
+  color: #ffffff;
   font-size: 0.75rem;
   font-weight: 900;
   padding: 2px 8px;
@@ -232,7 +232,7 @@
 .calc-summary__heading {
   font-size: 1.1rem;
   font-weight: 800;
-  color: var(--gold-300);
+  color: var(--primary-300);
   margin-bottom: 1.25rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   padding-bottom: 10px;
@@ -264,7 +264,7 @@
 
 .calc-total-number {
   font-size: 1.45rem;
-  color: var(--gold-400);
+  color: var(--primary-400);
   font-weight: 900;
 }
 
@@ -283,8 +283,8 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: linear-gradient(135deg, var(--gold-500), var(--gold-600));
-  color: var(--primary-950);
+  background: linear-gradient(135deg, #0d3311, #1b5e20);
+  color: #ffffff;
   font-size: 0.88rem;
   font-weight: 800;
   padding: 12px 20px;
@@ -294,9 +294,9 @@
 }
 
 .calc-summary__cta:hover {
-  background: var(--gold-400);
+  background: #0a2e14;
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+  box-shadow: 0 4px 15px rgba(13, 51, 17, 0.4);
 }
 
 /* Posbakum Box */

@@ -38,6 +38,17 @@ app.use(cors({
 }));
 
 // ── Rate Limiting ─────────────────────────────────────
+// Public read-only limiter: 300 requests per 15 minutes per IP
+// Used for endpoints that multiple frontend components hit simultaneously
+// (settings, sliders, services, news, menus tree)
+const publicReadLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 300,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, message: 'Terlalu banyak request, coba lagi nanti.' }
+});
+
 // General API limiter: 100 requests per 15 minutes per IP
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -45,15 +56,6 @@ const apiLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   message: { success: false, message: 'Terlalu banyak request, coba lagi nanti.' }
-});
-
-// Strict limiter for auth endpoints: 10 requests per 15 minutes per IP
-const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 10,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: { success: false, message: 'Terlalu banyak percobaan login, coba lagi dalam 15 menit.' }
 });
 
 // Upload limiter: 20 uploads per 15 minutes per IP
@@ -73,13 +75,17 @@ app.use('/images', express.static(path.join(__dirname, 'public/images')));
 app.use('/documents', express.static(path.join(__dirname, 'public/documents')));
 
 // Routes (with rate limiting)
-app.use('/api/auth', authLimiter, authRoutes);
-app.use('/api/sliders', apiLimiter, sliderRoutes);
-app.use('/api/services', apiLimiter, serviceRoutes);
-app.use('/api/news', apiLimiter, newsRoutes);
-app.use('/api/settings', apiLimiter, settingsRoutes);
+// NOTE: /api/auth does NOT use a global authLimiter anymore.
+// The login endpoint has its own loginLimiter inside authRoutes.
+// Other auth endpoints (/me, /profile, /password) are authenticated
+// and don't need aggressive rate limiting that blocks normal usage.
+app.use('/api/auth', authRoutes);
+app.use('/api/sliders', publicReadLimiter, sliderRoutes);
+app.use('/api/services', publicReadLimiter, serviceRoutes);
+app.use('/api/news', publicReadLimiter, newsRoutes);
+app.use('/api/settings', publicReadLimiter, settingsRoutes);
+app.use('/api/menus', publicReadLimiter, menuRoutes);
 app.use('/api/upload', uploadLimiter, uploadRoutes);
-app.use('/api/menus', apiLimiter, menuRoutes);
 app.use('/api/pages', apiLimiter, pageRoutes);
 app.use('/api/media', apiLimiter, mediaRoutes);
 app.use('/api/documents', apiLimiter, documentRoutes);
@@ -87,21 +93,22 @@ app.use('/api/audit-logs', apiLimiter, auditRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ 
-    success: true, 
+  res.json({
+    success: true,
     message: 'PA Cimahi API is running',
     timestamp: new Date().toISOString()
   });
 });
 
-// Error handling middleware
-app.use((err, req, res, next) => {
+// Error handling middleware (Express 5 — do NOT call next(err) after sending response)
+app.use((err, req, res, _next) => {
   console.error('Error:', err.stack);
   res.status(500).json({
     success: false,
     message: 'Terjadi kesalahan internal server.'
   });
 });
+
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);

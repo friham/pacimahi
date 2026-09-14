@@ -91,6 +91,11 @@ const updateMedia = async (req, res) => {
     const { id } = req.params;
     const { alt_text, caption } = req.body;
 
+    const [existing] = await pool.execute('SELECT * FROM media WHERE id = ?', [id]);
+    if (existing.length === 0) {
+      return res.status(404).json({ success: false, message: 'Media tidak ditemukan.' });
+    }
+
     await pool.execute(
       'UPDATE media SET alt_text = ?, caption = ? WHERE id = ?',
       [alt_text || null, caption || null, id]
@@ -121,7 +126,7 @@ const deleteMedia = async (req, res) => {
       try {
         fs.unlinkSync(filePath);
       } catch (err) {
-        console.warn('Could not delete disk file:', err.message);
+        console.error('Could not delete disk file:', err.message);
       }
     }
 

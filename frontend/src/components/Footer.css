@@ -14,7 +14,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--primary-500), var(--gold-500), var(--primary-500));
+  background: linear-gradient(90deg, #0d3311, #1b5e20, #0d3311);
 }
 
 /* Grid */
@@ -52,7 +52,7 @@
 
 .footer__brand-subtitle {
   font-size: 0.8rem;
-  color: var(--gold-400);
+  color: var(--primary-400);
   font-weight: 600;
 }
 
@@ -107,7 +107,7 @@
   left: 0;
   width: 30px;
   height: 3px;
-  background: linear-gradient(90deg, var(--gold-500), var(--primary-500));
+  background: linear-gradient(90deg, #0d3311, #1b5e20);
   border-radius: var(--radius-full);
 }
 
@@ -150,7 +150,7 @@
   align-items: center;
   gap: 6px;
   font-weight: 700;
-  color: var(--gold-400);
+  color: var(--primary-400);
   margin-bottom: 0.6rem;
   font-size: 0.83rem;
 }

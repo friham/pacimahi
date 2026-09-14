@@ -24,6 +24,7 @@ router.get('/tree', getMenuTree);
 
 // Protected endpoints (CMS management)
 router.post('/', authMiddleware, checkRole(['superadmin', 'admin']), createMenu);
+// NOTE: /reorder MUST come before /:id to avoid route collision
 router.put('/reorder', authMiddleware, checkRole(['superadmin', 'admin']), reorderMenus);
 router.put('/:id', authMiddleware, checkRole(['superadmin', 'admin']), updateMenu);
 router.patch('/:id/status', authMiddleware, checkRole(['superadmin', 'admin']), toggleMenuStatus);

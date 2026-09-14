@@ -1,4 +1,13 @@
 const pool = require('../config/db');
+const { recordAuditLog } = require('./auditLogController');
+
+// Helper: parse is_published from JSON bool or form-string to a real boolean
+const toBool = (val) => {
+  if (typeof val === 'boolean') return val;
+  if (val === 1 || val === '1' || val === 'true' || val === 'on') return true;
+  if (val === 0 || val === '0' || val === 'false' || val === 'off') return false;
+  return Boolean(val);
+};
 
 // Helper to generate URL slug
 const slugify = (text) => {
@@ -30,7 +39,7 @@ const getNewsBySlug = async (req, res) => {
   try {
     const { slug } = req.params;
     const [rows] = await pool.execute(
-      'SELECT news.*, admins.name as author_name FROM news LEFT JOIN admins ON news.author_id = admins.id WHERE slug = ?',
+      'SELECT news.*, admins.name as author_name FROM news LEFT JOIN admins ON news.author_id = admins.id WHERE slug = ? AND is_published = TRUE',
       [slug]
     );
 
@@ -61,7 +70,8 @@ const getAllNews = async (req, res) => {
 // Create news
 const createNews = async (req, res) => {
   try {
-    const { title, content, image_url, category, is_published } = req.body;
+    const { title, content, image_url, category } = req.body;
+    const is_published = toBool(req.body.is_published);
     const author_id = req.user.id; // Logged in admin id from auth middleware
 
     if (!title || !content) {
@@ -73,8 +83,18 @@ const createNews = async (req, res) => {
 
     const [result] = await pool.execute(
       'INSERT INTO news (title, slug, content, image_url, category, author_id, is_published, published_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-      [title, slug, content, image_url || '', category || 'berita', author_id, is_published !== undefined ? is_published : false, published_at]
+      [title, slug, content, image_url || '', category || 'berita', author_id, is_published, published_at]
     );
+
+    await recordAuditLog({
+      adminId: req.user?.id,
+      adminName: req.user?.name || req.user?.username,
+      action: 'CREATE_NEWS',
+      objectType: 'news',
+      objectId: result.insertId,
+      details: `Membuat berita: "${title}" (${is_published ? 'dipublikasi' : 'draft'})`,
+      ip: req.ip
+    });
 
     res.status(201).json({
       success: true,
@@ -91,7 +111,8 @@ const createNews = async (req, res) => {
 const updateNews = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, content, image_url, category, is_published } = req.body;
+    const { title, content, image_url, category } = req.body;
+    const is_published = toBool(req.body.is_published);
 
     if (!title || !content) {
       return res.status(400).json({ success: false, message: 'Judul dan konten wajib diisi.' });
@@ -117,6 +138,16 @@ const updateNews = async (req, res) => {
       [title, newSlug, content, image_url || '', category || 'berita', is_published, published_at, id]
     );
 
+    await recordAuditLog({
+      adminId: req.user?.id,
+      adminName: req.user?.name || req.user?.username,
+      action: 'UPDATE_NEWS',
+      objectType: 'news',
+      objectId: id,
+      details: `Mengubah berita: "${title}"`,
+      ip: req.ip
+    });
+
     res.json({ success: true, message: 'Berita berhasil diperbarui.' });
   } catch (error) {
     console.error('UpdateNews error:', error);
@@ -133,6 +164,16 @@ const deleteNews = async (req, res) => {
     if (result.affectedRows === 0) {
       return res.status(404).json({ success: false, message: 'Berita tidak ditemukan.' });
     }
+
+    await recordAuditLog({
+      adminId: req.user?.id,
+      adminName: req.user?.name || req.user?.username,
+      action: 'DELETE_NEWS',
+      objectType: 'news',
+      objectId: id,
+      details: `Menghapus berita ID ${id}`,
+      ip: req.ip
+    });
 
     res.json({ success: true, message: 'Berita berhasil dihapus.' });
   } catch (error) {

@@ -41,8 +41,8 @@
 .case-modal__header-icon {
   width: 44px;
   height: 44px;
-  background: linear-gradient(135deg, var(--gold-500), var(--gold-600));
-  color: var(--primary-950);
+  background: linear-gradient(135deg, #0d3311, #1b5e20);
+  color: #ffffff;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -60,7 +60,7 @@
 
 .case-modal__subtitle {
   font-size: 0.78rem;
-  color: var(--gold-300);
+  color: var(--primary-300);
   margin-top: 2px;
 }
 

@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import { FaSearch, FaShieldAlt, FaGavel, FaListAlt, FaBullhorn, FaTimes, FaExpandAlt, FaCopy, FaCheck } from 'react-icons/fa';
-import { API_URL } from '../config';
+import { useSettings } from '../context/SettingsContext';
 import './HeroSection.css';
 
 function HeroSection({ onOpenCaseModal }) {
@@ -9,26 +8,7 @@ function HeroSection({ onOpenCaseModal }) {
   const [isTickerVisible, setIsTickerVisible] = useState(true);
   const [isAnnouncementModalOpen, setIsAnnouncementModalOpen] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
-  const [heroSettings, setHeroSettings] = useState({
-    hero_badge: 'Zona Integritas WBK & WBBM',
-    hero_title: 'Selamat Datang di Pengadilan Agama Kota Cimahi',
-    hero_subtitle: 'Mewujudkan Peradilan Agama yang Agung, Bersih, dan Melayani dengan Sepenuh Hati untuk Masyarakat Kota Cimahi.',
-    running_text: 'Selamat Datang di Website Resmi Pengadilan Agama Kota Cimahi Kelas II • Pelayanan PTSP Buka Senin-Jumat • Stop Pungli & Gratifikasi • Layanan e-Court MA RI Tersedia 24 Jam'
-  });
-
-  useEffect(() => {
-    const fetchSettings = async () => {
-      try {
-        const res = await axios.get(`${API_URL}/settings`);
-        if (res.data.success && Object.keys(res.data.data).length > 0) {
-          setHeroSettings(prev => ({ ...prev, ...res.data.data }));
-        }
-      } catch (err) {
-        console.warn('Using default hero settings:', err.message);
-      }
-    };
-    fetchSettings();
-  }, []);
+  const { settings: heroSettings } = useSettings();
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -40,6 +20,7 @@ function HeroSection({ onOpenCaseModal }) {
   return (
     <section className="hero">
       {/* Decorative background elements */}
+      <div className="hero__bg-photo" aria-hidden="true"></div>
       <div className="hero__bg-pattern"></div>
       <div className="hero__bg-overlay"></div>
 
@@ -98,37 +79,14 @@ function HeroSection({ onOpenCaseModal }) {
 
       <div className="hero__content container">
         {/* Main Heading */}
-        <h1 className="hero__title animate-fade-in-up">
-          {heroSettings.hero_title?.includes('Pengadilan Agama') ? (
-            <>
-              {heroSettings.hero_title.split('Pengadilan Agama')[0]}
-              <span className="hero__title-highlight"> Pengadilan Agama</span>
-              <br />
-              <span className="hero__title-city">Kota Cimahi</span>
-            </>
-          ) : (
-            heroSettings.hero_title
-          )}
+        <h1 className="hero__title animate-fade-in-up animate-delay-1">
+          <span className="hero__title-main">Selamat Datang di Pengadilan Agama</span>
+          <span className="hero__title-city">Kota Cimahi</span>
         </h1>
-
         {/* Subtitle */}
         <p className="hero__subtitle animate-fade-in-up animate-delay-2">
           {heroSettings.hero_subtitle}
         </p>
-
-        {/* CTA Buttons */}
-        <div className="hero__buttons animate-fade-in-up animate-delay-3">
-          <a href="#layanan" className="hero__btn hero__btn--primary">
-            <FaListAlt /> Layanan Pengadilan
-          </a>
-          <button
-            type="button"
-            className="hero__btn hero__btn--secondary"
-            onClick={() => onOpenCaseModal && onOpenCaseModal('')}
-          >
-            <FaGavel /> Cek Informasi Perkara
-          </button>
-        </div>
 
         {/* Search Bar */}
         <form className="hero__search animate-fade-in-up animate-delay-4" onSubmit={handleSearch}>

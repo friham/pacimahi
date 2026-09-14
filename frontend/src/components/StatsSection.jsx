@@ -1,41 +1,27 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useMemo } from 'react';
 import { FaGavel, FaCheckCircle, FaPercent, FaSmile, FaClock, FaHandshake } from 'react-icons/fa';
 import useScrollReveal from '../hooks/useScrollReveal';
-import { API_URL } from '../config';
+import { useSettings } from '../context/SettingsContext';
 import './StatsSection.css';
 
 const defaultStats = [
-  { icon: FaGavel, key: 'stat_diterima', fallback: '3.420', label: 'Perkara Diterima', detail: 'Tahun Berjalan 2026', color: '#2e7d32' },
-  { icon: FaCheckCircle, key: 'stat_diputus', fallback: '3.365', label: 'Perkara Diputus', detail: 'Berkekuatan Hukum Tetap', color: '#1565c0' },
-  { icon: FaPercent, key: 'stat_persentase', fallback: '98,4%', label: 'Tingkat Penyelesaian', detail: 'Standar Kinerja Mahkamah Agung', color: '#c69c3f' },
-  { icon: FaSmile, key: 'stat_ikm', fallback: '97,8%', label: 'Indeks Kepuasan (IKM)', detail: 'Predikat Sangat Baik', color: '#7b1fa2' },
-  { icon: FaClock, key: null, fallback: '< 30 Hari', label: 'Rata-rata Waktu Putus', detail: 'Asas Cepat & Biaya Ringan', color: '#00838f' },
-  { icon: FaHandshake, key: null, fallback: '74,2%', label: 'Mediasi Berhasil / Damai', detail: 'Kamar Mediasi Terpadu', color: '#d84315' },
+  { icon: FaGavel, key: 'stat_diterima', number: '3.420', fallback: '3.420', label: 'Perkara Diterima', detail: 'Tahun Berjalan 2026', color: '#2e7d32' },
+  { icon: FaCheckCircle, key: 'stat_diputus', number: '3.365', fallback: '3.365', label: 'Perkara Diputus', detail: 'Berkekuatan Hukum Tetap', color: '#1565c0' },
+  { icon: FaPercent, key: 'stat_persentase', number: '98,4%', fallback: '98,4%', label: 'Tingkat Penyelesaian', detail: 'Standar Kinerja Mahkamah Agung', color: '#c69c3f' },
+  { icon: FaSmile, key: 'stat_ikm', number: '97,8%', fallback: '97,8%', label: 'Indeks Kepuasan (IKM)', detail: 'Predikat Sangat Baik', color: '#7b1fa2' },
+  { icon: FaClock, key: null, number: '< 30 Hari', fallback: '< 30 Hari', label: 'Rata-rata Waktu Putus', detail: 'Asas Cepat & Biaya Ringan', color: '#00838f' },
+  { icon: FaHandshake, key: null, number: '74,2%', fallback: '74,2%', label: 'Mediasi Berhasil / Damai', detail: 'Kamar Mediasi Terpadu', color: '#d84315' },
 ];
 
 function StatsSection() {
   const headerRef = useScrollReveal();
   const gridRef = useScrollReveal({ threshold: 0.1 });
-  const [stats, setStats] = useState(defaultStats);
+  const { settings } = useSettings();
 
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const res = await axios.get(`${API_URL}/settings`);
-        if (res.data.success && Object.keys(res.data.data).length > 0) {
-          const s = res.data.data;
-          setStats(prev => prev.map(item => ({
-            ...item,
-            number: item.key && s[item.key] ? s[item.key] : item.number || item.fallback
-          })));
-        }
-      } catch {
-        // Use defaults
-      }
-    };
-    fetchStats();
-  }, []);
+  const stats = useMemo(() => defaultStats.map(item => ({
+    ...item,
+    number: item.key && settings[item.key] ? settings[item.key] : item.number || item.fallback
+  })), [settings]);
 
   return (
     <section className="stats-section">

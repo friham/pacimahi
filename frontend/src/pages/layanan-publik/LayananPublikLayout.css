@@ -115,9 +115,12 @@
 
 @media (max-width: 640px) {
   .layanan-publik-hero {
-    padding: 100px 16px 36px;
+    padding: 90px 16px 28px;
   }
   .layanan-publik-hero__title {
-    font-size: 1.65rem;
+    font-size: 1.5rem;
+  }
+  .layanan-publik-hero__subtitle {
+    font-size: 0.88rem;
   }
 }

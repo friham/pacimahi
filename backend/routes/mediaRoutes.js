@@ -10,12 +10,7 @@ const {
   deleteMedia
 } = require('../controllers/mediaController');
 
-const handleMediaUpload = (req, res, next) => {
-  uploadImage.single('image')(req, res, (err) => {
-    if (err) return res.status(400).json({ success: false, message: err.message });
-    next();
-  });
-};
+const handleMediaUpload = uploadImage.single('image');
 
 router.get('/', authMiddleware, getMedia);
 router.post('/', authMiddleware, checkRole(['superadmin', 'admin', 'editor']), handleMediaUpload, createMedia);

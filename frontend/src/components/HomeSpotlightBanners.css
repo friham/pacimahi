@@ -18,7 +18,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #1b5e20, #059669, #d4af37, #1b5e20);
+  background: linear-gradient(90deg, #1b5e20, #059669, #66bb6a, #1b5e20);
 }
 
 /* ========================================================
@@ -207,7 +207,7 @@
 
 .zi-card__tag {
   align-self: flex-start;
-  background: #d4af37;
+  background: #4caf50;
   color: #1b5e20;
   font-size: 0.68rem;
   font-weight: 800;
@@ -248,8 +248,8 @@
   color: #1e293b;
   line-height: 1.3;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   overflow: hidden;
 }
 

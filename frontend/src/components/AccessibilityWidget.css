@@ -37,8 +37,8 @@
   max-width: 48px;
   max-height: 48px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--gold-500), var(--gold-600));
-  color: var(--primary-950);
+  background: linear-gradient(135deg, #0d3311, #1b5e20);
+  color: #ffffff;
   border: none;
   display: flex;
   align-items: center;
@@ -48,7 +48,6 @@
   transition: all var(--transition-normal);
   position: relative;
   flex-shrink: 0;
-  overflow: hidden;
   animation: floatBounce 3s ease-in-out infinite;
   animation-delay: 0.5s;
 }
@@ -57,12 +56,12 @@
 .a11y-floating-trigger:hover,
 .a11y-floating-trigger--hover {
   transform: translateY(-2px) scale(1.04);
-  background: var(--gold-400);
-  box-shadow: 0 0 0 8px rgba(212, 175, 55, 0.32), 0 12px 28px rgba(212, 175, 55, 0.45);
+  background: #0a2e14;
+  box-shadow: 0 0 0 8px rgba(76, 175, 80, 0.32), 0 12px 28px rgba(76, 175, 80, 0.45);
 }
 
 .a11y-floating-trigger--active {
-  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.5), 0 8px 24px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.5), 0 8px 24px rgba(0, 0, 0, 0.22);
 }
 
 .a11y-trigger-icon-wrap {
@@ -73,7 +72,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--primary-950);
+  color: #ffffff;
   flex-shrink: 0;
 }
 
@@ -137,8 +136,8 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(135deg, var(--gold-500), var(--gold-600));
-  color: var(--primary-950);
+  background: linear-gradient(135deg, #0d3311, #1b5e20);
+  color: #ffffff;
   border: none;
   padding: 8px 14px;
   border-radius: 20px;
@@ -150,7 +149,7 @@
 }
 
 .a11y-restore-trigger:hover {
-  background: var(--gold-400);
+  background: #0a2e14;
   transform: translateY(-2px);
 }
 

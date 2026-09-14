@@ -28,10 +28,9 @@ const uploadDocument = (req, res) => {
       return res.status(400).json({ success: false, message: 'Tidak ada file yang diunggah.' });
     }
 
-    const isPdf = req.file.mimetype === 'application/pdf';
-    const fileUrl = isPdf
-      ? `/documents/${req.file.filename}`
-      : `/images/uploads/${req.file.filename}`;
+    // Files are always saved by documentStorage to public/documents,
+    // so the public URL must always point to /documents/ regardless of type.
+    const fileUrl = `/documents/${req.file.filename}`;
 
     res.status(201).json({
       success: true,
