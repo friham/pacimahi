@@ -116,7 +116,6 @@ function CaseTrackingModal({ isOpen, onClose, initialQuery = '' }) {
             </div>
           </form>
 
-          {/* Quick suggestions */}
           <div className="case-modal__samples">
             <span className="case-modal__samples-label">Contoh Cepat:</span>
             {sampleCases.map((s, idx) => (
@@ -131,7 +130,6 @@ function CaseTrackingModal({ isOpen, onClose, initialQuery = '' }) {
             ))}
           </div>
 
-          {/* Result Card */}
           {searched && searchResult && (
             <div className="case-result-card animate-fade-in-up">
               <div className="case-result-card__header">

@@ -15,7 +15,6 @@ export default function DynamicCMSPage({ customSlug, fallbackComponent: Fallback
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Compute slug from customSlug, routeSlug, or last pathname segment
   const activeSlug = customSlug || routeSlug || location.pathname.split('/').filter(Boolean).pop();
 
   const fetchPage = useCallback(async () => {
@@ -44,12 +43,10 @@ export default function DynamicCMSPage({ customSlug, fallbackComponent: Fallback
     return () => window.removeEventListener('cms_page_updated', handleUpdate);
   }, [fetchPage]);
 
-  // If loading and a static fallback exists, render the fallback directly so there's zero flicker
   if (loading && Fallback) {
     return <Fallback />;
   }
 
-  // If loading without fallback, show spinner
   if (loading) {
     return (
       <ProfileLayout title="Memuat Halaman..." breadcrumb="Memuat...">
@@ -61,13 +58,10 @@ export default function DynamicCMSPage({ customSlug, fallbackComponent: Fallback
     );
   }
 
-  // If error or page not found:
-  // If Fallback component exists, render it!
   if ((error || !page) && Fallback) {
     return <Fallback />;
   }
 
-  // If error and no fallback, show 404
   if (error || !page) {
     return (
       <ProfileLayout title="Halaman Tidak Ditemukan" breadcrumb="404">
@@ -94,7 +88,6 @@ export default function DynamicCMSPage({ customSlug, fallbackComponent: Fallback
     >
       <article className="pa-article cms-dynamic-article">
 
-        {/* Date & Author Info */}
         <div style={{ display: 'flex', gap: '16px', fontSize: '0.85rem', color: '#6b7280', marginBottom: '1.5rem', borderBottom: '1px solid #e5e7eb', paddingBottom: '0.75rem' }}>
           <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <FaCalendarAlt size={12} style={{ color: '#0b4619' }} /> 
@@ -106,14 +99,12 @@ export default function DynamicCMSPage({ customSlug, fallbackComponent: Fallback
           </span>
         </div>
 
-        {/* Excerpt if present */}
         {page.excerpt && (
           <div className="pa-callout" style={{ fontStyle: 'italic', marginBottom: '2rem' }}>
             <p style={{ margin: 0, color: 'var(--primary-900)' }}>{page.excerpt}</p>
           </div>
         )}
 
-        {/* Render Blocks or Fallback HTML */}
         {contentBlocks.length > 0 ? (
           <BlockRenderer blocks={contentBlocks} />
         ) : page.content_html ? (

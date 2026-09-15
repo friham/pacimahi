@@ -65,7 +65,6 @@ function PengumumanPage() {
       breadcrumb="Pengumuman"
     >
       <div className="pa-content-card">
-        {/* Search Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
           <div>
             <h2 style={{ fontSize: '1.25rem', color: '#1b5e20', margin: '0 0 4px 0' }}>Arsip Pengumuman Resmi Satker</h2>
@@ -89,7 +88,6 @@ function PengumumanPage() {
           </div>
         </div>
 
-        {/* List of Announcements */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {filteredAnnouncements.map((item) => (
             <div

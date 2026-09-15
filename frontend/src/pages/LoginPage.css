@@ -1,6 +1,4 @@
-/* ============================================
-   Login Page Styles - Pengadilan Agama Kota Cimahi
-   ============================================ */
+
 .login-page {
   min-height: 100vh;
   display: flex;
@@ -12,7 +10,6 @@
   font-family: inherit;
 }
 
-/* Background Layers */
 .login-page__bg {
   position: absolute;
   inset: 0;
@@ -21,7 +18,6 @@
   overflow: hidden;
 }
 
-/* Ambient Radial Glow */
 .login-page__bg-glow {
   position: absolute;
   inset: 0;
@@ -44,7 +40,6 @@
   }
 }
 
-/* GoPKP-style Geometric Interlocking Pattern */
 .login-page__bg-pattern {
   position: absolute;
   inset: -50px;
@@ -55,7 +50,6 @@
   pointer-events: none;
 }
 
-/* Vignette to frame the screen */
 .login-page__bg-vignette {
   position: absolute;
   inset: 0;
@@ -63,9 +57,6 @@
   pointer-events: none;
 }
 
-/* ============================================
-   Back to Home Button
-   ============================================ */
 .login-page__back {
   position: fixed;
   top: 24px;
@@ -111,9 +102,6 @@
   }
 }
 
-/* ============================================
-   Login Card
-   ============================================ */
 .login-card {
   position: relative;
   z-index: 10;
@@ -129,7 +117,6 @@
   overflow: hidden;
 }
 
-/* Entrance Animations */
 .animate-card-entrance {
   animation: cardEntrance 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
@@ -147,9 +134,6 @@
   }
 }
 
-/* ============================================
-   Card Header
-   ============================================ */
 .login-card__header {
   text-align: center;
   padding: 2.75rem 2rem 2.25rem;
@@ -158,7 +142,6 @@
   border-bottom: 1px solid rgba(212, 175, 55, 0.2);
 }
 
-/* Subtle curved divider at bottom of header */
 .login-card__header::after {
   content: '';
   position: absolute;
@@ -170,7 +153,6 @@
   border-radius: 20px 20px 0 0;
 }
 
-/* Logo Wrapper */
 .login-card__logo-wrap {
   position: relative;
   display: inline-flex;
@@ -179,7 +161,6 @@
   margin-bottom: 1.15rem;
 }
 
-/* Ambient backlight glow directly behind logo */
 .login-card__logo-glow {
   position: absolute;
   top: 50%;
@@ -206,7 +187,6 @@
   }
 }
 
-/* PA Cimahi Official Logo Emblem */
 .login-card__logo-img {
   position: relative;
   z-index: 1;
@@ -244,7 +224,6 @@
   }
 }
 
-/* Header Text */
 .login-card__title {
   font-size: 1.45rem;
   font-weight: 800;
@@ -262,9 +241,6 @@
   margin: 0;
 }
 
-/* ============================================
-   Form Styles
-   ============================================ */
 .login-card__form {
   padding: 1.75rem 2.25rem 2.5rem;
 }
@@ -362,7 +338,6 @@
   background: rgba(0, 0, 0, 0.04);
 }
 
-/* Submit Button */
 .login-card__submit {
   width: 100%;
   height: 50px;
@@ -385,7 +360,6 @@
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Light shimmer sweep on hover */
 .login-card__submit::after {
   content: '';
   position: absolute;
@@ -427,7 +401,6 @@
   transform: translateX(3px);
 }
 
-/* Spinner */
 .login-card__spinner {
   width: 22px;
   height: 22px;
@@ -441,9 +414,6 @@
   to { transform: rotate(360deg); }
 }
 
-/* ============================================
-   Staggered Entrance Animation Keyframes
-   ============================================ */
 .animate-stagger-1 {
   animation: itemEntrance 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both;
 }
@@ -471,7 +441,6 @@
   }
 }
 
-/* Responsive */
 @media (max-width: 480px) {
   .login-card {
     margin: 1rem;

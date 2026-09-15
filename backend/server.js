@@ -20,14 +20,13 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const isProduction = process.env.NODE_ENV === 'production';
 
-// ── CORS ──────────────────────────────────────────────
 const allowedOrigins = isProduction
   ? (process.env.CORS_ORIGIN || '').split(',').filter(Boolean)
   : ['http://localhost:5173', 'http://localhost:3000'];
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (mobile apps, curl, server-to-server)
+    
     if (!origin) return callback(null, true);
     if (allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
       return callback(null, true);
@@ -37,10 +36,6 @@ app.use(cors({
   credentials: true
 }));
 
-// ── Rate Limiting ─────────────────────────────────────
-// Public read-only limiter: 300 requests per 15 minutes per IP
-// Used for endpoints that multiple frontend components hit simultaneously
-// (settings, sliders, services, news, menus tree)
 const publicReadLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 300,
@@ -49,7 +44,6 @@ const publicReadLimiter = rateLimit({
   message: { success: false, message: 'Terlalu banyak request, coba lagi nanti.' }
 });
 
-// General API limiter: 100 requests per 15 minutes per IP
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
@@ -58,7 +52,6 @@ const apiLimiter = rateLimit({
   message: { success: false, message: 'Terlalu banyak request, coba lagi nanti.' }
 });
 
-// Upload limiter: 20 uploads per 15 minutes per IP
 const uploadLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 20,
@@ -70,15 +63,9 @@ const uploadLimiter = rateLimit({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Static files
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 app.use('/documents', express.static(path.join(__dirname, 'public/documents')));
 
-// Routes (with rate limiting)
-// NOTE: /api/auth does NOT use a global authLimiter anymore.
-// The login endpoint has its own loginLimiter inside authRoutes.
-// Other auth endpoints (/me, /profile, /password) are authenticated
-// and don't need aggressive rate limiting that blocks normal usage.
 app.use('/api/auth', authRoutes);
 app.use('/api/sliders', publicReadLimiter, sliderRoutes);
 app.use('/api/services', publicReadLimiter, serviceRoutes);
@@ -91,7 +78,6 @@ app.use('/api/media', apiLimiter, mediaRoutes);
 app.use('/api/documents', apiLimiter, documentRoutes);
 app.use('/api/audit-logs', apiLimiter, auditRoutes);
 
-// Health check
 app.get('/api/health', (req, res) => {
   res.json({
     success: true,
@@ -100,7 +86,6 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Error handling middleware (Express 5 — do NOT call next(err) after sending response)
 app.use((err, req, res, _next) => {
   console.error('Error:', err.stack);
   res.status(500).json({
@@ -108,7 +93,6 @@ app.use((err, req, res, _next) => {
     message: 'Terjadi kesalahan internal server.'
   });
 });
-
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);

@@ -1,6 +1,4 @@
-/* ========================================================
-   Kesekretariatan Layout & Page Styles
-   ======================================================== */
+
 
 .kesekretariatan-page-wrapper {
   min-height: 100vh;
@@ -9,7 +7,6 @@
   flex-direction: column;
 }
 
-/* Hero Section */
 .kesekretariatan-hero {
   background: linear-gradient(135deg, #1b5e20 0%, #0d3813 100%);
   color: #ffffff;
@@ -87,7 +84,6 @@
   line-height: 1.5;
 }
 
-/* Layout Body Grid */
 .kesekretariatan-body-container {
   max-width: 1280px;
   width: 100%;
@@ -99,7 +95,6 @@
   align-items: start;
 }
 
-/* Left Sidebar */
 .kesekretariatan-sidebar {
   display: flex;
   flex-direction: column;
@@ -110,7 +105,6 @@
   min-width: 0;
 }
 
-/* Responsive */
 @media (max-width: 1024px) {
   .kesekretariatan-body-container {
     grid-template-columns: 1fr;

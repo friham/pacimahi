@@ -67,7 +67,6 @@ function SAKIPPage() {
       breadcrumb="SAKIP / Pengelolaan Pengadilan"
     >
       <div className="pa-content-card">
-        {/* Intro */}
         <div style={{ background: '#f8fafc', borderLeft: '4px solid #1b5e20', padding: '16px', borderRadius: '0 8px 8px 0', marginBottom: '24px' }}>
           <h3 style={{ fontSize: '1.05rem', color: '#1b5e20', margin: '0 0 4px 0' }}>Akuntabilitas Kinerja & Sistem Pengelolaan Pengadilan</h3>
           <p style={{ margin: 0, fontSize: '0.85rem', color: '#475569', lineHeight: 1.5 }}>
@@ -75,7 +74,6 @@ function SAKIPPage() {
           </p>
         </div>
 
-        {/* Tab Selection */}
         <div style={{ display: 'flex', gap: '6px', borderBottom: '2px solid #e2e8f0', marginBottom: '24px', flexWrap: 'wrap' }}>
           {sakipTabs.map((tab) => {
             const Icon = tab.icon;
@@ -104,7 +102,6 @@ function SAKIPPage() {
           })}
         </div>
 
-        {/* Documents */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
           {(docsData[activeTab] || []).map((doc, idx) => (
             <div

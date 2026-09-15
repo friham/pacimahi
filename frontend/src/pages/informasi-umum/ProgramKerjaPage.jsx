@@ -56,7 +56,6 @@ function ProgramKerjaPage() {
           </p>
         </div>
 
-        {/* Year Filter Tabs */}
         <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', margin: '1.5rem 0' }}>
           {prokerData.map((item) => (
             <button
@@ -80,7 +79,6 @@ function ProgramKerjaPage() {
           ))}
         </div>
 
-        {/* Selected Year Detail Box */}
         <div style={{
           background: '#f8fafc',
           border: '1px solid var(--gray-200)',
@@ -119,7 +117,6 @@ function ProgramKerjaPage() {
             </a>
           </div>
 
-          {/* Embed Viewer */}
           <div className="embed-container" style={{ paddingBottom: '90%' }}>
             <iframe
               src={selectedItem.link}

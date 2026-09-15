@@ -3,7 +3,6 @@ import { FaSearch, FaShareAlt } from 'react-icons/fa';
 export default function SeoForm({ formData, onChange, onOpenMediaLibrary }) {
   return (
     <div className="cms-seo-form" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-      {/* Google Search Preview */}
       <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', fontWeight: 600, color: '#334155', marginBottom: '8px' }}>
           <FaSearch size={12} /> Pratinjau Hasil Pencarian Google
@@ -79,7 +78,6 @@ export default function SeoForm({ formData, onChange, onOpenMediaLibrary }) {
         />
       </div>
 
-      {/* Social / OpenGraph Card */}
       <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1px solid #e2e8f0', marginTop: '0.5rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', fontWeight: 600, color: '#334155', marginBottom: '10px' }}>
           <FaShareAlt size={12} /> Media Sosial / OpenGraph (WhatsApp, Facebook, Twitter)

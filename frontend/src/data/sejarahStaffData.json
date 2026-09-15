@@ -1,0 +1,15 @@
+[
+  { "no": 1, "name": "KH. Moh. Syarif Ishak", "gol": "II/c", "edu": "Pesantren", "role": "Ketua Pengadilan" },
+  { "no": 2, "name": "Hidayat Rifa`i, B.A.", "gol": "II/c", "edu": "Sarmud Unu", "role": "Wakil Ketua" },
+  { "no": 3, "name": "RA. Ateng Jam`an", "gol": "II/a", "edu": "SMA", "role": "Panitera Kepala" },
+  { "no": 4, "name": "RA. Ma`mun", "gol": "II/b", "edu": "SMA", "role": "Ka Kep. Perkara" },
+  { "no": 5, "name": "Somantri, BE", "gol": "II/a", "edu": "SM Unpad", "role": "Panitera Sidang" },
+  { "no": 6, "name": "Eko Sukarya", "gol": "I/c", "edu": "SMA", "role": "Panitera Sidang" },
+  { "no": 7, "name": "Suparno", "gol": "I/b", "edu": "SMP", "role": "Panitera Sidang" },
+  { "no": 8, "name": "Imun Rukmana", "gol": "I/d", "edu": "SMP", "role": "Keuangan / Gaji" },
+  { "no": 9, "name": "Adji Sutarja", "gol": "I/c", "edu": "SMP", "role": "Staf" },
+  { "no": 10, "name": "Darosih", "gol": "I/c", "edu": "SMP", "role": "Staf" },
+  { "no": 11, "name": "U. Dahrojat", "gol": "I/c", "edu": "SMP", "role": "Staf" },
+  { "no": 12, "name": "Idar", "gol": "I/a", "edu": "SD", "role": "Staf" },
+  { "no": 13, "name": "Komara", "gol": "I/a", "edu": "SD", "role": "Staf" }
+]

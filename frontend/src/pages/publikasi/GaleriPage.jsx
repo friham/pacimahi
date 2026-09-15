@@ -71,7 +71,6 @@ function GaleriPage() {
       breadcrumb="Galeri"
     >
       <div className="pa-content-card">
-        {/* Navigation Tabs */}
         <div style={{ display: 'flex', gap: '8px', borderBottom: '2px solid #e2e8f0', marginBottom: '24px' }}>
           <button
             onClick={() => setActiveTab('foto')}
@@ -109,7 +108,6 @@ function GaleriPage() {
           </button>
         </div>
 
-        {/* TAB 1: FOTO GALLERY */}
         {activeTab === 'foto' && (
           <div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
@@ -160,7 +158,6 @@ function GaleriPage() {
           </div>
         )}
 
-        {/* TAB 2: VIDEO */}
         {activeTab === 'video' && (
           <div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
@@ -188,7 +185,6 @@ function GaleriPage() {
           </div>
         )}
 
-        {/* Lightbox Modal */}
         {selectedPhoto && (
           <div
             onClick={() => setSelectedPhoto(null)}

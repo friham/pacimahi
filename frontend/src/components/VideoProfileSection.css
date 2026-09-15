@@ -1,7 +1,4 @@
-/* ============================================
-   Video Profile Section Styles
-   Matches Reference Design (Image 2)
-   ============================================ */
+
 
 .video-profile-section {
   padding: 4.5rem 0 5.5rem 0;
@@ -9,7 +6,6 @@
   position: relative;
 }
 
-/* Header */
 .video-profile__header {
   text-align: center;
   margin-bottom: 2.5rem;
@@ -29,7 +25,6 @@
   margin-bottom: 0.5rem;
 }
 
-/* Video Card Wrapper */
 .video-card-wrapper {
   max-width: 1080px;
   margin: 0 auto;
@@ -53,10 +48,6 @@
 .video-card:hover {
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(27, 94, 32, 0.2);
 }
-
-/* ============================================
-   Video Cover Banner (Preview State)
-   ============================================ */
 
 .video-cover {
   width: 100%;
@@ -82,7 +73,6 @@
   transform: scale(1.03);
 }
 
-/* Overlay gradient */
 .video-cover__overlay {
   position: absolute;
   inset: 0;
@@ -104,7 +94,6 @@
   );
 }
 
-/* Top Bar */
 .video-cover__top {
   position: relative;
   z-index: 3;
@@ -177,7 +166,6 @@
   transform: translateY(-1px);
 }
 
-/* Center Content & Big Play Button */
 .video-cover__center {
   position: relative;
   z-index: 3;
@@ -246,7 +234,6 @@
   line-height: 1.4;
 }
 
-/* Bottom Bar */
 .video-cover__bottom {
   position: relative;
   z-index: 3;
@@ -280,7 +267,6 @@
   box-shadow: 0 0 8px #22c55e;
 }
 
-/* Direct YouTube Button (Image 2 style) */
 .video-yt-direct-btn {
   display: flex;
   align-items: center;
@@ -325,10 +311,6 @@
   font-size: 0.75rem;
   opacity: 0.8;
 }
-
-/* ============================================
-   Inline Player State
-   ============================================ */
 
 .video-player-container {
   width: 100%;
@@ -416,10 +398,6 @@
   height: 100%;
   border: none;
 }
-
-/* ============================================
-   Responsive Adjustments
-   ============================================ */
 
 @media (max-width: 768px) {
   .video-card {

@@ -25,7 +25,6 @@ function AlamatPengadilanPage() {
           </p>
         </div>
 
-        {/* Contact Info Cards Grid */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.25rem', margin: '2rem 0' }}>
           <div style={{
             background: 'white',

@@ -1,6 +1,4 @@
-/* ============================================
-   Kepaniteraan Layout Styles
-   ============================================ */
+
 
 .kepaniteraan-page-wrapper {
   min-height: 100vh;
@@ -86,7 +84,6 @@
   line-height: 1.5;
 }
 
-/* Main Container Grid */
 .kepaniteraan-body-container {
   max-width: 1280px;
   width: 100%;
@@ -99,7 +96,6 @@
   flex: 1;
 }
 
-/* Sidebar */
 .kepaniteraan-sidebar {
   display: flex;
   flex-direction: column;
@@ -115,7 +111,6 @@
   min-height: 500px;
 }
 
-/* Responsive */
 @media (max-width: 1024px) {
   .kepaniteraan-body-container {
     grid-template-columns: 1fr;
@@ -144,7 +139,6 @@
   }
 }
 
-/* Sidebar Sublist */
 .sidebar-nav-sublist {
   list-style: none;
   padding: 0;

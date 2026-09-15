@@ -12,10 +12,8 @@ const {
   togglePageStatus
 } = require('../controllers/pageController');
 
-// Public route to view CMS page
 router.get('/slug/:slug', getPageBySlug);
 
-// Protected routes (Admin & Editor)
 router.get('/', authMiddleware, getPages);
 router.get('/:id', authMiddleware, getPageById);
 router.post('/', authMiddleware, checkRole(['superadmin', 'admin', 'editor']), createPage);

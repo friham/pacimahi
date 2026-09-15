@@ -56,7 +56,6 @@ function StrukturOrganisasiPage() {
           Bagan kelembagaan yang mengintegrasikan fungsi pimpinan, hakim, kepaniteraan, dan kesekretariatan:
         </p>
 
-        {/* Gambar Struktur Organisasi */}
         <div style={{
           margin: '1.5rem 0',
           background: 'white',
@@ -85,7 +84,6 @@ function StrukturOrganisasiPage() {
           </p>
         </div>
 
-        {/* Visual Structural Diagram Cards */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', margin: '2rem 0' }}>
           {structureNodes.map((section, sIdx) => (
             <div

@@ -1,18 +1,14 @@
-/* ============================================
-   ACO (Access CCTV Online) Floating Button
-   Theme matched with Accessibility & Tanya SAPA
-   ============================================ */
+
 
 .aco-floating-wrapper {
   position: fixed;
-  bottom: 148px; /* SAPA(28px) + ~50px SAPA height + gap + a11y(48px) + gap */
+  bottom: 148px; 
   right: 28px;
   z-index: 9998;
   display: flex;
   align-items: center;
 }
 
-/* Circular Floating Button - Same size as Accessibility widget (48px) */
 .aco-floating-btn {
   width: 48px;
   height: 48px;
@@ -39,26 +35,22 @@
   animation-delay: 1s;
 }
 
-/* Hover Interaction: Scale and Gold Glow matching other buttons */
 .aco-floating-btn:hover {
   transform: translateY(-2px) scale(1.04);
   background: #0a2e14;
   box-shadow: 0 0 0 8px rgba(76, 175, 80, 0.32), 0 12px 28px rgba(76, 175, 80, 0.45);
 }
 
-/* Active Press State */
 .aco-floating-btn:active {
   transform: translateY(0) scale(0.97);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Accessible Focus Outline */
 .aco-floating-btn:focus-visible {
   outline: 2.5px solid var(--primary-500);
   outline-offset: 3px;
 }
 
-/* Icon Container & SVG */
 .aco-icon-container {
   width: 26px;
   height: 26px;
@@ -80,7 +72,6 @@
   stroke: currentColor;
 }
 
-/* Tooltip on the left */
 .aco-tooltip-card {
   position: absolute;
   right: calc(100% + 12px);
@@ -98,10 +89,6 @@
   pointer-events: none;
   z-index: 10;
 }
-
-/* ============================================
-   Responsive Adjustments
-   ============================================ */
 
 @media (max-width: 480px) {
   .aco-floating-wrapper {

@@ -29,7 +29,6 @@ function KepegawaianPage() {
       breadcrumb="Kepegawaian"
     >
       <div className="pa-content-card">
-        {/* Banner SIKEP */}
         <div style={{
           background: 'linear-gradient(135deg, #1b5e20, #0369a1)',
           borderRadius: '10px',
@@ -70,7 +69,6 @@ function KepegawaianPage() {
           </a>
         </div>
 
-        {/* Bezzeting Table */}
         <h2 style={{ fontSize: '1.2rem', color: '#1b5e20', margin: '0 0 8px 0' }}>Rekapitulasi Bezzeting Formasi Pegawai TA 2025</h2>
         <p style={{ margin: '0 0 16px 0', color: '#64748b', fontSize: '0.88rem' }}>Jumlah pegawai aktif per unit kerja di lingkungan PA Kota Cimahi</p>
 
@@ -95,7 +93,6 @@ function KepegawaianPage() {
           </table>
         </div>
 
-        {/* Layanan Kepegawaian */}
         <h3 style={{ fontSize: '1.1rem', color: '#1b5e20', margin: '0 0 12px 0' }}>Standar Pelayanan Administrasi Kepegawaian</h3>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '14px', marginBottom: '24px' }}>
           {[

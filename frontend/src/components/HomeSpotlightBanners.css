@@ -1,8 +1,4 @@
-/* ========================================================
-   Home Spotlight Banners Stylesheet
-   Styling for Zona Integritas, Alur Prioritas, Dual Action Cards,
-   Brosur Digital, and Akta Cerai Online
-======================================================== */
+
 
 .home-spotlight-section {
   padding: 3.5rem 0;
@@ -21,9 +17,6 @@
   background: linear-gradient(90deg, #1b5e20, #059669, #66bb6a, #1b5e20);
 }
 
-/* ========================================================
-   Common Spotlight Elements
-======================================================== */
 .spotlight-block {
   margin-bottom: 3.5rem;
 }
@@ -72,7 +65,6 @@
   margin: 0;
 }
 
-/* Buttons */
 .spotlight-btn {
   display: inline-flex;
   align-items: center;
@@ -138,9 +130,6 @@
   transform: translateY(-2px);
 }
 
-/* ========================================================
-   1. ZONA INTEGRITAS 7 CARDS GRID
-======================================================== */
 .zi-cards-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -170,7 +159,7 @@
 .zi-card__img-container {
   position: relative;
   width: 100%;
-  padding-top: 110%; /* near-square aspect ratio */
+  padding-top: 110%; 
   overflow: hidden;
   background: #032a18;
 }
@@ -253,9 +242,6 @@
   overflow: hidden;
 }
 
-/* ========================================================
-   2. ALUR PELAYANAN PRIORITAS PTSP
-======================================================== */
 .prioritas-banner-card {
   background: #ffffff;
   border-radius: 16px;
@@ -354,9 +340,6 @@
   flex-wrap: wrap;
 }
 
-/* ========================================================
-   3. DUAL BANNER: PROSEDUR BERPERKARA & LAYANAN INFORMASI
-======================================================== */
 .service-dual-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -384,7 +367,7 @@
 .service-dual-card__img-box {
   position: relative;
   width: 100%;
-  padding-top: 48%; /* aspect ratio for button */
+  padding-top: 48%; 
   overflow: hidden;
   background: #f8fafc;
 }
@@ -458,9 +441,6 @@
   margin: 0;
 }
 
-/* ========================================================
-   4. BROSUR DIGITAL
-======================================================== */
 .brosur-card {
   background: #ffffff;
   border-radius: 16px;
@@ -561,9 +541,6 @@
   border-color: #16a34a;
 }
 
-/* ========================================================
-   5. AKTA CERAI BANNER
-======================================================== */
 .akta-card {
   background: #ffffff;
   border-radius: 16px;
@@ -646,9 +623,6 @@
   flex-wrap: wrap;
 }
 
-/* ========================================================
-   LIGHTBOX / ZOOM MODAL
-======================================================== */
 .spotlight-modal-overlay {
   position: fixed;
   inset: 0;
@@ -745,9 +719,6 @@
   to { transform: scale(1); opacity: 1; }
 }
 
-/* ========================================================
-   RESPONSIVE DESIGN
-======================================================== */
 @media (max-width: 1100px) {
   .zi-cards-grid {
     grid-template-columns: repeat(4, 1fr);

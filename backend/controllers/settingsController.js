@@ -1,6 +1,5 @@
 const pool = require('../config/db');
 
-// Get all settings as key-value object
 const getSettings = async (req, res) => {
   try {
     const [rows] = await pool.execute('SELECT setting_key, setting_value, setting_group FROM site_settings');
@@ -22,10 +21,9 @@ const getSettings = async (req, res) => {
   }
 };
 
-// Update/Upsert settings (receives object of key-values)
 const updateSettings = async (req, res) => {
   try {
-    const updates = req.body; // e.g. { hero_title: '...', hero_subtitle: '...' }
+    const updates = req.body; 
 
     for (const [key, value] of Object.entries(updates)) {
       const valStr = value !== null && value !== undefined ? String(value) : '';

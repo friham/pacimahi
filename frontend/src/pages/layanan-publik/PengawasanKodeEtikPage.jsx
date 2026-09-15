@@ -32,7 +32,6 @@ function PengawasanKodeEtikPage() {
       breadcrumb="Pengawasan & Kode Etik"
     >
       <div className="pa-content-card">
-        {/* Zero Punishment Banner */}
         <div style={{
           background: 'linear-gradient(135deg, #1b5e20, #047857)',
           borderRadius: '12px',
@@ -64,7 +63,6 @@ function PengawasanKodeEtikPage() {
           </div>
         </div>
 
-        {/* Navigation Tabs */}
         <div style={{ display: 'flex', gap: '6px', borderBottom: '2px solid #e2e8f0', marginBottom: '24px', flexWrap: 'wrap' }}>
           {kodeEtikTabs.map((tab) => {
             const Icon = tab.icon;
@@ -93,7 +91,6 @@ function PengawasanKodeEtikPage() {
           })}
         </div>
 
-        {/* TAB 1: KODE ETIK HAKIM */}
         {activeTab === 'hakim' && (
           <div>
             <h3 style={{ fontSize: '1.15rem', color: '#1b5e20', margin: '0 0 8px 0' }}>10 Prinsip Kode Etik & Pedoman Perilaku Hakim (KEPPH)</h3>
@@ -124,7 +121,6 @@ function PengawasanKodeEtikPage() {
           </div>
         )}
 
-        {/* TAB 2: PANITERA & JURUSITA */}
         {activeTab === 'panitera' && (
           <div>
             <h3 style={{ fontSize: '1.15rem', color: '#1b5e20', margin: '0 0 8px 0' }}>Kode Etik Panitera dan Jurusita (IPASPI)</h3>
@@ -141,7 +137,6 @@ function PengawasanKodeEtikPage() {
           </div>
         )}
 
-        {/* TAB 3: PEGAWAI */}
         {activeTab === 'pegawai' && (
           <div>
             <h3 style={{ fontSize: '1.15rem', color: '#1b5e20', margin: '0 0 8px 0' }}>Kode Etik & Disiplin Pegawai ASN (PP No. 94 Tahun 2021)</h3>
@@ -157,7 +152,6 @@ function PengawasanKodeEtikPage() {
           </div>
         )}
 
-        {/* TAB 4: DATA HUKUMAN DISIPLIN */}
         {activeTab === 'hukuman' && (
           <div>
             <h3 style={{ fontSize: '1.15rem', color: '#1b5e20', margin: '0 0 8px 0' }}>Rekapitulasi Data Penjatuhan Hukuman Disiplin (2024 - 2025)</h3>
@@ -193,7 +187,6 @@ function PengawasanKodeEtikPage() {
           </div>
         )}
 
-        {/* TAB 5: LAPORAN PENGADUAN */}
         {activeTab === 'pengaduan' && (
           <div>
             <h3 style={{ fontSize: '1.15rem', color: '#1b5e20', margin: '0 0 8px 0' }}>Laporan Triwulan Penyelesaian Pengaduan Masyarakat</h3>
@@ -211,7 +204,6 @@ function PengawasanKodeEtikPage() {
           </div>
         )}
 
-        {/* TAB 6: MKH */}
         {activeTab === 'mkh' && (
           <div>
             <h3 style={{ fontSize: '1.15rem', color: '#1b5e20', margin: '0 0 8px 0' }}>Putusan Majelis Kehormatan Hakim (MKH)</h3>
@@ -224,7 +216,6 @@ function PengawasanKodeEtikPage() {
           </div>
         )}
 
-        {/* TAB 7: PEDOMAN PENGAWASAN */}
         {activeTab === 'pedoman' && (
           <div>
             <h3 style={{ fontSize: '1.15rem', color: '#1b5e20', margin: '0 0 8px 0' }}>Pedoman Pengawasan Mahkamah Agung RI</h3>

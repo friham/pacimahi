@@ -29,7 +29,6 @@ function LayananPengaduanPage() {
       breadcrumb="Layanan Pengaduan"
     >
       <div className="pa-content-card">
-        {/* SIWAS Banner */}
         <div style={{
           background: 'linear-gradient(135deg, #1e3a8a, #0369a1)',
           borderRadius: '12px',
@@ -77,7 +76,6 @@ function LayananPengaduanPage() {
           </a>
         </div>
 
-        {/* Tab Buttons */}
         <div style={{ display: 'flex', gap: '8px', borderBottom: '2px solid #e2e8f0', marginBottom: '24px' }}>
           <button
             onClick={() => setTab('alur')}
@@ -123,7 +121,6 @@ function LayananPengaduanPage() {
           </button>
         </div>
 
-        {/* TAB 1: ALUR */}
         {tab === 'alur' && (
           <div>
             <h3 style={{ fontSize: '1.15rem', color: '#1b5e20', margin: '0 0 14px 0' }}>4 Kanal Resmi Pengaduan PA Kota Cimahi</h3>
@@ -153,7 +150,6 @@ function LayananPengaduanPage() {
           </div>
         )}
 
-        {/* TAB 2: HAK PELAPOR & TERLAPOR */}
         {tab === 'hak' && (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
             <div style={{ border: '1px solid #e2e8f0', borderRadius: '10px', padding: '18px', background: '#fff' }}>
@@ -178,7 +174,6 @@ function LayananPengaduanPage() {
           </div>
         )}
 
-        {/* TAB 3: LAPORAN MEJA PENGADUAN */}
         {tab === 'meja' && (
           <div>
             <h3 style={{ fontSize: '1.15rem', color: '#1b5e20', margin: '0 0 12px 0' }}>Rekapitulasi Register Meja Pengaduan</h3>

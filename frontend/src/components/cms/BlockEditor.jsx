@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { 
-  FaPlus, FaTrash, FaCopy, FaChevronUp, FaChevronDown, 
-  FaGripVertical, FaHeading, FaParagraph, FaImage, FaImages, 
-  FaVideo, FaMousePointer, FaLink, FaFilePdf, FaTable, FaQuoteRight, 
-  FaListUl, FaCode, FaMapMarkerAlt, FaMinus, FaEye, FaAngleDown, FaAngleRight
+import {
+  FaPlus, FaTrash, FaCopy, FaChevronUp, FaChevronDown,
+  FaGripVertical, FaHeading, FaParagraph, FaImage, FaImages,
+  FaVideo, FaMousePointer, FaLink, FaFilePdf, FaTable, FaQuoteRight,
+  FaListUl, FaCode, FaMapMarkerAlt, FaMinus, FaEye, FaAngleDown, FaAngleRight,
+  FaAlignLeft, FaAlignCenter, FaAlignRight, FaAlignJustify
 } from 'react-icons/fa';
 import MediaLibraryModal from './MediaLibraryModal';
 import DocumentPickerModal from './DocumentPickerModal';
@@ -35,7 +36,6 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
   const [draggedIndex, setDraggedIndex] = useState(null);
   const [dropTargetIndex, setDropTargetIndex] = useState(null);
 
-  // Modals state
   const [mediaModalOpen, setMediaModalOpen] = useState(false);
   const [mediaTargetCallback, setMediaTargetCallback] = useState(null);
   const [docModalOpen, setDocModalOpen] = useState(false);
@@ -52,7 +52,6 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
     return expandedBlocks[idx] !== false;
   };
 
-  // Add block
   const handleAddBlock = (type) => {
     let initialContent = {};
     let initialSettings = {};
@@ -133,7 +132,6 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
     setShowAddMenu(false);
   };
 
-  // Update block content or settings
   const updateBlock = (index, field, value) => {
     const nextBlocks = [...blocks];
     nextBlocks[index] = {
@@ -143,14 +141,12 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
     onChange(nextBlocks);
   };
 
-  // Delete block
   const deleteBlock = (index) => {
     if (!window.confirm('Hapus block ini?')) return;
     const nextBlocks = blocks.filter((_, i) => i !== index);
     onChange(nextBlocks);
   };
 
-  // Duplicate block
   const duplicateBlock = (index) => {
     const item = blocks[index];
     const cloned = {
@@ -164,7 +160,6 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
     onChange(nextBlocks);
   };
 
-  // Move Up / Down
   const moveBlock = (fromIndex, toIndex) => {
     if (toIndex < 0 || toIndex >= blocks.length) return;
     const nextBlocks = [...blocks];
@@ -173,7 +168,6 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
     onChange(nextBlocks);
   };
 
-  // HTML5 Drag & Drop handlers
   const handleDragStart = (e, index) => {
     setDraggedIndex(index);
     e.dataTransfer.effectAllowed = 'move';
@@ -201,7 +195,6 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
     setDropTargetIndex(null);
   };
 
-  // Helpers to trigger modals
   const openMediaPickerFor = (callback) => {
     setMediaTargetCallback(() => callback);
     setMediaModalOpen(true);
@@ -214,7 +207,6 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
 
   return (
     <div className="cms-block-editor">
-      {/* Block List */}
       <div className="cms-block-list">
         {blocks.length === 0 ? (
           <div className="cms-block-empty">
@@ -235,7 +227,6 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
                 onDragOver={(e) => handleDragOver(e, index)}
                 onDrop={(e) => handleDrop(e, index)}
               >
-                {/* Block Header */}
                 <div className="cms-block-card__header">
                   <div 
                     className="cms-block-card__drag-handle" 
@@ -303,10 +294,8 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
                   </div>
                 </div>
 
-                {/* Block Body (Editable Fields) */}
                 {expanded && (
                   <div className="cms-block-card__body animate-fade-in">
-                    {/* HEADING BLOCK */}
                     {block.type === 'heading' && (
                       <div className="cms-field-grid">
                         <div className="cms-field-group" style={{ flex: 3 }}>
@@ -344,11 +333,11 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
                       </div>
                     )}
 
-                    {/* TEXT BLOCK */}
                     {block.type === 'text' && (
                       <div className="cms-field-group">
-                        <label>Konten Teks (Rich WYSIWYG Editor):</label>
-                        <RichTextEditor 
+                        <label>Konten Teks</label>
+                        <p className="cms-field-hint">Gunakan toolbar untuk format, daftar, dan gaya teks.</p>
+                        <RichTextEditor
                           value={block.content?.html || block.content?.text || ''}
                           onChange={(val) => updateBlock(index, 'content', { ...block.content, html: val })}
                           onOpenMediaLibrary={(cb) => openMediaPickerFor(cb)}
@@ -356,7 +345,6 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
                       </div>
                     )}
 
-                    {/* IMAGE BLOCK */}
                     {block.type === 'image' && (
                       <div className="cms-image-editor">
                         <div className="cms-image-editor__preview">
@@ -400,17 +388,17 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
                           </div>
                           <div className="cms-field-grid">
                             <div className="cms-field-group">
-                              <label>Alt Text (Aksesibilitas):</label>
-                              <input 
-                                type="text" 
-                                value={block.content?.alt || ''} 
+                              <label>Alt Text (Aksesibilitas)</label>
+                              <input
+                                type="text"
+                                value={block.content?.alt || ''}
                                 onChange={(e) => updateBlock(index, 'content', { ...block.content, alt: e.target.value })}
                                 placeholder="Deskripsi foto..."
                               />
                             </div>
                             <div className="cms-field-group">
-                              <label>Perataan:</label>
-                              <select 
+                              <label>Perataan</label>
+                              <select
                                 value={block.settings?.align || 'center'}
                                 onChange={(e) => updateBlock(index, 'settings', { ...block.settings, align: e.target.value })}
                               >
@@ -424,7 +412,6 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
                       </div>
                     )}
 
-                    {/* GALLERY BLOCK */}
                     {block.type === 'gallery' && (
                       <div className="cms-gallery-editor">
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
@@ -474,32 +461,31 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
                       </div>
                     )}
 
-                    {/* VIDEO BLOCK */}
                     {block.type === 'video' && (
                       <div className="cms-field-grid">
                         <div className="cms-field-group" style={{ flex: 2 }}>
-                          <label>Judul Video:</label>
-                          <input 
-                            type="text" 
-                            value={block.content?.title || ''} 
+                          <label>Judul Video</label>
+                          <input
+                            type="text"
+                            value={block.content?.title || ''}
                             onChange={(e) => updateBlock(index, 'content', { ...block.content, title: e.target.value })}
                             placeholder="Contoh: Video Sambutan Ketua Pengadilan"
                           />
                         </div>
                         <div className="cms-field-group" style={{ flex: 3 }}>
-                          <label>URL Video (YouTube / Vimeo / MP4):</label>
-                          <input 
-                            type="text" 
-                            value={block.content?.url || ''} 
+                          <label>URL Video (YouTube / Vimeo / MP4)</label>
+                          <input
+                            type="text"
+                            value={block.content?.url || ''}
                             onChange={(e) => updateBlock(index, 'content', { ...block.content, url: e.target.value })}
                             placeholder="https://www.youtube.com/watch?v=..."
                           />
                         </div>
                         <div className="cms-field-group" style={{ flex: 2 }}>
-                          <label>Keterangan Video:</label>
-                          <input 
-                            type="text" 
-                            value={block.content?.caption || ''} 
+                          <label>Keterangan Video</label>
+                          <input
+                            type="text"
+                            value={block.content?.caption || ''}
                             onChange={(e) => updateBlock(index, 'content', { ...block.content, caption: e.target.value })}
                             placeholder="Keterangan singkat..."
                           />
@@ -507,29 +493,28 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
                       </div>
                     )}
 
-                    {/* BUTTON BLOCK */}
                     {block.type === 'button' && (
                       <div className="cms-field-grid">
                         <div className="cms-field-group" style={{ flex: 2 }}>
-                          <label>Teks Tombol:</label>
-                          <input 
-                            type="text" 
-                            value={block.content?.text || ''} 
+                          <label>Teks Tombol</label>
+                          <input
+                            type="text"
+                            value={block.content?.text || ''}
                             onChange={(e) => updateBlock(index, 'content', { ...block.content, text: e.target.value })}
                           />
                         </div>
                         <div className="cms-field-group" style={{ flex: 3 }}>
-                          <label>URL Tujuan:</label>
-                          <input 
-                            type="text" 
-                            value={block.content?.url || ''} 
+                          <label>URL Tujuan</label>
+                          <input
+                            type="text"
+                            value={block.content?.url || ''}
                             onChange={(e) => updateBlock(index, 'content', { ...block.content, url: e.target.value })}
                             placeholder="https://... atau /layanan"
                           />
                         </div>
                         <div className="cms-field-group" style={{ flex: 1 }}>
-                          <label>Gaya:</label>
-                          <select 
+                          <label>Gaya</label>
+                          <select
                             value={block.settings?.variant || 'primary'}
                             onChange={(e) => updateBlock(index, 'settings', { ...block.settings, variant: e.target.value })}
                           >
@@ -539,8 +524,8 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
                           </select>
                         </div>
                         <div className="cms-field-group" style={{ flex: 1 }}>
-                          <label>Buka Tab Baru:</label>
-                          <select 
+                          <label>Buka Tab Baru</label>
+                          <select
                             value={block.content?.open_new_tab ? 'yes' : 'no'}
                             onChange={(e) => updateBlock(index, 'content', { ...block.content, open_new_tab: e.target.value === 'yes' })}
                           >
@@ -551,28 +536,27 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
                       </div>
                     )}
 
-                    {/* LINK BLOCK */}
                     {block.type === 'link' && (
                       <div className="cms-field-grid">
                         <div className="cms-field-group" style={{ flex: 2 }}>
-                          <label>Label Tautan:</label>
-                          <input 
-                            type="text" 
-                            value={block.content?.text || ''} 
+                          <label>Label Tautan</label>
+                          <input
+                            type="text"
+                            value={block.content?.text || ''}
                             onChange={(e) => updateBlock(index, 'content', { ...block.content, text: e.target.value })}
                           />
                         </div>
                         <div className="cms-field-group" style={{ flex: 3 }}>
-                          <label>URL (Internal/External):</label>
-                          <input 
-                            type="text" 
-                            value={block.content?.url || ''} 
+                          <label>URL (Internal/External)</label>
+                          <input
+                            type="text"
+                            value={block.content?.url || ''}
                             onChange={(e) => updateBlock(index, 'content', { ...block.content, url: e.target.value })}
                           />
                         </div>
                         <div className="cms-field-group" style={{ flex: 1 }}>
-                          <label>Tab Baru:</label>
-                          <select 
+                          <label>Tab Baru</label>
+                          <select
                             value={block.content?.open_new_tab ? 'yes' : 'no'}
                             onChange={(e) => updateBlock(index, 'content', { ...block.content, open_new_tab: e.target.value === 'yes' })}
                           >
@@ -583,13 +567,12 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
                       </div>
                     )}
 
-                    {/* DOCUMENT DOWNLOAD BLOCK */}
                     {block.type === 'document' && (
                       <div className="cms-field-group">
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                          <label>Informasi Berkas Dokumen Resmi:</label>
-                          <button 
-                            type="button" 
+                          <label>Informasi Berkas Dokumen Resmi</label>
+                          <button
+                            type="button"
                             className="cms-btn cms-btn--primary"
                             onClick={() => openDocPickerFor((doc) => {
                               updateBlock(index, 'content', {
@@ -608,26 +591,26 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
 
                         <div className="cms-field-grid">
                           <div className="cms-field-group" style={{ flex: 2 }}>
-                            <label>Nama / Judul Dokumen:</label>
-                            <input 
-                              type="text" 
-                              value={block.content?.doc_title || ''} 
+                            <label>Nama / Judul Dokumen</label>
+                            <input
+                              type="text"
+                              value={block.content?.doc_title || ''}
                               onChange={(e) => updateBlock(index, 'content', { ...block.content, doc_title: e.target.value })}
                             />
                           </div>
                           <div className="cms-field-group" style={{ flex: 2 }}>
-                            <label>Nomor Dokumen/SK:</label>
-                            <input 
-                              type="text" 
-                              value={block.content?.doc_number || ''} 
+                            <label>Nomor Dokumen/SK</label>
+                            <input
+                              type="text"
+                              value={block.content?.doc_number || ''}
                               onChange={(e) => updateBlock(index, 'content', { ...block.content, doc_number: e.target.value })}
                             />
                           </div>
                           <div className="cms-field-group" style={{ flex: 1 }}>
-                            <label>Tanggal Dokumen:</label>
-                            <input 
-                              type="date" 
-                              value={block.content?.doc_date || ''} 
+                            <label>Tanggal Dokumen</label>
+                            <input
+                              type="date"
+                              value={block.content?.doc_date || ''}
                               onChange={(e) => updateBlock(index, 'content', { ...block.content, doc_date: e.target.value })}
                             />
                           </div>
@@ -635,19 +618,19 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
 
                         <div className="cms-field-grid" style={{ marginTop: '8px' }}>
                           <div className="cms-field-group" style={{ flex: 3 }}>
-                            <label>URL Berkas (File Path):</label>
-                            <input 
-                              type="text" 
-                              value={block.content?.file_url || ''} 
+                            <label>URL Berkas (File Path)</label>
+                            <input
+                              type="text"
+                              value={block.content?.file_url || ''}
                               onChange={(e) => updateBlock(index, 'content', { ...block.content, file_url: e.target.value })}
                               placeholder="/documents/... atau link berkas"
                             />
                           </div>
                           <div className="cms-field-group" style={{ flex: 3 }}>
-                            <label>Deskripsi Ringkas:</label>
-                            <input 
-                              type="text" 
-                              value={block.content?.description || ''} 
+                            <label>Deskripsi Ringkas</label>
+                            <input
+                              type="text"
+                              value={block.content?.description || ''}
                               onChange={(e) => updateBlock(index, 'content', { ...block.content, description: e.target.value })}
                               placeholder="Tentang isi dokumen..."
                             />
@@ -656,7 +639,6 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
                       </div>
                     )}
 
-                    {/* TABLE BLOCK */}
                     {block.type === 'table' && (
                       <div className="cms-field-group">
                         <label>Editor Tabel:</label>
@@ -727,23 +709,22 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
                       </div>
                     )}
 
-                    {/* QUOTE BLOCK */}
                     {block.type === 'quote' && (
                       <div className="cms-field-grid">
                         <div className="cms-field-group" style={{ flex: 3 }}>
-                          <label>Teks Kutipan:</label>
-                          <textarea 
+                          <label>Teks Kutipan</label>
+                          <textarea
                             rows={3}
-                            value={block.content?.quote || ''} 
+                            value={block.content?.quote || ''}
                             onChange={(e) => updateBlock(index, 'content', { ...block.content, quote: e.target.value })}
                             placeholder="Tuliskan kata mutiara atau pernyataan resmi..."
                           />
                         </div>
                         <div className="cms-field-group" style={{ flex: 2 }}>
-                          <label>Sumber / Tokoh:</label>
-                          <input 
-                            type="text" 
-                            value={block.content?.author || ''} 
+                          <label>Sumber / Tokoh</label>
+                          <input
+                            type="text"
+                            value={block.content?.author || ''}
                             onChange={(e) => updateBlock(index, 'content', { ...block.content, author: e.target.value })}
                             placeholder="Contoh: Ketua Pengadilan Agama Cimahi"
                           />
@@ -751,17 +732,16 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
                       </div>
                     )}
 
-                    {/* ACCORDION BLOCK */}
                     {block.type === 'accordion' && (
                       <div className="cms-field-group">
-                        <label>Item Akordion / Lipatan:</label>
+                        <label>Item Akordion / Lipatan</label>
                         {(block.content?.items || []).map((item, aIdx) => (
                           <div key={aIdx} className="cms-accordion-editor-item">
                             <div style={{ display: 'flex', gap: '8px', marginBottom: '6px' }}>
-                              <input 
-                                type="text" 
+                              <input
+                                type="text"
                                 style={{ flex: 1, fontWeight: 600 }}
-                                value={item.title || ''} 
+                                value={item.title || ''}
                                 onChange={(e) => {
                                   const nextItems = [...block.content.items];
                                   nextItems[aIdx].title = e.target.value;
@@ -769,8 +749,8 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
                                 }}
                                 placeholder="Judul Akordion..."
                               />
-                              <button 
-                                type="button" 
+                              <button
+                                type="button"
                                 className="danger"
                                 onClick={() => {
                                   const filtered = block.content.items.filter((_, idx) => idx !== aIdx);
@@ -780,9 +760,9 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
                                 <FaTrash />
                               </button>
                             </div>
-                            <textarea 
+                            <textarea
                               rows={2}
-                              value={item.content || ''} 
+                              value={item.content || ''}
                               onChange={(e) => {
                                 const nextItems = [...block.content.items];
                                 nextItems[aIdx].content = e.target.value;
@@ -792,8 +772,8 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
                             />
                           </div>
                         ))}
-                        <button 
-                          type="button" 
+                        <button
+                          type="button"
                           className="cms-btn cms-btn--primary"
                           style={{ marginTop: '8px' }}
                           onClick={() => {
@@ -806,23 +786,22 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
                       </div>
                     )}
 
-                    {/* GOOGLE MAPS */}
                     {block.type === 'maps' && (
                       <div className="cms-field-grid">
                         <div className="cms-field-group" style={{ flex: 2 }}>
-                          <label>Judul Peta:</label>
-                          <input 
-                            type="text" 
-                            value={block.content?.title || ''} 
+                          <label>Judul Peta</label>
+                          <input
+                            type="text"
+                            value={block.content?.title || ''}
                             onChange={(e) => updateBlock(index, 'content', { ...block.content, title: e.target.value })}
                             placeholder="Peta Kantor..."
                           />
                         </div>
                         <div className="cms-field-group" style={{ flex: 4 }}>
-                          <label>Embed Map URL:</label>
-                          <input 
-                            type="text" 
-                            value={block.content?.url || ''} 
+                          <label>Embed Map URL</label>
+                          <input
+                            type="text"
+                            value={block.content?.url || ''}
                             onChange={(e) => updateBlock(index, 'content', { ...block.content, url: e.target.value })}
                             placeholder="https://maps.google.com/maps?q=..."
                           />
@@ -830,20 +809,18 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
                       </div>
                     )}
 
-                    {/* EMBED / HTML */}
                     {(block.type === 'embed' || block.type === 'html') && (
                       <div className="cms-field-group">
-                        <label>Kode HTML / Iframe:</label>
-                        <textarea 
+                        <label>Kode HTML / Iframe</label>
+                        <textarea
                           rows={4}
-                          value={block.content?.html || ''} 
+                          value={block.content?.html || ''}
                           onChange={(e) => updateBlock(index, 'content', { ...block.content, html: e.target.value })}
                           placeholder="<iframe src='...'></iframe>"
                         />
                       </div>
                     )}
 
-                    {/* DIVIDER */}
                     {block.type === 'divider' && (
                       <p style={{ color: '#6b7280', margin: 0 }}>Garis pemisah horizontal bersih akan ditampilkan di halaman.</p>
                     )}
@@ -855,7 +832,6 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
         )}
       </div>
 
-      {/* Add Block Trigger & Menu */}
       <div className="cms-add-block-container">
         {!showAddMenu ? (
           <button 
@@ -896,7 +872,6 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
         )}
       </div>
 
-      {/* Integrated Modals */}
       <MediaLibraryModal 
         isOpen={mediaModalOpen}
         onClose={() => setMediaModalOpen(false)}

@@ -9,10 +9,8 @@ const {
 } = require('../controllers/sliderController');
 const authMiddleware = require('../middleware/auth');
 
-// Public route
 router.get('/', getSliders);
 
-// Protected routes (admin panel)
 router.get('/all', authMiddleware, getAllSliders);
 router.post('/', authMiddleware, createSlider);
 router.put('/:id', authMiddleware, updateSlider);

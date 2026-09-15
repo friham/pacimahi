@@ -10,14 +10,12 @@ export default function ScrollToTop() {
   const { pathname, search } = useLocation();
 
   useEffect(() => {
-    // Scroll window ke paling atas
     window.scrollTo({
       top: 0,
       left: 0,
       behavior: 'instant'
     });
 
-    // Cek juga jika ada container utama yang memiliki scrollbar sendiri
     const scrollableContainers = document.querySelectorAll('.profile-page-wrapper, .info-page-wrapper, .admin-main, main');
     scrollableContainers.forEach(container => {
       if (container && container.scrollTop > 0) {

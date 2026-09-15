@@ -32,7 +32,6 @@ function ZonaIntegritasPage() {
       breadcrumb="Zona Integritas"
     >
       <div className="pa-content-card">
-        {/* Banner WBK */}
         <div style={{
           background: 'linear-gradient(135deg, #065f46, #047857)',
           borderRadius: '12px',
@@ -64,11 +63,9 @@ function ZonaIntegritasPage() {
           </div>
         </div>
 
-        {/* 6 Area Perubahan Title */}
         <h2 style={{ fontSize: '1.25rem', color: '#1b5e20', margin: '0 0 8px 0' }}>6 (Enam) Area Perubahan Pembangunan Zona Integritas</h2>
         <p style={{ margin: '0 0 20px 0', color: '#64748b', fontSize: '0.88rem' }}>Pilar reformasi birokrasi peradilan agama di Pengadilan Agama Kota Cimahi Kelas IA</p>
 
-        {/* 6 Area Grid */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px', marginBottom: '28px' }}>
           {areaPerubahan.map((area, idx) => {
             const Icon = area.icon;
@@ -101,7 +98,6 @@ function ZonaIntegritasPage() {
           })}
         </div>
 
-        {/* Lembar Kerja Evaluasi (LKE) */}
         <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '18px' }}>
           <h3 style={{ fontSize: '1.05rem', color: '#1b5e20', margin: '0 0 8px 0', fontWeight: 700 }}>Lembar Kerja Evaluasi (LKE) & Dokumen ZI</h3>
           <p style={{ margin: '0 0 14px 0', fontSize: '0.85rem', color: '#475569' }}>

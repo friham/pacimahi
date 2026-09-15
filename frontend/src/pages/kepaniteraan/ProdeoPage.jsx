@@ -34,7 +34,6 @@ function ProdeoPage() {
           </p>
         </div>
 
-        {/* Navigation Tabs */}
         <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', margin: '1.5rem 0' }}>
           {[
             { id: 'prosedur', label: 'Prosedur Berperkara Prodeo' },
@@ -63,7 +62,6 @@ function ProdeoPage() {
           ))}
         </div>
 
-        {/* Tab 1: Prosedur Berperkara Prodeo */}
         {activeTab === 'prosedur' && (
           <div>
             <h2>Prosedur Pengajuan Berperkara Secara Prodeo</h2>
@@ -77,7 +75,6 @@ function ProdeoPage() {
           </div>
         )}
 
-        {/* Tab 2: Syarat Pengajuan */}
         {activeTab === 'syarat' && (
           <div>
             <h2>Syarat Pengajuan Perkara Prodeo</h2>
@@ -90,7 +87,6 @@ function ProdeoPage() {
           </div>
         )}
 
-        {/* Tab 3: Peraturan & Kebijakan */}
         {activeTab === 'aturan' && (
           <div>
             <h2>Peraturan dan Kebijakan Terkait Prodeo</h2>
@@ -103,7 +99,6 @@ function ProdeoPage() {
           </div>
         )}
 
-        {/* Tab 4: Rincian Biaya */}
         {activeTab === 'biaya' && (
           <div>
             <h2>Komponen Biaya yang Dibebaskan</h2>

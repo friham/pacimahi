@@ -99,7 +99,6 @@ function LayananPublikLayout({ title, subtitle, breadcrumb, children }) {
       <Navbar />
       <SocialSidebar />
 
-      {/* Hero Banner */}
       <section className="layanan-publik-hero">
         <div className="layanan-publik-hero__container">
           <nav className="layanan-publik-breadcrumbs" aria-label="Breadcrumb">
@@ -117,9 +116,7 @@ function LayananPublikLayout({ title, subtitle, breadcrumb, children }) {
         </div>
       </section>
 
-      {/* Body Grid */}
       <div className="layanan-publik-body-container">
-        {/* Left Sidebar Menu */}
         <aside className="layanan-publik-sidebar">
           <div className="sidebar-card">
             <div className="sidebar-card__header">
@@ -170,7 +167,6 @@ function LayananPublikLayout({ title, subtitle, breadcrumb, children }) {
             </ul>
           </div>
 
-          {/* Service Hours */}
           <div className="sidebar-card">
             <div className="sidebar-card__header">
               <FaClock className="sidebar-card__header-icon" />
@@ -219,7 +215,6 @@ function LayananPublikLayout({ title, subtitle, breadcrumb, children }) {
           </div>
         </aside>
 
-        {/* Right Content */}
         <main className="layanan-publik-content-area">
           {children}
         </main>

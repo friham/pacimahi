@@ -1,9 +1,5 @@
 import DOMPurify from 'dompurify';
 
-/**
- * Sanitize HTML content before rendering with dangerouslySetInnerHTML.
- * Allows common formatting tags but strips <script>, event handlers, etc.
- */
 export function sanitizeHtml(html) {
   if (!html) return '';
   return DOMPurify.sanitize(html, {
@@ -15,16 +11,20 @@ export function sanitizeHtml(html) {
       'table', 'thead', 'tbody', 'tr', 'th', 'td',
       'blockquote', 'pre', 'code',
       'div', 'span', 'section', 'article', 'figure', 'figcaption',
-      'hr', 'br',
-      'iframe',  // for embeds (YouTube, etc.)
+      'hr',
+      'iframe', 
     ],
     ALLOWED_ATTR: [
       'href', 'target', 'rel', 'src', 'alt', 'title',
       'width', 'height', 'style', 'class',
+      'align', 'valign',
       'allow', 'allowfullscreen', 'loading',
       'colspan', 'rowspan', 'border',
       'frameborder', 'allowpaymentrequest',
+      'type', 'start', 'reversed',
     ],
     ALLOW_DATA_ATTR: false,
+    ALLOWED_TAGS_COLUMN: 'auto',
+    ALLOWED_ATTR_COLUMN: 'auto',
   });
 }

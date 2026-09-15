@@ -34,7 +34,6 @@ function PosbakumPage() {
           </p>
         </div>
 
-        {/* Navigation Tabs */}
         <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', margin: '1.5rem 0' }}>
           {[
             { id: 'keberadaan', label: 'Keberadaan Posbakum' },
@@ -64,7 +63,6 @@ function PosbakumPage() {
           ))}
         </div>
 
-        {/* Tab 1: Keberadaan Posbakum */}
         {activeTab === 'keberadaan' && (
           <div>
             <h2>Kerjasama Lembaga Bantuan Hukum (Posbakum)</h2>
@@ -119,7 +117,6 @@ function PosbakumPage() {
           </div>
         )}
 
-        {/* Tab 2: Penerima Jasa Posbakum */}
         {activeTab === 'penerima' && (
           <div>
             <h2>Penerima Jasa Pos Bantuan Hukum</h2>
@@ -132,7 +129,6 @@ function PosbakumPage() {
           </div>
         )}
 
-        {/* Tab 3: Jenis Jasa Hukum */}
         {activeTab === 'jenis' && (
           <div>
             <h2>Jenis Jasa Hukum yang Dilayani</h2>
@@ -146,7 +142,6 @@ function PosbakumPage() {
           </div>
         )}
 
-        {/* Tab 4: Syarat & Mekanisme */}
         {activeTab === 'syarat' && (
           <div>
             <h2>Syarat dan Mekanisme Layanan Posbakum</h2>
@@ -169,7 +164,6 @@ function PosbakumPage() {
           </div>
         )}
 
-        {/* Tab 5: Dasar Aturan */}
         {activeTab === 'aturan' && (
           <div>
             <h2>Dasar Hukum Pos Bantuan Hukum</h2>

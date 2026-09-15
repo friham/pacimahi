@@ -1,7 +1,6 @@
 const pool = require('../config/db');
 const { recordAuditLog } = require('./auditLogController');
 
-// GET /api/pages
 const getPages = async (req, res) => {
   try {
     const { status, search } = req.query;
@@ -33,7 +32,6 @@ const getPages = async (req, res) => {
   }
 };
 
-// GET /api/pages/slug/:slug (Public & Preview)
 const getPageBySlug = async (req, res) => {
   try {
     const { slug } = req.params;
@@ -63,13 +61,11 @@ const getPageBySlug = async (req, res) => {
 
     const page = rows[0];
 
-    // Fetch content blocks
     const [blocks] = await pool.execute(
       `SELECT * FROM content_blocks WHERE page_id = ? ORDER BY sort_order ASC, id ASC`,
       [page.id]
     );
 
-    // Parse JSON fields safely
     const parsedBlocks = blocks.map(b => ({
       ...b,
       content: (() => {
@@ -93,7 +89,6 @@ const getPageBySlug = async (req, res) => {
   }
 };
 
-// GET /api/pages/:id (Editor by ID)
 const getPageById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -109,7 +104,6 @@ const getPageById = async (req, res) => {
 
     const page = rows[0];
 
-    // Fetch content blocks
     const [blocks] = await pool.execute(
       `SELECT * FROM content_blocks WHERE page_id = ? ORDER BY sort_order ASC, id ASC`,
       [id]
@@ -138,7 +132,6 @@ const getPageById = async (req, res) => {
   }
 };
 
-// POST /api/pages
 const createPage = async (req, res) => {
   let connection;
   try {
@@ -164,7 +157,6 @@ const createPage = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Judul dan slug halaman wajib diisi.' });
     }
 
-    // Check unique slug
     const [checkSlug] = await connection.query('SELECT id FROM pages WHERE slug = ?', [slug]);
     if (checkSlug.length > 0) {
       return res.status(400).json({ success: false, message: 'Slug halaman sudah digunakan, gunakan slug lain.' });
@@ -201,7 +193,6 @@ const createPage = async (req, res) => {
 
     const newPageId = pageRes.insertId;
 
-    // Insert blocks if provided
     if (Array.isArray(blocks) && blocks.length > 0) {
       for (let i = 0; i < blocks.length; i++) {
         const b = blocks[i];
@@ -242,7 +233,6 @@ const createPage = async (req, res) => {
   }
 };
 
-// PUT /api/pages/:id
 const updatePage = async (req, res) => {
   let connection;
   try {
@@ -269,7 +259,6 @@ const updatePage = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Judul dan slug halaman wajib diisi.' });
     }
 
-    // Check slug collision
     const [checkSlug] = await connection.query('SELECT id FROM pages WHERE slug = ? AND id != ?', [slug, id]);
     if (checkSlug.length > 0) {
       return res.status(400).json({ success: false, message: 'Slug halaman sudah digunakan oleh halaman lain.' });
@@ -314,7 +303,6 @@ const updatePage = async (req, res) => {
       ]
     );
 
-    // If blocks array is provided, replace content_blocks
     if (Array.isArray(blocks)) {
       await connection.query('DELETE FROM content_blocks WHERE page_id = ?', [id]);
 
@@ -353,7 +341,6 @@ const updatePage = async (req, res) => {
   }
 };
 
-// DELETE /api/pages/:id
 const deletePage = async (req, res) => {
   try {
     const { id } = req.params;
@@ -365,10 +352,8 @@ const deletePage = async (req, res) => {
 
     const pageTitle = existing[0].title;
 
-    // Remove associated content blocks first to prevent orphan data
     await pool.execute('DELETE FROM content_blocks WHERE page_id = ?', [id]);
 
-    // Remove the page
     await pool.execute('DELETE FROM pages WHERE id = ?', [id]);
 
     await recordAuditLog({
@@ -388,7 +373,6 @@ const deletePage = async (req, res) => {
   }
 };
 
-// PATCH /api/pages/:id/status
 const togglePageStatus = async (req, res) => {
   try {
     const { id } = req.params;

@@ -5,7 +5,7 @@ async function seed() {
   const conn = await pool.getConnection();
 
   try {
-    // 1. Ensure tables exist
+    
     await conn.query(`
       CREATE TABLE IF NOT EXISTS menus (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -68,7 +68,6 @@ async function seed() {
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
     `);
 
-    // Helper: Insert or get menu
     async function upsertMenu(title, slug, type, url, parentId = null, sortOrder = 0, description = '') {
       const [existing] = await conn.query('SELECT id FROM menus WHERE slug = ?', [slug]);
       if (existing.length > 0) {
@@ -85,7 +84,6 @@ async function seed() {
       return res.insertId;
     }
 
-    // Helper: Insert or update page
     async function upsertPage(pageData) {
       const { menu_id, title, subtitle, slug, excerpt, content_html, seo_title, meta_description } = pageData;
       const [existing] = await conn.query('SELECT id FROM pages WHERE slug = ?', [slug]);
@@ -107,9 +105,6 @@ async function seed() {
       }
     }
 
-    // ==========================================
-    // 1. TOP-LEVEL NAVBAR BUTTONS
-    // ==========================================
     console.log('📌 Creating Top-Level Navbar Menus...');
     const mProfil = await upsertMenu('Profil Pengadilan', 'profil-pengadilan', 'dropdown', null, null, 1, 'Informasi profil, visi misi, sejarah, struktur, dan aparatur pengadilan');
     const mInfo = await upsertMenu('Informasi Umum', 'informasi-umum', 'dropdown', null, null, 2, 'Standar operasional prosedur, program kerja dan laporan tahunan');
@@ -118,9 +113,6 @@ async function seed() {
     const mLayanan = await upsertMenu('Layanan Publik', 'layanan-publik', 'dropdown', null, null, 5, 'PTSP, Zona Integritas, pengaduan masyarakat, dan layanan informasi PPID');
     const mPublikasi = await upsertMenu('Publikasi', 'publikasi', 'dropdown', null, null, 6, 'Berita terkini, artikel hukum, pengumuman resmi, dan galeri multimedia');
 
-    // ==========================================
-    // 2. DROPDOWN SUBMENUS FOR "Profil Pengadilan"
-    // ==========================================
     console.log('📌 Creating Submenus for Profil Pengadilan...');
     const smPengantar = await upsertMenu('Pengantar Ketua Pengadilan', 'pengantar-dari-ketua-pengadilan', 'page', '/tentang-pengadilan/pengantar-dari-ketua-pengadilan', mProfil, 1);
     const smVisiMisi = await upsertMenu('Visi dan Misi Pengadilan', 'visi-dan-misi', 'page', '/tentang-pengadilan/visi-dan-misi', mProfil, 2);
@@ -128,7 +120,6 @@ async function seed() {
     const smWilayah = await upsertMenu('Wilayah Yurisdiksi', 'wilayah-yurisdiksi', 'page', '/tentang-pengadilan/wilayah-yurisdiksi', mProfil, 4);
     const smStruktur = await upsertMenu('Struktur Organisasi', 'struktur-organisasi', 'page', '/tentang-pengadilan/struktur-organisasi', mProfil, 5);
 
-    // Sejarah (Nested Dropdown)
     const smSejarah = await upsertMenu('Sejarah Pengadilan', 'sejarah-pengadilan', 'dropdown', '/tentang-pengadilan/sejarah-pengadilan-cmi/tgl-pembentukan-pengadilan', mProfil, 6);
     const smSejarahTgl = await upsertMenu('Tanggal Pembentukan Pengadilan', 'tgl-pembentukan-pengadilan', 'page', '/tentang-pengadilan/sejarah-pengadilan-cmi/tgl-pembentukan-pengadilan', smSejarah, 1);
     const smSejarahSk = await upsertMenu('SK Pembentukan Pengadilan', 'sk-pembentukan-pengadilan', 'page', '/tentang-pengadilan/sejarah-pengadilan-cmi/sk-pembentukan-pengadilan', smSejarah, 2);
@@ -137,7 +128,6 @@ async function seed() {
     const smAgenda = await upsertMenu('Agenda Kegiatan Pimpinan', 'agenda-kerja-pimpinan', 'page', '/tentang-pengadilan/agenda-kerja-pimpinan', mProfil, 8);
     const smAlamat = await upsertMenu('Alamat & Kontak Pengadilan', 'alamat-pengadilan', 'page', '/tentang-pengadilan/alamat-pengadilan', mProfil, 9);
 
-    // Profil Pegawai & SDM (Nested Dropdown)
     const smSdm = await upsertMenu('Profil Pegawai & SDM', 'profil-pegawai-sdm', 'dropdown', '/tentang-pengadilan/profile-pengadilan/profil-pegawai/ketua-wakil-ketua', mProfil, 10);
     const smKetuaWk = await upsertMenu('Ketua & Wakil Ketua', 'ketua-wakil-ketua', 'page', '/tentang-pengadilan/profile-pengadilan/profil-pegawai/ketua-wakil-ketua', smSdm, 1);
     const smHakim = await upsertMenu('SDM Hakim', 'sdm-hakim', 'page', '/tentang-pengadilan/profile-pengadilan/profil-pegawai/sdm-hakim', smSdm, 2);
@@ -146,7 +136,6 @@ async function seed() {
     const smFungsional = await upsertMenu('SDM Fungsional & Pelaksana', 'fungsional-dan-pelaksana', 'page', '/tentang-pengadilan/profile-pengadilan/profil-pegawai/fungsional-dan-pelaksana', smSdm, 5);
     const smStatistikPeg = await upsertMenu('Statistik Kepegawaian', 'statistik-kepegawaian', 'page', '/tentang-pengadilan/profile-pengadilan/statistik-kepegawaian', smSdm, 6);
 
-    // Submenus for other sections
     await upsertMenu('Standar Operasional Prosedur (SOP)', 'standar-operasional-prosedur', 'page', '/informasi-umum/standar-operasional-prosedur', mInfo, 1);
     await upsertMenu('Program Kerja Tahunan', 'program-kerja', 'page', '/informasi-umum/program-kerja', mInfo, 2);
     await upsertMenu('Laporan Tahunan', 'laporan-tahunan', 'page', '/informasi-umum/laporan-tahunan', mInfo, 3);
@@ -179,12 +168,8 @@ async function seed() {
     await upsertMenu('Peraturan & Kebijakan', 'peraturan-kebijakan', 'page', '/publikasi/peraturan-kebijakan', mPublikasi, 4);
     await upsertMenu('Galeri Foto & Multimedia', 'galeri', 'page', '/publikasi/galeri', mPublikasi, 5);
 
-    // ==========================================
-    // 3. PAGES CONTENT (MAIN PROFILE CONTENT)
-    // ==========================================
     console.log('📌 Inserting Full CMS Pages for Profil Pengadilan...');
 
-    // 1. Pengantar Ketua
     await upsertPage({
       menu_id: smPengantar,
       title: 'Pengantar Ketua Pengadilan',
@@ -226,7 +211,6 @@ async function seed() {
       `
     });
 
-    // 2. Visi dan Misi
     await upsertPage({
       menu_id: smVisiMisi,
       title: 'Visi dan Misi Pengadilan',
@@ -271,7 +255,6 @@ async function seed() {
       `
     });
 
-    // 3. Tugas Pokok & Fungsi
     await upsertPage({
       menu_id: smTupoksi,
       title: 'Tugas Pokok & Fungsi Pengadilan Agama',
@@ -310,7 +293,6 @@ async function seed() {
       `
     });
 
-    // 4. Wilayah Yurisdiksi
     await upsertPage({
       menu_id: smWilayah,
       title: 'Wilayah Yurisdiksi Pengadilan Agama Kota Cimahi',
@@ -368,7 +350,6 @@ async function seed() {
       `
     });
 
-    // 5. Struktur Organisasi
     await upsertPage({
       menu_id: smStruktur,
       title: 'Struktur Organisasi',
@@ -416,7 +397,6 @@ async function seed() {
       `
     });
 
-    // 6. Tanggal Pembentukan Pengadilan
     await upsertPage({
       menu_id: smSejarahTgl,
       title: 'Tanggal Pembentukan Pengadilan',
@@ -443,7 +423,6 @@ async function seed() {
       `
     });
 
-    // 7. SK Pembentukan Pengadilan
     await upsertPage({
       menu_id: smSejarahSk,
       title: 'Surat Keputusan Pembentukan Pengadilan',
@@ -467,7 +446,6 @@ async function seed() {
       `
     });
 
-    // 8. Daftar Mantan Pimpinan
     await upsertPage({
       menu_id: smMantan,
       title: 'Daftar Nama Mantan Pimpinan',
@@ -521,7 +499,6 @@ async function seed() {
       `
     });
 
-    // 9. Agenda Kerja Pimpinan
     await upsertPage({
       menu_id: smAgenda,
       title: 'Agenda Kegiatan Pimpinan',
@@ -544,7 +521,6 @@ async function seed() {
       `
     });
 
-    // 10. Alamat & Kontak Pengadilan
     await upsertPage({
       menu_id: smAlamat,
       title: 'Alamat & Kontak Pengadilan',
@@ -596,7 +572,6 @@ async function seed() {
       `
     });
 
-    // 11. Profil Pegawai: Ketua & Wakil Ketua
     await upsertPage({
       menu_id: smKetuaWk,
       title: 'Profil Ketua & Wakil Ketua Pengadilan',
@@ -630,7 +605,6 @@ async function seed() {
       `
     });
 
-    // 12. Profil Pegawai: SDM Hakim
     await upsertPage({
       menu_id: smHakim,
       title: 'Profil SDM Hakim Pengadilan',
@@ -676,7 +650,6 @@ async function seed() {
       `
     });
 
-    // 13. Profil Pegawai: Kepaniteraan
     await upsertPage({
       menu_id: smKepaniteraan,
       title: 'Profil SDM Kepaniteraan',
@@ -698,7 +671,6 @@ async function seed() {
       `
     });
 
-    // 14. Profil Pegawai: Kesekretariatan
     await upsertPage({
       menu_id: smKesekretariatan,
       title: 'Profil SDM Kesekretariatan',
@@ -719,7 +691,6 @@ async function seed() {
       `
     });
 
-    // 15. Profil Pegawai: Fungsional & Pelaksana
     await upsertPage({
       menu_id: smFungsional,
       title: 'Profil SDM Fungsional & Pelaksana',
@@ -740,7 +711,6 @@ async function seed() {
       `
     });
 
-    // 16. Statistik Kepegawaian
     await upsertPage({
       menu_id: smStatistikPeg,
       title: 'Statistik Kepegawaian',

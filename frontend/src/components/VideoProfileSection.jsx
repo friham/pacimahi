@@ -26,14 +26,12 @@ function VideoProfileSection({
   return (
     <section className="video-profile-section" id="profil-video">
       <div className="container">
-        {/* Section Header */}
         <div ref={headerRef} className="video-profile__header scroll-reveal">
           <span className="video-profile__tag">Profil & Galeri Video</span>
           <h2 className="section-title">{title}</h2>
           <p className="section-subtitle">{subtitle}</p>
         </div>
 
-        {/* Video Player Card Container (Reference Design Image 2) */}
         <div ref={videoRef} className="video-card-wrapper scroll-reveal">
           <div className="video-card">
             {!isPlaying ? (
@@ -51,7 +49,6 @@ function VideoProfileSection({
                   }
                 }}
               >
-                {/* Background Image / Thumbnail */}
                 <img
                   src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
                   alt="Thumbnail Video Profil PA Kota Cimahi"
@@ -61,10 +58,8 @@ function VideoProfileSection({
                   }}
                 />
 
-                {/* Dark Gradient Overlay */}
                 <div className="video-cover__overlay"></div>
 
-                {/* Top Info Bar */}
                 <div className="video-cover__top">
                   <div className="video-cover__channel">
                     <div className="video-cover__avatar">
@@ -98,7 +93,6 @@ function VideoProfileSection({
                   </button>
                 </div>
 
-                {/* Center Big Play Button & Headline */}
                 <div className="video-cover__center">
                   <div className="video-play-btn-pulse">
                     <button
@@ -118,7 +112,6 @@ function VideoProfileSection({
                   </div>
                 </div>
 
-                {/* Bottom Bar with Direct YouTube Link */}
                 <div className="video-cover__bottom">
                   <div className="video-cover__badge">
                     <span className="live-dot"></span> Official Court Profile

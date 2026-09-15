@@ -1,6 +1,4 @@
-/* ============================================
-   Footer Styles
-   ============================================ */
+
 .footer {
   position: relative;
   background: linear-gradient(180deg, var(--primary-950) 0%, #071a09 100%);
@@ -17,7 +15,6 @@
   background: linear-gradient(90deg, #0d3311, #1b5e20, #0d3311);
 }
 
-/* Grid */
 .footer__grid {
   display: grid;
   grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
@@ -25,7 +22,6 @@
   padding-bottom: 3rem;
 }
 
-/* Brand */
 .footer__brand {
   display: flex;
   align-items: center;
@@ -63,7 +59,6 @@
   margin-bottom: 1.5rem;
 }
 
-/* Socials */
 .footer__socials {
   display: flex;
   gap: 10px;
@@ -90,7 +85,6 @@
   box-shadow: 0 4px 15px rgba(13, 51, 17, 0.5);
 }
 
-/* Column titles */
 .footer__col-title {
   font-size: 0.95rem;
   font-weight: 700;
@@ -111,7 +105,6 @@
   border-radius: var(--radius-full);
 }
 
-/* Links */
 .footer__links li {
   margin-bottom: 8px;
 }
@@ -136,7 +129,6 @@
   flex-shrink: 0;
 }
 
-/* Jam Operasional */
 .footer__hours {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -166,7 +158,6 @@
   color: rgba(255, 100, 100, 0.7);
 }
 
-/* Contacts — bisa diklik */
 .footer__contacts {
   display: flex;
   flex-direction: column;
@@ -195,7 +186,6 @@
   flex-shrink: 0;
 }
 
-/* Copyright */
 .footer__bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding: 1.25rem 0;
@@ -207,7 +197,6 @@
   color: rgba(255, 255, 255, 0.4);
 }
 
-/* Responsive */
 @media (max-width: 1024px) {
   .footer__grid {
     grid-template-columns: 1fr 1fr;

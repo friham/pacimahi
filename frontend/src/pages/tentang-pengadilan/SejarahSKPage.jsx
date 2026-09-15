@@ -54,7 +54,6 @@ function SejarahSKPage() {
           </div>
         </div>
 
-        {/* Action Button */}
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', margin: '1.5rem 0', flexWrap: 'wrap' }}>
           <a
             href={skDirectUrl}

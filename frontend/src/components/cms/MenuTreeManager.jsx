@@ -17,7 +17,6 @@ export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, t
   const [editingMenu, setEditingMenu] = useState(null);
   const [parentDefaultId, setParentDefaultId] = useState(null);
 
-  // Drag & Drop State
   const [draggedNode, setDraggedNode] = useState(null);
   const [dropTarget, setDropTarget] = useState(null); // { id, position: 'before' | 'after' | 'inside' }
 
@@ -30,7 +29,6 @@ export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, t
 
   const isCollapsed = (id) => !!collapsedNodes[id];
 
-  // Search filter
   const filterTree = (nodes, query) => {
     if (!query) return nodes;
     const lowerQuery = query.toLowerCase();
@@ -53,28 +51,24 @@ export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, t
     return filterTree(tree, search);
   }, [tree, search]);
 
-  // Open add root menu modal
   const handleAddRoot = () => {
     setEditingMenu(null);
     setParentDefaultId(null);
     setIsModalOpen(true);
   };
 
-  // Open add child modal
   const handleAddSubmenu = (parentId) => {
     setEditingMenu(null);
     setParentDefaultId(parentId);
     setIsModalOpen(true);
   };
 
-  // Open edit modal
   const handleEdit = (menu) => {
     setEditingMenu(menu);
     setParentDefaultId(menu.parent_id);
     setIsModalOpen(true);
   };
 
-  // Save menu (create or update)
   const handleSaveMenu = async (formData) => {
     try {
       if (editingMenu) {
@@ -93,7 +87,6 @@ export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, t
     }
   };
 
-  // Duplicate menu
   const handleDuplicate = async (menu) => {
     try {
       await axios.post(`${API_URL}/menus`, {
@@ -115,7 +108,6 @@ export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, t
     }
   };
 
-  // Delete menu
   const handleDelete = async (menu) => {
     if (userRole === 'editor') {
       alert('Role Editor tidak diizinkan menghapus menu.');
@@ -138,7 +130,6 @@ export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, t
     }
   };
 
-  // Toggle status published / draft / inactive
   const handleToggleStatus = async (menu) => {
     const nextStatus = menu.status === 'published' ? 'draft' : 'published';
     try {
@@ -151,7 +142,6 @@ export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, t
     }
   };
 
-  // Drag & Drop
   const handleDragStart = (e, node) => {
     setDraggedNode(node);
     e.dataTransfer.setData('text/plain', node.id);
@@ -163,7 +153,6 @@ export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, t
     e.stopPropagation();
     if (!draggedNode || draggedNode.id === node.id) return;
 
-    // Determine drop position (above, inside, or below based on mouse Y)
     const rect = e.currentTarget.getBoundingClientRect();
     const offsetY = e.clientY - rect.top;
     const height = rect.height;
@@ -181,7 +170,6 @@ export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, t
   };
 
   const handleDragLeave = (e) => {
-    // Only reset if leaving current element
     if (!e.currentTarget.contains(e.relatedTarget)) {
       setDropTarget(null);
     }
@@ -229,7 +217,6 @@ export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, t
     }
   };
 
-  // Recursive Tree Node Renderer
   const renderTreeNode = (node, level = 0) => {
     const hasChildren = node.children && node.children.length > 0;
     const collapsed = isCollapsed(node.id);
@@ -248,17 +235,14 @@ export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, t
           onDragLeave={handleDragLeave}
           onDrop={(e) => handleDrop(e, node)}
         >
-          {/* Drag handle */}
           <div className="menu-tree-drag" title="Drag & drop untuk geser atau buat submenu">
             <FaGripVertical />
           </div>
 
-          {/* Tree hierarchy symbol */}
           <div className="menu-tree-symbol">
             {level === 0 ? '' : level === 1 ? '↳' : '└──'}
           </div>
 
-          {/* Expand / Collapse toggle */}
           <div className="menu-tree-toggle" onClick={() => hasChildren && toggleCollapse(node.id)}>
             {hasChildren ? (
               collapsed ? <FaChevronRight size={11} /> : <FaChevronDown size={11} />
@@ -267,7 +251,6 @@ export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, t
             )}
           </div>
 
-          {/* Icon */}
           <div className="menu-tree-icon">
             {hasChildren ? (
               collapsed ? <FaFolder className="folder-icon" /> : <FaFolderOpen className="folder-icon" />
@@ -276,7 +259,6 @@ export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, t
             )}
           </div>
 
-          {/* Title & Info */}
           <div className="menu-tree-info">
             <span className="menu-tree-title">{node.title}</span>
             <span className="menu-tree-slug">/{node.slug}</span>
@@ -284,7 +266,6 @@ export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, t
             <span className={`menu-tree-type-tag type-${node.type}`}>{node.type}</span>
           </div>
 
-          {/* Status badge */}
           <button 
             type="button" 
             className={`menu-status-badge status-${node.status}`}
@@ -295,7 +276,6 @@ export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, t
             <span>{node.status}</span>
           </button>
 
-          {/* Quick Actions */}
           <div className="menu-tree-actions">
             <button 
               type="button" 
@@ -332,7 +312,6 @@ export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, t
           </div>
         </div>
 
-        {/* Children nodes */}
         {hasChildren && !collapsed && (
           <div className="menu-tree-children">
             {node.children.map(child => renderTreeNode(child, level + 1))}
@@ -344,7 +323,6 @@ export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, t
 
   return (
     <div className="menu-tree-manager">
-      {/* Top action bar */}
       <div className="menu-tree-header">
         <div className="menu-tree-header__left">
           <button type="button" className="cms-add-menu-btn" onClick={handleAddRoot}>
@@ -366,7 +344,6 @@ export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, t
         </div>
       </div>
 
-      {/* Tree container */}
       <div className="menu-tree-canvas">
         {filteredTree.length === 0 ? (
           <div className="menu-tree-empty">
@@ -379,7 +356,6 @@ export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, t
         )}
       </div>
 
-      {/* Menu Form Modal */}
       <MenuFormModal 
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

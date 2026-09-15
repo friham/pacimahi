@@ -58,7 +58,6 @@ function RealisasiPNBPPage() {
       breadcrumb="Realisasi PNBP"
     >
       <div className="pa-content-card">
-        {/* Tab Header */}
         <div style={{ display: 'flex', gap: '8px', borderBottom: '2px solid #e2e8f0', marginBottom: '24px' }}>
           <button
             onClick={() => setActiveTab('berjalan')}
@@ -96,7 +95,6 @@ function RealisasiPNBPPage() {
           </button>
         </div>
 
-        {/* TAB 1 */}
         {activeTab === 'berjalan' && (
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '12px' }}>
@@ -161,7 +159,6 @@ function RealisasiPNBPPage() {
           </div>
         )}
 
-        {/* TAB 2 */}
         {activeTab === 'tahunan' && (
           <div>
             <h2 style={{ fontSize: '1.2rem', color: '#1b5e20', margin: '0 0 8px 0' }}>Historis Realisasi PNBP 3 Tahun Terakhir</h2>

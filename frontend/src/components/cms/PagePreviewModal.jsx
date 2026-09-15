@@ -21,7 +21,6 @@ export default function PagePreviewModal({ isOpen, onClose, pageData = {} }) {
         }}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header with device switcher */}
         <div className="media-modal__header" style={{ background: '#0b4619', color: '#ffffff' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <span style={{ fontWeight: 600, color: '#fef08a', fontSize: '0.9rem' }}>PRATINJAU HALAMAN (DRAFT / LIVE PREVIEW)</span>
@@ -56,15 +55,12 @@ export default function PagePreviewModal({ isOpen, onClose, pageData = {} }) {
           </button>
         </div>
 
-        {/* Court Page Simulation Body */}
         <div style={{ flex: 1, overflowY: 'auto', background: '#f8fafc', padding: '2rem 1.5rem' }}>
           <div style={{ maxWidth: '900px', margin: '0 auto', background: '#ffffff', padding: deviceView === 'mobile' ? '1.25rem' : '2.5rem', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.06)' }}>
-            {/* Breadcrumb Simulation */}
             <div style={{ fontSize: '0.85rem', color: '#6b7280', marginBottom: '1.25rem', display: 'flex', gap: '6px' }}>
               <span>Beranda</span> › <span>Informasi</span> › <span style={{ color: '#0b4619', fontWeight: 600 }}>{pageData.title || 'Judul Halaman'}</span>
             </div>
 
-            {/* Page Header */}
             <header style={{ borderBottom: '2px solid #f1f5f9', paddingBottom: '1.25rem', marginBottom: '2rem' }}>
               <span style={{ 
                 background: '#e0f2fe', 
@@ -96,14 +92,12 @@ export default function PagePreviewModal({ isOpen, onClose, pageData = {} }) {
               </div>
             </header>
 
-            {/* Excerpt if present */}
             {pageData.excerpt && (
               <div style={{ background: '#f0fdf4', borderLeft: '4px solid #16a34a', padding: '14px 18px', borderRadius: '4px', marginBottom: '2rem', fontStyle: 'italic', color: '#166534' }}>
                 {pageData.excerpt}
               </div>
             )}
 
-            {/* Render Blocks or Fallback HTML */}
             {contentBlocks.length > 0 ? (
               <BlockRenderer blocks={contentBlocks} />
             ) : pageData.content_html ? (
@@ -117,7 +111,6 @@ export default function PagePreviewModal({ isOpen, onClose, pageData = {} }) {
           </div>
         </div>
 
-        {/* Footer */}
         <div className="media-modal__footer" style={{ background: '#ffffff' }}>
           <button type="button" className="media-confirm-btn" onClick={onClose}>
             Kembali ke Editor

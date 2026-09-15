@@ -35,12 +35,10 @@ function VirtualAssistant() {
     const query = textToSend || input;
     if (!query.trim()) return;
 
-    // Add user message
     const newMsgs = [...messages, { sender: 'user', text: query }];
     setMessages(newMsgs);
     if (!textToSend) setInput('');
 
-    // Generate smart bot response
     setTimeout(() => {
       let reply = 'Terima kasih atas pertanyaannya. Untuk informasi lebih spesifik mengenai nomor perkara atau verifikasi berkas, Anda juga dapat menghubungi layanan Helpdesk WhatsApp PTSP kami atau datang langsung ke kantor PA Cimahi.';
 
@@ -59,7 +57,6 @@ function VirtualAssistant() {
     }, 500);
   };
 
-  // Hide accessibility button when chatbox is open
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add('va-open');
@@ -85,7 +82,6 @@ function VirtualAssistant() {
 
       {isOpen && (
         <div className="va-chatbox animate-fade-in-up">
-          {/* Header */}
           <div className="va-chatbox__header">
             <div className="va-header-info">
               <div className="va-avatar"><FaShieldAlt /></div>
@@ -99,7 +95,6 @@ function VirtualAssistant() {
             </button>
           </div>
 
-          {/* Messages Body */}
           <div className="va-chatbox__body">
             {messages.map((m, idx) => (
               <div key={idx} className={`va-msg va-msg--${m.sender}`}>
@@ -112,7 +107,6 @@ function VirtualAssistant() {
               </div>
             ))}
 
-            {/* Quick FAQ Prompts */}
             <div className="va-faqs">
               <span className="va-faqs__label">Pilihan Topik Cepat:</span>
               <div className="va-faqs__list">
@@ -136,7 +130,6 @@ function VirtualAssistant() {
             </div>
           </div>
 
-          {/* Input Footer */}
           <div className="va-chatbox__footer">
             <form
               onSubmit={(e) => {

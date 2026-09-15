@@ -66,7 +66,6 @@ function PengadaanBarangJasaPage() {
       breadcrumb="Pengadaan Barang & Jasa"
     >
       <div className="pa-content-card">
-        {/* Banner Link LPSE & SiRUP */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px', marginBottom: '24px' }}>
           <a
             href="https://lpse.mahkamahagung.go.id"
@@ -117,7 +116,6 @@ function PengadaanBarangJasaPage() {
           </a>
         </div>
 
-        {/* Section Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '12px' }}>
           <div>
             <h2 style={{ fontSize: '1.2rem', color: '#1b5e20', margin: '0 0 4px 0' }}>Daftar Paket Pengadaan TA 2025</h2>
@@ -141,7 +139,6 @@ function PengadaanBarangJasaPage() {
           </div>
         </div>
 
-        {/* Table of Procurement */}
         <div style={{ overflowX: 'auto', marginBottom: '24px' }}>
           <table className="pa-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
             <thead>
@@ -180,7 +177,6 @@ function PengadaanBarangJasaPage() {
           </table>
         </div>
 
-        {/* Pejabat Pengadaan Section */}
         <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', color: '#1b5e20', fontWeight: 700 }}>
             <FaUsers />

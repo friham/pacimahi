@@ -67,7 +67,6 @@ function PedomanKesekretariatanPage() {
       breadcrumb="Pedoman Pengelolaan Organisasi & Administrasi"
     >
       <div className="pa-content-card">
-        {/* Navigation Tabs */}
         <div style={{ display: 'flex', gap: '6px', borderBottom: '2px solid #e2e8f0', marginBottom: '24px', flexWrap: 'wrap' }}>
           {pedomanSections.map((tab) => {
             const Icon = tab.icon;
@@ -96,7 +95,6 @@ function PedomanKesekretariatanPage() {
           })}
         </div>
 
-        {/* List of Docs for Selected Tab */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
           {(pedomanData[activeTab] || []).map((item, idx) => (
             <div

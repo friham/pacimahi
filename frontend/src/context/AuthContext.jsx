@@ -10,18 +10,11 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [loading, setLoading] = useState(true);
 
-  // Use a ref to always have the latest token without stale closure issues
   const tokenRef = useRef(token);
   tokenRef.current = token;
 
-  // Track whether we've done the initial auth check
   const hasCheckedAuth = useRef(false);
 
-  /**
-   * Verify the current token with the backend.
-   * Only logs out on 401 (token invalid/expired).
-   * Network errors or server errors do NOT force logout — the user can retry on next navigation.
-   */
   const fetchUser = useCallback(async () => {
     const currentToken = tokenRef.current;
     if (!currentToken) {
@@ -35,9 +28,7 @@ export function AuthProvider({ children }) {
       });
       setUser(response.data.data);
     } catch (error) {
-      // Only force logout if the token is actually invalid (401).
-      // For network errors, CORS issues, or server errors (500, 502, 503),
-      // keep the user logged in — they can retry on next navigation or page reload.
+      
       if (error.response && error.response.status === 401) {
         console.warn('Token expired or invalid, logging out.');
         localStorage.removeItem('token');
@@ -45,7 +36,7 @@ export function AuthProvider({ children }) {
         setUser(null);
       } else {
         console.warn('Auth check failed (non-401), keeping session:', error.message);
-        // Don't logout — just keep the existing user state from login()
+        
       }
     } finally {
       setLoading(false);
@@ -53,7 +44,6 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  // On mount: verify token if present
   useEffect(() => {
     if (token) {
       fetchUser();
@@ -61,15 +51,9 @@ export function AuthProvider({ children }) {
       setLoading(false);
       hasCheckedAuth.current = true;
     }
-    // This effect should only run on mount — no dependencies needed.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, []);
 
-  /**
-   * Login: authenticate and store token + user.
-   * After login, the user is set immediately — no need to call fetchUser() again
-   * since login() already provides the user data from the backend response.
-   */
   const login = async (username, password) => {
     const response = await axios.post(`${API_URL}/auth/login`, {
       username,
@@ -100,10 +84,6 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  /**
-   * Manual refresh: re-verify the token with the backend.
-   * Called explicitly by the user (e.g., pull-to-refresh in dashboard).
-   */
   const refreshUser = useCallback(() => {
     return fetchUser();
   }, [fetchUser]);

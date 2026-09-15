@@ -9,7 +9,6 @@ import AcoFloatingButton from '../components/AcoFloatingButton';
 import Footer from '../components/Footer';
 import { useSettings } from '../context/SettingsContext';
 
-// Lazy-load below-the-fold components for faster initial paint
 const ImageCarousel = lazy(() => import('../components/ImageCarousel'));
 const HomeSpotlightBanners = lazy(() => import('../components/HomeSpotlightBanners'));
 const NewsSection = lazy(() => import('../components/NewsSection'));
@@ -17,7 +16,6 @@ const VideoProfileSection = lazy(() => import('../components/VideoProfileSection
 const VirtualAssistant = lazy(() => import('../components/VirtualAssistant'));
 const CaseTrackingModal = lazy(() => import('../components/CaseTrackingModal'));
 
-// Extract YouTube video ID from various URL formats
 const extractYouTubeId = (url) => {
   if (!url) return null;
   const patterns = [
@@ -52,39 +50,29 @@ function HomePage() {
 
   return (
     <div className="home-page">
-      {/* Top Navigation */}
       <Navbar />
 
-      {/* Floating Social Media Links on Left */}
       <SocialSidebar />
 
-      {/* Main Content Sections */}
       <main>
-        {/* 1. Hero Section with Search & Action Buttons */}
         <HeroSection onOpenCaseModal={handleOpenCaseModal} />
 
-        {/* 2. Highlight Banner Slider / Image Carousel */}
         <Suspense fallback={null}>
           <ImageCarousel />
         </Suspense>
 
-        {/* 2.5. Spotlight Banners */}
         <Suspense fallback={null}>
           <HomeSpotlightBanners />
         </Suspense>
 
-        {/* 3. Quick Access Services Grid (8 Services) */}
         <QuickAccess onOpenCaseModal={handleOpenCaseModal} />
 
-        {/* 4. Transparency & Case Statistics Counter */}
         <StatsSection />
 
-        {/* 5. News & Announcements Section (Publikasi Terkini) */}
         <Suspense fallback={null}>
           <NewsSection />
         </Suspense>
 
-        {/* 7. Official Video Profile Section (Video Profil PA Cimahi) */}
         <Suspense fallback={null}>
           <VideoProfileSection
             videoUrl={videoUrl}
@@ -95,7 +83,6 @@ function HomePage() {
         </Suspense>
       </main>
 
-      {/* Interactive SIPP Case Tracking Modal */}
       <Suspense fallback={null}>
         <CaseTrackingModal
           isOpen={isCaseModalOpen}
@@ -104,18 +91,14 @@ function HomePage() {
         />
       </Suspense>
 
-      {/* Floating Virtual Assistant (SAPA) Chatbot on Bottom-Right */}
       <Suspense fallback={null}>
         <VirtualAssistant />
       </Suspense>
 
-      {/* Floating Accessibility Features Widget (Menu Aksesibilitas) */}
       <AccessibilityWidget />
 
-      {/* Floating ACO (Access CCTV Online) Shortcut Button */}
       <AcoFloatingButton cctvUrl="https://cctv.badilag.net/display/satker/3f0217881b5ba82ead3967e1032f6421" />
 
-      {/* Footer */}
       <Footer />
     </div>
   );

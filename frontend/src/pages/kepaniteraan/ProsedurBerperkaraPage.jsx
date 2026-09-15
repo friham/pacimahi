@@ -19,7 +19,6 @@ function ProsedurBerperkaraPage() {
           </p>
         </div>
 
-        {/* Tab Buttons */}
         <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', margin: '1.5rem 0' }}>
           {[
             { id: 'tingkat-pertama', label: 'Tingkat Pertama' },
@@ -51,7 +50,6 @@ function ProsedurBerperkaraPage() {
           ))}
         </div>
 
-        {/* Tab 1: Tingkat Pertama */}
         {activeTab === 'tingkat-pertama' && (
           <div>
             <h2>Prosedur Berperkara Tingkat Pertama</h2>
@@ -66,7 +64,6 @@ function ProsedurBerperkaraPage() {
           </div>
         )}
 
-        {/* Tab 2: Banding */}
         {activeTab === 'banding' && (
           <div>
             <h2>Prosedur Permohonan Banding (PTA Bandung)</h2>
@@ -81,7 +78,6 @@ function ProsedurBerperkaraPage() {
           </div>
         )}
 
-        {/* Tab 3: Kasasi */}
         {activeTab === 'kasasi' && (
           <div>
             <h2>Prosedur Permohonan Kasasi (Mahkamah Agung RI)</h2>
@@ -95,7 +91,6 @@ function ProsedurBerperkaraPage() {
           </div>
         )}
 
-        {/* Tab 4: Peninjauan Kembali */}
         {activeTab === 'pk' && (
           <div>
             <h2>Prosedur Peninjauan Kembali (PK)</h2>
@@ -108,7 +103,6 @@ function ProsedurBerperkaraPage() {
           </div>
         )}
 
-        {/* Tab 5: Pengambilan Produk Pengadilan */}
         {activeTab === 'produk' && (
           <div>
             <h2>Prosedur Pengambilan Produk Pengadilan (Akta Cerai & Salinan Putusan)</h2>
@@ -121,7 +115,6 @@ function ProsedurBerperkaraPage() {
           </div>
         )}
 
-        {/* Tab 6: Gugatan Sederhana */}
         {activeTab === 'gugatan-sederhana' && (
           <div>
             <h2>Prosedur Gugatan Sederhana (Small Claim Court)</h2>
@@ -135,7 +128,6 @@ function ProsedurBerperkaraPage() {
           </div>
         )}
 
-        {/* Tab 7: Prosedur Eksekusi */}
         {activeTab === 'eksekusi' && (
           <div>
             <h2>Prosedur Permohonan Eksekusi</h2>

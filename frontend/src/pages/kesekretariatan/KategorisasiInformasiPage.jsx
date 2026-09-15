@@ -46,7 +46,6 @@ function KategorisasiInformasiPage() {
       breadcrumb="Kategorisasi Informasi"
     >
       <div className="pa-content-card">
-        {/* Intro */}
         <div style={{ background: '#f8fafc', borderLeft: '4px solid #1b5e20', padding: '16px', borderRadius: '0 8px 8px 0', marginBottom: '24px' }}>
           <h3 style={{ fontSize: '1.05rem', color: '#1b5e20', margin: '0 0 4px 0' }}>Keterbukaan Informasi Publik di Pengadilan</h3>
           <p style={{ margin: 0, fontSize: '0.85rem', color: '#475569', lineHeight: 1.5 }}>
@@ -54,7 +53,6 @@ function KategorisasiInformasiPage() {
           </p>
         </div>
 
-        {/* Tab Buttons */}
         <div style={{ display: 'flex', gap: '8px', borderBottom: '2px solid #e2e8f0', marginBottom: '24px', flexWrap: 'wrap' }}>
           {[
             { id: 'berkala', label: 'Informasi Berkala' },
@@ -81,7 +79,6 @@ function KategorisasiInformasiPage() {
           ))}
         </div>
 
-        {/* Tab Content */}
         {activeTab === 'dikecualikan' ? (
           <div>
             <div style={{ background: '#fff1f2', border: '1px solid #fecdd3', borderRadius: '8px', padding: '14px 18px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '10px' }}>

@@ -70,7 +70,6 @@ function TugasPokokFungsiPage() {
       breadcrumb="Tugas Pokok & Fungsi"
     >
       <article className="pa-article">
-        {/* Dasar Hukum Banner */}
         <div className="pa-callout">
           <h4><FaBalanceScale style={{ marginRight: '8px', verticalAlign: '-2px' }} /> Landasan Yuridis Formal</h4>
           <p style={{ margin: 0 }}>

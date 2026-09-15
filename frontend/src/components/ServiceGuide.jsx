@@ -59,18 +59,15 @@ const caseBaseFees = {
 function ServiceGuide() {
   const [activeTab, setActiveTab] = useState('alur');
 
-  // Calculator states
   const [caseType, setCaseType] = useState('cerai_gugat');
   const [radiusP, setRadiusP] = useState('cimahi_tengah');
   const [radiusT, setRadiusT] = useState('cimahi_selatan');
   const [isEcourt, setIsEcourt] = useState(true);
 
-  // Compute fee
   const selectedCase = caseBaseFees[caseType];
   const rateP = radiusRates[radiusP].cost;
   const rateT = radiusRates[radiusT].cost;
   
-  // Ecourt discount factor on delivery/summons
   const ecourtDiscount = isEcourt ? 0.4 : 1.0;
   const totalPanggilan = Math.round(((rateP * 2) + (rateT * selectedCase.panggilanCount)) * ecourtDiscount);
   const totalEstimasi = selectedCase.pendaftaran + selectedCase.redaksi + selectedCase.meterai + selectedCase.pnbpPanggilan + totalPanggilan;
@@ -116,7 +113,6 @@ function ServiceGuide() {
           </div>
         </div>
 
-        {/* TAB 1: ALUR BERPERKARA */}
         {activeTab === 'alur' && (
           <div ref={contentRef} className="guide-timeline scroll-reveal">
             {stepsData.map((item, idx) => {
@@ -135,7 +131,6 @@ function ServiceGuide() {
           </div>
         )}
 
-        {/* TAB 2: KALKULATOR PANJAR BIAYA */}
         {activeTab === 'kalkulator' && (
           <div ref={contentRef} className="calculator-box scroll-reveal">
             <div className="calculator-box__grid">
@@ -186,7 +181,6 @@ function ServiceGuide() {
                 </div>
               </div>
 
-              {/* Summary Card */}
               <div className="calculator-summary">
                 <h4 className="calc-summary__heading">Rincian Estimasi Biaya Panjar</h4>
                 <div className="calc-summary__list">
@@ -230,7 +224,6 @@ function ServiceGuide() {
           </div>
         )}
 
-        {/* TAB 3: POSBAKUM & PRODEO */}
         {activeTab === 'posbakum' && (
           <div ref={contentRef} className="posbakum-box scroll-reveal">
             <div className="posbakum-box__intro">
@@ -267,7 +260,6 @@ function ServiceGuide() {
           </div>
         )}
 
-        {/* TAB 4: JADWAL SIDANG */}
         {activeTab === 'jadwal' && (
           <div ref={contentRef} className="jadwal-box scroll-reveal">
             <div className="jadwal-table-wrapper">

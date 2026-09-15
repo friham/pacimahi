@@ -1,7 +1,6 @@
 const pool = require('../config/db');
 const { recordAuditLog } = require('./auditLogController');
 
-// Helper to build recursive tree
 const buildMenuTree = (items, parentId = null) => {
   const branch = [];
   items
@@ -22,7 +21,6 @@ const buildMenuTree = (items, parentId = null) => {
   return branch;
 };
 
-// GET /api/menus
 const getMenus = async (req, res) => {
   try {
     const { status } = req.query;
@@ -43,12 +41,9 @@ const getMenus = async (req, res) => {
   }
 };
 
-// GET /api/menus/tree (Public & Admin)
 const getMenuTree = async (req, res) => {
   try {
-    // Public access: explicit scope=public, OR any request WITHOUT a valid
-    // Authorization header (safe default). Admin requests with a Bearer token
-    // and no scope still receive all menus (published + drafts).
+    
     const hasAuth = !!(req.headers.authorization && req.headers.authorization.startsWith('Bearer '));
     const isPublic = req.query.scope === 'public' || !hasAuth;
     let query = 'SELECT * FROM menus';
@@ -72,7 +67,6 @@ const getMenuTree = async (req, res) => {
   }
 };
 
-// POST /api/menus
 const createMenu = async (req, res) => {
   try {
     const {
@@ -135,7 +129,6 @@ const createMenu = async (req, res) => {
   }
 };
 
-// PUT /api/menus/:id
 const updateMenu = async (req, res) => {
   try {
     const { id } = req.params;
@@ -213,12 +206,10 @@ const updateMenu = async (req, res) => {
   }
 };
 
-// DELETE /api/menus/:id
 const deleteMenu = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Check if item exists
     const [existing] = await pool.execute('SELECT * FROM menus WHERE id = ?', [id]);
     if (existing.length === 0) {
       return res.status(404).json({ success: false, message: 'Menu tidak ditemukan.' });
@@ -227,10 +218,8 @@ const deleteMenu = async (req, res) => {
     const menuTitle = existing[0].title;
     const parentId = existing[0].parent_id;
 
-    // Re-parent direct children to this menu's parent (prevent orphan loss)
     await pool.execute('UPDATE menus SET parent_id = ? WHERE parent_id = ?', [parentId, id]);
 
-    // Delete menu
     await pool.execute('DELETE FROM menus WHERE id = ?', [id]);
 
     await recordAuditLog({
@@ -250,8 +239,6 @@ const deleteMenu = async (req, res) => {
   }
 };
 
-// PUT /api/menus/reorder
-// Accepts array of { id, parent_id, sort_order }
 const reorderMenus = async (req, res) => {
   let connection;
   try {
@@ -292,7 +279,6 @@ const reorderMenus = async (req, res) => {
   }
 };
 
-// PATCH /api/menus/:id/status
 const toggleMenuStatus = async (req, res) => {
   try {
     const { id } = req.params;

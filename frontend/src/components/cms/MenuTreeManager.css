@@ -1,4 +1,4 @@
-/* Menu Tree Manager Styling */
+
 
 .menu-tree-manager {
   display: flex;
@@ -100,7 +100,6 @@
   border-color: #cbd5e1;
 }
 
-/* Drag states */
 .menu-tree-row.dragging {
   opacity: 0.4;
   border: 2px dashed #0b4619;

@@ -14,7 +14,6 @@ export default function DynamicPageResolver() {
   useEffect(() => {
     let isMounted = true;
     const checkSlug = async () => {
-      // Pathname could be /tentang-pengadilan/sejarah-berdirinya-pengadilan or /p/sejarah-berdirinya-pengadilan
       const parts = location.pathname.split('/').filter(Boolean);
       const possibleSlug = parts[parts.length - 1];
 

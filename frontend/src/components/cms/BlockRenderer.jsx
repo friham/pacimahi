@@ -8,15 +8,12 @@ import { sanitizeHtml } from '../../sanitize';
 import { SERVER_URL } from '../../config';
 import './BlockRenderer.css';
 
-// Convert YouTube or Vimeo URL to embed URL
 const getEmbedUrl = (url) => {
   if (!url) return '';
-  // YouTube watch format
   const ytMatch = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|v\/)|youtu\.be\/)([\w-]{11})/i);
   if (ytMatch && ytMatch[1]) {
     return `https://www.youtube.com/embed/${ytMatch[1]}`;
   }
-  // Vimeo
   const vimeoMatch = url.match(/vimeo\.com\/(?:video\/)?(\d+)/i);
   if (vimeoMatch && vimeoMatch[1]) {
     return `https://player.vimeo.com/video/${vimeoMatch[1]}`;
@@ -24,7 +21,6 @@ const getEmbedUrl = (url) => {
   return url;
 };
 
-// Helper for file size format
 const formatFileSize = (bytes) => {
   if (!bytes || bytes === 0) return '';
   const k = 1024;
@@ -48,7 +44,6 @@ export default function BlockRenderer({ blocks = [] }) {
     return null;
   }
 
-  // Sort by sort_order to guarantee correct display order after admin reordering
   const sortedBlocks = [...blocks].sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0));
 
   return (

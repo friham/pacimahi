@@ -1,7 +1,6 @@
 const pool = require('../config/db');
 const { recordAuditLog } = require('./auditLogController');
 
-// Get only active sliders (for homepage)
 const getSliders = async (req, res) => {
   try {
     const [rows] = await pool.execute(
@@ -14,7 +13,6 @@ const getSliders = async (req, res) => {
   }
 };
 
-// Get all sliders (for admin panel)
 const getAllSliders = async (req, res) => {
   try {
     const [rows] = await pool.execute(
@@ -27,7 +25,6 @@ const getAllSliders = async (req, res) => {
   }
 };
 
-// Create a new slider
 const createSlider = async (req, res) => {
   try {
     const { title, image_url, description, link, sort_order, is_active } = req.body;
@@ -62,7 +59,6 @@ const createSlider = async (req, res) => {
   }
 };
 
-// Update slider
 const updateSlider = async (req, res) => {
   try {
     const { id } = req.params;
@@ -98,7 +94,6 @@ const updateSlider = async (req, res) => {
   }
 };
 
-// Delete slider
 const deleteSlider = async (req, res) => {
   try {
     const { id } = req.params;

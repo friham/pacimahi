@@ -1,6 +1,4 @@
-/* ============================================
-   Case Tracking Modal Styles
-   ============================================ */
+
 .case-modal-overlay {
   position: fixed;
   inset: 0;
@@ -27,7 +25,6 @@
   max-height: 90vh;
 }
 
-/* Header */
 .case-modal__header {
   background: linear-gradient(135deg, var(--primary-900), var(--primary-800));
   color: white;
@@ -86,13 +83,11 @@
   transform: rotate(90deg);
 }
 
-/* Body */
 .case-modal__body {
   padding: 1.75rem;
   overflow-y: auto;
 }
 
-/* Search Form */
 .case-modal__search-form {
   margin-bottom: 1rem;
 }
@@ -148,7 +143,6 @@
   transform: scale(1.02);
 }
 
-/* Samples */
 .case-modal__samples {
   display: flex;
   align-items: center;
@@ -180,7 +174,6 @@
   border-color: var(--primary-700);
 }
 
-/* Result Card */
 .case-result-card {
   background: white;
   border: 1px solid var(--gray-200);
@@ -223,7 +216,6 @@
   border-radius: var(--radius-md);
 }
 
-/* Result Grid */
 .case-result-card__grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -261,7 +253,6 @@
   font-weight: 700;
 }
 
-/* Result Footer */
 .case-result-card__footer {
   text-align: center;
 }
@@ -288,7 +279,6 @@
   transform: translateY(-2px);
 }
 
-/* Placeholder */
 .case-modal__placeholder {
   text-align: center;
   padding: 2.5rem 1rem;

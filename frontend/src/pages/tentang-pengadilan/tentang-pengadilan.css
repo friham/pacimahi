@@ -1,6 +1,4 @@
-/* ============================================
-   Tentang Pengadilan Article & Content Styling
-   ============================================ */
+
 
 .pa-article {
   color: var(--gray-800);
@@ -41,7 +39,6 @@
   line-height: 1.6;
 }
 
-/* Callout Box */
 .pa-callout {
   background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
   border-left: 5px solid var(--primary-600);
@@ -63,7 +60,6 @@
   font-weight: 700;
 }
 
-/* Quote Box */
 .pa-quote {
   position: relative;
   background: #f8fafc;
@@ -86,7 +82,6 @@
   font-family: serif;
 }
 
-/* Moto CINTA Cards */
 .motto-grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -180,7 +175,6 @@
   }
 }
 
-/* Custom Table Styles */
 .pa-table-wrapper {
   overflow-x: auto;
   margin: 1.5rem 0;
@@ -218,7 +212,6 @@
   background-color: var(--primary-50);
 }
 
-/* Pimpinan Cards Grid */
 .pimpinan-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -310,7 +303,6 @@
   margin-top: auto;
 }
 
-/* Timeline Components */
 .sejarah-timeline {
   position: relative;
   margin: 2rem 0;
@@ -354,7 +346,6 @@
   box-shadow: var(--shadow-sm);
 }
 
-/* Embed / Viewer Container */
 .embed-container {
   position: relative;
   width: 100%;
@@ -376,7 +367,6 @@
   border: 0;
 }
 
-/* Image Showcase / Gallery */
 .photo-showcase-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -408,9 +398,6 @@
   border-top: 1px solid var(--gray-200);
 }
 
-/* ============================================
-   CMS Dynamic Content Elements: Images, PDFs, Videos
-   ============================================ */
 .pa-content-image {
   margin: 2rem 0;
   display: block;
@@ -438,7 +425,6 @@
   font-style: italic;
 }
 
-/* PDF Download Card */
 .pa-document-download-card {
   display: flex;
   align-items: center;
@@ -493,7 +479,6 @@
   box-shadow: 0 4px 12px rgba(11, 70, 25, 0.3);
 }
 
-/* PDF Embed Reader */
 .pa-pdf-embed-wrapper {
   margin: 2rem 0;
   border: 1.5px solid #d1d5db;
@@ -527,7 +512,6 @@
   display: block;
 }
 
-/* Video Embed Wrapper (Responsive 16:9) */
 .pa-video-embed-wrapper {
   margin: 2rem 0;
   border-radius: 14px;

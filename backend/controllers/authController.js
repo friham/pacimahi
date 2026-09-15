@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 const pool = require('../config/db');
 require('dotenv').config();
 
-// Login admin
 const login = async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -15,7 +14,6 @@ const login = async (req, res) => {
       });
     }
 
-    // Check user exists
     const [rows] = await pool.execute(
       'SELECT * FROM admins WHERE username = ?',
       [username]
@@ -30,7 +28,6 @@ const login = async (req, res) => {
 
     const admin = rows[0];
 
-    // Verify password
     const isMatch = await bcrypt.compare(password, admin.password);
     if (!isMatch) {
       return res.status(401).json({
@@ -39,7 +36,6 @@ const login = async (req, res) => {
       });
     }
 
-    // Generate JWT
     const token = jwt.sign(
       { id: admin.id, username: admin.username, role: admin.role },
       process.env.JWT_SECRET,
@@ -70,7 +66,6 @@ const login = async (req, res) => {
   }
 };
 
-// Get current admin info
 const getMe = async (req, res) => {
   try {
     const [rows] = await pool.execute(
@@ -98,7 +93,6 @@ const getMe = async (req, res) => {
   }
 };
 
-// Update profile (username, name, email, avatar)
 const updateProfile = async (req, res) => {
   try {
     const { username, name, email, avatar } = req.body;
@@ -111,7 +105,6 @@ const updateProfile = async (req, res) => {
       });
     }
 
-    // Check if username is taken by another admin
     const [existing] = await pool.execute(
       'SELECT id FROM admins WHERE username = ? AND id != ?',
       [username, adminId]
@@ -124,16 +117,13 @@ const updateProfile = async (req, res) => {
       });
     }
 
-    // Sanitize avatar to prevent saving temporary blob URLs
     const safeAvatar = (avatar && !avatar.startsWith('blob:')) ? avatar : null;
 
-    // Update profile
     await pool.execute(
       'UPDATE admins SET username = ?, name = ?, email = ?, avatar = ? WHERE id = ?',
       [username, name, email || null, safeAvatar, adminId]
     );
 
-    // Fetch updated admin
     const [rows] = await pool.execute(
       'SELECT id, username, name, email, role, avatar, created_at FROM admins WHERE id = ?',
       [adminId]
@@ -141,7 +131,6 @@ const updateProfile = async (req, res) => {
 
     const updatedAdmin = rows[0];
 
-    // Generate refreshed token
     const token = jwt.sign(
       { id: updatedAdmin.id, username: updatedAdmin.username, role: updatedAdmin.role },
       process.env.JWT_SECRET,
@@ -165,7 +154,6 @@ const updateProfile = async (req, res) => {
   }
 };
 
-// Change password
 const changePassword = async (req, res) => {
   try {
     const { currentPassword, newPassword } = req.body;
@@ -185,7 +173,6 @@ const changePassword = async (req, res) => {
       });
     }
 
-    // Verify current password
     const [rows] = await pool.execute(
       'SELECT password FROM admins WHERE id = ?',
       [adminId]
@@ -206,7 +193,6 @@ const changePassword = async (req, res) => {
       });
     }
 
-    // Hash and update
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     await pool.execute(
       'UPDATE admins SET password = ? WHERE id = ?',

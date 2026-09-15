@@ -47,7 +47,6 @@ function MediaPublikasiLayananPage() {
       breadcrumb="Brosur & Media Layanan"
     >
       <div className="pa-content-card">
-        {/* Navigation Tabs */}
         <div style={{ display: 'flex', gap: '8px', borderBottom: '2px solid #e2e8f0', marginBottom: '24px', flexWrap: 'wrap' }}>
           <button onClick={() => setTab('brosur')} style={{ padding: '10px 18px', border: 'none', background: tab === 'brosur' ? '#1b5e20' : 'transparent', color: tab === 'brosur' ? '#fff' : '#475569', borderRadius: '6px 6px 0 0', fontWeight: 600, cursor: 'pointer' }}>
             Brosur Digital
@@ -63,7 +62,6 @@ function MediaPublikasiLayananPage() {
           </button>
         </div>
 
-        {/* TAB 1: BROSUR */}
         {tab === 'brosur' && (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
             {brosurList.map((b, idx) => (
@@ -80,7 +78,6 @@ function MediaPublikasiLayananPage() {
           </div>
         )}
 
-        {/* TAB 2: SK */}
         {tab === 'sk' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {skList.map((sk, idx) => (
@@ -97,7 +94,6 @@ function MediaPublikasiLayananPage() {
           </div>
         )}
 
-        {/* TAB 3: YOUTUBE */}
         {tab === 'youtube' && (
           <div>
             <div style={{ background: '#fef2f2', border: '1px solid #fecaca', borderRadius: '10px', padding: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '14px', marginBottom: '24px' }}>
@@ -116,7 +112,6 @@ function MediaPublikasiLayananPage() {
           </div>
         )}
 
-        {/* TAB 4: TAUTAN TERKAIT */}
         {tab === 'tautan' && (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '14px' }}>
             {tautanTerkait.map((t, idx) => (

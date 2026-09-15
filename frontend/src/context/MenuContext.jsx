@@ -38,7 +38,6 @@ export const MenuProvider = ({ children }) => {
     fetchMenuTree();
   }, [fetchMenuTree]);
 
-  // Helper to find a menu item by URL/path or slug
   const findMenuByPath = useCallback((pathname) => {
     if (!pathname) return null;
     const cleanPath = pathname.replace(/\/+$/, '');
@@ -60,7 +59,6 @@ export const MenuProvider = ({ children }) => {
     return searchBranch(menuTree);
   }, [menuTree]);
 
-  // Helper to find parent menu for a given path
   const findBranchByPath = useCallback((pathname) => {
     if (!pathname) return null;
     const cleanPath = pathname.replace(/\/+$/, '');

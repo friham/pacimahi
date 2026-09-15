@@ -57,7 +57,6 @@ function SuratMenyuratPimpinanPage() {
       breadcrumb="Surat Menyurat Pimpinan"
     >
       <div className="pa-content-card">
-        {/* Header Search */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
           <div>
             <h2 style={{ fontSize: '1.2rem', color: '#1b5e20', margin: '0 0 4px 0' }}>Agenda Surat Kedinasan Terbuka TA 2025</h2>
@@ -81,7 +80,6 @@ function SuratMenyuratPimpinanPage() {
           </div>
         </div>
 
-        {/* Table of Letters */}
         <div style={{ overflowX: 'auto', marginBottom: '24px' }}>
           <table className="pa-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
             <thead>
@@ -126,7 +124,6 @@ function SuratMenyuratPimpinanPage() {
           </table>
         </div>
 
-        {/* Tata Naskah Dinas Info */}
         <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '16px' }}>
           <h4 style={{ margin: '0 0 6px 0', fontSize: '0.92rem', color: '#1b5e20' }}>Pedoman Tata Naskah Dinas Mahkamah Agung RI</h4>
           <p style={{ margin: 0, fontSize: '0.82rem', color: '#475569', lineHeight: 1.5 }}>

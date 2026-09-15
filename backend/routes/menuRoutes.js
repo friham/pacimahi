@@ -12,9 +12,8 @@ const {
   toggleMenuStatus
 } = require('../controllers/menuController');
 
-// Public endpoints (only published menus)
 router.get('/', (req, res, next) => {
-  // For public access, only return published menus
+  
   if (!req.headers.authorization) {
     req.query.status = 'published';
   }
@@ -22,9 +21,8 @@ router.get('/', (req, res, next) => {
 }, getMenus);
 router.get('/tree', getMenuTree);
 
-// Protected endpoints (CMS management)
 router.post('/', authMiddleware, checkRole(['superadmin', 'admin']), createMenu);
-// NOTE: /reorder MUST come before /:id to avoid route collision
+
 router.put('/reorder', authMiddleware, checkRole(['superadmin', 'admin']), reorderMenus);
 router.put('/:id', authMiddleware, checkRole(['superadmin', 'admin']), updateMenu);
 router.patch('/:id/status', authMiddleware, checkRole(['superadmin', 'admin']), toggleMenuStatus);

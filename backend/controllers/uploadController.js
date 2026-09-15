@@ -1,11 +1,10 @@
-// Handle response setelah file berhasil diupload oleh middleware multer
+
 const uploadImage = (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ success: false, message: 'Tidak ada file gambar yang diunggah.' });
     }
 
-    // URL publik untuk mengakses gambar yang baru diupload
     const imageUrl = `/images/uploads/${req.file.filename}`;
 
     res.status(201).json({
@@ -28,8 +27,6 @@ const uploadDocument = (req, res) => {
       return res.status(400).json({ success: false, message: 'Tidak ada file yang diunggah.' });
     }
 
-    // Files are always saved by documentStorage to public/documents,
-    // so the public URL must always point to /documents/ regardless of type.
     const fileUrl = `/documents/${req.file.filename}`;
 
     res.status(201).json({

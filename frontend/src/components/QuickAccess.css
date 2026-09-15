@@ -1,6 +1,4 @@
-/* ============================================
-   Quick Access Section
-   ============================================ */
+
 .quick-access {
   padding: 5rem 0 4rem;
   background: var(--surface-bg);
@@ -26,14 +24,12 @@
   margin-bottom: 0.5rem;
 }
 
-/* Grid */
 .quick-access__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
 
-/* Card */
 .quick-access__card {
   position: relative;
   display: flex;
@@ -73,7 +69,6 @@
   opacity: 1;
 }
 
-/* Icon */
 .quick-access__icon-wrapper {
   width: 64px;
   height: 64px;
@@ -102,7 +97,6 @@
   color: white;
 }
 
-/* Text */
 .quick-access__card-title {
   font-size: 0.9rem;
   font-weight: 700;
@@ -137,7 +131,6 @@
   transform: translateX(0);
 }
 
-/* Responsive */
 @media (max-width: 1024px) {
   .quick-access__grid {
     grid-template-columns: repeat(3, 1fr);

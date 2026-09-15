@@ -14,63 +14,8 @@ import {
   FaFileAlt
 } from 'react-icons/fa';
 
-const dipaPetikan = [
-  {
-    year: '2025',
-    category: 'DIPA 01 - BUA',
-    code: 'DIPA-005.01.2.401490/2025',
-    nominal: 'Rp 8.420.350.000',
-    description: 'DIPA Petikan Badan Urusan Administrasi Mahkamah Agung RI TA 2025',
-    status: 'Aktif',
-    date: '02 Januari 2025',
-    fileSize: '2.4 MB',
-  },
-  {
-    year: '2025',
-    category: 'DIPA 04 - BADILAG',
-    code: 'DIPA-005.04.2.401491/2025',
-    nominal: 'Rp 785.600.000',
-    description: 'DIPA Petikan Ditjen Badan Peradilan Agama (Posbakum, Prodeo, Sidkel) TA 2025',
-    status: 'Aktif',
-    date: '02 Januari 2025',
-    fileSize: '1.8 MB',
-  },
-  {
-    year: '2024',
-    category: 'DIPA 01 - BUA',
-    code: 'DIPA-005.01.2.401490/2024',
-    nominal: 'Rp 7.950.120.000',
-    description: 'DIPA Petikan Badan Urusan Administrasi Mahkamah Agung RI TA 2024 (Revisi Terakhir)',
-    status: 'Terealisasi 98.85%',
-    date: '15 Desember 2024',
-    fileSize: '3.1 MB',
-  },
-  {
-    year: '2024',
-    category: 'DIPA 04 - BADILAG',
-    code: 'DIPA-005.04.2.401491/2024',
-    nominal: 'Rp 650.000.000',
-    description: 'DIPA Petikan Ditjen Badan Peradilan Agama Mahkamah Agung RI TA 2024',
-    status: 'Terealisasi 100%',
-    date: '15 Desember 2024',
-    fileSize: '2.0 MB',
-  },
-];
-
-const rpaData = [
-  { bulan: 'Januari 2025', targetDipa01: 'Rp 680.000.000', targetDipa04: 'Rp 65.000.000', realisasi: 'Rp 742.500.000', status: 'Sesuai RPD' },
-  { bulan: 'Februari 2025', targetDipa01: 'Rp 710.000.000', targetDipa04: 'Rp 70.000.000', realisasi: 'Rp 778.200.000', status: 'Sesuai RPD' },
-  { bulan: 'Maret 2025', targetDipa01: 'Rp 715.087.500', targetDipa04: 'Rp 100.680.000', realisasi: 'Rp 815.767.500', status: 'Sesuai RPD' },
-  { bulan: 'Triwulan II (Rencana)', targetDipa01: 'Rp 2.150.000.000', targetDipa04: 'Rp 200.000.000', realisasi: 'Proses Pelaksanaan', status: 'On Track' },
-];
-
-const rkklData = [
-  { kodeAkun: '005.01.WA.1066.EAA', deskripsi: 'Layanan Dukungan Manajemen Internal Satker (Gaji & Tunjangan)', pagu: 'Rp 5.240.000.000', sumber: 'RM' },
-  { kodeAkun: '005.01.WA.1066.EAB', deskripsi: 'Layanan Sarana & Prasarana Internal (Operasional & Pemeliharaan Kantor)', pagu: 'Rp 3.180.350.000', sumber: 'RM' },
-  { kodeAkun: '005.04.BF.1067.QBA', deskripsi: 'Peningkatan Manajemen Peradilan Agama (Pos Bantuan Hukum / Posbakum)', pagu: 'Rp 65.000.000', sumber: 'RM' },
-  { kodeAkun: '005.04.BF.1067.QBB', deskripsi: 'Pembebasan Biaya Perkara (Prodeo)', pagu: 'Rp 220.600.000', sumber: 'RM' },
-  { kodeAkun: '005.04.BF.1067.QBC', deskripsi: 'Sidang di Luar Gedung Pengadilan (Sidang Keliling)', pagu: 'Rp 500.000.000', sumber: 'RM' },
-];
+import dipaData from '../../data/dipaData.json';
+const { dipaPetikan, rpaData, rkklData } = dipaData;
 
 function DIPAPage() {
   const [activeTab, setActiveTab] = useState('dipa');
@@ -89,7 +34,6 @@ function DIPAPage() {
       breadcrumb="DIPA"
     >
       <div className="pa-content-card">
-        {/* Navigation Tabs */}
         <div style={{ display: 'flex', gap: '6px', borderBottom: '2px solid #e2e8f0', marginBottom: '24px', flexWrap: 'wrap' }}>
           {[
             { id: 'dipa', label: 'DIPA Petikan' },
@@ -117,7 +61,6 @@ function DIPAPage() {
           ))}
         </div>
 
-        {/* TAB 1: DIPA */}
         {activeTab === 'dipa' && (
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
@@ -188,7 +131,6 @@ function DIPAPage() {
           </div>
         )}
 
-        {/* TAB 2: RPA */}
         {activeTab === 'rpa' && (
           <div>
             <h2 style={{ fontSize: '1.2rem', color: '#1b5e20', margin: '0 0 6px 0' }}>Rencana Penarikan Anggaran (RPA / RPD) TA 2025</h2>
@@ -244,7 +186,6 @@ function DIPAPage() {
           </div>
         )}
 
-        {/* TAB 3: RKKL */}
         {activeTab === 'rkkl' && (
           <div>
             <h2 style={{ fontSize: '1.2rem', color: '#1b5e20', margin: '0 0 6px 0' }}>Rincian Kertas Kerja Satker (RKA-KL) TA 2025</h2>
@@ -294,7 +235,6 @@ function DIPAPage() {
           </div>
         )}
 
-        {/* TAB 4: CALK */}
         {activeTab === 'calk' && (
           <div>
             <h2 style={{ fontSize: '1.2rem', color: '#1b5e20', margin: '0 0 6px 0' }}>Catatan Atas Laporan Keuangan (CaLK)</h2>
@@ -338,7 +278,6 @@ function DIPAPage() {
           </div>
         )}
 
-        {/* TAB 5: NERACA KEUANGAN */}
         {activeTab === 'neraca' && (
           <div>
             <h2 style={{ fontSize: '1.2rem', color: '#1b5e20', margin: '0 0 6px 0' }}>Neraca Keuangan Satuan Kerja</h2>

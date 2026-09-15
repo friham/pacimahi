@@ -37,7 +37,6 @@ function AsetInventarisPage() {
       breadcrumb="Aset & Inventaris"
     >
       <div className="pa-content-card">
-        {/* Navigation Tabs */}
         <div style={{ display: 'flex', gap: '8px', borderBottom: '2px solid #e2e8f0', marginBottom: '24px', flexWrap: 'wrap' }}>
           <button
             onClick={() => setActiveTab('rekap')}
@@ -92,7 +91,6 @@ function AsetInventarisPage() {
           </button>
         </div>
 
-        {/* TAB 1: REKAPITULASI BMN */}
         {activeTab === 'rekap' && (
           <div>
             <h2 style={{ fontSize: '1.25rem', color: '#1b5e20', margin: '0 0 8px 0' }}>Rekapitulasi Barang Milik Negara (BMN) TA 2024/2025</h2>
@@ -131,7 +129,6 @@ function AsetInventarisPage() {
           </div>
         )}
 
-        {/* TAB 2: KENDARAAN DINAS */}
         {activeTab === 'kendaraan' && (
           <div>
             <h2 style={{ fontSize: '1.25rem', color: '#1b5e20', margin: '0 0 8px 0' }}>Daftar Kendaraan Dinas Operasional & Jabatan</h2>
@@ -168,7 +165,6 @@ function AsetInventarisPage() {
           </div>
         )}
 
-        {/* TAB 3: LAPORAN BMN SIMAN */}
         {activeTab === 'laporan' && (
           <div>
             <h2 style={{ fontSize: '1.25rem', color: '#1b5e20', margin: '0 0 8px 0' }}>Dokumen Laporan BMN (SIMAN / DJKN)</h2>

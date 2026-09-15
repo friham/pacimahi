@@ -6,16 +6,13 @@ import { SettingsProvider } from './context/SettingsContext';
 import ScrollToTop from './components/ScrollToTop';
 import './App.css';
 
-// ── Core pages (always visible) ────────────────────────────────
 const HomePage = lazy(() => import('./pages/HomePage'));
 const LoginPage = lazy(() => import('./pages/LoginPage'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 
-// ── Shared components used by routes ───────────────────────────
 import ProtectedRoute from './components/ProtectedRoute';
 import DynamicCMSPage from './components/DynamicCMSPage';
 
-// ── Tentang Pengadilan Pages ───────────────────────────────────
 const PengantarKetuaPage = lazy(() => import('./pages/tentang-pengadilan/PengantarKetuaPage'));
 const VisiMisiPage = lazy(() => import('./pages/tentang-pengadilan/VisiMisiPage'));
 const TugasPokokFungsiPage = lazy(() => import('./pages/tentang-pengadilan/TugasPokokFungsiPage'));
@@ -27,7 +24,6 @@ const MantanPimpinanPage = lazy(() => import('./pages/tentang-pengadilan/MantanP
 const AgendaKegiatanPage = lazy(() => import('./pages/tentang-pengadilan/AgendaKegiatanPage'));
 const AlamatPengadilanPage = lazy(() => import('./pages/tentang-pengadilan/AlamatPengadilanPage'));
 
-// ── Profile Pegawai & Statistik Kepegawaian ────────────────────
 const KetuaWakilKetuaPage = lazy(() => import('./pages/tentang-pengadilan/KetuaWakilKetuaPage'));
 const SDMHakimPage = lazy(() => import('./pages/tentang-pengadilan/SDMHakimPage'));
 const SDMKepaniteraanPage = lazy(() => import('./pages/tentang-pengadilan/SDMKepaniteraanPage'));
@@ -35,12 +31,10 @@ const SDMKesekretariatanPage = lazy(() => import('./pages/tentang-pengadilan/SDM
 const SDMFungsionalPage = lazy(() => import('./pages/tentang-pengadilan/SDMFungsionalPage'));
 const StatistikKepegawaianPage = lazy(() => import('./pages/tentang-pengadilan/StatistikKepegawaianPage'));
 
-// ── Informasi Umum Pages ───────────────────────────────────────
 const SOPPengadilanPage = lazy(() => import('./pages/informasi-umum/SOPPengadilanPage'));
 const ProgramKerjaPage = lazy(() => import('./pages/informasi-umum/ProgramKerjaPage'));
 const LaporanTahunanPage = lazy(() => import('./pages/informasi-umum/LaporanTahunanPage'));
 
-// ── Kepaniteraan Pages ─────────────────────────────────────────
 const PosbakumPage = lazy(() => import('./pages/kepaniteraan/PosbakumPage'));
 const ProdeoPage = lazy(() => import('./pages/kepaniteraan/ProdeoPage'));
 const HakPencariKeadilanPage = lazy(() => import('./pages/kepaniteraan/HakPencariKeadilanPage'));
@@ -63,7 +57,6 @@ const LayananInformasiPerkaraPage = lazy(() => import('./pages/kepaniteraan/Laya
 const TahapanPerkaraPage = lazy(() => import('./pages/kepaniteraan/TahapanPerkaraPage'));
 const KeuanganPerkaraPage = lazy(() => import('./pages/kepaniteraan/KeuanganPerkaraPage'));
 
-// ── Kesekretariatan Pages ──────────────────────────────────────
 const DIPAPage = lazy(() => import('./pages/kesekretariatan/DIPAPage'));
 const SAKIPPage = lazy(() => import('./pages/kesekretariatan/SAKIPPage'));
 const PengadaanBarangJasaPage = lazy(() => import('./pages/kesekretariatan/PengadaanBarangJasaPage'));
@@ -78,7 +71,6 @@ const PedomanKesekretariatanPage = lazy(() => import('./pages/kesekretariatan/Pe
 const UPTKesekretariatanPage = lazy(() => import('./pages/kesekretariatan/UPTKesekretariatanPage'));
 const LaporanKesekretariatanPage = lazy(() => import('./pages/kesekretariatan/LaporanKesekretariatanPage'));
 
-// ── Layanan Publik Pages ───────────────────────────────────────
 const PTSPPage = lazy(() => import('./pages/layanan-publik/PTSPPage'));
 const ZonaIntegritasPage = lazy(() => import('./pages/layanan-publik/ZonaIntegritasPage'));
 const AlurPrioritasPTSPPage = lazy(() => import('./pages/layanan-publik/AlurPrioritasPTSPPage'));
@@ -89,7 +81,6 @@ const LayananInformasiPPIDPage = lazy(() => import('./pages/layanan-publik/Layan
 const FasilitasPublikPage = lazy(() => import('./pages/layanan-publik/FasilitasPublikPage'));
 const MediaPublikasiLayananPage = lazy(() => import('./pages/layanan-publik/MediaPublikasiLayananPage'));
 
-// ── Publikasi Pages ────────────────────────────────────────────
 const BeritaPage = lazy(() => import('./pages/publikasi/BeritaPage'));
 const PengumumanPage = lazy(() => import('./pages/publikasi/PengumumanPage'));
 const ArsipPeraturanPage = lazy(() => import('./pages/publikasi/ArsipPeraturanPage'));
@@ -98,7 +89,6 @@ const ArtikelHukumPage = lazy(() => import('./pages/publikasi/ArtikelHukumPage')
 const PerjanjianKerjasamaPage = lazy(() => import('./pages/publikasi/PerjanjianKerjasamaPage'));
 const HasilPenelitianPage = lazy(() => import('./pages/publikasi/HasilPenelitianPage'));
 
-// ── Loading fallback for Suspense boundary ─────────────────────
 function PageLoader() {
   return (
     <div style={{
@@ -130,13 +120,12 @@ function App() {
     <AuthProvider>
       <AccessibilityProvider>
         <SettingsProvider>
-        <Router>
+          <Router>
           <ScrollToTop />
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<HomePage />} />
 
-              {/* Auth & Admin Routes */}
               <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
               <Route path="/login" element={<Navigate to="/admin/login" replace />} />
               <Route path="/admin/login" element={<LoginPage />} />
@@ -149,7 +138,6 @@ function App() {
                 }
               />
 
-              {/* Profil Pengadilan Routes (Dinamis terhubung ke CMS Admin & Database) */}
               <Route path="/tentang-pengadilan/pengantar-dari-ketua-pengadilan" element={<DynamicCMSPage customSlug="pengantar-dari-ketua-pengadilan" fallbackComponent={PengantarKetuaPage} />} />
               <Route path="/tentang-pengadilan/visi-dan-misi" element={<DynamicCMSPage customSlug="visi-dan-misi" fallbackComponent={VisiMisiPage} />} />
               <Route path="/tentang-pengadilan/kekuasaan-dan-ruang-lingkup-pengadilan-agama" element={<DynamicCMSPage customSlug="kekuasaan-dan-ruang-lingkup-pengadilan-agama" fallbackComponent={TugasPokokFungsiPage} />} />
@@ -161,7 +149,6 @@ function App() {
               <Route path="/tentang-pengadilan/agenda-kerja-pimpinan" element={<DynamicCMSPage customSlug="agenda-kerja-pimpinan" fallbackComponent={AgendaKegiatanPage} />} />
               <Route path="/tentang-pengadilan/alamat-pengadilan" element={<DynamicCMSPage customSlug="alamat-pengadilan" fallbackComponent={AlamatPengadilanPage} />} />
 
-              {/* Profil Pegawai & SDM Routes (Dinamis terhubung ke CMS Admin & Database) */}
               <Route path="/tentang-pengadilan/profile-pengadilan" element={<Navigate to="/tentang-pengadilan/profile-pengadilan/profil-pegawai/ketua-wakil-ketua" replace />} />
               <Route path="/tentang-pengadilan/profile-pengadilan/profil-pegawai/ketua-wakil-ketua" element={<DynamicCMSPage customSlug="ketua-wakil-ketua" fallbackComponent={KetuaWakilKetuaPage} />} />
               <Route path="/tentang-pengadilan/profile-pengadilan/profil-pegawai/sdm-hakim" element={<DynamicCMSPage customSlug="sdm-hakim" fallbackComponent={SDMHakimPage} />} />
@@ -170,23 +157,19 @@ function App() {
               <Route path="/tentang-pengadilan/profile-pengadilan/profil-pegawai/fungsional-dan-pelaksana" element={<DynamicCMSPage customSlug="fungsional-dan-pelaksana" fallbackComponent={SDMFungsionalPage} />} />
               <Route path="/tentang-pengadilan/profile-pengadilan/statistik-kepegawaian" element={<DynamicCMSPage customSlug="statistik-kepegawaian" fallbackComponent={StatistikKepegawaianPage} />} />
 
-              {/* Dynamic CMS Catch-All Routes for new pages created in Admin */}
               <Route path="/p/:slug" element={<DynamicCMSPage />} />
               <Route path="/tentang-pengadilan/:slug" element={<DynamicCMSPage />} />
 
-              {/* Informasi Umum Routes */}
               <Route path="/informasi-umum" element={<Navigate to="/informasi-umum/standar-operasional-prosedur" replace />} />
               <Route path="/informasi-umum/standar-operasional-prosedur" element={<SOPPengadilanPage />} />
               <Route path="/informasi-umum/program-kerja" element={<ProgramKerjaPage />} />
               <Route path="/informasi-umum/laporan-tahunan" element={<LaporanTahunanPage />} />
 
-              {/* Aliases for 'transparansi-pengadilan' (legacy live site URLs) */}
               <Route path="/transparansi-pengadilan/standar-operasional-prosedur" element={<Navigate to="/informasi-umum/standar-operasional-prosedur" replace />} />
               <Route path="/transparansi-pengadilan/standar-operasional-prosedur/kepaniteraan" element={<Navigate to="/informasi-umum/standar-operasional-prosedur" replace />} />
               <Route path="/transparansi-pengadilan/program-kerja" element={<Navigate to="/informasi-umum/program-kerja" replace />} />
               <Route path="/transparansi-pengadilan/laporan-tahunan" element={<Navigate to="/informasi-umum/laporan-tahunan" replace />} />
 
-              {/* Aliases for 'tentang-pengadian' (legacy typo support) */}
               <Route path="/tentang-pengadian/pengantar-dari-ketua-pengadilan" element={<Navigate to="/tentang-pengadilan/pengantar-dari-ketua-pengadilan" replace />} />
               <Route path="/tentang-pengadian/visi-dan-misi" element={<Navigate to="/tentang-pengadilan/visi-dan-misi" replace />} />
               <Route path="/tentang-pengadian/kekuasaan-dan-ruang-lingkup-pengadilan-agama" element={<Navigate to="/tentang-pengadilan/kekuasaan-dan-ruang-lingkup-pengadilan-agama" replace />} />
@@ -206,7 +189,6 @@ function App() {
               <Route path="/tentang-pengadian/profile-pengadilan/profil-pegawai/fungsional-dan-pelaksana" element={<Navigate to="/tentang-pengadilan/profile-pengadilan/profil-pegawai/fungsional-dan-pelaksana" replace />} />
               <Route path="/tentang-pengadian/profile-pengadilan/statistik-kepegawaian" element={<Navigate to="/tentang-pengadilan/profile-pengadilan/statistik-kepegawaian" replace />} />
 
-              {/* Kepaniteraan Routes */}
               <Route path="/kepaniteraan" element={<Navigate to="/kepaniteraan/posbakum" replace />} />
               <Route path="/kepaniteraan/posbakum" element={<PosbakumPage />} />
               <Route path="/kepaniteraan/prodeo" element={<ProdeoPage />} />
@@ -237,7 +219,6 @@ function App() {
               <Route path="/kepaniteraan/tahapan-tahapan-perkara" element={<Navigate to="/kepaniteraan/tahapan-perkara" replace />} />
               <Route path="/kepaniteraan/keuangan-perkara" element={<KeuanganPerkaraPage />} />
 
-              {/* Kesekretariatan Routes */}
               <Route path="/kesekretariatan" element={<Navigate to="/kesekretariatan/pengadaan-barang-dan-jasa" replace />} />
               <Route path="/kesekretariatan/pengadaan-barang-dan-jasa" element={<PengadaanBarangJasaPage />} />
               <Route path="/kesekretariatan/pengadaan-barang-jasa" element={<Navigate to="/kesekretariatan/pengadaan-barang-dan-jasa" replace />} />
@@ -258,7 +239,6 @@ function App() {
               <Route path="/kesekretariatan/laporan" element={<LaporanKesekretariatanPage />} />
               <Route path="/kesekretariatan/lhkpn-lhkasn" element={<LHKPNPage />} />
 
-              {/* Layanan Publik Routes */}
               <Route path="/layanan-publik" element={<Navigate to="/layanan-publik/ptsp" replace />} />
               <Route path="/layanan-publik/ptsp" element={<PTSPPage />} />
               <Route path="/layanan-publik/alur-pelayanan-prioritas-ptsp" element={<AlurPrioritasPTSPPage />} />
@@ -270,7 +250,6 @@ function App() {
               <Route path="/layanan-publik/fasilitas-publik" element={<FasilitasPublikPage />} />
               <Route path="/layanan-publik/brosur-digital" element={<MediaPublikasiLayananPage />} />
 
-              {/* Kegiatan Pengadilan Live Site Aliases */}
               <Route path="/kegiatan-pengadilan/kumpulan-sk" element={<Navigate to="/layanan-publik/brosur-digital" replace />} />
               <Route path="/kegiatan-pengadilan/alur-pelayanan-prioritas-ptsp" element={<Navigate to="/layanan-publik/alur-pelayanan-prioritas-ptsp" replace />} />
               <Route path="/kegiatan-pengadilan/youtube-pa-kota-cimahi" element={<Navigate to="/layanan-publik/brosur-digital" replace />} />
@@ -304,7 +283,6 @@ function App() {
               <Route path="/kegiatan-pengadilan/pedoman-pengawasan" element={<Navigate to="/layanan-publik/pengawasan-dan-kode-etik" replace />} />
               <Route path="/kegiatan-pengadilan/putusan-majelis-kehormatan-hakim" element={<Navigate to="/layanan-publik/pengawasan-dan-kode-etik" replace />} />
 
-              {/* Live Site URLs Mapping */}
               <Route path="/layanan-publik/lelang-barang-dan-jasa" element={<Navigate to="/kesekretariatan/pengadaan-barang-dan-jasa" replace />} />
               <Route path="/layanan-publik/dipa/dipa" element={<Navigate to="/kesekretariatan/dipa" replace />} />
               <Route path="/layanan-publik/dipa/rpa" element={<Navigate to="/kesekretariatan/dipa" replace />} />
@@ -340,7 +318,6 @@ function App() {
               <Route path="/layanan-publik/laporan/laporan-kinerja-triwulan" element={<Navigate to="/kesekretariatan/laporan" replace />} />
               <Route path="/layanan-publik/laporan/laporan-skm-dan-ipk" element={<Navigate to="/kesekretariatan/survei-pelayanan-publik" replace />} />
 
-              {/* Publikasi Routes */}
               <Route path="/publikasi" element={<Navigate to="/publikasi/berita" replace />} />
               <Route path="/publikasi/berita" element={<BeritaPage />} />
               <Route path="/publikasi/pengumuman" element={<PengumumanPage />} />
@@ -352,7 +329,6 @@ function App() {
               <Route path="/publikasi/hasil-penelitian" element={<Navigate to="/publikasi/arsip-hasil-penelitian" replace />} />
               <Route path="/publikasi/galeri" element={<GaleriPage />} />
 
-              {/* Hubungi Kami / Publikasi Live Site Aliases */}
               <Route path="/hubungi-kami/artikel" element={<Navigate to="/publikasi/artikel" replace />} />
               <Route path="/hubungi-kami/peraturan-dan-kebijakan/peraturan-perundang-undangan" element={<Navigate to="/publikasi/peraturan-kebijakan" replace />} />
               <Route path="/hubungi-kami/peraturan-dan-kebijakan/perma" element={<Navigate to="/publikasi/peraturan-kebijakan" replace />} />
@@ -368,7 +344,6 @@ function App() {
               <Route path="/hubungi-kami/arsip-berita-pengadilan" element={<Navigate to="/publikasi/berita" replace />} />
               <Route path="/hubungi-kami/arsip-pengumuman-2" element={<Navigate to="/publikasi/pengumuman" replace />} />
 
-              {/* Fallback Catch-all Route */}
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </Suspense>

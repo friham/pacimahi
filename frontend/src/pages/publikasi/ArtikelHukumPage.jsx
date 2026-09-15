@@ -72,7 +72,6 @@ function ArtikelHukumPage() {
       breadcrumb="Artikel Hukum"
     >
       <div className="pa-content-card">
-        {/* Search & Filter */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
           <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
             {categories.map((cat, idx) => (
@@ -113,7 +112,6 @@ function ArtikelHukumPage() {
           </div>
         </div>
 
-        {/* Article Cards */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
           {filtered.map((art) => (
             <div

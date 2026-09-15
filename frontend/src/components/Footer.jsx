@@ -16,13 +16,11 @@ function Footer() {
 
   return (
     <footer className="footer">
-      {/* Top decorative line */}
       <div className="footer__top-line"></div>
 
       <div className="container">
         <div className="footer__grid">
 
-          {/* Column 1: Brand & Sosmed */}
           <div className="footer__col">
             <div className="footer__brand">
               <img src={logoImg} alt="Logo Pengadilan Agama Kota Cimahi" className="footer__brand-logo" />
@@ -34,7 +32,6 @@ function Footer() {
             <p className="footer__desc">
               {s.footer_description || 'Mewujudkan peradilan agama yang agung, bersih, dan melayani dengan sepenuh hati untuk masyarakat Kota Cimahi dan sekitarnya.'}
             </p>
-            {/* Jam Operasional */}
             <div className="footer__hours">
               <div className="footer__hours-title">
                 <FaClock className="footer__contact-icon" /> Jam Pelayanan PTSP
@@ -59,7 +56,6 @@ function Footer() {
             </div>
           </div>
 
-          {/* Column 2: Tautan Cepat (halaman internal) */}
           <div className="footer__col">
             <h4 className="footer__col-title">Tautan Cepat</h4>
             <ul className="footer__links">
@@ -74,7 +70,6 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Layanan Online (link eksternal resmi) */}
           <div className="footer__col">
             <h4 className="footer__col-title">Layanan Online</h4>
             <ul className="footer__links">
@@ -116,7 +111,6 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Column 4: Hubungi Kami */}
           <div className="footer__col">
             <h4 className="footer__col-title">Hubungi Kami</h4>
             <div className="footer__contacts">
@@ -155,7 +149,6 @@ function Footer() {
         </div>
       </div>
 
-      {/* Copyright */}
       <div className="footer__bottom">
         <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <p className="footer__copyright">

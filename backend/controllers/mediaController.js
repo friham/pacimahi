@@ -3,7 +3,6 @@ const fs = require('fs');
 const path = require('path');
 const { recordAuditLog } = require('./auditLogController');
 
-// GET /api/media
 const getMedia = async (req, res) => {
   try {
     const { type, search } = req.query;
@@ -31,7 +30,6 @@ const getMedia = async (req, res) => {
   }
 };
 
-// POST /api/media
 const createMedia = async (req, res) => {
   try {
     if (!req.file) {
@@ -85,7 +83,6 @@ const createMedia = async (req, res) => {
   }
 };
 
-// PUT /api/media/:id
 const updateMedia = async (req, res) => {
   try {
     const { id } = req.params;
@@ -108,7 +105,6 @@ const updateMedia = async (req, res) => {
   }
 };
 
-// DELETE /api/media/:id
 const deleteMedia = async (req, res) => {
   try {
     const { id } = req.params;
@@ -120,7 +116,6 @@ const deleteMedia = async (req, res) => {
 
     const item = rows[0];
 
-    // Remove file from disk
     const filePath = path.join(__dirname, '..', 'public', 'images', 'uploads', item.file_name);
     if (fs.existsSync(filePath)) {
       try {
@@ -130,7 +125,6 @@ const deleteMedia = async (req, res) => {
       }
     }
 
-    // Delete DB record
     await pool.execute('DELETE FROM media WHERE id = ?', [id]);
 
     await recordAuditLog({

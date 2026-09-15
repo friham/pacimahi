@@ -47,7 +47,6 @@ const resolveImage = (slide, index) => {
     if (slide.image_url.includes('banner-2') || slide.image_url.includes('slider-2')) return banner2;
     if (slide.image_url.includes('banner-3') || slide.image_url.includes('slider-3')) return banner3;
     if (slide.image_url.includes('banner-4')) return banner4;
-    // Gambar hasil upload disimpan sebagai path relatif (mis. /images/uploads/xxx.jpg)
     if (slide.image_url.startsWith('/')) return `${SERVER_URL}${slide.image_url}`;
     return slide.image_url;
   }
@@ -89,7 +88,6 @@ function ImageCarousel() {
     goTo((current - 1 + slides.length) % slides.length);
   }, [current, goTo, slides.length]);
 
-  // Auto-play interval
   useEffect(() => {
     const timer = setInterval(goNext, 5000);
     return () => clearInterval(timer);
@@ -104,7 +102,6 @@ function ImageCarousel() {
         </div>
 
         <div className="carousel">
-          {/* Slides Track */}
           <div className="carousel__track">
             {slides.map((slide, index) => {
               const imgSrc = resolveImage(slide, index);
@@ -123,7 +120,6 @@ function ImageCarousel() {
             })}
           </div>
 
-          {/* Navigation Arrows */}
           <button
             className="carousel__arrow carousel__arrow--prev"
             onClick={goPrev}
@@ -139,7 +135,6 @@ function ImageCarousel() {
             <FaChevronRight />
           </button>
 
-          {/* Dots Indicators */}
           <div className="carousel__dots">
             {slides.map((_, index) => (
               <button

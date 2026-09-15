@@ -3,7 +3,6 @@ const fs = require('fs');
 const path = require('path');
 const { recordAuditLog } = require('./auditLogController');
 
-// GET /api/documents
 const getDocuments = async (req, res) => {
   try {
     const { search } = req.query;
@@ -25,7 +24,6 @@ const getDocuments = async (req, res) => {
   }
 };
 
-// POST /api/documents
 const createDocument = async (req, res) => {
   try {
     if (!req.file) {
@@ -85,7 +83,6 @@ const createDocument = async (req, res) => {
   }
 };
 
-// PUT /api/documents/:id
 const updateDocument = async (req, res) => {
   try {
     const { id } = req.params;
@@ -114,7 +111,6 @@ const updateDocument = async (req, res) => {
   }
 };
 
-// POST /api/documents/by-url - Create document entry from pre-uploaded URL
 const createDocumentByUrl = async (req, res) => {
   try {
     const { doc_title, doc_number, doc_date, description, file_url } = req.body;
@@ -163,7 +159,6 @@ const createDocumentByUrl = async (req, res) => {
   }
 };
 
-// DELETE /api/documents/:id
 const deleteDocument = async (req, res) => {
   try {
     const { id } = req.params;
@@ -175,7 +170,6 @@ const deleteDocument = async (req, res) => {
 
     const doc = rows[0];
 
-    // Remove file from disk
     const filePath = path.join(__dirname, '..', 'public', 'documents', doc.file_name);
     if (fs.existsSync(filePath)) {
       try {

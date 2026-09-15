@@ -50,7 +50,6 @@ export function SettingsProvider({ children }) {
     fetchSettings();
   }, [fetchSettings]);
 
-  // Allow admin dashboard to force-refresh after saving
   const refreshSettings = useCallback(() => {
     return fetchSettings();
   }, [fetchSettings]);

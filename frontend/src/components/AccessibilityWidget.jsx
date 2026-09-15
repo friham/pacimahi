@@ -44,7 +44,6 @@ function AccessibilityWidget() {
     resetAll,
   } = useAccessibility();
 
-  // Helper labels for active states
   const getLineHeightLabel = () => {
     if (settings.lineHeight === 1) return '1.8x';
     if (settings.lineHeight === 2) return '2.2x';
@@ -85,7 +84,6 @@ function AccessibilityWidget() {
     return null;
   };
 
-  // 12 Feature Cards Configuration
   const features = [
     {
       id: 'tooltip',
@@ -199,7 +197,6 @@ function AccessibilityWidget() {
 
   return (
     <div className={`a11y-widget-root a11y-pos-${settings.widgetPosition}`}>
-      {/* Floating Trigger Button - selalu tampil (fixed position) */}
       {settings.widgetPosition !== 'hidden' ? (
         <div
           className="a11y-floating-wrapper"
@@ -237,7 +234,6 @@ function AccessibilityWidget() {
             )}
           </button>
 
-          {/* Hover Tooltip (appears to the left of the button) */}
           {isHovered && !isOpen && (
             <div className="a11y-tooltip-card animate-fade-in-up">
               <span>Accessibility Features Available</span>
@@ -260,14 +256,12 @@ function AccessibilityWidget() {
         </button>
       )}
 
-      {/* Floating Panel (Non-Modal, No backdrop blur, Page stays scrollable & interactive) */}
       {isOpen && (
         <div
           className="a11y-floating-panel animate-panel-slide"
           role="region"
           aria-label="Menu Aksesibilitas"
         >
-          {/* Panel Header */}
           <div className="a11y-panel-header">
             <div className="a11y-header-content">
               <div className="a11y-header-icon-box">
@@ -305,9 +299,7 @@ function AccessibilityWidget() {
             </button>
           </div>
 
-          {/* Panel Body */}
           <div className="a11y-panel-body">
-            {/* 🎙️ Voice Mode Row (Screenshot Reference) */}
             <div className="a11y-voice-mode-row">
               <div className="a11y-voice-mode-left">
                 <div className="a11y-voice-wave-container" aria-hidden="true">
@@ -333,7 +325,6 @@ function AccessibilityWidget() {
                 </div>
               </div>
 
-              {/* Modern Toggle Switch */}
               <button
                 type="button"
                 role="switch"
@@ -353,7 +344,6 @@ function AccessibilityWidget() {
               </button>
             </div>
 
-            {/* 12 Feature Cards Grid */}
             <div className="a11y-cards-grid">
               {features.map((item) => (
                 <button
@@ -378,7 +368,6 @@ function AccessibilityWidget() {
               ))}
             </div>
 
-            {/* Reset All Settings Button */}
             <button
               type="button"
               className="a11y-reset-btn"
@@ -388,7 +377,6 @@ function AccessibilityWidget() {
               <span>Reset Semua Pengaturan</span>
             </button>
 
-            {/* Widget Position Selector */}
             <div className="a11y-position-section">
               <div className="a11y-position-header">
                 <FaCog className="a11y-cog-icon" />
@@ -420,7 +408,6 @@ function AccessibilityWidget() {
               </div>
             </div>
 
-            {/* Footer Note */}
             <div className="a11y-panel-footer-note">
               LAYANAN PENGADILAN AGAMA KOTA CIMAHI
             </div>

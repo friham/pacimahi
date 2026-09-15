@@ -1,22 +1,9 @@
 import ProfileLayout from './ProfileLayout';
 import { FaHistory, FaLandmark, FaCalendarAlt, FaBuilding, FaUsers } from 'react-icons/fa';
 
+import initialStaff from '../../data/sejarahStaffData.json';
+
 function SejarahTanggalPage() {
-  const initialStaff = [
-    { no: 1, name: 'KH. Moh. Syarif Ishak', gol: 'II/c', edu: 'Pesantren', role: 'Ketua Pengadilan' },
-    { no: 2, name: 'Hidayat Rifa`i, B.A.', gol: 'II/c', edu: 'Sarmud Unu', role: 'Wakil Ketua' },
-    { no: 3, name: 'RA. Ateng Jam`an', gol: 'II/a', edu: 'SMA', role: 'Panitera Kepala' },
-    { no: 4, name: 'RA. Ma`mun', gol: 'II/b', edu: 'SMA', role: 'Ka Kep. Perkara' },
-    { no: 5, name: 'Somantri, BE', gol: 'II/a', edu: 'SM Unpad', role: 'Panitera Sidang' },
-    { no: 6, name: 'Eko Sukarya', gol: 'I/c', edu: 'SMA', role: 'Panitera Sidang' },
-    { no: 7, name: 'Suparno', gol: 'I/b', edu: 'SMP', role: 'Panitera Sidang' },
-    { no: 8, name: 'Imun Rukmana', gol: 'I/d', edu: 'SMP', role: 'Keuangan / Gaji' },
-    { no: 9, name: 'Adji Sutarja', gol: 'I/c', edu: 'SMP', role: 'Staf' },
-    { no: 10, name: 'Darosih', gol: 'I/c', edu: 'SMP', role: 'Staf' },
-    { no: 11, name: 'U. Dahrojat', gol: 'I/c', edu: 'SMP', role: 'Staf' },
-    { no: 12, name: 'Idar', gol: 'I/a', edu: 'SD', role: 'Staf' },
-    { no: 13, name: 'Komara', gol: 'I/a', edu: 'SD', role: 'Staf' },
-  ];
 
   return (
     <ProfileLayout
@@ -25,7 +12,6 @@ function SejarahTanggalPage() {
       breadcrumb="Tanggal Pembentukan"
     >
       <article className="pa-article">
-        {/* Identitas Satker Card */}
         <div className="pa-callout pa-callout--gold">
           <h4><FaLandmark style={{ marginRight: '8px', verticalAlign: '-2px' }} /> Identitas Satuan Kerja</h4>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '0.75rem', marginTop: '0.75rem', fontSize: '0.9rem' }}>
@@ -39,7 +25,6 @@ function SejarahTanggalPage() {
         <h2>Kronologi Sejarah Pembentukan</h2>
 
         <div className="sejarah-timeline">
-          {/* Era 1 */}
           <div className="timeline-step">
             <div className="timeline-dot"></div>
             <div className="timeline-title">1. Masa Sebelum Penjajahan (Tahun 1641)</div>
@@ -50,7 +35,6 @@ function SejarahTanggalPage() {
             </div>
           </div>
 
-          {/* Era 2 */}
           <div className="timeline-step">
             <div className="timeline-dot"></div>
             <div className="timeline-title">2. Masa Penjajahan Belanda & Jepang (Tahun 1882)</div>
@@ -61,7 +45,6 @@ function SejarahTanggalPage() {
             </div>
           </div>
 
-          {/* Era 3 */}
           <div className="timeline-step">
             <div className="timeline-dot"></div>
             <div className="timeline-title">3. Era Kemerdekaan & Pembentukan Resmi (15 Maret 1967)</div>
@@ -75,7 +58,6 @@ function SejarahTanggalPage() {
             </div>
           </div>
 
-          {/* Era 4 */}
           <div className="timeline-step">
             <div className="timeline-dot"></div>
             <div className="timeline-title">4. Masa Berlakunya UU No. 1 Tahun 1974 & Gedung Jl. Terusan No. 38</div>
@@ -86,7 +68,6 @@ function SejarahTanggalPage() {
             </div>
           </div>
 
-          {/* Era 5 */}
           <div className="timeline-step">
             <div className="timeline-dot"></div>
             <div className="timeline-title">5. Masa Berlakunya UU No. 7 Tahun 1989 & Peningkatan Kelas IA</div>
@@ -97,7 +78,6 @@ function SejarahTanggalPage() {
             </div>
           </div>
 
-          {/* Era 6 */}
           <div className="timeline-step">
             <div className="timeline-dot"></div>
             <div className="timeline-title">6. Era Satu Atap Mahkamah Agung (UU No. 4 Tahun 2004)</div>
@@ -108,7 +88,6 @@ function SejarahTanggalPage() {
             </div>
           </div>
 
-          {/* Era 7 */}
           <div className="timeline-step">
             <div className="timeline-dot"></div>
             <div className="timeline-title">7. Keppres No. 15 Tahun 2016: Menjadi Pengadilan Agama Kota Cimahi</div>

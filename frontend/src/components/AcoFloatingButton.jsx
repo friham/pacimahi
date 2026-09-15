@@ -21,7 +21,6 @@ function AcoFloatingButton({
         title="Access CCTV Online (ACO)"
       >
         <div className="aco-icon-container">
-          {/* CCTV Security Camera SVG matching the theme and line weight of Accessibility & SAPA icons */}
           <svg
             viewBox="0 0 24 24"
             fill="none"
@@ -32,23 +31,17 @@ function AcoFloatingButton({
             className="aco-svg-icon"
             aria-hidden="true"
           >
-            {/* Top Visor / Shield */}
             <path d="M2.5 6.5H15.5L19 10H2.5V6.5Z" fill="currentColor" fillOpacity="0.15" />
             <path d="M2 6.5H16" />
-            {/* Camera Housing Body */}
             <rect x="2.5" y="6.5" width="13" height="8" rx="1.5" />
-            {/* Front Lens Cone */}
             <path d="M15.5 8.5L20.5 5.5V15.5L15.5 12.5" />
-            {/* Lens Reflection Dot */}
             <circle cx="7" cy="10.5" r="1.5" fill="currentColor" stroke="none" />
-            {/* Mount Stand & Arm */}
             <path d="M7 14.5V19H12" />
             <path d="M12 17.5V20.5" />
           </svg>
         </div>
       </a>
 
-      {/* Tooltip on Hover */}
       {isHovered && (
         <div className="aco-tooltip-card animate-fade-in-up" role="tooltip">
           <span>Access CCTV Online (ACO)</span>

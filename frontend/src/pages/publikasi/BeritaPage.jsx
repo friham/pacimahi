@@ -72,9 +72,7 @@ function BeritaPage() {
       breadcrumb="Berita"
     >
       <div className="pa-content-card">
-        {/* Filter and Search Bar */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
-          {/* Category Tabs */}
           <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
             {categories.map((cat, idx) => (
               <button
@@ -97,7 +95,6 @@ function BeritaPage() {
             ))}
           </div>
 
-          {/* Search Box */}
           <div style={{ position: 'relative', width: '260px' }}>
             <input
               type="text"
@@ -116,7 +113,6 @@ function BeritaPage() {
           </div>
         </div>
 
-        {/* News Cards Grid */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '24px' }}>
           {filteredNews.map((news) => (
             <article

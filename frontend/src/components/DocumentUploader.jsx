@@ -35,7 +35,6 @@ function DocumentUploader({
   const uploadFile = async (file) => {
     if (!file) return;
 
-    // Validasi ukuran (Maks 20MB)
     if (file.size > 20 * 1024 * 1024) {
       setError('Ukuran file maksimal 20MB.');
       return;

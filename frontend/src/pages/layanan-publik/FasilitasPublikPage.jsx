@@ -41,7 +41,6 @@ function FasilitasPublikPage() {
       breadcrumb="Fasilitas Publik & K3"
     >
       <div className="pa-content-card">
-        {/* Navigation Tabs */}
         <div style={{ display: 'flex', gap: '8px', borderBottom: '2px solid #e2e8f0', marginBottom: '24px', flexWrap: 'wrap' }}>
           <button onClick={() => setTab('fasilitas')} style={{ padding: '10px 18px', border: 'none', background: tab === 'fasilitas' ? '#1b5e20' : 'transparent', color: tab === 'fasilitas' ? '#fff' : '#475569', borderRadius: '6px 6px 0 0', fontWeight: 600, cursor: 'pointer' }}>
             Fasilitas Publik
@@ -57,7 +56,6 @@ function FasilitasPublikPage() {
           </button>
         </div>
 
-        {/* TAB 1: FASILITAS */}
         {tab === 'fasilitas' && (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
             {fasilitas.map((f, idx) => {
@@ -77,7 +75,6 @@ function FasilitasPublikPage() {
           </div>
         )}
 
-        {/* TAB 2: JAM KERJA & PETUGAS */}
         {tab === 'jamKerja' && (
           <div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', marginBottom: '24px' }}>
@@ -110,7 +107,6 @@ function FasilitasPublikPage() {
           </div>
         )}
 
-        {/* TAB 3: K3 & EVAKUASI */}
         {tab === 'k3' && (
           <div>
             <div style={{ background: '#fef3c7', border: '1px solid #fde68a', borderRadius: '8px', padding: '16px', marginBottom: '20px', display: 'flex', gap: '12px' }}>
@@ -142,7 +138,6 @@ function FasilitasPublikPage() {
           </div>
         )}
 
-        {/* TAB 4: PEJABAT PENGAWAS */}
         {tab === 'pengawas' && (
           <div style={{ overflowX: 'auto' }}>
             <table className="pa-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>

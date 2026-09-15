@@ -1,8 +1,6 @@
-/* ============================================
-   Navbar Styles
-   ============================================ */
+
 .navbar {
-  /* Boven (top): hijau identitas solid — saat scroll jadi kaca transparan via .navbar--scrolled */
+  
   position: fixed;
   top: var(--navbar-top, 12px);
   left: 24px;
@@ -18,7 +16,6 @@
   box-sizing: border-box;
 }
 
-/* Scroll: putih glass (frosted), teks hijau gelap */
 .navbar--scrolled {
   height: 62px;
   background: rgba(255, 255, 255, 0.72);
@@ -72,7 +69,6 @@
   box-sizing: border-box;
 }
 
-/* Logo */
 .navbar__logo {
   display: flex;
   align-items: center;
@@ -122,7 +118,6 @@
   white-space: nowrap;
 }
 
-/* Desktop Menu — merapat mengikuti lebar layar agar tidak mendesak teks logo */
 .navbar__menu {
   display: flex;
   align-items: center;
@@ -136,7 +131,6 @@
   position: relative;
 }
 
-/* Item paling kanan (Publikasi): dropdown buka ke kiri agar tidak terpotong tepi layar */
 .navbar__item:last-child .navbar__dropdown {
   left: auto;
   right: 0;
@@ -171,7 +165,6 @@
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* Active menu item — subtle glass with small gold accent underline */
 .navbar__link--active {
   color: #ffffff;
   background: rgba(255, 255, 255, 0.12);
@@ -188,7 +181,6 @@
   opacity: 1;
 }
 
-/* Dropdown Level 1 */
 .navbar__dropdown {
   position: absolute;
   top: calc(100% + 6px);
@@ -281,7 +273,6 @@
   color: #1b5e20;
 }
 
-/* Inline Submenu Items */
 .navbar__inline-sub-list {
   background: #f8fafc;
   border-radius: 6px;
@@ -308,7 +299,6 @@
   padding-left: 16px;
 }
 
-/* Mobile Toggle */
 .navbar__toggle {
   display: none;
   align-items: center;
@@ -328,7 +318,6 @@
   background: rgba(255, 255, 255, 0.12);
 }
 
-/* Mobile Menu */
 .navbar__mobile {
   display: none;
   position: fixed;
@@ -419,7 +408,6 @@
   padding-left: 30px;
 }
 
-/* Animations */
 @keyframes fadeInDown {
   from {
     opacity: 0;
@@ -435,7 +423,6 @@
   animation: fadeInDown 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Responsive — menu desktop penuh sedari 1024px (seperti tampilan 80%); hamburger hanya di bawah itu */
 @media (max-width: 1023px) {
   .navbar__menu {
     display: none;
@@ -450,7 +437,6 @@
   }
 }
 
-/* 1024–1280px: mode ringkas agar 6 menu + nama muat (chevron disembunyikan demi ruang) */
 @media (min-width: 1024px) and (max-width: 1280px) {
   .navbar__menu {
     gap: 4px;
@@ -479,7 +465,6 @@
   }
 }
 
-/* 1281–1520px: sedikit ringkas agar nama tetap lega dan utuh */
 @media (min-width: 1281px) and (max-width: 1520px) {
   .navbar__menu {
     gap: 10px;
@@ -490,7 +475,6 @@
   }
 }
 
-/* Mobile: zwevende panel dichter op de rand zodat er geen horizontale overflow ontstaat */
 @media (max-width: 720px) {
   :root {
     --navbar-top: 8px;
@@ -509,7 +493,6 @@
   }
 }
 
-/* Kleine schermen: merk zichtbaar houden — toon alleen de korte lijn, kleiner */
 @media (max-width: 480px) {
   .navbar__logo-text {
     flex-direction: column;
@@ -525,7 +508,6 @@
   }
 }
 
-/* Logo Pengadilan Agama */
 .navbar__logo-img {
   height: 48px;
   width: auto;

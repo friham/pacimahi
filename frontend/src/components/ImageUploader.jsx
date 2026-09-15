@@ -26,7 +26,6 @@ function ImageUploader({ value, onChange, token, label = 'Gambar' }) {
   const uploadFile = async (file) => {
     if (!file) return;
 
-    // Validasi tipe file di sisi client sebelum dikirim ke server
     const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
     if (!allowedTypes.includes(file.type)) {
       setError('Format file harus JPG, PNG, GIF, atau WEBP.');

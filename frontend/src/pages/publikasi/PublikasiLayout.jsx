@@ -70,7 +70,6 @@ function PublikasiLayout({ title, subtitle, breadcrumb, children }) {
       <Navbar />
       <SocialSidebar />
 
-      {/* Hero Banner */}
       <section className="publikasi-hero">
         <div className="publikasi-hero__container">
           <nav className="publikasi-breadcrumbs" aria-label="Breadcrumb">
@@ -88,9 +87,7 @@ function PublikasiLayout({ title, subtitle, breadcrumb, children }) {
         </div>
       </section>
 
-      {/* Body Grid */}
       <div className="publikasi-body-container">
-        {/* Left Sidebar Menu */}
         <aside className="publikasi-sidebar">
           <div className="sidebar-card">
             <div className="sidebar-card__header">
@@ -122,7 +119,6 @@ function PublikasiLayout({ title, subtitle, breadcrumb, children }) {
             </ul>
           </div>
 
-          {/* Hubungi Humas */}
           <div className="sidebar-card">
             <div className="sidebar-card__header">
               <FaEnvelope className="sidebar-card__header-icon" />
@@ -150,7 +146,6 @@ function PublikasiLayout({ title, subtitle, breadcrumb, children }) {
           </div>
         </aside>
 
-        {/* Right Content */}
         <main className="publikasi-content-area">
           {children}
         </main>

@@ -111,7 +111,6 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelect, token }) 
   return (
     <div className="media-modal-backdrop animate-fade-in" onClick={onClose}>
       <div className="media-modal" onClick={(e) => e.stopPropagation()}>
-        {/* Header */}
         <div className="media-modal__header">
           <div className="media-modal__header-title">
             <FaImage className="text-emerald" />
@@ -122,7 +121,6 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelect, token }) 
           </button>
         </div>
 
-        {/* Action bar */}
         <div className="media-modal__actions">
           <div className="media-modal__tabs">
             <button 
@@ -184,9 +182,7 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelect, token }) 
           </div>
         )}
 
-        {/* Content body */}
         <div className="media-modal__body">
-          {/* Grid area */}
           <div className="media-grid-container">
             {loading ? (
               <div className="media-loading">
@@ -261,7 +257,6 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelect, token }) 
             )}
           </div>
 
-          {/* Details Sidebar */}
           {selectedItem && (
             <div className="media-details-sidebar">
               <h4>Detail Berkas</h4>
@@ -303,7 +298,6 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelect, token }) 
           )}
         </div>
 
-        {/* Footer */}
         <div className="media-modal__footer">
           <button type="button" className="media-cancel-btn" onClick={onClose}>
             Tutup

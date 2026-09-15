@@ -1,4 +1,4 @@
-/* CMS Content Block Renderer Styling - Pengadilan Agama Kota Cimahi */
+
 
 .cms-block-renderer {
   display: flex;
@@ -48,7 +48,6 @@
   color: #083312;
 }
 
-/* Image */
 .cms-image-figure {
   margin: 0;
   display: flex;
@@ -65,7 +64,6 @@
   font-style: italic;
 }
 
-/* Gallery */
 .cms-gallery-grid {
   display: grid;
   gap: 1rem;
@@ -103,7 +101,6 @@
   background: #ffffff;
 }
 
-/* Video */
 .cms-video-container {
   display: flex;
   flex-direction: column;
@@ -118,7 +115,7 @@
 .cms-video-wrapper {
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%; /* 16:9 ratio */
+  padding-bottom: 56.25%; 
   height: 0;
   border-radius: 8px;
   overflow: hidden;
@@ -139,7 +136,6 @@
   margin: 0;
 }
 
-/* Button */
 .cms-button-block {
   margin: 0.5rem 0;
 }
@@ -187,7 +183,6 @@
   color: #ffffff;
 }
 
-/* Link Card */
 .cms-link-card {
   margin: 0.5rem 0;
 }
@@ -209,7 +204,6 @@
   color: #14532d;
 }
 
-/* Document Card */
 .cms-document-card {
   display: flex;
   align-items: center;
@@ -286,7 +280,6 @@
   box-shadow: 0 4px 10px rgba(11, 70, 25, 0.2);
 }
 
-/* Table */
 .cms-table-responsive {
   width: 100%;
   overflow-x: auto;
@@ -329,7 +322,6 @@
   vertical-align: top;
 }
 
-/* Quote */
 .cms-quote-box {
   position: relative;
   background: #f0fdf4;
@@ -357,7 +349,6 @@
   text-align: right;
 }
 
-/* Accordion */
 .cms-accordion-list {
   display: flex;
   flex-direction: column;
@@ -404,7 +395,6 @@
   line-height: 1.7;
 }
 
-/* Maps */
 .cms-map-container {
   border-radius: 8px;
   overflow: hidden;
@@ -422,7 +412,6 @@
   border-bottom: 1px solid #e5e7eb;
 }
 
-/* Divider */
 .cms-divider {
   border: none;
   height: 1px;

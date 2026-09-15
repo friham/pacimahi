@@ -63,7 +63,6 @@ function HasilPenelitianPage() {
       breadcrumb="Hasil Penelitian"
     >
       <div className="pa-content-card">
-        {/* Tab Buttons */}
         <div style={{ display: 'flex', gap: '8px', borderBottom: '2px solid #e2e8f0', marginBottom: '24px' }}>
           <button
             onClick={() => setTab('arsip')}
@@ -95,7 +94,6 @@ function HasilPenelitianPage() {
           </button>
         </div>
 
-        {/* TAB 1: ARSIP */}
         {tab === 'arsip' && (
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
@@ -179,7 +177,6 @@ function HasilPenelitianPage() {
           </div>
         )}
 
-        {/* TAB 2: PROSEDUR IZIN PENELITIAN */}
         {tab === 'prosedur' && (
           <div>
             <h3 style={{ fontSize: '1.15rem', color: '#1b5e20', margin: '0 0 12px 0' }}>Persyaratan & Alur Izin Penelitian / Magang Riset</h3>

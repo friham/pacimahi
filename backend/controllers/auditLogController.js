@@ -1,6 +1,5 @@
 const pool = require('../config/db');
 
-// Helper to record audit log
 const recordAuditLog = async ({ adminId = null, adminName = 'Sistem', action, objectType, objectId = null, details = '', ip = '' }) => {
   try {
     await pool.execute(
@@ -13,7 +12,6 @@ const recordAuditLog = async ({ adminId = null, adminName = 'Sistem', action, ob
   }
 };
 
-// GET /api/audit-logs
 const getAuditLogs = async (req, res) => {
   try {
     const limit = parseInt(req.query.limit, 10) || 50;

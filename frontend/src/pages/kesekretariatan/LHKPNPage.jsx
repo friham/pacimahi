@@ -31,7 +31,6 @@ function LHKPNPage() {
       breadcrumb="LHKPN & LHKASN"
     >
       <div className="pa-content-card">
-        {/* Compliance Badge Highlight */}
         <div style={{
           background: 'linear-gradient(135deg, #1b5e20, #15803d)',
           borderRadius: '12px',
@@ -63,7 +62,6 @@ function LHKPNPage() {
           </div>
         </div>
 
-        {/* Navigation Tabs */}
         <div style={{ display: 'flex', gap: '8px', borderBottom: '2px solid #e2e8f0', marginBottom: '24px' }}>
           <button
             onClick={() => setActiveTab('lhkpn')}
@@ -101,7 +99,6 @@ function LHKPNPage() {
           </button>
         </div>
 
-        {/* TAB 1: LHKPN KPK */}
         {activeTab === 'lhkpn' && (
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '12px' }}>
@@ -181,7 +178,6 @@ function LHKPNPage() {
           </div>
         )}
 
-        {/* TAB 2: LHKASN */}
         {activeTab === 'lhkasn' && (
           <div>
             <h3 style={{ fontSize: '1.15rem', color: '#1b5e20', margin: '0 0 6px 0' }}>Laporan Harta Kekayaan ASN (SiHARKA)</h3>

@@ -73,7 +73,6 @@ function SOPPengadilanPage() {
           </p>
         </div>
 
-        {/* Search Bar */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
@@ -101,7 +100,6 @@ function SOPPengadilanPage() {
           />
         </div>
 
-        {/* SOP Table */}
         <div className="pa-table-wrapper">
           <table className="pa-table">
             <thead>

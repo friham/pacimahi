@@ -98,13 +98,10 @@ function KesekretariatanLayout({ title, subtitle, breadcrumb, children }) {
 
   return (
     <div className="kesekretariatan-page-wrapper">
-      {/* Top Navbar */}
       <Navbar />
 
-      {/* Floating Left Social Icons */}
       <SocialSidebar />
 
-      {/* Hero Banner with Breadcrumbs */}
       <section className="kesekretariatan-hero">
         <div className="kesekretariatan-hero__container">
           <nav className="kesekretariatan-breadcrumbs" aria-label="Breadcrumb">
@@ -122,11 +119,8 @@ function KesekretariatanLayout({ title, subtitle, breadcrumb, children }) {
         </div>
       </section>
 
-      {/* Main Container Grid */}
       <div className="kesekretariatan-body-container">
-        {/* Left Sidebar Menu */}
         <aside className="kesekretariatan-sidebar">
-          {/* Menu Card */}
           <div className="sidebar-card">
             <div className="sidebar-card__header">
               <FaFolderOpen className="sidebar-card__header-icon" />
@@ -157,7 +151,6 @@ function KesekretariatanLayout({ title, subtitle, breadcrumb, children }) {
             </ul>
           </div>
 
-          {/* Quick Contact Widget */}
           <div className="sidebar-card">
             <div className="sidebar-card__header">
               <FaClock className="sidebar-card__header-icon" />
@@ -210,17 +203,14 @@ function KesekretariatanLayout({ title, subtitle, breadcrumb, children }) {
           </div>
         </aside>
 
-        {/* Right Content Area */}
         <main className="kesekretariatan-content-area">
           {children}
         </main>
       </div>
 
-      {/* Floating Accessibility Buttons */}
       <AccessibilityWidget />
       <AcoFloatingButton cctvUrl="https://cctv.badilag.net/display/satker/3f0217881b5ba82ead3967e1032f6421" />
 
-      {/* Footer */}
       <Footer />
     </div>
   );

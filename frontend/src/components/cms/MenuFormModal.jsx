@@ -48,7 +48,6 @@ export default function MenuFormModal({ isOpen, onClose, onSave, menuData, allMe
 
   if (!isOpen) return null;
 
-  // Auto-slug from title if creating new
   const handleTitleChange = (e) => {
     const title = e.target.value;
     const updates = { title };

@@ -10,11 +10,8 @@ const {
 } = require('../controllers/newsController');
 const authMiddleware = require('../middleware/auth');
 
-// Public routes
 router.get('/', getNews);
 
-// Protected routes (admin panel)
-// NOTE: /admin/all MUST come before /:slug, otherwise :slug captures 'admin'
 router.get('/admin/all', authMiddleware, getAllNews);
 
 router.get('/:slug', getNewsBySlug);

@@ -81,7 +81,6 @@ function ArsipPeraturanPage() {
       breadcrumb="Peraturan & Kebijakan"
     >
       <div className="pa-content-card">
-        {/* Navigation Tabs */}
         <div style={{ display: 'flex', gap: '6px', borderBottom: '2px solid #e2e8f0', marginBottom: '24px', flexWrap: 'wrap' }}>
           {regulationTabs.map((tab) => {
             const Icon = tab.icon;
@@ -110,7 +109,6 @@ function ArsipPeraturanPage() {
           })}
         </div>
 
-        {/* Search Bar */}
         <div style={{ position: 'relative', width: '100%', maxWidth: '360px', marginBottom: '20px' }}>
           <input
             type="text"
@@ -128,7 +126,6 @@ function ArsipPeraturanPage() {
           <FaSearch style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
         </div>
 
-        {/* Regulations Table */}
         <div style={{ overflowX: 'auto' }}>
           <table className="pa-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
             <thead>

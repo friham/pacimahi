@@ -1,6 +1,4 @@
-/* ============================================
-   Service Guide & Cost Calculator Styles
-   ============================================ */
+
 .service-guide-section {
   padding: 5rem 0;
   background: #ffffff;
@@ -26,7 +24,6 @@
   margin-bottom: 0.5rem;
 }
 
-/* Tabs */
 .service-guide__tabs {
   display: flex;
   justify-content: center;
@@ -63,7 +60,6 @@
   box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
 }
 
-/* Timeline Cards */
 .guide-timeline {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -134,7 +130,6 @@
   line-height: 1.5;
 }
 
-/* Calculator Box */
 .calculator-box {
   background: white;
   border: 1px solid var(--gray-200);
@@ -218,7 +213,6 @@
   accent-color: var(--primary-700);
 }
 
-/* Calculator Summary */
 .calculator-summary {
   background: linear-gradient(145deg, #113615 0%, #1b5e20 100%);
   color: white;
@@ -299,7 +293,6 @@
   box-shadow: 0 4px 15px rgba(13, 51, 17, 0.4);
 }
 
-/* Posbakum Box */
 .posbakum-box {
   background: white;
   border: 1px solid var(--gray-200);
@@ -374,7 +367,6 @@
   line-height: 1.5;
 }
 
-/* Jadwal Box */
 .jadwal-box {
   background: white;
   border: 1px solid var(--gray-200);
@@ -472,7 +464,6 @@
   color: white;
 }
 
-/* Responsive */
 @media (max-width: 1024px) {
   .guide-timeline {
     grid-template-columns: repeat(3, 1fr);

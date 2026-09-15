@@ -2,14 +2,12 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// Pastikan folder tujuan upload tersedia
 const uploadImgDir = path.join(__dirname, '..', 'public', 'images', 'uploads');
 const uploadDocDir = path.join(__dirname, '..', 'public', 'documents');
 [uploadImgDir, uploadDocDir].forEach(dir => {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 });
 
-// ── Storage untuk GAMBAR ──────────────────────────────────
 const imageStorage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadImgDir),
   filename: (req, file, cb) => {
@@ -19,7 +17,7 @@ const imageStorage = multer.diskStorage({
 });
 
 const imageFilter = (req, file, cb) => {
-  // NOTE: SVG is intentionally NOT allowed to prevent stored XSS via embedded scripts.
+  
   const allowedExt = /^\.(jpe?g|png|gif|webp)$/i;
   const ext = path.extname(file.originalname).toLowerCase();
   if (allowedExt.test(ext)) {
@@ -29,7 +27,6 @@ const imageFilter = (req, file, cb) => {
   }
 };
 
-// ── Storage untuk DOKUMEN ─────────────────────────────────
 const documentStorage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadDocDir),
   filename: (req, file, cb) => {
@@ -51,17 +48,16 @@ const documentFilter = (req, file, cb) => {
   }
 };
 
-// ── Export multer instances ───────────────────────────────
 const uploadImage = multer({
   storage: imageStorage,
   fileFilter: imageFilter,
-  limits: { fileSize: 20 * 1024 * 1024 } // 20 MB
+  limits: { fileSize: 20 * 1024 * 1024 } 
 });
 
 const uploadDocument = multer({
   storage: documentStorage,
   fileFilter: documentFilter,
-  limits: { fileSize: 50 * 1024 * 1024 } // 50 MB
+  limits: { fileSize: 50 * 1024 * 1024 } 
 });
 
 module.exports = { uploadImage, uploadDocument };

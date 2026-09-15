@@ -1,7 +1,6 @@
 const mysql = require('mysql2/promise');
 require('dotenv').config();
 
-// Validate critical env vars at startup
 if (!process.env.JWT_SECRET) {
   console.error('❌ JWT_SECRET is not set in environment variables! Exiting.');
   process.exit(1);
@@ -18,7 +17,6 @@ const pool = mysql.createPool({
   queueLimit: 0,
 });
 
-// Test connection
 pool.getConnection()
   .then((connection) => {
     console.log('✅ Database connected successfully');

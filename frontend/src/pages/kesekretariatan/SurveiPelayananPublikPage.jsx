@@ -35,7 +35,6 @@ function SurveiPelayananPublikPage() {
       breadcrumb="Survei Pelayanan Publik"
     >
       <div className="pa-content-card">
-        {/* Score Highlight Banner */}
         <div style={{
           background: 'linear-gradient(135deg, #1b5e20, #047857)',
           borderRadius: '12px',
@@ -73,7 +72,6 @@ function SurveiPelayananPublikPage() {
           </div>
         </div>
 
-        {/* Tab Buttons */}
         <div style={{ display: 'flex', gap: '8px', borderBottom: '2px solid #e2e8f0', marginBottom: '24px' }}>
           <button
             onClick={() => setTab('ikm')}
@@ -111,7 +109,6 @@ function SurveiPelayananPublikPage() {
           </button>
         </div>
 
-        {/* TAB 1: IKM */}
         {tab === 'ikm' && (
           <div>
             <h3 style={{ fontSize: '1.15rem', color: '#1b5e20', margin: '0 0 8px 0' }}>Hasil Survei IKM Triwulanan TA 2024</h3>
@@ -157,7 +154,6 @@ function SurveiPelayananPublikPage() {
           </div>
         )}
 
-        {/* TAB 2: IPAK */}
         {tab === 'ipak' && (
           <div>
             <h3 style={{ fontSize: '1.15rem', color: '#1b5e20', margin: '0 0 8px 0' }}>Hasil Survei Persepsi Anti Korupsi (IPAK) TA 2024</h3>

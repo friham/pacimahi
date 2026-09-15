@@ -55,7 +55,6 @@ function WilayahYurisdiksiPage() {
           </p>
         </div>
 
-        {/* Statistics Summary Cards */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', margin: '1.5rem 0' }}>
           <div style={{
             background: 'linear-gradient(135deg, var(--primary-800), var(--primary-900))',

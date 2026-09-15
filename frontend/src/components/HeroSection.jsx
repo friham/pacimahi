@@ -19,12 +19,10 @@ function HeroSection({ onOpenCaseModal }) {
 
   return (
     <section className="hero">
-      {/* Decorative background elements */}
       <div className="hero__bg-photo" aria-hidden="true"></div>
       <div className="hero__bg-pattern"></div>
       <div className="hero__bg-overlay"></div>
 
-      {/* Running Announcement Ticker - Positioned near navbar */}
       {heroSettings.running_text && (
         isTickerVisible ? (
           <div className="hero__ticker">
@@ -78,17 +76,14 @@ function HeroSection({ onOpenCaseModal }) {
       )}
 
       <div className="hero__content container">
-        {/* Main Heading */}
         <h1 className="hero__title animate-fade-in-up animate-delay-1">
           <span className="hero__title-main">Selamat Datang di Pengadilan Agama</span>
           <span className="hero__title-city">Kota Cimahi</span>
         </h1>
-        {/* Subtitle */}
         <p className="hero__subtitle animate-fade-in-up animate-delay-2">
           {heroSettings.hero_subtitle}
         </p>
 
-        {/* Search Bar */}
         <form className="hero__search animate-fade-in-up animate-delay-4" onSubmit={handleSearch}>
           <div className="hero__search-wrapper">
             <FaSearch className="hero__search-icon" />
@@ -106,7 +101,6 @@ function HeroSection({ onOpenCaseModal }) {
         </form>
       </div>
 
-      {/* Bottom line divider */}
       <div className="hero__wave">
         <svg viewBox="0 0 1440 24" preserveAspectRatio="none">
           <path
@@ -116,7 +110,6 @@ function HeroSection({ onOpenCaseModal }) {
         </svg>
       </div>
 
-      {/* Announcement Zoom / Detail Modal */}
       {isAnnouncementModalOpen && (
         <div 
           className="hero-announcement-modal-overlay" 

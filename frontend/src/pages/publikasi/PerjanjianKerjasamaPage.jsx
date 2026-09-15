@@ -77,7 +77,6 @@ function PerjanjianKerjasamaPage() {
       breadcrumb="Perjanjian Pihak Ketiga"
     >
       <div className="pa-content-card">
-        {/* Header Bar */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
           <div>
             <h2 style={{ fontSize: '1.2rem', color: '#1b5e20', margin: '0 0 4px 0' }}>Daftar MoU & PKS Aktif</h2>
@@ -101,7 +100,6 @@ function PerjanjianKerjasamaPage() {
           </div>
         </div>
 
-        {/* List of MoU Cards */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
           {filtered.map((item, idx) => (
             <div

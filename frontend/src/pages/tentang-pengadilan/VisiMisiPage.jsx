@@ -32,7 +32,6 @@ function VisiMisiPage() {
       breadcrumb="Visi & Misi"
     >
       <article className="pa-article">
-        {/* Visi Section */}
         <div style={{
           background: 'linear-gradient(135deg, var(--primary-900) 0%, var(--primary-800) 100%)',
           color: 'white',
@@ -80,7 +79,6 @@ function VisiMisiPage() {
           </p>
         </div>
 
-        {/* Misi Section */}
         <div style={{ marginBottom: '2.5rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '1.5rem' }}>
             <div style={{
@@ -145,7 +143,6 @@ function VisiMisiPage() {
           </div>
         </div>
 
-        {/* Motto CINTA */}
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '1.25rem' }}>
             <div style={{

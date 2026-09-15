@@ -37,7 +37,6 @@ function StatistikKepegawaianPage() {
           </p>
         </div>
 
-        {/* Highlight Summary Stats */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem', margin: '2rem 0' }}>
           <div style={{
             background: 'linear-gradient(135deg, var(--primary-800), var(--primary-900))',

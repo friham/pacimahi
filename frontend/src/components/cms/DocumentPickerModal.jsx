@@ -136,7 +136,6 @@ export default function DocumentPickerModal({ isOpen, onClose, onSelect, token }
           </div>
         </div>
 
-        {/* Upload Form Area */}
         {showUploadForm && (
           <form onSubmit={handleUploadSubmit} style={{ padding: '1rem 1.5rem', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '10px' }}>
@@ -192,7 +191,6 @@ export default function DocumentPickerModal({ isOpen, onClose, onSelect, token }
           </form>
         )}
 
-        {/* List of documents */}
         <div style={{ flex: 1, overflowY: 'auto', padding: '1rem 1.5rem' }}>
           {loading ? (
             <div className="media-loading">

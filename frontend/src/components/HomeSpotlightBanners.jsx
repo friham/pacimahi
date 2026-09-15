@@ -155,7 +155,6 @@ function HomeSpotlightBanners() {
         ======================================================== */}
         <div className="spotlight-block service-dual-block">
           <div className="service-dual-grid">
-            {/* Prosedur Berperkara */}
             <Link
               to="/kepaniteraan/prosedur-berperkara"
               className="service-dual-card"
@@ -182,7 +181,6 @@ function HomeSpotlightBanners() {
               </div>
             </Link>
 
-            {/* Layanan Informasi */}
             <Link
               to="/layanan-publik/layanan-informasi"
               className="service-dual-card"

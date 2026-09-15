@@ -155,7 +155,6 @@ function NewsSection() {
           })}
         </div>
 
-        {/* News Detail Modal */}
         {selectedNews && (
           <div className="news-modal-overlay" onClick={() => setSelectedNews(null)}>
             <div className="news-modal animate-fade-in-up" onClick={(e) => e.stopPropagation()}>

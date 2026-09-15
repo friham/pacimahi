@@ -56,7 +56,6 @@ function UPTKesekretariatanPage() {
       breadcrumb="UPT Kesekretariatan"
     >
       <div className="pa-content-card">
-        {/* Intro */}
         <div style={{ background: '#f8fafc', borderLeft: '4px solid #1b5e20', padding: '16px', borderRadius: '0 8px 8px 0', marginBottom: '24px' }}>
           <h3 style={{ fontSize: '1.05rem', color: '#1b5e20', margin: '0 0 4px 0' }}>Struktur Organisasi Kesekretariatan</h3>
           <p style={{ margin: 0, fontSize: '0.85rem', color: '#475569', lineHeight: 1.5 }}>
@@ -64,7 +63,6 @@ function UPTKesekretariatanPage() {
           </p>
         </div>
 
-        {/* 3 Sub Bagian Cards */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           {subBagian.map((sub, idx) => {
             const Icon = sub.icon;

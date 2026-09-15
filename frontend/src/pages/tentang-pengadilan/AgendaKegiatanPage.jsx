@@ -28,7 +28,6 @@ function AgendaKegiatanPage() {
           </p>
         </div>
 
-        {/* Year Filter Tabs */}
         <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', margin: '1.5rem 0' }}>
           {years.map((y) => (
             <button
@@ -52,7 +51,6 @@ function AgendaKegiatanPage() {
           ))}
         </div>
 
-        {/* Content based on selected year */}
         {selectedYear === '2026' && (
           <div>
             <h2>Jadwal & Agenda Kerja Tahun 2026</h2>

@@ -47,13 +47,10 @@ function InformasiUmumLayout({ title, subtitle, breadcrumb, children }) {
 
   return (
     <div className="info-page-wrapper">
-      {/* Top Navbar */}
       <Navbar />
 
-      {/* Floating Left Social Icons */}
       <SocialSidebar />
 
-      {/* Hero Banner with Breadcrumbs */}
       <section className="info-hero">
         <div className="info-hero__container">
           <nav className="info-breadcrumbs" aria-label="Breadcrumb">
@@ -71,11 +68,8 @@ function InformasiUmumLayout({ title, subtitle, breadcrumb, children }) {
         </div>
       </section>
 
-      {/* Main Container Grid */}
       <div className="info-body-container">
-        {/* Left Sidebar Menu */}
         <aside className="info-sidebar">
-          {/* Menu Card */}
           <div className="sidebar-card">
             <div className="sidebar-card__header">
               <FaBookOpen className="sidebar-card__header-icon" />
@@ -118,7 +112,6 @@ function InformasiUmumLayout({ title, subtitle, breadcrumb, children }) {
             </ul>
           </div>
 
-          {/* Quick Contact & Service Hours Widget */}
           <div className="sidebar-card">
             <div className="sidebar-card__header">
               <FaClock className="sidebar-card__header-icon" />
@@ -171,7 +164,6 @@ function InformasiUmumLayout({ title, subtitle, breadcrumb, children }) {
             </div>
           </div>
 
-          {/* Quick External Links Widget */}
           <div className="sidebar-card">
             <div className="sidebar-card__header">
               <FaExternalLinkAlt className="sidebar-card__header-icon" />
@@ -204,18 +196,15 @@ function InformasiUmumLayout({ title, subtitle, breadcrumb, children }) {
           </div>
         </aside>
 
-        {/* Right Content Area */}
         <main className="info-content-area">
           {children}
         </main>
       </div>
 
-      {/* Floating Chat & Accessibility Buttons */}
       <VirtualAssistant />
       <AccessibilityWidget />
       <AcoFloatingButton cctvUrl="https://cctv.badilag.net/display/satker/3f0217881b5ba82ead3967e1032f6421" />
 
-      {/* Footer */}
       <Footer />
     </div>
   );

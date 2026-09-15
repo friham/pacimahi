@@ -1,10 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&family=Lexend:wght@400;500;600;700;800&family=Comic+Neue:wght@400;700&display=swap');
 
-/* ============================================
-   CSS Variables / Design Tokens
-   ============================================ */
 :root {
-  /* Primary Greens */
+  
   --primary-50: #e8f5e9;
   --primary-100: #c8e6c9;
   --primary-200: #a5d6a7;
@@ -17,14 +14,12 @@
   --primary-900: #1b5e20;
   --primary-950: #0d3311;
 
-  /* Gold Accents */
   --gold-300: #f0d78c;
   --gold-400: #e5c35e;
   --gold-500: #d4af37;
   --gold-600: #c69c3f;
   --gold-700: #a17d2f;
 
-  /* Neutrals */
   --gray-50: #f8fafc;
   --gray-100: #f1f5f9;
   --gray-200: #e2e8f0;
@@ -36,23 +31,19 @@
   --gray-800: #1e293b;
   --gray-900: #0f172a;
 
-  /* Semantic */
   --success: #22c55e;
   --warning: #f59e0b;
   --error: #ef4444;
   --info: #3b82f6;
 
-  /* Surfaces */
   --surface-bg: #fafbfc;
   --surface-card: #ffffff;
   --surface-elevated: #ffffff;
   --surface-overlay: rgba(0, 0, 0, 0.5);
 
-  /* Typography */
   --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-display: 'Playfair Display', Georgia, serif;
 
-  /* Shadows */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
@@ -61,23 +52,17 @@
   --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.12);
   --shadow-glow-green: 0 0 20px rgba(76, 175, 80, 0.3);
 
-  /* Borders */
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
   --radius-xl: 24px;
   --radius-full: 9999px;
 
-  /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-bounce: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  /* Layout */
-  /* Jarak navbar ↔ announcement bar diatur TERPUSAT di sini.
-     Jangan tulis top/margin lain untuk .hero__ticker di file mana pun
-     agar tidak terjadi double spacing. */
   --navbar-height: 70px;
   --navbar-top: 12px;
   --navbar-announce-gap: 15px;
@@ -85,9 +70,6 @@
   --container-padding: 1.5rem;
 }
 
-/* ============================================
-   Reset & Base
-   ============================================ */
 *,
 *::before,
 *::after {
@@ -125,6 +107,34 @@ ul, ol {
   list-style: none;
 }
 
+.cms-rte-editor ul,
+.rich-text-editor__content ul,
+.cms-text-block ul,
+.cms-page-preview ul,
+.pa-article ul {
+  list-style-type: disc !important;
+  list-style-position: outside !important;
+  padding-left: 1.75rem !important;
+}
+
+.cms-rte-editor ol,
+.rich-text-editor__content ol,
+.cms-text-block ol,
+.cms-page-preview ol,
+.pa-article ol {
+  list-style-type: decimal !important;
+  list-style-position: outside !important;
+  padding-left: 1.75rem !important;
+}
+
+.cms-rte-editor li,
+.rich-text-editor__content li,
+.cms-text-block li,
+.cms-page-preview li,
+.pa-article li {
+  display: list-item !important;
+}
+
 button {
   font-family: inherit;
   cursor: pointer;
@@ -137,9 +147,6 @@ input, select, textarea {
   outline: none;
 }
 
-/* ============================================
-   Utility Classes
-   ============================================ */
 .container {
   width: 100%;
   max-width: var(--container-max);
@@ -163,9 +170,6 @@ input, select, textarea {
   margin-bottom: 2.5rem;
 }
 
-/* ============================================
-   Glassmorphism Utility
-   ============================================ */
 .glass {
   background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(12px);
@@ -180,9 +184,6 @@ input, select, textarea {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* ============================================
-   Animations
-   ============================================ */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -259,7 +260,6 @@ input, select, textarea {
   animation: fadeInDown 0.5s ease-out forwards;
 }
 
-/* Staggered animations */
 .animate-delay-1 { animation-delay: 0.1s; }
 .animate-delay-2 { animation-delay: 0.2s; }
 .animate-delay-3 { animation-delay: 0.3s; }
@@ -269,9 +269,6 @@ input, select, textarea {
 .animate-delay-7 { animation-delay: 0.7s; }
 .animate-delay-8 { animation-delay: 0.8s; }
 
-/* ============================================
-   Scroll Reveal Animations
-   ============================================ */
 .scroll-reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -316,7 +313,6 @@ input, select, textarea {
   transform: scale(1);
 }
 
-/* Staggered children reveal */
 .scroll-reveal-stagger > * {
   opacity: 0;
   transform: translateY(20px);
@@ -337,9 +333,6 @@ input, select, textarea {
   transform: translateY(0);
 }
 
-/* ============================================
-   Scrollbar
-   ============================================ */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -357,9 +350,6 @@ input, select, textarea {
   background: var(--primary-600);
 }
 
-/* ============================================
-   Responsive
-   ============================================ */
 @media (max-width: 768px) {
   :root {
     --navbar-height: 64px;
@@ -371,17 +361,11 @@ input, select, textarea {
   }
 }
 
-/* ============================================
-   Accessibility (A11y) Global Modifiers
-   ============================================ */
-
-/* 1. Dyslexia Friendly Font */
 html[data-a11y-dyslexia-font="true"] *:not(.a11y-widget-root *):not(i):not(svg):not(path) {
   font-family: 'Lexend', 'Comic Neue', sans-serif !important;
   letter-spacing: 0.03em;
 }
 
-/* 2. Text Sizing */
 html[data-a11y-text-size="120"] {
   font-size: 115% !important;
 }
@@ -392,7 +376,6 @@ html[data-a11y-text-size="160"] {
   font-size: 145% !important;
 }
 
-/* 3. Line Height */
 html[data-a11y-line-height="1.8"] *:not(.a11y-widget-root *):not(.va-chatbox *) {
   line-height: 1.85 !important;
 }
@@ -400,7 +383,6 @@ html[data-a11y-line-height="2.2"] *:not(.a11y-widget-root *):not(.va-chatbox *) 
   line-height: 2.2 !important;
 }
 
-/* 4. Letter Spacing */
 html[data-a11y-letter-spacing="2"] *:not(.a11y-widget-root *):not(.va-chatbox *) {
   letter-spacing: 2px !important;
 }
@@ -408,7 +390,6 @@ html[data-a11y-letter-spacing="4"] *:not(.a11y-widget-root *):not(.va-chatbox *)
   letter-spacing: 4px !important;
 }
 
-/* 5. Text Alignment */
 html[data-a11y-text-align="left"] main p,
 html[data-a11y-text-align="left"] main span:not(.a11y-widget-root *),
 html[data-a11y-text-align="left"] main h1,
@@ -442,7 +423,6 @@ html[data-a11y-text-align="center"] .page-content h3 {
   text-align: center !important;
 }
 
-/* 6. Saturation */
 html[data-a11y-saturation="high"] body > :not(.a11y-widget-root):not(#aco-floating-btn) {
   filter: saturate(200%) !important;
 }
@@ -453,17 +433,6 @@ html[data-a11y-saturation="low"] body > :not(.a11y-widget-root):not(#aco-floatin
   filter: saturate(40%) !important;
 }
 
-/* =====================================================
-   WIDGET AKSESIBILITAS - ISOLASI DARI SEMUA MODE A11Y
-   Widget harus SELALU tampil dengan tampilan aslinya
-   ===================================================== */
-
-/* NOTE: isolation:isolate DIHAPUS — menyebabkan position:fixed di dalamnya
-   masuk stacking context terpisah dan tertimbun footer/elemen lain.
-   Proteksi kontras ditangani via explicit CSS rules di bawah. */
-
-/* 7. Contrast Modes */
-/* Dark High Contrast (Yellow / White on Dark) */
 html[data-a11y-contrast="dark"] {
   background-color: #0b0f19 !important;
   color-scheme: dark !important;
@@ -505,7 +474,6 @@ html[data-a11y-contrast="dark"] .section-title {
   color: #ffff00 !important;
 }
 
-/* Proteksi widget dari dark mode - hardcode nilai asli widget */
 html[data-a11y-contrast="dark"] .a11y-floating-panel {
   background: #ffffff !important;
   color: #1e293b !important;
@@ -562,7 +530,6 @@ html[data-a11y-contrast="dark"] .a11y-widget-root {
   filter: none !important;
 }
 
-/* Light High Contrast (Black on Pure White) */
 html[data-a11y-contrast="light"] {
   background-color: #ffffff !important;
   color-scheme: light !important;
@@ -599,7 +566,6 @@ html[data-a11y-contrast="light"] a:not(.a11y-widget-root *) {
   color: #000000 !important;
 }
 
-/* Proteksi widget dari light mode - hardcode nilai asli widget */
 html[data-a11y-contrast="light"] .a11y-floating-panel {
   background: #ffffff !important;
   color: #1e293b !important;
@@ -665,7 +631,6 @@ html[data-a11y-contrast="light"] .a11y-widget-root {
   filter: none !important;
 }
 
-/* Invert Contrast */
 html[data-a11y-contrast="invert"] {
   filter: invert(100%) hue-rotate(180deg) !important;
   background-color: #ffffff !important;
@@ -675,11 +640,7 @@ html[data-a11y-contrast="invert"] video,
 html[data-a11y-contrast="invert"] iframe {
   filter: invert(100%) hue-rotate(180deg) !important;
 }
-/* Fixed chrome di-invert balik supaya tetap tampil normal.
-   IMPORTANT: re-invert toegepast op de POSITION:FIXED leaf elements zelf
-   (niet op .a11y-widget-root static wrapper), omdat een filter op een
-   ancestor een containing-block maakt voor fixed descendants -> widget
-   zou verschuiven bij scroll (bug "pindah posisi"). */
+
 html[data-a11y-contrast="invert"] .a11y-floating-wrapper,
 html[data-a11y-contrast="invert"] .a11y-floating-panel,
 html[data-a11y-contrast="invert"] .a11y-restore-trigger,
@@ -690,7 +651,6 @@ html[data-a11y-contrast="invert"] .aco-floating-wrapper {
   filter: invert(100%) hue-rotate(180deg) !important;
 }
 
-/* 8. Highlight Links */
 html[data-a11y-highlight-links="true"] a:not(.a11y-widget-root *),
 html[data-a11y-highlight-links="true"] button:not(.a11y-widget-root *) {
   text-decoration: underline 3px #eab308 !important;
@@ -701,7 +661,6 @@ html[data-a11y-highlight-links="true"] button:not(.a11y-widget-root *) {
   font-weight: 700 !important;
 }
 
-/* 9. Pause Animations */
 html[data-a11y-pause-animations="true"] *:not(.a11y-widget-root *):not(.a11y-floating-trigger),
 html[data-a11y-pause-animations="true"] *:not(.a11y-widget-root *)::before,
 html[data-a11y-pause-animations="true"] *:not(.a11y-widget-root *)::after {
@@ -713,7 +672,6 @@ html[data-a11y-pause-animations="true"] *:not(.a11y-widget-root *)::after {
   scroll-behavior: auto !important;
 }
 
-/* 10. Hide Images */
 html[data-a11y-hide-images="true"] img:not(.a11y-widget-root *):not(.navbar__logo-img),
 html[data-a11y-hide-images="true"] picture:not(.a11y-widget-root *),
 html[data-a11y-hide-images="true"] video:not(.a11y-widget-root *),
@@ -731,7 +689,6 @@ html[data-a11y-hide-images="true"] .hero-banner[style*="background-image"] {
   background-image: none !important;
 }
 
-/* 11. Large Cursor */
 html[data-a11y-large-cursor="true"] *,
 html[data-a11y-large-cursor="true"] body,
 html[data-a11y-large-cursor="true"] a,
@@ -740,7 +697,6 @@ html[data-a11y-large-cursor="true"] input {
   cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 24 24' fill='%231b5e20' stroke='%23ffffff' stroke-width='1.5'%3E%3Cpath d='M4.5 3.5l14 7.5-6.5 1.5-3.5 6.5z'/%3E%3C/svg%3E"), auto !important;
 }
 
-/* 12. Tooltip Mode Assistant */
 html[data-a11y-tooltip="true"] a:not(.a11y-widget-root *):hover,
 html[data-a11y-tooltip="true"] button:not(.a11y-widget-root *):hover,
 html[data-a11y-tooltip="true"] [title]:not(.a11y-widget-root *):hover,
@@ -748,22 +704,12 @@ html[data-a11y-tooltip="true"] [aria-label]:not(.a11y-widget-root *):hover {
   outline: 2px dashed #0284c7 !important;
   outline-offset: 2px !important;
 }
-/* ============================================
-   Global Keyboard Focus (Accessibility)
-   Visible fallback outline for every interactive
-   element when focused via keyboard. Component
-   specific :focus-visible rules still win.
-   ============================================ */
+
 :focus-visible {
   outline: 2.5px solid var(--primary-500, #4caf50);
   outline-offset: 2px;
 }
 
-/* ============================================
-   Reduced Motion (Accessibility)
-   Respect OS "reduce motion" preference — stop
-   decorative/infinite animations & smooth-scroll.
-   ============================================ */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -775,9 +721,6 @@ html[data-a11y-tooltip="true"] [aria-label]:not(.a11y-widget-root *):hover {
   }
 }
 
-/* ============================================
-   Polish: text selection & scrollbar
-   ============================================ */
 ::selection {
   background: var(--primary-200, #a5d6a7);
   color: var(--gray-900, #0f172a);

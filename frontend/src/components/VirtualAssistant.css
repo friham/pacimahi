@@ -1,8 +1,5 @@
-/* ============================================
-   Virtual Assistant (SAPA) Styles
-   ============================================ */
 
-/* Hide accessibility button when SAPA chatbox is open */
+
 body.va-open .a11y-widget-root,
 body.va-open .aco-floating-wrapper {
   opacity: 0;
@@ -14,9 +11,7 @@ body.va-open .aco-floating-wrapper {
   bottom: 28px;
   right: 28px;
   z-index: 9999;
-}/* ============================================
-   Floating Button Animations (shared)
-   ============================================ */
+}
 @keyframes floatBounce {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
@@ -27,7 +22,6 @@ body.va-open .aco-floating-wrapper {
   100% { transform: scale(1.8); opacity: 0; }
 }
 
-/* Floating Trigger Button - Matching CCTV & Accessibility style */
 .va-floating-btn {
   width: 48px;
   height: 48px;
@@ -94,7 +88,6 @@ body.va-open .aco-floating-wrapper {
   animation: pulseRing 1.5s ease-out infinite;
 }
 
-/* Chatbox Window */
 .va-chatbox {
   width: 380px;
   max-width: calc(100vw - 32px);
@@ -109,7 +102,6 @@ body.va-open .aco-floating-wrapper {
   border: 1px solid var(--gray-200);
 }
 
-/* Header */
 .va-chatbox__header {
   background: linear-gradient(135deg, var(--primary-900), var(--primary-800));
   color: white;
@@ -180,7 +172,6 @@ body.va-open .aco-floating-wrapper {
   transform: rotate(90deg);
 }
 
-/* Chat Body */
 .va-chatbox__body {
   flex: 1;
   padding: 1.25rem;
@@ -246,7 +237,6 @@ body.va-open .aco-floating-wrapper {
   border-bottom-right-radius: 2px;
 }
 
-/* FAQs */
 .va-faqs {
   margin-top: 10px;
   padding-top: 10px;
@@ -287,7 +277,6 @@ body.va-open .aco-floating-wrapper {
   transform: translateX(3px);
 }
 
-/* Footer Form */
 .va-chatbox__footer {
   padding: 1rem;
   background: white;
@@ -338,7 +327,6 @@ body.va-open .aco-floating-wrapper {
   transform: scale(1.05);
 }
 
-/* WhatsApp helper */
 .va-whatsapp-link {
   display: flex;
   align-items: center;
@@ -366,9 +354,6 @@ body.va-open .aco-floating-wrapper {
   background: #bbf7d0;
 }
 
-/* ============================================
-   Responsive
-   ============================================ */
 @media (max-width: 480px) {
   .virtual-assistant {
     bottom: 20px;

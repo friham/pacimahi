@@ -34,7 +34,6 @@ function APMPage() {
       breadcrumb="Akreditasi Penjaminan Mutu"
     >
       <div className="pa-content-card">
-        {/* Certificate Badge Banner */}
         <div style={{
           background: 'linear-gradient(135deg, #1b5e20, #b45309)',
           borderRadius: '12px',
@@ -66,7 +65,6 @@ function APMPage() {
           </div>
         </div>
 
-        {/* 7 Criteria Grid */}
         <h2 style={{ fontSize: '1.25rem', color: '#1b5e20', margin: '0 0 16px 0' }}>7 (Tujuh) Area Kriteria Penjaminan Mutu</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px', marginBottom: '28px' }}>
           {apmCriteria.map((item, idx) => {
@@ -90,7 +88,6 @@ function APMPage() {
           })}
         </div>
 
-        {/* Download Section */}
         <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
           <div>
             <h4 style={{ margin: '0 0 2px 0', fontSize: '0.92rem', color: '#1b5e20' }}>Sertifikat Akreditasi Penjaminan Mutu</h4>

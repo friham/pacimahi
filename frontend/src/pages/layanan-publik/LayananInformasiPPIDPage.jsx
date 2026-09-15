@@ -24,7 +24,6 @@ const ppidTabs = [
 function LayananInformasiPPIDPage() {
   const [activeTab, setActiveTab] = useState('prosedur');
 
-  // Interactive Online Request Form State
   const [formData, setFormData] = useState({
     nama: '',
     nik: '',
@@ -48,7 +47,6 @@ function LayananInformasiPPIDPage() {
       breadcrumb="Layanan Informasi PPID"
     >
       <div className="pa-content-card">
-        {/* Banner Gratis */}
         <div style={{
           background: 'linear-gradient(135deg, #1b5e20, #047857)',
           borderRadius: '12px',
@@ -80,7 +78,6 @@ function LayananInformasiPPIDPage() {
           </div>
         </div>
 
-        {/* Tab Buttons */}
         <div style={{ display: 'flex', gap: '6px', borderBottom: '2px solid #e2e8f0', marginBottom: '24px', flexWrap: 'wrap' }}>
           {ppidTabs.map((tab) => {
             const Icon = tab.icon;
@@ -109,7 +106,6 @@ function LayananInformasiPPIDPage() {
           })}
         </div>
 
-        {/* TAB 1: PROSEDUR PERMINTAAN */}
         {activeTab === 'prosedur' && (
           <div>
             <h3 style={{ fontSize: '1.15rem', color: '#1b5e20', margin: '0 0 14px 0' }}>Tahapan Permintaan Informasi Publik</h3>
@@ -132,7 +128,6 @@ function LayananInformasiPPIDPage() {
           </div>
         )}
 
-        {/* TAB 2: FORMULIR */}
         {activeTab === 'formulir' && (
           <div>
             <h3 style={{ fontSize: '1.15rem', color: '#1b5e20', margin: '0 0 14px 0' }}>Formulir Permohonan Informasi Publik Online</h3>
@@ -179,7 +174,6 @@ function LayananInformasiPPIDPage() {
           </div>
         )}
 
-        {/* TAB 3: BIAYA */}
         {activeTab === 'biaya' && (
           <div>
             <h3 style={{ fontSize: '1.15rem', color: '#1b5e20', margin: '0 0 12px 0' }}>Ketentuan Biaya Perolehan Informasi</h3>
@@ -209,7 +203,6 @@ function LayananInformasiPPIDPage() {
           </div>
         )}
 
-        {/* TAB 4: HAK PEMOHON */}
         {activeTab === 'hak' && (
           <div>
             <h3 style={{ fontSize: '1.15rem', color: '#1b5e20', margin: '0 0 12px 0' }}>Hak-Hak Pemohon Informasi Publik</h3>
@@ -222,7 +215,6 @@ function LayananInformasiPPIDPage() {
           </div>
         )}
 
-        {/* TAB 5: KEBERATAN */}
         {activeTab === 'keberatan' && (
           <div>
             <h3 style={{ fontSize: '1.15rem', color: '#1b5e20', margin: '0 0 12px 0' }}>Prosedur Pengajuan Keberatan Informasi</h3>
@@ -241,7 +233,6 @@ function LayananInformasiPPIDPage() {
           </div>
         )}
 
-        {/* TAB 6: LAPORAN AKSES */}
         {activeTab === 'laporan' && (
           <div>
             <h3 style={{ fontSize: '1.15rem', color: '#1b5e20', margin: '0 0 12px 0' }}>Laporan Layanan Informasi Publik (PPID) Tahunan</h3>

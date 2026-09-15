@@ -1,7 +1,6 @@
 const pool = require('../config/db');
 const { recordAuditLog } = require('./auditLogController');
 
-// Get active services (for homepage)
 const getServices = async (req, res) => {
   try {
     const [rows] = await pool.execute(
@@ -14,7 +13,6 @@ const getServices = async (req, res) => {
   }
 };
 
-// Get all services (for admin panel)
 const getAllServices = async (req, res) => {
   try {
     const [rows] = await pool.execute(
@@ -27,7 +25,6 @@ const getAllServices = async (req, res) => {
   }
 };
 
-// Create service
 const createService = async (req, res) => {
   try {
     const { name, icon, description, link, sort_order, is_active } = req.body;
@@ -62,7 +59,6 @@ const createService = async (req, res) => {
   }
 };
 
-// Update service
 const updateService = async (req, res) => {
   try {
     const { id } = req.params;
@@ -98,7 +94,6 @@ const updateService = async (req, res) => {
   }
 };
 
-// Delete service
 const deleteService = async (req, res) => {
   try {
     const { id } = req.params;

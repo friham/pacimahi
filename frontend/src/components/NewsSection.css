@@ -1,6 +1,4 @@
-/* ============================================
-   News Section Styles
-   ============================================ */
+
 .news-section {
   padding: 5rem 0;
   background: var(--surface-bg);
@@ -26,7 +24,6 @@
   margin-bottom: 0.5rem;
 }
 
-/* Filters */
 .news-filters {
   display: flex;
   justify-content: center;
@@ -60,14 +57,12 @@
   box-shadow: 0 4px 12px rgba(46, 125, 50, 0.25);
 }
 
-/* News Grid */
 .news-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 28px;
 }
 
-/* News Card */
 .news-card {
   background: white;
   border-radius: var(--radius-xl);
@@ -131,7 +126,6 @@
   color: white;
 }
 
-/* Card Body */
 .news-card__body {
   padding: 1.5rem;
   display: flex;
@@ -205,9 +199,6 @@
   gap: 10px;
 }
 
-/* ============================================
-   News Modal Detail
-   ============================================ */
 .news-modal-overlay {
   position: fixed;
   inset: 0;
@@ -323,7 +314,6 @@
   background: var(--gray-200);
 }
 
-/* Responsive */
 @media (max-width: 1024px) {
   .news-grid {
     grid-template-columns: repeat(2, 1fr);

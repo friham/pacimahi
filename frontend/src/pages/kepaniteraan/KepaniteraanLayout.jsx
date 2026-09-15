@@ -139,13 +139,10 @@ function KepaniteraanLayout({ title, subtitle, breadcrumb, children }) {
 
   return (
     <div className="kepaniteraan-page-wrapper">
-      {/* Top Navbar */}
       <Navbar />
 
-      {/* Floating Left Social Icons */}
       <SocialSidebar />
 
-      {/* Hero Banner with Breadcrumbs */}
       <section className="kepaniteraan-hero">
         <div className="kepaniteraan-hero__container">
           <nav className="kepaniteraan-breadcrumbs" aria-label="Breadcrumb">
@@ -163,11 +160,8 @@ function KepaniteraanLayout({ title, subtitle, breadcrumb, children }) {
         </div>
       </section>
 
-      {/* Main Container Grid */}
       <div className="kepaniteraan-body-container">
-        {/* Left Sidebar Menu */}
         <aside className="kepaniteraan-sidebar">
-          {/* Menu Card */}
           <div className="sidebar-card">
             <div className="sidebar-card__header">
               <FaFileSignature className="sidebar-card__header-icon" />
@@ -230,7 +224,6 @@ function KepaniteraanLayout({ title, subtitle, breadcrumb, children }) {
             </ul>
           </div>
 
-          {/* Quick Contact & Service Hours Widget */}
           <div className="sidebar-card">
             <div className="sidebar-card__header">
               <FaClock className="sidebar-card__header-icon" />
@@ -283,7 +276,6 @@ function KepaniteraanLayout({ title, subtitle, breadcrumb, children }) {
             </div>
           </div>
 
-          {/* Quick External Links Widget */}
           <div className="sidebar-card">
             <div className="sidebar-card__header">
               <FaExternalLinkAlt className="sidebar-card__header-icon" />
@@ -316,17 +308,14 @@ function KepaniteraanLayout({ title, subtitle, breadcrumb, children }) {
           </div>
         </aside>
 
-        {/* Right Content Area */}
         <main className="kepaniteraan-content-area">
           {children}
         </main>
       </div>
 
-      {/* Floating Accessibility Buttons */}
       <AccessibilityWidget />
       <AcoFloatingButton cctvUrl="https://cctv.badilag.net/display/satker/3f0217881b5ba82ead3967e1032f6421" />
 
-      {/* Footer */}
       <Footer />
     </div>
   );

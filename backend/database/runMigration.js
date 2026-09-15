@@ -5,7 +5,7 @@ async function run() {
   const connection = await pool.getConnection();
 
   try {
-    // 1. Table: menus
+    
     await connection.query(`
       CREATE TABLE IF NOT EXISTS menus (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -28,7 +28,6 @@ async function run() {
     `);
     console.log('✅ Table menus ready.');
 
-    // 2. Table: pages
     await connection.query(`
       CREATE TABLE IF NOT EXISTS pages (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -56,7 +55,6 @@ async function run() {
     `);
     console.log('✅ Table pages ready.');
 
-    // 3. Table: content_blocks
     await connection.query(`
       CREATE TABLE IF NOT EXISTS content_blocks (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -73,7 +71,6 @@ async function run() {
     `);
     console.log('✅ Table content_blocks ready.');
 
-    // 4. Table: media
     await connection.query(`
       CREATE TABLE IF NOT EXISTS media (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -92,7 +89,6 @@ async function run() {
     `);
     console.log('✅ Table media ready.');
 
-    // 5. Table: documents
     await connection.query(`
       CREATE TABLE IF NOT EXISTS documents (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -111,7 +107,6 @@ async function run() {
     `);
     console.log('✅ Table documents ready.');
 
-    // 6. Table: audit_logs
     await connection.query(`
       CREATE TABLE IF NOT EXISTS audit_logs (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -129,7 +124,6 @@ async function run() {
     `);
     console.log('✅ Table audit_logs ready.');
 
-    // Check if menus is empty, if so, seed default court menus!
     const [existingMenus] = await connection.query('SELECT COUNT(*) as count FROM menus');
     if (existingMenus[0].count === 0) {
       console.log('🌱 Seeding initial Court Menu structure...');
@@ -143,7 +137,6 @@ async function run() {
         return res.insertId;
       };
 
-      // 1. Profil Pengadilan
       const mProfil = await insertMenu('Profil Pengadilan', 'profil-pengadilan', 'dropdown', null, null, 1);
       await insertMenu('Pengantar Ketua Pengadilan', 'pengantar-ketua', 'page', '/tentang-pengadilan/pengantar-dari-ketua-pengadilan', mProfil, 1);
       await insertMenu('Visi dan Misi Pengadilan', 'visi-dan-misi', 'page', '/tentang-pengadilan/visi-dan-misi', mProfil, 2);
@@ -167,13 +160,11 @@ async function run() {
       await insertMenu('SDM Fungsional & Pelaksana', 'sdm-fungsional-pelaksana', 'page', '/tentang-pengadilan/profile-pengadilan/profil-pegawai/fungsional-dan-pelaksana', mSdm, 5);
       await insertMenu('Statistik Kepegawaian', 'statistik-kepegawaian', 'page', '/tentang-pengadilan/profile-pengadilan/statistik-kepegawaian', mSdm, 6);
 
-      // 2. Informasi Umum
       const mInfo = await insertMenu('Informasi Umum', 'informasi-umum', 'dropdown', null, null, 2);
       await insertMenu('Standar Operasional Prosedur (SOP)', 'sop-pengadilan', 'page', '/informasi-umum/standar-operasional-prosedur', mInfo, 1);
       await insertMenu('Program Kerja Tahunan', 'program-kerja-tahunan', 'page', '/informasi-umum/program-kerja', mInfo, 2);
       await insertMenu('Laporan Tahunan', 'laporan-tahunan', 'page', '/informasi-umum/laporan-tahunan', mInfo, 3);
 
-      // 3. Kepaniteraan
       const mPanitera = await insertMenu('Kepaniteraan', 'kepaniteraan', 'dropdown', null, null, 3);
       const mPosbakum = await insertMenu('Pos Bantuan Hukum (Posbakum)', 'posbakum', 'dropdown', '/kepaniteraan/posbakum', mPanitera, 1);
       await insertMenu('Keberadaan Posbakum', 'keberadaan-posbakum', 'page', '/kepaniteraan/posbakum', mPosbakum, 1);
@@ -189,7 +180,6 @@ async function run() {
       await insertMenu('Jadwal & Agenda Persidangan', 'jadwal-sidang', 'page', '/kepaniteraan/jadwal-persidangan', mPanitera, 6);
       await insertMenu('Biaya Proses Berperkara (Panjar)', 'biaya-perkara', 'page', '/kepaniteraan/biaya-perkara', mPanitera, 7);
 
-      // 4. Kesekretariatan
       const mSekretariat = await insertMenu('Kesekretariatan', 'kesekretariatan', 'dropdown', null, null, 4);
       await insertMenu('Pengadaan Barang dan Jasa', 'pengadaan-barang-jasa', 'page', '/kesekretariatan/pengadaan-barang-dan-jasa', mSekretariat, 1);
       await insertMenu('DIPA & Realisasi Anggaran', 'dipa', 'page', '/kesekretariatan/dipa', mSekretariat, 2);
@@ -197,7 +187,6 @@ async function run() {
       await insertMenu('Daftar Aset dan Inventaris', 'aset-inventaris', 'page', '/kesekretariatan/daftar-aset-dan-inventaris', mSekretariat, 4);
       await insertMenu('Survei Pelayanan Publik (SKM & IPK)', 'survei-pelayanan-publik', 'page', '/kesekretariatan/survei-pelayanan-publik', mSekretariat, 5);
 
-      // 5. Layanan Publik
       const mLayanan = await insertMenu('Layanan Publik', 'layanan-publik', 'dropdown', null, null, 5);
       await insertMenu('Pelayanan Terpadu Satu Pintu (PTSP)', 'ptsp', 'page', '/layanan-publik/ptsp', mLayanan, 1);
       await insertMenu('Zona Integritas (WBK/WBBM)', 'zona-integritas', 'page', '/layanan-publik/zona-integritas', mLayanan, 2);
@@ -207,7 +196,6 @@ async function run() {
       await insertMenu('WhatsApp SILINCAH', 'wa-silincah', 'link', 'https://wa.me/6281121111522?text=Info%20Layanan', mLayanan, 6, true);
       await insertMenu('CCTV Online (ACO Badilag)', 'cctv-online', 'link', 'https://cctv.badilag.net/display/satker/3f0217881b5ba82ead3967e1032f6421', mLayanan, 7, true);
 
-      // 6. Publikasi
       const mPublikasi = await insertMenu('Publikasi', 'publikasi', 'dropdown', null, null, 6);
       await insertMenu('Berita Pengadilan', 'berita-pengadilan', 'page', '/publikasi/berita', mPublikasi, 1);
       await insertMenu('Pengumuman Resmi', 'pengumuman-resmi', 'page', '/publikasi/pengumuman', mPublikasi, 2);
@@ -218,7 +206,6 @@ async function run() {
       console.log('✅ Menu seeding complete!');
     }
 
-    // Seed sample CMS Page & blocks if empty
     const [existingPages] = await connection.query('SELECT COUNT(*) as count FROM pages');
     if (existingPages[0].count === 0) {
       console.log('🌱 Seeding sample CMS page & content blocks...');

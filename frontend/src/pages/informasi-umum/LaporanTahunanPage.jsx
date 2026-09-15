@@ -51,7 +51,6 @@ function LaporanTahunanPage() {
           </p>
         </div>
 
-        {/* Document Selector Tabs */}
         <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', margin: '1.5rem 0' }}>
           {laptahData.map((item) => (
             <button
@@ -75,7 +74,6 @@ function LaporanTahunanPage() {
           ))}
         </div>
 
-        {/* Selected Document Detail */}
         <div style={{
           background: '#f8fafc',
           border: '1px solid var(--gray-200)',
@@ -114,7 +112,6 @@ function LaporanTahunanPage() {
             </a>
           </div>
 
-          {/* Embed Viewer */}
           <div className="embed-container" style={{ paddingBottom: '90%' }}>
             <iframe
               src={currentDoc.link}

@@ -41,7 +41,6 @@ function PTSPPage() {
       breadcrumb="PTSP"
     >
       <div className="pa-content-card">
-        {/* Maklumat Pelayanan Highlight */}
         <div style={{
           background: 'linear-gradient(135deg, #1b5e20, #047857)',
           borderRadius: '12px',
@@ -64,7 +63,6 @@ function PTSPPage() {
           </div>
         </div>
 
-        {/* Tab Navigation */}
         <div style={{ display: 'flex', gap: '8px', borderBottom: '2px solid #e2e8f0', marginBottom: '24px' }}>
           <button
             onClick={() => setActiveTab('loket')}
@@ -119,7 +117,6 @@ function PTSPPage() {
           </button>
         </div>
 
-        {/* TAB 1: LOKET MEJA PTSP */}
         {activeTab === 'loket' && (
           <div>
             <h2 style={{ fontSize: '1.2rem', color: '#1b5e20', margin: '0 0 16px 0' }}>Struktur Meja Pelayanan Terpadu Satu Pintu</h2>
@@ -153,7 +150,6 @@ function PTSPPage() {
           </div>
         )}
 
-        {/* TAB 2: DISABILITAS */}
         {activeTab === 'prioritas' && (
           <div>
             <h2 style={{ fontSize: '1.2rem', color: '#1b5e20', margin: '0 0 8px 0' }}>Sarana & Prasarana Ramah Kaum Rentan</h2>
@@ -170,7 +166,6 @@ function PTSPPage() {
           </div>
         )}
 
-        {/* TAB 3: KOMPENSASI */}
         {activeTab === 'kompensasi' && (
           <div>
             <h2 style={{ fontSize: '1.2rem', color: '#1b5e20', margin: '0 0 8px 0' }}>Kompensasi Keterlambatan Pelayanan</h2>

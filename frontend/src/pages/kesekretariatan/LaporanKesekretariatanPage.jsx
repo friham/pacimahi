@@ -56,7 +56,6 @@ function LaporanKesekretariatanPage() {
       breadcrumb="Laporan"
     >
       <div className="pa-content-card">
-        {/* Navigation Tabs */}
         <div style={{ display: 'flex', gap: '6px', borderBottom: '2px solid #e2e8f0', marginBottom: '24px', flexWrap: 'wrap' }}>
           {reportTabs.map((tab) => {
             const Icon = tab.icon;
@@ -85,7 +84,6 @@ function LaporanKesekretariatanPage() {
           })}
         </div>
 
-        {/* Documents */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
           {(reportDocs[activeTab] || []).map((doc, idx) => (
             <div

@@ -18,7 +18,6 @@ function LoginPage() {
     document.title = 'Login Admin | Pengadilan Agama Kota Cimahi Kelas IA';
   }, []);
 
-  // If already logged in, redirect (in useEffect to avoid render-phase side effect)
   useEffect(() => {
     if (user) {
       navigate('/admin/dashboard', { replace: true });
@@ -46,22 +45,18 @@ function LoginPage() {
 
   return (
     <div className="login-page">
-      {/* Background layers with pattern & ambient glow */}
       <div className="login-page__bg">
         <div className="login-page__bg-glow"></div>
         <div className="login-page__bg-pattern"></div>
         <div className="login-page__bg-vignette"></div>
       </div>
 
-      {/* Back to home */}
       <Link to="/" className="login-page__back animate-slide-down">
         <FaHome />
         <span>Kembali ke Beranda</span>
       </Link>
 
-      {/* Login Card */}
       <div className="login-card animate-card-entrance">
-        {/* Card header decoration */}
         <div className="login-card__header">
           <div className="login-card__logo-wrap animate-logo-pop">
             <div className="login-card__logo-glow"></div>
@@ -77,7 +72,6 @@ function LoginPage() {
           </div>
         </div>
 
-        {/* Form */}
         <form className="login-card__form" onSubmit={handleSubmit}>
           {error && (
             <div className="login-card__error animate-fade-in-down">
@@ -149,4 +143,3 @@ function LoginPage() {
 }
 
 export default LoginPage;
-

@@ -26,7 +26,6 @@ function AlurPrioritasPTSPPage() {
       breadcrumb="Alur Pelayanan Prioritas"
     >
       <div className="pa-content-card">
-        {/* Banner */}
         <div style={{
           background: 'linear-gradient(135deg, #1b5e20, #0d9488)',
           borderRadius: '12px',
@@ -58,7 +57,6 @@ function AlurPrioritasPTSPPage() {
           </div>
         </div>
 
-        {/* 4 Steps */}
         <h2 style={{ fontSize: '1.25rem', color: '#1b5e20', margin: '0 0 16px 0' }}>Tahapan Alur Pelayanan Prioritas</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '16px', marginBottom: '28px' }}>
           {prioritasSteps.map((step, idx) => (
@@ -72,7 +70,6 @@ function AlurPrioritasPTSPPage() {
           ))}
         </div>
 
-        {/* Fasilitas Kaum Rentan */}
         <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '20px', marginBottom: '24px' }}>
           <h3 style={{ fontSize: '1.05rem', color: '#1b5e20', margin: '0 0 12px 0', fontWeight: 700 }}>Fasilitas Khusus yang Disediakan:</h3>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '10px' }}>

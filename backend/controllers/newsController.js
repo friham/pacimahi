@@ -1,7 +1,6 @@
 const pool = require('../config/db');
 const { recordAuditLog } = require('./auditLogController');
 
-// Helper: parse is_published from JSON bool or form-string to a real boolean
 const toBool = (val) => {
   if (typeof val === 'boolean') return val;
   if (val === 1 || val === '1' || val === 'true' || val === 'on') return true;
@@ -9,19 +8,17 @@ const toBool = (val) => {
   return Boolean(val);
 };
 
-// Helper to generate URL slug
 const slugify = (text) => {
   return text
     .toString()
     .toLowerCase()
-    .replace(/\s+/g, '-')           // Replace spaces with -
-    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
-    .replace(/^-+/, '')             // Trim - from start
-    .replace(/-+$/, '');            // Trim - from end
+    .replace(/\s+/g, '-')           
+    .replace(/[^\w\-]+/g, '')       
+    .replace(/\-\-+/g, '-')         
+    .replace(/^-+/, '')             
+    .replace(/-+$/, '');            
 };
 
-// Get active/published news (for homepage)
 const getNews = async (req, res) => {
   try {
     const [rows] = await pool.execute(
@@ -34,7 +31,6 @@ const getNews = async (req, res) => {
   }
 };
 
-// Get news by slug/id
 const getNewsBySlug = async (req, res) => {
   try {
     const { slug } = req.params;
@@ -54,7 +50,6 @@ const getNewsBySlug = async (req, res) => {
   }
 };
 
-// Get all news (for admin panel)
 const getAllNews = async (req, res) => {
   try {
     const [rows] = await pool.execute(
@@ -67,12 +62,11 @@ const getAllNews = async (req, res) => {
   }
 };
 
-// Create news
 const createNews = async (req, res) => {
   try {
     const { title, content, image_url, category } = req.body;
     const is_published = toBool(req.body.is_published);
-    const author_id = req.user.id; // Logged in admin id from auth middleware
+    const author_id = req.user.id; 
 
     if (!title || !content) {
       return res.status(400).json({ success: false, message: 'Judul dan konten wajib diisi.' });
@@ -107,7 +101,6 @@ const createNews = async (req, res) => {
   }
 };
 
-// Update news
 const updateNews = async (req, res) => {
   try {
     const { id } = req.params;
@@ -118,16 +111,14 @@ const updateNews = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Judul dan konten wajib diisi.' });
     }
 
-    // Get current publication status
     const [currentRows] = await pool.execute('SELECT is_published, slug FROM news WHERE id = ?', [id]);
     if (currentRows.length === 0) {
       return res.status(404).json({ success: false, message: 'Berita tidak ditemukan.' });
     }
 
     const current = currentRows[0];
-    const newSlug = slugify(title) + '-' + id; // Keep it clean & unique
+    const newSlug = slugify(title) + '-' + id; 
 
-    // Only set published_at when publishing for the first time (draft → published)
     let published_at = null;
     if (is_published && !current.is_published) {
       published_at = new Date();
@@ -155,7 +146,6 @@ const updateNews = async (req, res) => {
   }
 };
 
-// Delete news
 const deleteNews = async (req, res) => {
   try {
     const { id } = req.params;
