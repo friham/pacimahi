@@ -1,5 +1,5 @@
 import ProfileLayout from './ProfileLayout';
-import { FaEye, FaBullhorn, FaCheckCircle, FaHeart, FaStar } from 'react-icons/fa';
+import { FaEye, FaBullhorn, FaStar } from 'react-icons/fa';
 
 function VisiMisiPage() {
   const missions = [

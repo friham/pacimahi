@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import KepaniteraanLayout from './KepaniteraanLayout';
-import { FaGavel, FaExchangeAlt, FaBalanceScale, FaFileSignature, FaCertificate, FaHammer } from 'react-icons/fa';
+import { FaGavel } from 'react-icons/fa';
 
 function ProsedurBerperkaraPage() {
   const [activeTab, setActiveTab] = useState('tingkat-pertama');

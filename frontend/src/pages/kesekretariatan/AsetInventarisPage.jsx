@@ -1,16 +1,6 @@
 import { useState } from 'react';
 import KesekretariatanLayout from './KesekretariatanLayout';
-import { 
-  FaBoxes, 
-  FaCar, 
-  FaBuilding, 
-  FaLaptop, 
-  FaFilePdf, 
-  FaDownload, 
-  FaCheckCircle, 
-  FaShieldAlt,
-  FaCalendarAlt
-} from 'react-icons/fa';
+import { FaBoxes, FaCar, FaBuilding, FaLaptop, FaFilePdf, FaDownload, FaShieldAlt } from 'react-icons/fa';
 
 const bmnSummary = [
   { kategori: 'Tanah & Bangunan Gedung Kantor', kuantitas: '2 Unit (3.420 m²)', nilaiPerolehan: 'Rp 14.850.000.000', kondisi: '100% Baik', icon: FaBuilding },

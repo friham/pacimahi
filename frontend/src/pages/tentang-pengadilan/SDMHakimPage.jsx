@@ -1,5 +1,5 @@
 import ProfileLayout from './ProfileLayout';
-import { FaGavel, FaExternalLinkAlt, FaBalanceScale } from 'react-icons/fa';
+import { FaGavel } from 'react-icons/fa';
 
 function SDMHakimPage() {
   const hakimEmbed = 'https://simtepa.mahkamahagung.go.id/share/profil_hakim/html/ab9a3d23d34bdb24be70b64fdb1cfed8';

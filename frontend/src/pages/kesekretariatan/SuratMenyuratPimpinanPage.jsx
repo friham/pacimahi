@@ -1,14 +1,6 @@
 import { useState } from 'react';
 import KesekretariatanLayout from './KesekretariatanLayout';
-import { 
-  FaEnvelopeOpenText, 
-  FaFileAlt, 
-  FaCalendarAlt, 
-  FaSearch, 
-  FaDownload, 
-  FaCheckCircle,
-  FaFilePdf
-} from 'react-icons/fa';
+import { FaSearch, FaFilePdf } from 'react-icons/fa';
 
 const lettersList = [
   {

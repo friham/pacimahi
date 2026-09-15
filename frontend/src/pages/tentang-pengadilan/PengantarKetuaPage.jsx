@@ -1,5 +1,5 @@
 import ProfileLayout from './ProfileLayout';
-import { FaQuoteLeft, FaGavel, FaCheckCircle, FaAward, FaHeart } from 'react-icons/fa';
+import { FaGavel, FaAward } from 'react-icons/fa';
 
 function PengantarKetuaPage() {
   return (

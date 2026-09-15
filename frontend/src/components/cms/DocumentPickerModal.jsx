@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
-import { FaTimes, FaSearch, FaUpload, FaTrash, FaFilePdf, FaCalendarAlt, FaSpinner } from 'react-icons/fa';
+import { FaTimes, FaSearch, FaUpload, FaTrash, FaFilePdf, FaSpinner } from 'react-icons/fa';
 import './MediaLibraryModal.css';
 
 import { API_URL } from '../../config';

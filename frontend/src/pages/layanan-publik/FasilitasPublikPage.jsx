@@ -1,17 +1,6 @@
 import { useState } from 'react';
 import LayananPublikLayout from './LayananPublikLayout';
-import { 
-  FaBuilding, 
-  FaClock, 
-  FaUserShield, 
-  FaExclamationTriangle, 
-  FaUsers, 
-  FaWheelchair, 
-  FaBaby, 
-  FaPray, 
-  FaCoffee, 
-  FaCheckCircle 
-} from 'react-icons/fa';
+import { FaBuilding, FaExclamationTriangle, FaWheelchair, FaBaby, FaPray, FaCoffee } from 'react-icons/fa';
 
 const fasilitas = [
   { nama: 'Ruang PTSP Nyaman & Ber-AC', deskripsi: 'Dilengkapi nomor antrean elektronik, monitor display informasi, dan mesin kepuasan IKM.', icon: FaBuilding },

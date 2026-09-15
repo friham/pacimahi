@@ -1,15 +1,6 @@
 import { useState } from 'react';
 import KesekretariatanLayout from './KesekretariatanLayout';
-import { 
-  FaCoins, 
-  FaDownload, 
-  FaCheckCircle, 
-  FaChartPie, 
-  FaCalendarAlt, 
-  FaFilePdf, 
-  FaInfoCircle,
-  FaReceipt
-} from 'react-icons/fa';
+import { FaCoins, FaDownload, FaChartPie } from 'react-icons/fa';
 
 const pnbpList = [
   {

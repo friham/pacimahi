@@ -17,13 +17,13 @@ const imageStorage = multer.diskStorage({
 });
 
 const imageFilter = (req, file, cb) => {
-  
   const allowedExt = /^\.(jpe?g|png|gif|webp)$/i;
+  const allowedMime = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
   const ext = path.extname(file.originalname).toLowerCase();
-  if (allowedExt.test(ext)) {
+  if (allowedExt.test(ext) && allowedMime.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(new Error('Hanya file gambar (JPEG, JPG, PNG, GIF, WEBP) yang diperbolehkan.'));
+    cb(new Error('Hanya file gambar (JPEG, JPG, PNG, GIF, WEBP) yang diperbolehkan. Pastikan format file dan MIME type sesuai.'));
   }
 };
 
@@ -38,13 +38,41 @@ const documentStorage = multer.diskStorage({
   }
 });
 
+const allowedDocumentMimes = {
+  '.pdf': ['application/pdf'],
+  '.doc': ['application/msword'],
+  '.docx': ['application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/msword'],
+  '.xls': ['application/vnd.ms-excel'],
+  '.xlsx': ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+  '.ppt': ['application/vnd.ms-powerpoint'],
+  '.pptx': ['application/vnd.openxmlformats-officedocument.presentationml.presentation'],
+  '.zip': ['application/zip', 'application/x-zip-compressed'],
+  '.csv': ['text/csv', 'application/vnd.ms-excel', 'text/plain'],
+  '.txt': ['text/plain'],
+  '.rtf': ['application/rtf', 'text/rtf'],
+};
+
+// .docx and .zip often get reported as application/octet-stream by certain
+// OS/browser combinations (e.g. Windows Edge, some Linux DE file managers).
+// We allow it ONLY when the extension is already verified to be .docx or .zip.
+const octetStreamTolerantExts = new Set(['.docx', '.zip']);
+
 const documentFilter = (req, file, cb) => {
-  const allowedExt = /^\.(pdf|docx?|xlsx?|pptx?|zip|csv|txt|rtf)$/i;
   const ext = path.extname(file.originalname).toLowerCase();
-  if (allowedExt.test(ext)) {
+  const mimeWhitelist = allowedDocumentMimes[ext];
+
+  if (!mimeWhitelist) {
+    return cb(new Error('Format file tidak didukung. Pastikan format file dan MIME type sesuai.'));
+  }
+
+  const isWhitelistedMime = mimeWhitelist.includes(file.mimetype);
+  const isOctetStreamTolerated =
+    file.mimetype === 'application/octet-stream' && octetStreamTolerantExts.has(ext);
+
+  if (isWhitelistedMime || isOctetStreamTolerated) {
     cb(null, true);
   } else {
-    cb(new Error('Format file tidak didukung. Format yang diizinkan: PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, ZIP, CSV, TXT.'));
+    cb(new Error('Format file tidak didukung. Pastikan format file dan MIME type sesuai.'));
   }
 };
 

@@ -5,18 +5,7 @@ import SocialSidebar from '../../components/SocialSidebar';
 import VirtualAssistant from '../../components/VirtualAssistant';
 import AccessibilityWidget from '../../components/AccessibilityWidget';
 import AcoFloatingButton from '../../components/AcoFloatingButton';
-import { 
-  FaHome, 
-  FaChevronRight, 
-  FaInfoCircle, 
-  FaClock, 
-  FaMapMarkerAlt, 
-  FaPhoneAlt, 
-  FaEnvelope, 
-  FaWhatsapp,
-  FaExternalLinkAlt,
-  FaBookOpen
-} from 'react-icons/fa';
+import { FaHome, FaChevronRight, FaClock, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaWhatsapp, FaExternalLinkAlt, FaBookOpen } from 'react-icons/fa';
 import './InformasiUmumLayout.css';
 import '../tentang-pengadilan/tentang-pengadilan.css';
 

@@ -1,4 +1,4 @@
-import { FaPlus, FaEdit, FaTrash, FaSearch, FaLaptop, FaCalendarAlt } from 'react-icons/fa';
+import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
 
 export default function ServicesTab({
   services,

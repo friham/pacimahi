@@ -1,13 +1,13 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { 
   FaTachometerAlt, FaNewspaper, FaImages, FaCog, 
   FaSitemap, FaFileAlt, FaFolder, FaFilePdf, FaClipboardList, 
   FaSlidersH, FaUserShield, FaTimes,
   FaAngleDown, FaAngleRight, FaEdit, FaToggleOn, FaToggleOff,
-  FaTrash, FaChartBar, FaCalendarAlt, FaUsers
+  FaTrash
 } from 'react-icons/fa';
 import logoPaCimahi from '../assets/logo-pa-cimahi.png';
 import './AdminDashboard.css';
@@ -139,25 +139,8 @@ function AdminDashboard() {
   const [mediaUploading, setMediaUploading] = useState(false);
   const [previewPage, setPreviewPage] = useState(null);
   const mediaFileRef = useRef(null);
-  const docFileRef = useRef(null);
 
-  const [insertModal, setInsertModal] = useState(null); 
-  const [insertImageForm, setInsertImageForm] = useState({
-    url: '',
-    caption: '',
-    alt: '',
-    alignment: 'center' 
-  });
-  const [insertPdfForm, setInsertPdfForm] = useState({
-    url: '',
-    title: '',
-    desc: 'Unduh dokumen resmi Pengadilan Agama Kota Cimahi Kelas IA.',
-    mode: 'card' 
-  });
-  const [insertVideoForm, setInsertVideoForm] = useState({
-    url: '',
-    title: ''
-  });
+
 
   const addBlock = (type) => {
     const newBlock = {
@@ -186,20 +169,6 @@ function AdminDashboard() {
         ...updated[index],
         content: {
           ...(updated[index].content || {}),
-          [field]: value
-        }
-      };
-      return { ...prev, blocks: updated };
-    });
-  };
-
-  const updateBlockSettings = (index, field, value) => {
-    setPageForm(prev => {
-      const updated = [...(prev.blocks || [])];
-      updated[index] = {
-        ...updated[index],
-        settings: {
-          ...(updated[index].settings || {}),
           [field]: value
         }
       };
@@ -891,12 +860,6 @@ function AdminDashboard() {
     }
   };
 
-  const stats = [
-    { label: 'Total Perkara', value: settings.stat_diterima || '3.420', icon: FaChartBar, color: '#4CAF50' },
-    { label: 'Perkara Diputus', value: settings.stat_diputus || '3.365', icon: FaNewspaper, color: '#2196F3' },
-    { label: 'Penyelesaian (%)', value: settings.stat_persentase || '98,4%', icon: FaCalendarAlt, color: '#FF9800' },
-    { label: 'Indeks Kepuasan (IKM)', value: settings.stat_ikm || '97,8%', icon: FaUsers, color: '#9C27B0' },
-  ];
   const navSections = [
     {
       title: 'KONTEN WEBSITE',

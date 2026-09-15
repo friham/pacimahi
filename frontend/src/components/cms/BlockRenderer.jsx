@@ -1,9 +1,5 @@
 import { useState } from 'react';
-import { 
-  FaFilePdf, FaDownload, FaQuoteLeft, FaChevronDown, 
-  FaExternalLinkAlt, FaCalendarAlt, FaFileAlt, FaMapMarkerAlt,
-  FaPlayCircle, FaInfoCircle
-} from 'react-icons/fa';
+import { FaFilePdf, FaDownload, FaQuoteLeft, FaChevronDown, FaExternalLinkAlt, FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa';
 import { sanitizeHtml } from '../../sanitize';
 import { SERVER_URL } from '../../config';
 import './BlockRenderer.css';

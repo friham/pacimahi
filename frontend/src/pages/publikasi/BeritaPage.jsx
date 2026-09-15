@@ -1,13 +1,6 @@
 import { useState } from 'react';
 import PublikasiLayout from './PublikasiLayout';
-import { 
-  FaCalendarAlt, 
-  FaUser, 
-  FaTag, 
-  FaSearch, 
-  FaChevronRight, 
-  FaEye 
-} from 'react-icons/fa';
+import { FaCalendarAlt, FaUser, FaSearch, FaChevronRight, FaEye } from 'react-icons/fa';
 
 const newsList = [
   {

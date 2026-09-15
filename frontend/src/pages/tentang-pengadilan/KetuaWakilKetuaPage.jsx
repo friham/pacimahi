@@ -1,5 +1,5 @@
 import ProfileLayout from './ProfileLayout';
-import { FaUserTie, FaExternalLinkAlt, FaBuilding, FaGavel } from 'react-icons/fa';
+import { FaUserTie } from 'react-icons/fa';
 
 function KetuaWakilKetuaPage() {
   const ketuaEmbed = 'https://simtepa.mahkamahagung.go.id/share/profil_ketua/html/ab9a3d23d34bdb24be70b64fdb1cfed8';

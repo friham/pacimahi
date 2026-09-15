@@ -1,5 +1,45 @@
 import DOMPurify from 'dompurify';
 
+// Whitelist domain terpercaya untuk iframe (misal: YouTube, Google Maps)
+const TRUSTED_IFRAME_DOMAINS = [
+  'youtube.com',
+  'www.youtube.com',
+  'youtube-nocookie.com',
+  'www.youtube-nocookie.com',
+  'google.com',
+  'www.google.com',
+  'maps.google.com',
+  'drive.google.com',
+  'docs.google.com'
+];
+
+function isTrustedIframeUrl(src) {
+  if (!src) return false;
+  try {
+    const parsedUrl = new URL(src, window.location.origin);
+    if (parsedUrl.protocol !== 'https:' && parsedUrl.protocol !== 'http:') {
+      return false;
+    }
+    const hostname = parsedUrl.hostname.toLowerCase();
+    return TRUSTED_IFRAME_DOMAINS.some(
+      domain => hostname === domain || hostname.endsWith('.' + domain)
+    );
+  } catch (_err) {
+    return false;
+  }
+}
+
+// Hook DOMPurify untuk memvalidasi atribut src pada tag iframe
+DOMPurify.removeHook('uponSanitizeElement');
+DOMPurify.addHook('uponSanitizeElement', (node, data) => {
+  if (data.tagName === 'iframe') {
+    const src = node.getAttribute('src');
+    if (!src || !isTrustedIframeUrl(src)) {
+      node.parentNode?.removeChild(node);
+    }
+  }
+});
+
 export function sanitizeHtml(html) {
   if (!html) return '';
   return DOMPurify.sanitize(html, {
@@ -24,7 +64,5 @@ export function sanitizeHtml(html) {
       'type', 'start', 'reversed',
     ],
     ALLOW_DATA_ATTR: false,
-    ALLOWED_TAGS_COLUMN: 'auto',
-    ALLOWED_ATTR_COLUMN: 'auto',
   });
 }

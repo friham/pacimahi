@@ -1,14 +1,6 @@
 import { useState } from 'react';
 import PublikasiLayout from './PublikasiLayout';
-import { 
-  FaBookOpen, 
-  FaUserEdit, 
-  FaCalendarAlt, 
-  FaTag, 
-  FaSearch, 
-  FaArrowRight,
-  FaFilePdf
-} from 'react-icons/fa';
+import { FaUserEdit, FaCalendarAlt, FaTag, FaSearch, FaArrowRight, FaFilePdf } from 'react-icons/fa';
 
 const artikelData = [
   {

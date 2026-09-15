@@ -1,5 +1,5 @@
 import KepaniteraanLayout from './KepaniteraanLayout';
-import { FaLaptop, FaExternalLinkAlt, FaCheckCircle, FaMoneyCheckAlt, FaEnvelopeOpenText, FaGavel } from 'react-icons/fa';
+import { FaLaptop, FaExternalLinkAlt } from 'react-icons/fa';
 
 function ECourtPage() {
   return (

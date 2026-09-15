@@ -1,16 +1,6 @@
 import { useState } from 'react';
 import PublikasiLayout from './PublikasiLayout';
-import { 
-  FaBook, 
-  FaFilePdf, 
-  FaDownload, 
-  FaSearch, 
-  FaGavel, 
-  FaBalanceScale, 
-  FaFileContract, 
-  FaBookmark,
-  FaUniversity
-} from 'react-icons/fa';
+import { FaBook, FaFilePdf, FaSearch, FaGavel, FaBalanceScale, FaFileContract, FaBookmark, FaUniversity } from 'react-icons/fa';
 
 const regulationTabs = [
   { id: 'uu', label: 'Peraturan Perundang-undangan', icon: FaBook },

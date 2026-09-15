@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import InformasiUmumLayout from './InformasiUmumLayout';
-import { FaCalendarCheck, FaFilePdf, FaDownload, FaExternalLinkAlt, FaCheckCircle } from 'react-icons/fa';
+import { FaCalendarCheck, FaDownload } from 'react-icons/fa';
 
 const prokerData = [
   {

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import KepaniteraanLayout from './KepaniteraanLayout';
-import { FaHandHoldingUsd, FaFileContract, FaBalanceScale, FaCheckCircle, FaMoneyBillWave } from 'react-icons/fa';
+import { FaHandHoldingUsd } from 'react-icons/fa';
 
 function ProdeoPage() {
   const [searchParams, setSearchParams] = useSearchParams();

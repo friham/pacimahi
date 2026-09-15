@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import KepaniteraanLayout from './KepaniteraanLayout';
-import { FaHandshake, FaUsers } from 'react-icons/fa';
+import { FaHandshake } from 'react-icons/fa';
 
 const mediators = [
   { no: 1, nama: 'Drs. H. Saepudin, S.H., M.H.I.', jabatan: 'Ketua', sertifikat: 'Bersertifikat' },

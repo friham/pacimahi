@@ -1,18 +1,6 @@
 import { useState } from 'react';
 import KesekretariatanLayout from './KesekretariatanLayout';
-import { 
-  FaBookReader, 
-  FaFilePdf, 
-  FaDownload, 
-  FaMoneyBillWave, 
-  FaBoxes, 
-  FaUsersCog, 
-  FaSitemap, 
-  FaCalendarAlt, 
-  FaChartLine, 
-  FaLaptopCode, 
-  FaCogs 
-} from 'react-icons/fa';
+import { FaBookReader, FaFilePdf, FaMoneyBillWave, FaBoxes, FaUsersCog, FaSitemap, FaCalendarAlt, FaChartLine, FaLaptopCode, FaCogs } from 'react-icons/fa';
 
 const pedomanSections = [
   { id: 'keuangan', label: 'Keuangan', icon: FaMoneyBillWave },

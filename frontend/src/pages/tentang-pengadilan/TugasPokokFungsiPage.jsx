@@ -1,5 +1,5 @@
 import ProfileLayout from './ProfileLayout';
-import { FaBalanceScale, FaBook, FaCheckCircle, FaFileAlt, FaGavel, FaHandsHelping } from 'react-icons/fa';
+import { FaBalanceScale, FaBook, FaGavel, FaHandsHelping } from 'react-icons/fa';
 
 function TugasPokokFungsiPage() {
   const duties = [

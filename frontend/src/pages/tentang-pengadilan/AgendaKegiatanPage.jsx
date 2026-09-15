@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ProfileLayout from './ProfileLayout';
-import { FaCalendarAlt, FaFilePdf, FaExternalLinkAlt, FaClock } from 'react-icons/fa';
+import { FaCalendarAlt, FaFilePdf } from 'react-icons/fa';
 
 function AgendaKegiatanPage() {
   const [selectedYear, setSelectedYear] = useState('2026');

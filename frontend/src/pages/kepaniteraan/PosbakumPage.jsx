@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import KepaniteraanLayout from './KepaniteraanLayout';
-import { FaBalanceScale, FaFileAlt, FaHandHoldingHeart, FaListUl, FaBook, FaCheckCircle, FaDownload } from 'react-icons/fa';
+import { FaHandHoldingHeart, FaDownload } from 'react-icons/fa';
 
 function PosbakumPage() {
   const [searchParams, setSearchParams] = useSearchParams();

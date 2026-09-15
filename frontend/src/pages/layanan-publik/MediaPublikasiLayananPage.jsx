@@ -1,16 +1,6 @@
 import { useState } from 'react';
 import LayananPublikLayout from './LayananPublikLayout';
-import { 
-  FaFileAlt, 
-  FaYoutube, 
-  FaExternalLinkAlt, 
-  FaDownload, 
-  FaFilePdf, 
-  FaWhatsapp, 
-  FaVideo, 
-  FaBookOpen,
-  FaLink
-} from 'react-icons/fa';
+import { FaYoutube, FaExternalLinkAlt, FaFilePdf } from 'react-icons/fa';
 
 const brosurList = [
   { judul: 'Brosur Panduan Berperkara Gugatan Perceraian', size: '1.4 MB', desc: 'Syarat dokumen, alur pendaftaran, dan tahapan persidangan cerai gugat/talak.' },

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import InformasiUmumLayout from './InformasiUmumLayout';
-import { FaFilePdf, FaSearch, FaBook, FaCheckCircle, FaExternalLinkAlt, FaListOl } from 'react-icons/fa';
+import { FaFilePdf, FaSearch, FaBook } from 'react-icons/fa';
 
 const sopList = [
   { no: 1, title: 'SOP Permohonan Informasi Publik dan Media', link: 'https://drive.google.com/file/d/1QpVhU1qrqJ00SRw-HD_XSql-N4NH4Y_j/view?usp=drive_link' },

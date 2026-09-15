@@ -1,15 +1,6 @@
 import { useState } from 'react';
 import LayananPublikLayout from './LayananPublikLayout';
-import { 
-  FaConciergeBell, 
-  FaUserFriends, 
-  FaWheelchair, 
-  FaFileAlt, 
-  FaSearch, 
-  FaCheckCircle, 
-  FaInfoCircle,
-  FaHeart
-} from 'react-icons/fa';
+import { FaConciergeBell, FaWheelchair, FaCheckCircle, FaInfoCircle, FaHeart } from 'react-icons/fa';
 
 const loketPTSP = [
   { no: '01', nama: 'Meja Layanan Informasi & Pengaduan', deskripsi: 'Pemberian informasi perkara, tata cara berperkara, jadwal sidang, serta penerimaan keluhan atau pengaduan masyarakat.', petugas: 'Petugas Meja Informasi' },

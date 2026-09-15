@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { FaBars, FaTimes, FaChevronDown, FaChevronRight, FaUserShield } from 'react-icons/fa';
+import { FaBars, FaTimes, FaChevronDown, FaChevronRight } from 'react-icons/fa';
 import logoImg from '../assets/logo.png';
 import './Navbar.css';
 

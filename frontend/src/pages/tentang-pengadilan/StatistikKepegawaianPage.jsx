@@ -1,5 +1,5 @@
 import ProfileLayout from './ProfileLayout';
-import { FaChartBar, FaUsers, FaUserGraduate, FaIdCard, FaTable } from 'react-icons/fa';
+import { FaChartBar, FaUsers, FaUserGraduate, FaIdCard } from 'react-icons/fa';
 
 function StatistikKepegawaianPage() {
   const staffStats = [

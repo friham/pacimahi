@@ -1,10 +1,6 @@
 import { useState, useMemo } from 'react';
 import axios from 'axios';
-import { 
-  FaPlus, FaEdit, FaTrash, FaCopy, FaChevronRight, FaChevronDown, 
-  FaGripVertical, FaFolder, FaFolderOpen, FaFileAlt, FaExternalLinkAlt,
-  FaSearch, FaCheckCircle, FaTimesCircle, FaEyeSlash, FaUndo
-} from 'react-icons/fa';
+import { FaPlus, FaEdit, FaTrash, FaCopy, FaChevronRight, FaChevronDown, FaGripVertical, FaFolder, FaFolderOpen, FaFileAlt, FaSearch, FaCheckCircle, FaEyeSlash } from 'react-icons/fa';
 import MenuFormModal from './MenuFormModal';
 import './MenuTreeManager.css';
 

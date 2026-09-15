@@ -1,16 +1,6 @@
 import { useState } from 'react';
 import LayananPublikLayout from './LayananPublikLayout';
-import { 
-  FaBullhorn, 
-  FaExternalLinkAlt, 
-  FaShieldAlt, 
-  FaUserSecret, 
-  FaFileAlt, 
-  FaCheckCircle,
-  FaPhoneAlt,
-  FaWhatsapp,
-  FaEnvelope
-} from 'react-icons/fa';
+import { FaExternalLinkAlt, FaUserSecret } from 'react-icons/fa';
 
 const channels = [
   { nama: 'Aplikasi SIWAS MARI (Online)', deskripsi: 'Sistem Informasi Pengawasan Mahkamah Agung RI berbasis digital 24 jam dengan jaminan kerahasiaan identitas pelapor.', link: 'https://siwas.mahkamahagung.go.id', external: true },

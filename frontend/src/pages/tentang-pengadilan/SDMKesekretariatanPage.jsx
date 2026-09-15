@@ -1,5 +1,5 @@
 import ProfileLayout from './ProfileLayout';
-import { FaUsersCog, FaUserTie } from 'react-icons/fa';
+import { FaUsersCog } from 'react-icons/fa';
 
 function SDMKesekretariatanPage() {
   const kesekretariatanEmbed = 'https://simtepa.mahkamahagung.go.id/share/profil_kesekretariatan/html/ab9a3d23d34bdb24be70b64fdb1cfed8';

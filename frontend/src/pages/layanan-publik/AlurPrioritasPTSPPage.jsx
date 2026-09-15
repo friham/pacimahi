@@ -1,15 +1,6 @@
-import { useState } from 'react';
+
 import LayananPublikLayout from './LayananPublikLayout';
-import { 
-  FaWheelchair, 
-  FaUserNurse, 
-  FaHeart, 
-  FaCheckCircle, 
-  FaClock, 
-  FaFilePdf, 
-  FaDownload,
-  FaUniversalAccess
-} from 'react-icons/fa';
+import { FaWheelchair, FaCheckCircle, FaFilePdf, FaUniversalAccess } from 'react-icons/fa';
 
 const prioritasSteps = [
   { no: '1', title: 'Penyambutan & Skrining Kaum Rentan', desc: 'Petugas Satpam/Duta Pelayanan menyambut di pintu masuk, menyediakan kursi roda/tongkat kruk, dan memberikan kalung tanda khusus prioritas.' },

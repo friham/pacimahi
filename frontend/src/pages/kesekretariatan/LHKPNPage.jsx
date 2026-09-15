@@ -1,15 +1,6 @@
 import { useState } from 'react';
 import KesekretariatanLayout from './KesekretariatanLayout';
-import { 
-  FaUserCheck, 
-  FaShieldAlt, 
-  FaCheckCircle, 
-  FaDownload, 
-  FaFilePdf, 
-  FaExternalLinkAlt, 
-  FaUsers,
-  FaAward
-} from 'react-icons/fa';
+import { FaShieldAlt, FaCheckCircle, FaDownload, FaFilePdf, FaExternalLinkAlt, FaUsers, FaAward } from 'react-icons/fa';
 
 const lhkpnHakim = [
   { nama: 'Drs. H. Dudung, S.H., M.H.', jabatan: 'Ketua Pengadilan Agama Kota Cimahi', statusLHKPN: 'Sudah Lapor (100%)', tglLapor: '15 Januari 2025', nhk: 'NHK-182930' },

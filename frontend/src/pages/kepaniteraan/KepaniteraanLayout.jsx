@@ -4,19 +4,7 @@ import Footer from '../../components/Footer';
 import SocialSidebar from '../../components/SocialSidebar';
 import AccessibilityWidget from '../../components/AccessibilityWidget';
 import AcoFloatingButton from '../../components/AcoFloatingButton';
-import { 
-  FaHome, 
-  FaChevronRight, 
-  FaGavel, 
-  FaClock, 
-  FaMapMarkerAlt, 
-  FaPhoneAlt, 
-  FaEnvelope, 
-  FaWhatsapp,
-  FaExternalLinkAlt,
-  FaFileSignature,
-  FaBalanceScale
-} from 'react-icons/fa';
+import { FaHome, FaChevronRight, FaClock, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaWhatsapp, FaExternalLinkAlt, FaFileSignature } from 'react-icons/fa';
 import './KepaniteraanLayout.css';
 import '../tentang-pengadilan/tentang-pengadilan.css';
 

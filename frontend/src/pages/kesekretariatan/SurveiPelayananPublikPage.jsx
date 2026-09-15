@@ -1,15 +1,6 @@
 import { useState } from 'react';
 import KesekretariatanLayout from './KesekretariatanLayout';
-import { 
-  FaPoll, 
-  FaAward, 
-  FaChartBar, 
-  FaCheckCircle, 
-  FaFilePdf, 
-  FaDownload, 
-  FaStar,
-  FaHeart
-} from 'react-icons/fa';
+import { FaAward, FaCheckCircle, FaFilePdf, FaStar } from 'react-icons/fa';
 
 const ikmData = [
   { triwulan: 'Triwulan IV 2024', ikm: '3.92 / 4.00 (98.00%)', mutu: 'A (Sangat Baik)', responden: '185 Orang', icon: FaStar },

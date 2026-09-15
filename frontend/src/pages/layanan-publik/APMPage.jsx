@@ -1,18 +1,6 @@
 import { useState } from 'react';
 import LayananPublikLayout from './LayananPublikLayout';
-import { 
-  FaAward, 
-  FaCheckCircle, 
-  FaUserTie, 
-  FaHeart, 
-  FaCogs, 
-  FaCompass, 
-  FaBoxes, 
-  FaFolderOpen, 
-  FaChartLine,
-  FaFilePdf,
-  FaDownload
-} from 'react-icons/fa';
+import { FaAward, FaUserTie, FaHeart, FaCogs, FaCompass, FaBoxes, FaFolderOpen, FaChartLine, FaFilePdf } from 'react-icons/fa';
 
 const apmCriteria = [
   { id: 'leadership', title: '1. Leadership (Kepemimpinan)', icon: FaUserTie, score: 'Nilai: 100%', desc: 'Komitmen pimpinan dalam menetapkan visi, misi, nilai-nilai organisasi, dan pembinaan berkala aparatur pengadilan.' },

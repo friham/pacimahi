@@ -1,16 +1,6 @@
 import { useState } from 'react';
 import LayananPublikLayout from './LayananPublikLayout';
-import { 
-  FaGavel, 
-  FaShieldAlt, 
-  FaUserTie, 
-  FaUsersCog, 
-  FaCheckCircle, 
-  FaFilePdf, 
-  FaDownload, 
-  FaBalanceScale,
-  FaAward
-} from 'react-icons/fa';
+import { FaGavel, FaShieldAlt, FaUsersCog, FaCheckCircle, FaFilePdf, FaBalanceScale, FaAward } from 'react-icons/fa';
 
 const kodeEtikTabs = [
   { id: 'hakim', label: 'Kode Etik Hakim (KEPPH)', icon: FaGavel },

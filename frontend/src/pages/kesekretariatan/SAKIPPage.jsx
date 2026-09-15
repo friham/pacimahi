@@ -1,18 +1,6 @@
 import { useState } from 'react';
 import KesekretariatanLayout from './KesekretariatanLayout';
-import { 
-  FaChartLine, 
-  FaFilePdf, 
-  FaDownload, 
-  FaCheckCircle, 
-  FaBullseye, 
-  FaBookOpen, 
-  FaHandshake, 
-  FaCalendarAlt,
-  FaFileAlt,
-  FaCompass,
-  FaAward
-} from 'react-icons/fa';
+import { FaChartLine, FaFilePdf, FaDownload, FaBullseye, FaBookOpen, FaHandshake, FaCalendarAlt, FaCompass, FaAward } from 'react-icons/fa';
 
 const sakipTabs = [
   { id: 'rka', label: 'Rencana Kerja & Anggaran', icon: FaCalendarAlt },

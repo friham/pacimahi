@@ -1,14 +1,6 @@
 import { useState } from 'react';
 import KesekretariatanLayout from './KesekretariatanLayout';
-import { 
-  FaListAlt, 
-  FaInfoCircle, 
-  FaCheckCircle, 
-  FaLock, 
-  FaFilePdf, 
-  FaDownload, 
-  FaSearch 
-} from 'react-icons/fa';
+import { FaLock, FaFilePdf } from 'react-icons/fa';
 
 const dipCategories = {
   berkala: [

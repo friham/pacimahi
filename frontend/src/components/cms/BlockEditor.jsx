@@ -1,11 +1,5 @@
 import { useState } from 'react';
-import {
-  FaPlus, FaTrash, FaCopy, FaChevronUp, FaChevronDown,
-  FaGripVertical, FaHeading, FaParagraph, FaImage, FaImages,
-  FaVideo, FaMousePointer, FaLink, FaFilePdf, FaTable, FaQuoteRight,
-  FaListUl, FaCode, FaMapMarkerAlt, FaMinus, FaEye, FaAngleDown, FaAngleRight,
-  FaAlignLeft, FaAlignCenter, FaAlignRight, FaAlignJustify
-} from 'react-icons/fa';
+import { FaPlus, FaTrash, FaCopy, FaChevronUp, FaChevronDown, FaGripVertical, FaHeading, FaParagraph, FaImage, FaImages, FaVideo, FaMousePointer, FaLink, FaFilePdf, FaTable, FaQuoteRight, FaListUl, FaCode, FaMapMarkerAlt, FaMinus, FaAngleDown, FaAngleRight } from 'react-icons/fa';
 import MediaLibraryModal from './MediaLibraryModal';
 import DocumentPickerModal from './DocumentPickerModal';
 import RichTextEditor from './RichTextEditor';

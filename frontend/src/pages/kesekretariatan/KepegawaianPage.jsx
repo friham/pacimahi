@@ -1,15 +1,6 @@
-import { useState } from 'react';
+
 import KesekretariatanLayout from './KesekretariatanLayout';
-import { 
-  FaUsersCog, 
-  FaUserTie, 
-  FaGraduationCap, 
-  FaCalendarCheck, 
-  FaAward, 
-  FaFilePdf, 
-  FaDownload,
-  FaExternalLinkAlt
-} from 'react-icons/fa';
+import { FaFilePdf, FaExternalLinkAlt } from 'react-icons/fa';
 
 const sdmStatistik = [
   { kategori: 'Hakim (Termasuk Ketua & Wakil)', jumlah: '12 Orang', pns: '12 Orang' },

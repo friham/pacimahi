@@ -1,5 +1,5 @@
 import ProfileLayout from './ProfileLayout';
-import { FaHistory, FaLandmark, FaCalendarAlt, FaBuilding, FaUsers } from 'react-icons/fa';
+import { FaLandmark } from 'react-icons/fa';
 
 import initialStaff from '../../data/sejarahStaffData.json';
 

@@ -1,5 +1,5 @@
 import ProfileLayout from './ProfileLayout';
-import { FaFilePdf, FaDownload, FaExternalLinkAlt, FaBalanceScale, FaCheckCircle } from 'react-icons/fa';
+import { FaFilePdf, FaDownload, FaBalanceScale } from 'react-icons/fa';
 
 function SejarahSKPage() {
   const skDriveUrl = 'https://drive.google.com/file/d/1I74_skvMUwXwS88s9kFPcqBcDXQCpKIn/preview';

@@ -1,5 +1,5 @@
 import ProfileLayout from './ProfileLayout';
-import { FaUserCheck, FaBriefcase } from 'react-icons/fa';
+import { FaBriefcase } from 'react-icons/fa';
 
 function SDMFungsionalPage() {
   const pelaksanaEmbed = 'https://simtepa.mahkamahagung.go.id/share/profil_pelaksana/html/ab9a3d23d34bdb24be70b64fdb1cfed8';

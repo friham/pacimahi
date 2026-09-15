@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const authMiddleware = require('../middleware/auth');
 const { checkRole } = require('../middleware/auth');
+const jwt = require('jsonwebtoken');
 const {
   getPages,
   getPageBySlug,
@@ -12,7 +13,21 @@ const {
   togglePageStatus
 } = require('../controllers/pageController');
 
-router.get('/slug/:slug', getPageBySlug);
+// Optional auth: attach req.user if a valid token is present, but never reject.
+const optionalAuth = (req, _res, next) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      const token = authHeader.split(' ')[1];
+      req.user = jwt.verify(token, process.env.JWT_SECRET);
+    }
+  } catch {
+    // Token invalid — treat as unauthenticated, do not abort.
+  }
+  next();
+};
+
+router.get('/slug/:slug', optionalAuth, getPageBySlug);
 
 router.get('/', authMiddleware, getPages);
 router.get('/:id', authMiddleware, getPageById);

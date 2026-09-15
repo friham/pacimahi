@@ -35,7 +35,13 @@ const getPages = async (req, res) => {
 const getPageBySlug = async (req, res) => {
   try {
     const { slug } = req.params;
-    const isPreview = req.query.preview === 'true';
+
+    // Preview is only allowed for authenticated admin/editor/superadmin users.
+    const allowedRoles = ['superadmin', 'admin', 'editor'];
+    const isPreview =
+      req.query.preview === 'true' &&
+      req.user &&
+      allowedRoles.includes(req.user.role);
 
     let query = `
       SELECT p.*, m.title as menu_title, m.parent_id as menu_parent_id, a.name as author_name

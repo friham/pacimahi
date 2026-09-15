@@ -1,13 +1,6 @@
-import { useState } from 'react';
+
 import KesekretariatanLayout from './KesekretariatanLayout';
-import { 
-  FaSitemap, 
-  FaLaptopCode, 
-  FaMoneyCheckAlt, 
-  FaUsersCog, 
-  FaCheckCircle,
-  FaUserTie
-} from 'react-icons/fa';
+import { FaLaptopCode, FaMoneyCheckAlt, FaUsersCog } from 'react-icons/fa';
 
 const subBagian = [
   {

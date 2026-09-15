@@ -1,15 +1,6 @@
 import { useState } from 'react';
 import PublikasiLayout from './PublikasiLayout';
-import { 
-  FaGraduationCap, 
-  FaBook, 
-  FaFilePdf, 
-  FaDownload, 
-  FaUserGraduate, 
-  FaSearch, 
-  FaCheckCircle,
-  FaUniversity
-} from 'react-icons/fa';
+import { FaFilePdf, FaUserGraduate, FaSearch } from 'react-icons/fa';
 
 const researchArchive = [
   {

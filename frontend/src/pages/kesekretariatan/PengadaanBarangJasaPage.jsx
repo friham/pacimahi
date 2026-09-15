@@ -1,15 +1,6 @@
 import { useState } from 'react';
 import KesekretariatanLayout from './KesekretariatanLayout';
-import { 
-  FaFolderOpen, 
-  FaExternalLinkAlt, 
-  FaCheckCircle, 
-  FaFilePdf, 
-  FaDownload, 
-  FaInfoCircle, 
-  FaUsers,
-  FaSearch
-} from 'react-icons/fa';
+import { FaExternalLinkAlt, FaUsers, FaSearch } from 'react-icons/fa';
 
 const paketPengadaan = [
   {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FaSearch, FaShieldAlt, FaGavel, FaListAlt, FaBullhorn, FaTimes, FaExpandAlt, FaCopy, FaCheck } from 'react-icons/fa';
+import { FaSearch, FaBullhorn, FaTimes, FaExpandAlt, FaCopy, FaCheck } from 'react-icons/fa';
 import { useSettings } from '../context/SettingsContext';
 import './HeroSection.css';
 

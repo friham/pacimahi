@@ -1,5 +1,5 @@
 import ProfileLayout from './ProfileLayout';
-import { FaSitemap, FaUsers, FaUserTie, FaGavel, FaFileSignature } from 'react-icons/fa';
+import { FaSitemap, FaUsers, FaUserTie, FaGavel } from 'react-icons/fa';
 
 function StrukturOrganisasiPage() {
   const structureNodes = [

@@ -1,5 +1,5 @@
 import KepaniteraanLayout from './KepaniteraanLayout';
-import { FaUserShield, FaBalanceScale, FaGavel, FaCheckCircle, FaHandHoldingHeart } from 'react-icons/fa';
+import { FaUserShield } from 'react-icons/fa';
 
 function HakPencariKeadilanPage() {
   return (

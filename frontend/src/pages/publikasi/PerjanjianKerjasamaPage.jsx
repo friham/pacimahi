@@ -1,14 +1,6 @@
 import { useState } from 'react';
 import PublikasiLayout from './PublikasiLayout';
-import { 
-  FaHandshake, 
-  FaFilePdf, 
-  FaDownload, 
-  FaCalendarAlt, 
-  FaBuilding, 
-  FaCheckCircle, 
-  FaSearch 
-} from 'react-icons/fa';
+import { FaFilePdf, FaSearch } from 'react-icons/fa';
 
 const mouList = [
   {

@@ -1,16 +1,6 @@
 import { useState } from 'react';
 import LayananPublikLayout from './LayananPublikLayout';
-import { 
-  FaInfoCircle, 
-  FaFileAlt, 
-  FaDownload, 
-  FaFilePdf, 
-  FaMoneyBillWave, 
-  FaUserCheck, 
-  FaExclamationCircle, 
-  FaCheckCircle,
-  FaPhoneAlt
-} from 'react-icons/fa';
+import { FaInfoCircle, FaFileAlt, FaFilePdf, FaMoneyBillWave, FaUserCheck, FaExclamationCircle, FaCheckCircle } from 'react-icons/fa';
 
 const ppidTabs = [
   { id: 'prosedur', label: 'Prosedur Permintaan', icon: FaInfoCircle },

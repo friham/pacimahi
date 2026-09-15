@@ -1,5 +1,5 @@
 import ProfileLayout from './ProfileLayout';
-import { FaFileSignature, FaUserTie } from 'react-icons/fa';
+import { FaFileSignature } from 'react-icons/fa';
 
 function SDMKepaniteraanPage() {
   const kepaniteraanEmbed = 'https://simtepa.mahkamahagung.go.id/share/profil_kepaniteraan/html/ab9a3d23d34bdb24be70b64fdb1cfed8';

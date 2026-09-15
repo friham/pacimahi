@@ -1,13 +1,6 @@
 import { useState } from 'react';
 import PublikasiLayout from './PublikasiLayout';
-import { 
-  FaImages, 
-  FaVideo, 
-  FaCalendarAlt, 
-  FaEye, 
-  FaTimes,
-  FaPlayCircle 
-} from 'react-icons/fa';
+import { FaImages, FaVideo, FaCalendarAlt, FaTimes, FaPlayCircle } from 'react-icons/fa';
 
 const galleryPhotos = [
   {

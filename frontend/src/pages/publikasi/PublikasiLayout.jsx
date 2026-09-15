@@ -4,22 +4,7 @@ import Footer from '../../components/Footer';
 import SocialSidebar from '../../components/SocialSidebar';
 import AccessibilityWidget from '../../components/AccessibilityWidget';
 import AcoFloatingButton from '../../components/AcoFloatingButton';
-import { 
-  FaHome, 
-  FaChevronRight, 
-  FaNewspaper, 
-  FaBullhorn, 
-  FaBook, 
-  FaImages,
-  FaFileAlt,
-  FaHandshake,
-  FaGraduationCap,
-  FaClock, 
-  FaMapMarkerAlt, 
-  FaPhoneAlt, 
-  FaEnvelope, 
-  FaWhatsapp 
-} from 'react-icons/fa';
+import { FaHome, FaChevronRight, FaNewspaper, FaBullhorn, FaBook, FaImages, FaFileAlt, FaHandshake, FaGraduationCap, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
 import './PublikasiLayout.css';
 import '../tentang-pengadilan/tentang-pengadilan.css';
 

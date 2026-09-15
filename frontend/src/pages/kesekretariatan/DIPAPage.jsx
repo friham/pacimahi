@@ -1,18 +1,6 @@
 import { useState } from 'react';
 import KesekretariatanLayout from './KesekretariatanLayout';
-import { 
-  FaFileInvoiceDollar, 
-  FaDownload, 
-  FaCheckCircle, 
-  FaChartPie, 
-  FaCoins, 
-  FaSearch, 
-  FaFilePdf, 
-  FaInfoCircle,
-  FaCalendarAlt,
-  FaBalanceScale,
-  FaFileAlt
-} from 'react-icons/fa';
+import { FaDownload, FaCheckCircle, FaSearch, FaFilePdf, FaCalendarAlt } from 'react-icons/fa';
 
 import dipaData from '../../data/dipaData.json';
 const { dipaPetikan, rpaData, rkklData } = dipaData;

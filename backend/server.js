@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
+const compression = require('compression');
 require('dotenv').config();
 
 const authRoutes = require('./routes/authRoutes');
@@ -19,6 +21,11 @@ const auditRoutes = require('./routes/auditRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 const isProduction = process.env.NODE_ENV === 'production';
+
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: 'cross-origin' }
+}));
+app.use(compression());
 
 const allowedOrigins = isProduction
   ? (process.env.CORS_ORIGIN || '').split(',').filter(Boolean)
@@ -41,7 +48,8 @@ const publicReadLimiter = rateLimit({
   max: 300,
   standardHeaders: true,
   legacyHeaders: false,
-  message: { success: false, message: 'Terlalu banyak request, coba lagi nanti.' }
+  message: { success: false, message: 'Terlalu banyak request, coba lagi nanti.' },
+  skip: () => process.env.NODE_ENV === 'test'
 });
 
 const apiLimiter = rateLimit({
@@ -49,7 +57,8 @@ const apiLimiter = rateLimit({
   max: 100,
   standardHeaders: true,
   legacyHeaders: false,
-  message: { success: false, message: 'Terlalu banyak request, coba lagi nanti.' }
+  message: { success: false, message: 'Terlalu banyak request, coba lagi nanti.' },
+  skip: () => process.env.NODE_ENV === 'test'
 });
 
 const uploadLimiter = rateLimit({
@@ -57,11 +66,12 @@ const uploadLimiter = rateLimit({
   max: 20,
   standardHeaders: true,
   legacyHeaders: false,
-  message: { success: false, message: 'Batas upload tercapai, coba lagi nanti.' }
+  message: { success: false, message: 'Batas upload tercapai, coba lagi nanti.' },
+  skip: () => process.env.NODE_ENV === 'test'
 });
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '1mb' }));
+app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 app.use('/documents', express.static(path.join(__dirname, 'public/documents')));
@@ -94,7 +104,11 @@ app.use((err, req, res, _next) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-  console.log(`📦 Environment: ${process.env.NODE_ENV || 'development'}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`📦 Environment: ${process.env.NODE_ENV || 'development'}`);
+  });
+}
+
+module.exports = app;

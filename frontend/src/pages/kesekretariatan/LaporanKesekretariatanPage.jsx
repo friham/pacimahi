@@ -1,16 +1,6 @@
 import { useState } from 'react';
 import KesekretariatanLayout from './KesekretariatanLayout';
-import { 
-  FaClipboardList, 
-  FaFilePdf, 
-  FaDownload, 
-  FaMoneyCheckAlt, 
-  FaUserCheck, 
-  FaChartPie, 
-  FaChartLine, 
-  FaStar,
-  FaCalendarAlt 
-} from 'react-icons/fa';
+import { FaFilePdf, FaDownload, FaMoneyCheckAlt, FaUserCheck, FaChartPie, FaChartLine, FaStar } from 'react-icons/fa';
 
 const reportTabs = [
   { id: 'keuangan', label: 'Laporan Keuangan', icon: FaMoneyCheckAlt },

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import InformasiUmumLayout from './InformasiUmumLayout';
-import { FaFileAlt, FaDownload, FaChartLine, FaCheckCircle, FaBookOpen } from 'react-icons/fa';
+import { FaDownload, FaChartLine } from 'react-icons/fa';
 
 const laptahData = [
   {

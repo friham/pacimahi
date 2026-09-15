@@ -1,9 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
-import { 
-  FaTimes, FaSearch, FaUpload, FaTrash, FaCheck, FaCopy, 
-  FaImage, FaFilm, FaFileAlt, FaSpinner
-} from 'react-icons/fa';
+import { FaTimes, FaSearch, FaUpload, FaTrash, FaCheck, FaCopy, FaImage, FaFilm, FaSpinner } from 'react-icons/fa';
 import './MediaLibraryModal.css';
 
 import { API_URL, SERVER_URL } from '../../config';
@@ -33,7 +30,7 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelect, token }) 
         headers: token ? { Authorization: `Bearer ${token}` } : {}
       });
       if (res.data.success) {
-        setMediaList(res.data.data);
+        setMediaList(res.data.data || []);
       }
     } catch (err) {
       console.error('Fetch media error:', err);
@@ -43,8 +40,46 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelect, token }) 
   }, [isOpen, search, activeTab, token]);
 
   useEffect(() => {
-    fetchMedia();
-  }, [fetchMedia]);
+    let isSubscribed = true;
+
+    if (!isOpen) {
+      setMediaList([]);
+      setSelectedItem(null);
+      return;
+    }
+
+    const loadData = async () => {
+      setLoading(true);
+      try {
+        const params = {};
+        if (search) params.search = search;
+        if (activeTab === 'image') params.type = 'image';
+        if (activeTab === 'video') params.type = 'video';
+
+        const res = await axios.get(`${API_URL}/media`, {
+          params,
+          headers: token ? { Authorization: `Bearer ${token}` } : {}
+        });
+        if (isSubscribed && res.data.success) {
+          setMediaList(res.data.data || []);
+        }
+      } catch (err) {
+        if (isSubscribed) {
+          console.error('Fetch media error:', err);
+        }
+      } finally {
+        if (isSubscribed) {
+          setLoading(false);
+        }
+      }
+    };
+
+    loadData();
+
+    return () => {
+      isSubscribed = false;
+    };
+  }, [isOpen, search, activeTab, token]);
 
   if (!isOpen) return null;
 

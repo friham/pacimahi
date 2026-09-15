@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { FaNewspaper, FaCalendarAlt, FaUser, FaArrowRight, FaTimes, FaTag } from 'react-icons/fa';
+import { FaCalendarAlt, FaUser, FaArrowRight, FaTimes, FaTag } from 'react-icons/fa';
 import useScrollReveal from '../hooks/useScrollReveal';
 import { API_URL, SERVER_URL } from '../config';
 import './NewsSection.css';
@@ -38,8 +38,19 @@ const defaultFallbackNews = [
   }
 ];
 
+const formatNewsDate = (dateString, options = { day: 'numeric', month: 'short', year: 'numeric' }) => {
+  if (!dateString) return '-';
+  const parsed = new Date(dateString);
+  return isNaN(parsed.getTime()) ? '-' : parsed.toLocaleDateString('id-ID', options);
+};
+
 function NewsSection() {
-  const [newsList, setNewsList] = useState(defaultFallbackNews);
+  const [newsList, setNewsList] = useState(() => 
+    defaultFallbackNews.map(item => ({
+      ...item,
+      created_at: item.created_at || new Date().toISOString()
+    }))
+  );
   const [activeCategory, setActiveCategory] = useState('semua');
   const [selectedNews, setSelectedNews] = useState(null);
 
@@ -48,7 +59,12 @@ function NewsSection() {
       try {
         const res = await axios.get(`${API_URL}/news`);
         if (res.data.success && res.data.data.length > 0) {
-          setNewsList(res.data.data);
+          const nowIso = new Date().toISOString();
+          const normalized = res.data.data.map(item => ({
+            ...item,
+            created_at: item.created_at || nowIso
+          }));
+          setNewsList(normalized);
         }
       } catch (err) {
         console.warn('Using default fallback news:', err.message);
@@ -127,7 +143,7 @@ function NewsSection() {
                 <div className="news-card__body">
                   <div className="news-card__meta">
                     <span>
-                      <FaCalendarAlt /> {new Date(item.created_at || Date.now()).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
+                      <FaCalendarAlt /> {formatNewsDate(item.created_at)}
                     </span>
                     <span>
                       <FaUser /> {item.author_name || 'Admin'}
@@ -205,7 +221,7 @@ function NewsSection() {
                     <FaTag /> {selectedNews.category}
                   </span>
                   <span>
-                    <FaCalendarAlt /> {new Date(selectedNews.created_at || Date.now()).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+                    <FaCalendarAlt /> {formatNewsDate(selectedNews.created_at, { day: 'numeric', month: 'long', year: 'numeric' })}
                   </span>
                   <span>
                     <FaUser /> {selectedNews.author_name || 'Humas PA Cimahi'}

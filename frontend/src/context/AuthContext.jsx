@@ -51,8 +51,8 @@ export function AuthProvider({ children }) {
       setLoading(false);
       hasCheckedAuth.current = true;
     }
-    
-  }, []);
+    // Including `token` ensures effect re-runs when token changes (e.g. login/logout).
+  }, [fetchUser, token]);
 
   const login = async (username, password) => {
     const response = await axios.post(`${API_URL}/auth/login`, {
