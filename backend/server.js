@@ -17,6 +17,7 @@ const pageRoutes = require('./routes/pageRoutes');
 const mediaRoutes = require('./routes/mediaRoutes');
 const documentRoutes = require('./routes/documentRoutes');
 const auditRoutes = require('./routes/auditRoutes');
+const homepageRoutes = require('./routes/homepageRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -29,7 +30,13 @@ app.use(compression());
 
 const allowedOrigins = isProduction
   ? (process.env.CORS_ORIGIN || '').split(',').filter(Boolean)
-  : ['http://localhost:5173', 'http://localhost:3000'];
+  : [
+      'http://localhost:5173',
+      'http://localhost:5174',
+      'http://127.0.0.1:5173',
+      'http://127.0.0.1:5174',
+      'http://localhost:3000'
+    ];
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -87,6 +94,7 @@ app.use('/api/pages', apiLimiter, pageRoutes);
 app.use('/api/media', apiLimiter, mediaRoutes);
 app.use('/api/documents', apiLimiter, documentRoutes);
 app.use('/api/audit-logs', apiLimiter, auditRoutes);
+app.use('/api/homepage-sections', publicReadLimiter, homepageRoutes);
 
 app.get('/api/health', (req, res) => {
   res.json({

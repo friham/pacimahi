@@ -1,19 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  FaSearchPlus, 
-  FaTimes, 
-  FaExternalLinkAlt, 
-  FaArrowRight, 
-  FaFileAlt, 
-  FaQrcode, 
-  FaWhatsapp, 
+import axios from 'axios';
+import { API_URL } from '../config';
+import resolveMediaUrl from '../utils/resolveMediaUrl';
+import {
+  FaSearchPlus,
+  FaTimes,
+  FaExternalLinkAlt,
+  FaArrowRight,
+  FaFileAlt,
+  FaQrcode,
+  FaWhatsapp,
   FaDownload,
   FaCheckCircle
 } from 'react-icons/fa';
 import './HomeSpotlightBanners.css';
 
-const ziCards = [
+const ziCardsFallback = [
   { id: 'zi-main', img: '/images/zona-integritas/zi-main.png', title: 'Zona Integritas PA Kota Cimahi', area: 'Utama', desc: 'Komitmen WBK & WBBM Menuju Peradilan Bersih dan Akuntabel' },
   { id: 'zi-area-1', img: '/images/zona-integritas/zi-area-1.png', title: 'Area I: Manajemen Perubahan', area: 'Area 1', desc: 'Mengubah pola pikir dan budaya kerja aparatur peradilan' },
   { id: 'zi-area-2', img: '/images/zona-integritas/zi-area-2.png', title: 'Area II: Penataan Tata Laksana', area: 'Area 2', desc: 'Optimalisasi SOP terintegrasi dan sistem persidangan modern' },
@@ -23,8 +26,90 @@ const ziCards = [
   { id: 'zi-area-6', img: '/images/zona-integritas/zi-area-6.png', title: 'Area VI: Peningkatan Kualitas Pelayanan Publik', area: 'Area 6', desc: 'Pelayanan prima berorientasi kepuasan masyarakat & kaum rentan' }
 ];
 
+const FALLBACK_SECTIONS = {
+  zi_gallery: {
+    badge_text: 'REFORMASI BIROKRASI',
+    title: 'Pembangunan Zona Integritas (WBK & WBBM)',
+    description: 'Pengadilan Agama Kota Cimahi berkomitmen mewujudkan Wilayah Bebas dari Korupsi (WBK) dan Wilayah Birokrasi Bersih dan Melayani (WBBM) melalui 6 Area Perubahan.',
+    items: ziCardsFallback
+  },
+  prioritas_ptsp: {
+    badge_text: 'RAMAH DISABILITAS & KAUM RENTAN',
+    title: 'Alur Pelayanan Prioritas PTSP PA Kota Cimahi',
+    description: 'Layanan khusus bebas antrean panjang dan pendampingan penuh untuk penyandang disabilitas, lanjut usia, ibu hamil, serta ibu menyusui.',
+    image_url: '/images/alur-prioritas-ptsp.png',
+    link_url: '/layanan-publik/alur-pelayanan-prioritas-ptsp',
+    items: [
+      'Jalur Antrian Prioritas Khusus',
+      'Fasilitas Kursi Roda & Tongkat Kruk',
+      'Pendampingan Petugas Ramah 5S',
+      'Ruang Tunggu & Loket Khusus Rendah'
+    ]
+  },
+  service_dual: {
+    items: [
+      {
+        image_url: '/images/prosedur-berperkara.png',
+        title: 'Prosedur Berperkara',
+        subtitle: 'Panduan lengkap tahapan beracara di tingkat pertama, banding, kasasi, hingga peninjauan kembali.',
+        link_url: '/kepaniteraan/prosedur-berperkara'
+      },
+      {
+        image_url: '/images/layanan-informasi.png',
+        title: 'Layanan Informasi & PPID',
+        subtitle: 'Permintaan informasi publik, biaya informasi, dan transparansi dokumentasi peradilan.',
+        link_url: '/layanan-publik/layanan-informasi'
+      }
+    ]
+  },
+  brosur_digital: {
+    image_url: '/images/brosur-digital-banner.png',
+    link_url: '/layanan-publik/brosur-digital',
+    items: [
+      { icon: 'file', label: 'Persyaratan Berperkara', url: '/kepaniteraan/prosedur-berperkara' },
+      { icon: 'download', label: 'Panjar Biaya Perkara', url: '/kepaniteraan/biaya-perkara' },
+      { icon: 'check', label: 'Alur Pelayanan', url: '/kepaniteraan/tahapan-perkara' },
+      { icon: 'whatsapp', label: 'WhatsApp SILINCAH', url: 'https://wa.me/6285703203331?text=Halo%20Admin%20PA%20Cimahi,%20saya%20ingin%20bertanya%20informasi%20layanan' }
+    ]
+  },
+  akta_cerai: {
+    title: 'Butuh Duplikat atau Legalisasi Akta Cerai?',
+    description: 'Kini dapat diajukan secara online dengan mudah, cepat, dan transparan tanpa antrean panjang.',
+    image_url: '/images/akta-cerai-banner.png',
+    items: [
+      { label: 'Formulir Pengajuan Online', url: 'https://bit.ly/aktaceraipacimahi', is_external: true },
+      { label: 'Informasi Loket PTSP', url: '/layanan-publik/ptsp', is_external: false }
+    ]
+  }
+};
+
+const CHIP_ICONS = {
+  file: FaFileAlt,
+  download: FaDownload,
+  check: FaCheckCircle,
+  whatsapp: FaWhatsapp
+};
+
 function HomeSpotlightBanners() {
   const [zoomImage, setZoomImage] = useState(null);
+  const [sections, setSections] = useState(FALLBACK_SECTIONS);
+
+  useEffect(() => {
+    let cancelled = false;
+    axios.get(`${API_URL}/homepage-sections`)
+      .then((res) => {
+        if (cancelled) return;
+        if (res.data.success && Array.isArray(res.data.data) && res.data.data.length > 0) {
+          const byKey = {};
+          res.data.data.forEach((s) => { byKey[s.section_key] = s; });
+          setSections((prev) => ({ ...prev, ...byKey }));
+        }
+      })
+      .catch((err) => {
+        if (!cancelled) console.warn('HomeSpotlightBanners: pakai data fallback', err.message);
+      });
+    return () => { cancelled = true; };
+  }, []);
 
   const handleOpenZoom = (imgSrc, imgTitle) => {
     setZoomImage({ src: imgSrc, title: imgTitle });
@@ -33,6 +118,28 @@ function HomeSpotlightBanners() {
   const handleCloseZoom = () => {
     setZoomImage(null);
   };
+
+  const zi = sections.zi_gallery || {};
+  const ziCards = (zi.items || ziCardsFallback).map((card) => ({
+    ...card,
+    img: resolveMediaUrl(card.img)
+  }));
+
+  const pri = sections.prioritas_ptsp || {};
+  const priImage = resolveMediaUrl(pri.image_url || FALLBACK_SECTIONS.prioritas_ptsp.image_url);
+
+  const dualCards = ((sections.service_dual || {}).items || FALLBACK_SECTIONS.service_dual.items).map((card) => ({
+    ...card,
+    image_url: resolveMediaUrl(card.image_url)
+  }));
+
+  const brosur = sections.brosur_digital || {};
+  const brosurImage = resolveMediaUrl(brosur.image_url || FALLBACK_SECTIONS.brosur_digital.image_url);
+  const brosurLinks = brosur.items || FALLBACK_SECTIONS.brosur_digital.items;
+
+  const akta = sections.akta_cerai || {};
+  const aktaImage = resolveMediaUrl(akta.image_url || FALLBACK_SECTIONS.akta_cerai.image_url);
+  const aktaButtons = akta.items || FALLBACK_SECTIONS.akta_cerai.items;
 
   return (
     <section className="home-spotlight-section">
@@ -44,11 +151,11 @@ function HomeSpotlightBanners() {
         <div className="spotlight-block zi-block">
           <div className="spotlight-block__header">
             <div className="spotlight-badge">
-              <span>REFORMASI BIROKRASI</span>
+              <span>{zi.badge_text || FALLBACK_SECTIONS.zi_gallery.badge_text}</span>
             </div>
-            <h2 className="spotlight-title">Pembangunan Zona Integritas (WBK & WBBM)</h2>
+            <h2 className="spotlight-title">{zi.title || FALLBACK_SECTIONS.zi_gallery.title}</h2>
             <p className="spotlight-desc">
-              Pengadilan Agama Kota Cimahi berkomitmen mewujudkan Wilayah Bebas dari Korupsi (WBK) dan Wilayah Birokrasi Bersih dan Melayani (WBBM) melalui 6 Area Perubahan.
+              {zi.description || FALLBACK_SECTIONS.zi_gallery.description}
             </p>
           </div>
 
@@ -86,22 +193,22 @@ function HomeSpotlightBanners() {
         <div className="spotlight-block prioritas-block">
           <div className="spotlight-block__header">
             <div className="spotlight-badge spotlight-badge--accent">
-              <span>RAMAH DISABILITAS & KAUM RENTAN</span>
+              <span>{pri.badge_text || FALLBACK_SECTIONS.prioritas_ptsp.badge_text}</span>
             </div>
-            <h2 className="spotlight-title">Alur Pelayanan Prioritas PTSP PA Kota Cimahi</h2>
+            <h2 className="spotlight-title">{pri.title || FALLBACK_SECTIONS.prioritas_ptsp.title}</h2>
             <p className="spotlight-desc">
-              Layanan khusus bebas antrean panjang dan pendampingan penuh untuk penyandang disabilitas, lanjut usia, ibu hamil, serta ibu menyusui.
+              {pri.description || FALLBACK_SECTIONS.prioritas_ptsp.description}
             </p>
           </div>
 
           <div className="prioritas-banner-card">
-            <div 
+            <div
               className="prioritas-banner-wrapper"
-              onClick={() => handleOpenZoom('/images/alur-prioritas-ptsp.png', 'Alur Pelayanan Prioritas PTSP Pengadilan Agama Kota Cimahi')}
+              onClick={() => handleOpenZoom(priImage, 'Alur Pelayanan Prioritas PTSP Pengadilan Agama Kota Cimahi')}
               title="Klik untuk memperbesar infografis"
             >
               <img
-                src="/images/alur-prioritas-ptsp.png"
+                src={priImage}
                 alt="Alur Pelayanan Prioritas PTSP Pengadilan Agama Kota Cimahi"
                 className="prioritas-banner-img"
                 loading="lazy"
@@ -113,34 +220,24 @@ function HomeSpotlightBanners() {
 
             <div className="prioritas-card-footer">
               <div className="prioritas-points">
-                <div className="prioritas-point-item">
-                  <FaCheckCircle className="prioritas-point-icon" />
-                  <span>Jalur Antrian Prioritas Khusus</span>
-                </div>
-                <div className="prioritas-point-item">
-                  <FaCheckCircle className="prioritas-point-icon" />
-                  <span>Fasilitas Kursi Roda & Tongkat Kruk</span>
-                </div>
-                <div className="prioritas-point-item">
-                  <FaCheckCircle className="prioritas-point-icon" />
-                  <span>Pendampingan Petugas Ramah 5S</span>
-                </div>
-                <div className="prioritas-point-item">
-                  <FaCheckCircle className="prioritas-point-icon" />
-                  <span>Ruang Tunggu & Loket Khusus Rendah</span>
-                </div>
+                {(pri.items || FALLBACK_SECTIONS.prioritas_ptsp.items).map((point, idx) => (
+                  <div className="prioritas-point-item" key={idx}>
+                    <FaCheckCircle className="prioritas-point-icon" />
+                    <span>{point}</span>
+                  </div>
+                ))}
               </div>
 
               <div className="prioritas-actions">
                 <button
                   type="button"
                   className="spotlight-btn spotlight-btn--secondary"
-                  onClick={() => handleOpenZoom('/images/alur-prioritas-ptsp.png', 'Alur Pelayanan Prioritas PTSP')}
+                  onClick={() => handleOpenZoom(priImage, 'Alur Pelayanan Prioritas PTSP')}
                 >
                   <FaSearchPlus /> Perbesar Gambar
                 </button>
                 <Link
-                  to="/layanan-publik/alur-pelayanan-prioritas-ptsp"
+                  to={pri.link_url || FALLBACK_SECTIONS.prioritas_ptsp.link_url}
                   className="spotlight-btn spotlight-btn--primary"
                 >
                   <FaFileAlt /> Lihat Panduan & SOP Lengkap
@@ -155,57 +252,34 @@ function HomeSpotlightBanners() {
         ======================================================== */}
         <div className="spotlight-block service-dual-block">
           <div className="service-dual-grid">
-            <Link
-              to="/kepaniteraan/prosedur-berperkara"
-              className="service-dual-card"
-              title="Klik untuk melihat Prosedur Berperkara di PA Kota Cimahi"
-            >
-              <div className="service-dual-card__img-box">
-                <img
-                  src="/images/prosedur-berperkara.png"
-                  alt="Prosedur Berperkara PA Cimahi"
-                  className="service-dual-card__img"
-                  loading="lazy"
-                />
-                <div className="service-dual-card__hover-mask">
-                  <span className="service-dual-card__btn-pill">
-                    Buka Prosedur Berperkara <FaArrowRight size={12} />
-                  </span>
+            {dualCards.map((card, idx) => (
+              <Link
+                key={idx}
+                to={card.link_url}
+                className="service-dual-card"
+                title={card.hover_title || `Klik untuk melihat ${card.title} di PA Kota Cimahi`}
+              >
+                <div className="service-dual-card__img-box">
+                  <img
+                    src={card.image_url}
+                    alt={card.alt_text || `${card.title} PA Cimahi`}
+                    className="service-dual-card__img"
+                    loading="lazy"
+                  />
+                  <div className="service-dual-card__hover-mask">
+                    <span className="service-dual-card__btn-pill">
+                      {card.pill_text || `Buka ${card.title}`} <FaArrowRight size={12} />
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div className="service-dual-card__meta">
-                <h3 className="service-dual-card__title">Prosedur Berperkara</h3>
-                <p className="service-dual-card__subtitle">
-                  Panduan lengkap tahapan beracara di tingkat pertama, banding, kasasi, hingga peninjauan kembali.
-                </p>
-              </div>
-            </Link>
-
-            <Link
-              to="/layanan-publik/layanan-informasi"
-              className="service-dual-card"
-              title="Klik untuk mengakses Layanan Informasi PA Kota Cimahi"
-            >
-              <div className="service-dual-card__img-box">
-                <img
-                  src="/images/layanan-informasi.png"
-                  alt="Layanan Informasi PA Cimahi"
-                  className="service-dual-card__img"
-                  loading="lazy"
-                />
-                <div className="service-dual-card__hover-mask">
-                  <span className="service-dual-card__btn-pill">
-                    Buka Layanan Informasi <FaArrowRight size={12} />
-                  </span>
+                <div className="service-dual-card__meta">
+                  <h3 className="service-dual-card__title">{card.title}</h3>
+                  <p className="service-dual-card__subtitle">
+                    {card.subtitle}
+                  </p>
                 </div>
-              </div>
-              <div className="service-dual-card__meta">
-                <h3 className="service-dual-card__title">Layanan Informasi & PPID</h3>
-                <p className="service-dual-card__subtitle">
-                  Permintaan informasi publik, biaya informasi, dan transparansi dokumentasi peradilan.
-                </p>
-              </div>
-            </Link>
+              </Link>
+            ))}
           </div>
         </div>
 
@@ -214,13 +288,13 @@ function HomeSpotlightBanners() {
         ======================================================== */}
         <div className="spotlight-block brosur-block">
           <div className="brosur-card">
-            <div 
+            <div
               className="brosur-card__img-wrapper"
-              onClick={() => handleOpenZoom('/images/brosur-digital-banner.png', 'Brosur Digital PA Kota Cimahi')}
+              onClick={() => handleOpenZoom(brosurImage, 'Brosur Digital PA Kota Cimahi')}
               title="Klik untuk memperbesar brosur digital"
             >
               <img
-                src="/images/brosur-digital-banner.png"
+                src={brosurImage}
                 alt="Brosur Digital PA Cimahi - Scan QR Code"
                 className="brosur-card__img"
                 loading="lazy"
@@ -232,27 +306,30 @@ function HomeSpotlightBanners() {
 
             <div className="brosur-card__quick-bar">
               <div className="brosur-quick-links">
-                <Link to="/kepaniteraan/prosedur-berperkara" className="brosur-chip">
-                  <FaFileAlt /> Persyaratan Berperkara
-                </Link>
-                <Link to="/kepaniteraan/biaya-perkara" className="brosur-chip">
-                  <FaDownload /> Panjar Biaya Perkara
-                </Link>
-                <Link to="/kepaniteraan/tahapan-perkara" className="brosur-chip">
-                  <FaCheckCircle /> Alur Pelayanan
-                </Link>
-                <a 
-                  href="https://wa.me/6285703203331?text=Halo%20Admin%20PA%20Cimahi,%20saya%20ingin%20bertanya%20informasi%20layanan" 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  className="brosur-chip brosur-chip--whatsapp"
-                >
-                  <FaWhatsapp /> WhatsApp SILINCAH
-                </a>
+                {brosurLinks.map((chip, idx) => {
+                  const ChipIcon = CHIP_ICONS[chip.icon] || FaFileAlt;
+                  const isExternal = typeof chip.url === 'string' && chip.url.startsWith('http');
+                  const chipClass = chip.icon === 'whatsapp' ? 'brosur-chip brosur-chip--whatsapp' : 'brosur-chip';
+                  return isExternal ? (
+                    <a
+                      key={idx}
+                      href={chip.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={chipClass}
+                    >
+                      <ChipIcon /> {chip.label}
+                    </a>
+                  ) : (
+                    <Link key={idx} to={chip.url} className={chipClass}>
+                      <ChipIcon /> {chip.label}
+                    </Link>
+                  );
+                })}
               </div>
 
               <div className="brosur-main-action">
-                <Link to="/layanan-publik/brosur-digital" className="spotlight-btn spotlight-btn--accent">
+                <Link to={brosur.link_url || FALLBACK_SECTIONS.brosur_digital.link_url} className="spotlight-btn spotlight-btn--accent">
                   <FaQrcode /> Unduh Brosur Digital Lengkap
                 </Link>
               </div>
@@ -265,13 +342,13 @@ function HomeSpotlightBanners() {
         ======================================================== */}
         <div className="spotlight-block akta-cerai-block">
           <div className="akta-card">
-            <div 
+            <div
               className="akta-card__img-wrapper"
-              onClick={() => handleOpenZoom('/images/akta-cerai-banner.png', 'Solusi Akta Cerai Hilang dan Legalisasi Online PA Kota Cimahi')}
+              onClick={() => handleOpenZoom(aktaImage, 'Solusi Akta Cerai Hilang dan Legalisasi Online PA Kota Cimahi')}
               title="Klik untuk memperbesar informasi akta cerai"
             >
               <img
-                src="/images/akta-cerai-banner.png"
+                src={aktaImage}
                 alt="Solusi Mengatasi Akta Cerai Anda yang Hilang - Pengadilan Agama Kota Cimahi"
                 className="akta-card__img"
                 loading="lazy"
@@ -283,26 +360,33 @@ function HomeSpotlightBanners() {
 
             <div className="akta-card__actions-bar">
               <div className="akta-card__info-text">
-                <strong>Butuh Duplikat atau Legalisasi Akta Cerai?</strong>
-                <span>Kini dapat diajukan secara online dengan mudah, cepat, dan transparan tanpa antrean panjang.</span>
+                <strong>{akta.title || FALLBACK_SECTIONS.akta_cerai.title}</strong>
+                <span>{akta.description || FALLBACK_SECTIONS.akta_cerai.description}</span>
               </div>
               <div className="akta-card__btn-group">
-                <a
-                  href="https://bit.ly/aktaceraipacimahi"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="spotlight-btn spotlight-btn--primary"
-                >
-                  <span>Formulir Pengajuan Online</span>
-                  <FaExternalLinkAlt size={12} />
-                </a>
-                <Link
-                  to="/layanan-publik/ptsp"
-                  className="spotlight-btn spotlight-btn--outline"
-                >
-                  <span>Informasi Loket PTSP</span>
-                  <FaArrowRight size={12} />
-                </Link>
+                {aktaButtons.map((btn, idx) => (
+                  btn.is_external ? (
+                    <a
+                      key={idx}
+                      href={btn.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="spotlight-btn spotlight-btn--primary"
+                    >
+                      <span>{btn.label}</span>
+                      <FaExternalLinkAlt size={12} />
+                    </a>
+                  ) : (
+                    <Link
+                      key={idx}
+                      to={btn.url}
+                      className="spotlight-btn spotlight-btn--outline"
+                    >
+                      <span>{btn.label}</span>
+                      <FaArrowRight size={12} />
+                    </Link>
+                  )
+                ))}
               </div>
             </div>
           </div>
@@ -318,9 +402,9 @@ function HomeSpotlightBanners() {
           <div className="spotlight-modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="spotlight-modal-header">
               <h3 className="spotlight-modal-title">{zoomImage.title}</h3>
-              <button 
-                type="button" 
-                className="spotlight-modal-close" 
+              <button
+                type="button"
+                className="spotlight-modal-close"
                 onClick={handleCloseZoom}
                 aria-label="Tutup"
               >

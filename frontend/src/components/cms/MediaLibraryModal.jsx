@@ -88,7 +88,9 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelect, token }) 
     if (!file) return;
 
     const formData = new FormData();
-    formData.append('file', file);
+    // Nama field HARUS 'image' agar cocok dengan uploadImage.single('image')
+    // di backend/routes/mediaRoutes.js (sebelumnya 'file' -> multer reject -> 500).
+    formData.append('image', file);
     formData.append('alt_text', file.name);
 
     setUploading(true);

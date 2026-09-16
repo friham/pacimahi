@@ -63,18 +63,25 @@ const createMedia = async (req, res) => {
       ip: req.ip
     });
 
+    // Ambil ulang baris yang baru dibuat supaya response ikut memuat created_at,
+    // yang dipakai panel "Detail Berkas" di modal Media Library (tanpa ini
+    // tanggal tampil sebagai "Invalid Date").
+    const [createdRows] = await pool.execute('SELECT * FROM media WHERE id = ?', [result.insertId]);
+    const created = createdRows[0] || {};
+
     res.status(201).json({
       success: true,
       message: 'File berhasil diunggah ke Media Library.',
       data: {
-        id: result.insertId,
-        file_name: req.file.filename,
-        original_name: req.file.originalname,
-        file_url: fileUrl,
-        mime_type: req.file.mimetype,
-        file_size: req.file.size,
-        alt_text: alt_text || req.file.originalname,
-        caption: caption || ''
+        id: created.id || result.insertId,
+        file_name: created.file_name || req.file.filename,
+        original_name: created.original_name || req.file.originalname,
+        file_url: created.file_url || fileUrl,
+        mime_type: created.mime_type || req.file.mimetype,
+        file_size: created.file_size || req.file.size,
+        alt_text: created.alt_text || alt_text || req.file.originalname,
+        caption: created.caption || '',
+        created_at: created.created_at || null
       }
     });
   } catch (error) {

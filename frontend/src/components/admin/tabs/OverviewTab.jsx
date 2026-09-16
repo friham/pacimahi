@@ -30,7 +30,6 @@ export default function OverviewTab({
         <div className="admin-stat-card">
           <div className="admin-stat-card__top">
             <span className="admin-stat-card__label">Total Perkara</span>
-            <span className="stat-badge stat-badge--green">Target 90%</span>
           </div>
           <h3 className="admin-stat-card__value">{settings.stat_diterima || '3.420'}</h3>
           <p className="admin-stat-card__note">Perkara masuk tahun berjalan</p>
@@ -39,7 +38,6 @@ export default function OverviewTab({
         <div className="admin-stat-card">
           <div className="admin-stat-card__top">
             <span className="admin-stat-card__label">Perkara Diputus</span>
-            <span className="stat-badge stat-badge--green">Target 90%</span>
           </div>
           <h3 className="admin-stat-card__value">{settings.stat_diputus || '3.365'}</h3>
           <p className="admin-stat-card__note">Selesai & berkekuatan hukum</p>
@@ -48,7 +46,7 @@ export default function OverviewTab({
         <div className="admin-stat-card">
           <div className="admin-stat-card__top">
             <span className="admin-stat-card__label">Penyelesaian (%)</span>
-            <span className="stat-badge stat-badge--gold">Target 90%</span>
+            <span className="stat-badge">Target 90%</span>
           </div>
           <h3 className="admin-stat-card__value">{settings.stat_persentase || '98,4%'}</h3>
           <p className="admin-stat-card__note">Rasio keberhasilan penanganan</p>
@@ -57,7 +55,7 @@ export default function OverviewTab({
         <div className="admin-stat-card">
           <div className="admin-stat-card__top">
             <span className="admin-stat-card__label">Indeks Kepuasan (IKM)</span>
-            <span className="stat-badge stat-badge--purple">Sangat Baik</span>
+            <span className="stat-badge">Sangat Baik</span>
           </div>
           <h3 className="admin-stat-card__value">{settings.stat_ikm || '97,8%'}</h3>
           <p className="admin-stat-card__note">Survei pelayanan publik PTSP</p>
@@ -73,6 +71,17 @@ export default function OverviewTab({
             </div>
           </div>
 
+          <div className="dash-chart-legend">
+            <span className="dash-chart-legend__item">
+              <span className="dash-chart-legend__line dash-chart-legend__line--primary" />
+              Perkara masuk
+            </span>
+            <span className="dash-chart-legend__item">
+              <span className="dash-chart-legend__line dash-chart-legend__line--muted" />
+              Perkara diputus
+            </span>
+          </div>
+
           <div className="dash-chart-svg-container">
             <svg viewBox="0 0 600 180" className="dash-main-chart" preserveAspectRatio="none">
               <line x1="40" y1="40" x2="580" y2="40" stroke="#e5e7eb" strokeWidth="1"/>
@@ -85,10 +94,10 @@ export default function OverviewTab({
               <text x="4" y="124" fill="#6b7280" fontSize="11">200</text>
               <text x="4" y="164" fill="#6b7280" fontSize="11">100</text>
 
-              <path d="M40,140 L100,130 L160,120 L220,110 L280,100 L340,90 L400,80 L460,70 L520,60 L580,50"
-                fill="none" stroke="#2563eb" strokeWidth="2.5" strokeLinecap="round"/>
-              <path d="M40,150 L100,140 L160,130 L220,120 L280,110 L340,100 L400,90 L460,80 L520,70 L580,60"
-                fill="none" stroke="#16a34a" strokeWidth="2.5" strokeLinecap="round"/>
+              <path className="dash-chart-line dash-chart-line--primary" d="M40,140 L100,130 L160,120 L220,110 L280,100 L340,90 L400,80 L460,70 L520,60 L580,50"
+                fill="none" strokeWidth="2.5" strokeLinecap="round"/>
+              <path className="dash-chart-line dash-chart-line--muted" d="M40,150 L100,140 L160,130 L220,120 L280,110 L340,100 L400,90 L460,80 L520,70 L580,60"
+                fill="none" strokeWidth="2.5" strokeLinecap="round"/>
             </svg>
             <div className="dash-chart-x-labels">
               {['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des'].map((m, i) => (
@@ -100,15 +109,15 @@ export default function OverviewTab({
           <div className="dash-chart-summary-row">
             <div className="chart-summary-item">
               <span className="chart-summary-label">Rata-rata Masuk</span>
-              <strong className="chart-summary-val text-blue">285 perkara/bln</strong>
+              <strong className="chart-summary-val chart-summary-val--primary">285 perkara/bln</strong>
             </div>
             <div className="chart-summary-item">
               <span className="chart-summary-label">Rata-rata Diputus</span>
-              <strong className="chart-summary-val text-green">280 perkara/bln</strong>
+              <strong className="chart-summary-val chart-summary-val--muted">280 perkara/bln</strong>
             </div>
             <div className="chart-summary-item">
               <span className="chart-summary-label">Sisa Perkara Aktif</span>
-              <strong className="chart-summary-val text-gold">55 perkara (1,6%)</strong>
+              <strong className="chart-summary-val chart-summary-val--gold">55 perkara (1,6%)</strong>
             </div>
           </div>
         </div>
@@ -146,7 +155,7 @@ export default function OverviewTab({
               <h3 className="dash-chart-card__title">Pengunjung PTSP</h3>
               <p className="dash-chart-card__subtitle">Aktivitas layanan 7 hari terakhir</p>
             </div>
-            <span className="stat-badge stat-badge--green">+8% ↑</span>
+            <span className="stat-badge">+8% ↑</span>
           </div>
 
           <div className="ptsp-bars-value-row">
@@ -166,10 +175,9 @@ export default function OverviewTab({
             ].map((bar, i) => (
               <div key={i} className={`ptsp-bar-col ${bar.active ? 'ptsp-bar-col--active' : ''}`}>
                 <div className="ptsp-bar-track">
-                  <div className="ptsp-bar-fill" style={{ height: `${bar.val}%` }}>
-                    <span className="ptsp-bar-tooltip">{bar.val}</span>
-                  </div>
+                  <div className="ptsp-bar-fill" style={{ height: `${bar.val}%` }} />
                 </div>
+                <span className="ptsp-bar-value">{bar.val}</span>
                 <span className="ptsp-bar-label">{bar.day}</span>
               </div>
             ))}
@@ -196,21 +204,20 @@ export default function OverviewTab({
 
       <div className="dash-quick-grid">
         {[
-          { label: 'Kelola Menu', desc: 'Kelola navigasi & sidebar website secara dinamis', icon: FaSitemap, tab: 'Kelola Menu', color: '#6366f1', bg: '#eef2ff' },
-          { label: 'Kelola Halaman', desc: 'Buat & edit halaman konten CMS website', icon: FaFileAlt, tab: 'Kelola Halaman', color: '#3b82f6', bg: '#eff6ff' },
-          { label: 'Kelola Berita', desc: 'Tulis, edit dan publish berita & pengumuman', icon: FaNewspaper, tab: 'Kelola Berita', color: '#0ea5e9', bg: '#f0f9ff' },
-          { label: 'Media Library', desc: 'Kelola gambar & media yang diunggah', icon: FaImages, tab: 'Media Library', color: '#8b5cf6', bg: '#f5f3ff' },
-          { label: 'Kelola Layanan', desc: 'Perbarui daftar layanan publik pengadilan', icon: FaCog, tab: 'Kelola Layanan', color: '#f59e0b', bg: '#fffbeb' },
-          { label: 'Pengaturan Website', desc: 'Ubah teks hero, kontak & statistik homepage', icon: FaSlidersH, tab: 'Pengaturan Website', color: '#10b981', bg: '#ecfdf5' },
-          { label: 'Pustaka Dokumen', desc: 'Kelola file SK, Peraturan, & dokumen resmi', icon: FaFilePdf, tab: 'Pustaka Dokumen', color: '#ef4444', bg: '#fef2f2' },
-          { label: 'Lihat Website', desc: 'Buka halaman publik pengadilan langsung', icon: FaExternalLinkAlt, tab: null, color: '#6b7280', bg: '#f9fafb' },
+          { label: 'Kelola Menu', desc: 'Kelola navigasi & sidebar website secara dinamis', icon: FaSitemap, tab: 'Kelola Menu' },
+          { label: 'Kelola Halaman', desc: 'Buat & edit halaman konten CMS website', icon: FaFileAlt, tab: 'Kelola Halaman' },
+          { label: 'Kelola Berita', desc: 'Tulis, edit dan publish berita & pengumuman', icon: FaNewspaper, tab: 'Kelola Berita' },
+          { label: 'Media Library', desc: 'Kelola gambar & media yang diunggah', icon: FaImages, tab: 'Media Library' },
+          { label: 'Kelola Layanan', desc: 'Perbarui daftar layanan publik pengadilan', icon: FaCog, tab: 'Kelola Layanan' },
+          { label: 'Pengaturan Website', desc: 'Ubah teks hero, kontak & statistik homepage', icon: FaSlidersH, tab: 'Pengaturan Website' },
+          { label: 'Pustaka Dokumen', desc: 'Kelola file SK, Peraturan, & dokumen resmi', icon: FaFilePdf, tab: 'Pustaka Dokumen' },
+          { label: 'Lihat Website', desc: 'Buka halaman publik pengadilan langsung', icon: FaExternalLinkAlt, tab: null },
         ].map((item, idx) => {
           const Icon = item.icon;
           return (
             <div
               key={idx}
               className="dash-quick-card"
-              style={{ '--qcard-color': item.color, '--qcard-bg': item.bg }}
               onClick={() => item.tab ? setActiveTab(item.tab) : window.open('/', '_blank')}
             >
               <div className="dash-quick-card__icon-wrap">
@@ -228,15 +235,15 @@ export default function OverviewTab({
 
       <div className="dash-info-row">
         {[
-          { icon: FaMapMarkerAlt, title: 'Alamat Kantor', val: settings.court_address || 'Jl. Encep Kartawiria No. 28, Cimahi Tengah', iconBg: '#e0f2fe', iconColor: '#0284c7' },
-          { icon: FaPhoneAlt, title: 'Telepon Kantor', val: settings.court_phone || '(022) 6631 334', iconBg: '#fef9c3', iconColor: '#a16207' },
-          { icon: FaWhatsapp, title: 'WhatsApp PTSP', val: `+${settings.court_whatsapp || '6281121111522'}`, iconBg: '#dcfce7', iconColor: '#15803d' },
-          { icon: FaEnvelope, title: 'Email Resmi', val: settings.court_email || 'info@pa-cimahi.go.id', iconBg: '#fce7f3', iconColor: '#be185d' },
+          { icon: FaMapMarkerAlt, title: 'Alamat Kantor', val: settings.court_address || 'Jl. Encep Kartawiria No. 28, Cimahi Tengah' },
+          { icon: FaPhoneAlt, title: 'Telepon Kantor', val: settings.court_phone || '(022) 6631 334' },
+          { icon: FaWhatsapp, title: 'WhatsApp PTSP', val: `+${settings.court_whatsapp || '6281121111522'}` },
+          { icon: FaEnvelope, title: 'Email Resmi', val: settings.court_email || 'info@pa-cimahi.go.id' },
         ].map((info, i) => {
           const InfoIcon = info.icon;
           return (
             <div key={i} className="dash-info-card">
-              <div className="dash-info-card__icon" style={{ background: info.iconBg, color: info.iconColor }}>
+              <div className="dash-info-card__icon">
                 <InfoIcon />
               </div>
               <div>

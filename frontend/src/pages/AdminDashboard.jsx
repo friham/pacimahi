@@ -5,7 +5,7 @@ import axios from 'axios';
 import { 
   FaTachometerAlt, FaNewspaper, FaImages, FaCog, 
   FaSitemap, FaFileAlt, FaFolder, FaFilePdf, FaClipboardList, 
-  FaSlidersH, FaUserShield, FaTimes,
+  FaSlidersH, FaUserShield, FaTimes, FaThLarge,
   FaAngleDown, FaAngleRight, FaEdit, FaToggleOn, FaToggleOff,
   FaTrash
 } from 'react-icons/fa';
@@ -17,6 +17,7 @@ import LogoutConfirmModal from '../components/admin/LogoutConfirmModal';
 import AdminSidebar from '../components/admin/AdminSidebar';
 import AdminHeader from '../components/admin/AdminHeader';
 import OverviewTab from '../components/admin/tabs/OverviewTab';
+import HomepageTab from '../components/admin/tabs/HomepageTab';
 import SettingsTab from '../components/admin/tabs/SettingsTab';
 import SlidersTab from '../components/admin/tabs/SlidersTab';
 import ServicesTab from '../components/admin/tabs/ServicesTab';
@@ -865,6 +866,7 @@ function AdminDashboard() {
       title: 'KONTEN WEBSITE',
       items: [
         { label: 'Dashboard', short: 'Beranda', icon: FaTachometerAlt },
+        { label: 'Konten Homepage', short: 'Homepage', icon: FaThLarge },
         { label: 'Kelola Berita', short: 'Berita', icon: FaNewspaper },
         { label: 'Kelola Slider', short: 'Slider', icon: FaImages },
         { label: 'Kelola Layanan', short: 'Layanan', icon: FaCog },
@@ -933,6 +935,12 @@ function AdminDashboard() {
             settings={settings}
             setActiveTab={setActiveTab}
             logo={logoPaCimahi}
+          />
+        )}
+
+        {activeTab === 'Konten Homepage' && (
+          <HomepageTab
+            token={token}
           />
         )}
 
