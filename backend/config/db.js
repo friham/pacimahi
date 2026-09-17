@@ -13,8 +13,12 @@ const pool = mysql.createPool({
   password: process.env.DB_PASSWORD || '',
   database: process.env.DB_NAME || 'pa_cimahi_db',
   waitForConnections: true,
-  connectionLimit: 10,
+  connectionLimit: 25,
+  maxIdle: 10,
+  idleTimeout: 60000,
   queueLimit: 0,
+  enableKeepAlive: true,
+  keepAliveInitialDelay: 10000,
 });
 
 pool.getConnection()

@@ -1,22 +1,28 @@
 import { useState, useRef } from 'react';
 import axios from 'axios';
-import { FaImage, FaUpload } from 'react-icons/fa';
+import { FaImage, FaUpload, FaCropAlt } from 'react-icons/fa';
+import ImageCropModal from './ImageCropModal';
 
 import { API_URL, SERVER_URL } from '../config';
 
 /**
- * Komponen upload gambar melalui file explorer (drag & drop / klik pilih file).
+ * Komponen upload gambar melalui file explorer (drag & drop / klik pilih file)
+ * dilengkapi dengan fitur potong / crop gambar interaktif sebelum dan sesudah diunggah.
  * Props:
  * - value: string, image_url yang sedang tersimpan (bisa path relatif "/images/uploads/xxx.jpg" atau URL penuh)
  * - onChange: (image_url: string) => void, dipanggil dengan URL gambar baru setelah upload berhasil
  * - token: string, JWT token untuk autentikasi request upload
  * - label: string, label field yang ditampilkan
+ * - allowCrop: boolean, aktifkan fitur pemotong foto (default: true)
  */
-function ImageUploader({ value, onChange, token, label = 'Gambar' }) {
+function ImageUploader({ value, onChange, token, label = 'Gambar', allowCrop = true }) {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState('');
   const [isDragging, setIsDragging] = useState(false);
   const [fileName, setFileName] = useState('');
+  const [cropModalOpen, setCropModalOpen] = useState(false);
+  const [cropImageSrc, setCropImageSrc] = useState('');
+  const [pendingFile, setPendingFile] = useState(null);
   const inputRef = useRef(null);
 
   const previewSrc = value
@@ -31,8 +37,8 @@ function ImageUploader({ value, onChange, token, label = 'Gambar' }) {
       setError('Format file harus JPG, PNG, GIF, atau WEBP.');
       return;
     }
-    if (file.size > 5 * 1024 * 1024) {
-      setError('Ukuran file maksimal 5MB.');
+    if (file.size > 10 * 1024 * 1024) {
+      setError('Ukuran file maksimal 10MB.');
       return;
     }
 
@@ -60,19 +66,73 @@ function ImageUploader({ value, onChange, token, label = 'Gambar' }) {
       setError(err.response?.data?.message || 'Gagal mengunggah gambar. Coba lagi.');
     } finally {
       setUploading(false);
+      if (inputRef.current) inputRef.current.value = '';
     }
+  };
+
+  const handlePendingFile = (file) => {
+    if (!file) return;
+
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+      setError('Format file harus JPG, PNG, GIF, atau WEBP.');
+      return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      setError('Ukuran file maksimal 10MB.');
+      return;
+    }
+
+    setError('');
+
+    if (!allowCrop) {
+      uploadFile(file);
+      return;
+    }
+
+    const objUrl = URL.createObjectURL(file);
+    setPendingFile(file);
+    setCropImageSrc(objUrl);
+    setCropModalOpen(true);
+  };
+
+  const handleConfirmCrop = (croppedFile) => {
+    setCropModalOpen(false);
+    if (cropImageSrc && cropImageSrc.startsWith('blob:')) {
+      URL.revokeObjectURL(cropImageSrc);
+    }
+    uploadFile(croppedFile);
+  };
+
+  const handleSkipCrop = () => {
+    setCropModalOpen(false);
+    if (cropImageSrc && cropImageSrc.startsWith('blob:')) {
+      URL.revokeObjectURL(cropImageSrc);
+    }
+    if (pendingFile) {
+      uploadFile(pendingFile);
+    }
+  };
+
+  const handleCloseCrop = () => {
+    setCropModalOpen(false);
+    if (cropImageSrc && cropImageSrc.startsWith('blob:')) {
+      URL.revokeObjectURL(cropImageSrc);
+    }
+    setPendingFile(null);
+    if (inputRef.current) inputRef.current.value = '';
   };
 
   const handleFileSelect = (e) => {
     const file = e.target.files?.[0];
-    uploadFile(file);
+    handlePendingFile(file);
   };
 
   const handleDrop = (e) => {
     e.preventDefault();
     setIsDragging(false);
     const file = e.dataTransfer.files?.[0];
-    uploadFile(file);
+    handlePendingFile(file);
   };
 
   const handleRemove = (e) => {
@@ -125,11 +185,39 @@ function ImageUploader({ value, onChange, token, label = 'Gambar' }) {
         </div>
 
         {value && !uploading && (
-          <button type="button" className="image-uploader__remove" onClick={handleRemove}>
-            Hapus
-          </button>
+          <div style={{ display: 'flex', gap: '6px', position: 'relative', zIndex: 2 }}>
+            {allowCrop && (
+              <button
+                type="button"
+                className="image-uploader__crop-btn"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCropImageSrc(previewSrc);
+                  setPendingFile(null);
+                  setCropModalOpen(true);
+                }}
+                title="Potong ulang gambar ini"
+              >
+                <FaCropAlt style={{ marginRight: 4 }} /> Potong Ulang
+              </button>
+            )}
+            <button type="button" className="image-uploader__remove" onClick={handleRemove}>
+              Hapus
+            </button>
+          </div>
         )}
       </div>
+
+      {allowCrop && (
+        <ImageCropModal
+          isOpen={cropModalOpen}
+          imageSrc={cropImageSrc}
+          fileName={fileName || pendingFile?.name || 'foto.jpg'}
+          onClose={handleCloseCrop}
+          onConfirmCrop={handleConfirmCrop}
+          onSkipCrop={pendingFile ? handleSkipCrop : null}
+        />
+      )}
     </div>
   );
 }

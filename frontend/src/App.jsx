@@ -13,23 +13,6 @@ const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 import ProtectedRoute from './components/ProtectedRoute';
 import DynamicCMSPage from './components/DynamicCMSPage';
 
-const PengantarKetuaPage = lazy(() => import('./pages/tentang-pengadilan/PengantarKetuaPage'));
-const VisiMisiPage = lazy(() => import('./pages/tentang-pengadilan/VisiMisiPage'));
-const TugasPokokFungsiPage = lazy(() => import('./pages/tentang-pengadilan/TugasPokokFungsiPage'));
-const WilayahYurisdiksiPage = lazy(() => import('./pages/tentang-pengadilan/WilayahYurisdiksiPage'));
-const StrukturOrganisasiPage = lazy(() => import('./pages/tentang-pengadilan/StrukturOrganisasiPage'));
-const SejarahTanggalPage = lazy(() => import('./pages/tentang-pengadilan/SejarahTanggalPage'));
-const SejarahSKPage = lazy(() => import('./pages/tentang-pengadilan/SejarahSKPage'));
-const MantanPimpinanPage = lazy(() => import('./pages/tentang-pengadilan/MantanPimpinanPage'));
-const AgendaKegiatanPage = lazy(() => import('./pages/tentang-pengadilan/AgendaKegiatanPage'));
-const AlamatPengadilanPage = lazy(() => import('./pages/tentang-pengadilan/AlamatPengadilanPage'));
-
-const KetuaWakilKetuaPage = lazy(() => import('./pages/tentang-pengadilan/KetuaWakilKetuaPage'));
-const SDMHakimPage = lazy(() => import('./pages/tentang-pengadilan/SDMHakimPage'));
-const SDMKepaniteraanPage = lazy(() => import('./pages/tentang-pengadilan/SDMKepaniteraanPage'));
-const SDMKesekretariatanPage = lazy(() => import('./pages/tentang-pengadilan/SDMKesekretariatanPage'));
-const SDMFungsionalPage = lazy(() => import('./pages/tentang-pengadilan/SDMFungsionalPage'));
-const StatistikKepegawaianPage = lazy(() => import('./pages/tentang-pengadilan/StatistikKepegawaianPage'));
 
 const SOPPengadilanPage = lazy(() => import('./pages/informasi-umum/SOPPengadilanPage'));
 const ProgramKerjaPage = lazy(() => import('./pages/informasi-umum/ProgramKerjaPage'));
@@ -138,27 +121,28 @@ function App() {
                 }
               />
 
-              <Route path="/tentang-pengadilan/pengantar-dari-ketua-pengadilan" element={<DynamicCMSPage customSlug="pengantar-dari-ketua-pengadilan" fallbackComponent={PengantarKetuaPage} />} />
-              <Route path="/tentang-pengadilan/visi-dan-misi" element={<DynamicCMSPage customSlug="visi-dan-misi" fallbackComponent={VisiMisiPage} />} />
-              <Route path="/tentang-pengadilan/kekuasaan-dan-ruang-lingkup-pengadilan-agama" element={<DynamicCMSPage customSlug="kekuasaan-dan-ruang-lingkup-pengadilan-agama" fallbackComponent={TugasPokokFungsiPage} />} />
-              <Route path="/tentang-pengadilan/wilayah-yurisdiksi" element={<DynamicCMSPage customSlug="wilayah-yurisdiksi" fallbackComponent={WilayahYurisdiksiPage} />} />
-              <Route path="/tentang-pengadilan/struktur-organisasi" element={<DynamicCMSPage customSlug="struktur-organisasi" fallbackComponent={StrukturOrganisasiPage} />} />
-              <Route path="/tentang-pengadilan/sejarah-pengadilan-cmi/tgl-pembentukan-pengadilan" element={<DynamicCMSPage customSlug="tgl-pembentukan-pengadilan" fallbackComponent={SejarahTanggalPage} />} />
-              <Route path="/tentang-pengadilan/sejarah-pengadilan-cmi/sk-pembentukan-pengadilan" element={<DynamicCMSPage customSlug="sk-pembentukan-pengadilan" fallbackComponent={SejarahSKPage} />} />
-              <Route path="/tentang-pengadilan/daftar-nama-mantan-pimpinan" element={<DynamicCMSPage customSlug="daftar-nama-mantan-pimpinan" fallbackComponent={MantanPimpinanPage} />} />
-              <Route path="/tentang-pengadilan/agenda-kerja-pimpinan" element={<DynamicCMSPage customSlug="agenda-kerja-pimpinan" fallbackComponent={AgendaKegiatanPage} />} />
-              <Route path="/tentang-pengadilan/alamat-pengadilan" element={<DynamicCMSPage customSlug="alamat-pengadilan" fallbackComponent={AlamatPengadilanPage} />} />
+              <Route path="/tentang-pengadilan/pengantar-dari-ketua-pengadilan" element={<DynamicCMSPage customSlug="pengantar-dari-ketua-pengadilan" />} />
+              <Route path="/tentang-pengadilan/visi-dan-misi" element={<DynamicCMSPage customSlug="visi-dan-misi" />} />
+              <Route path="/tentang-pengadilan/kekuasaan-dan-ruang-lingkup-pengadilan-agama" element={<DynamicCMSPage customSlug="kekuasaan-dan-ruang-lingkup-pengadilan-agama" />} />
+              <Route path="/tentang-pengadilan/wilayah-yurisdiksi" element={<DynamicCMSPage customSlug="wilayah-yurisdiksi" />} />
+              <Route path="/tentang-pengadilan/struktur-organisasi" element={<DynamicCMSPage customSlug="struktur-organisasi" />} />
+              <Route path="/tentang-pengadilan/sejarah-pengadilan-cmi/tgl-pembentukan-pengadilan" element={<DynamicCMSPage customSlug="tgl-pembentukan-pengadilan" />} />
+              <Route path="/tentang-pengadilan/sejarah-pengadilan-cmi/sk-pembentukan-pengadilan" element={<DynamicCMSPage customSlug="sk-pembentukan-pengadilan" />} />
+              <Route path="/tentang-pengadilan/daftar-nama-mantan-pimpinan" element={<DynamicCMSPage customSlug="daftar-nama-mantan-pimpinan" />} />
+              <Route path="/tentang-pengadilan/agenda-kerja-pimpinan" element={<DynamicCMSPage customSlug="agenda-kerja-pimpinan" />} />
+              <Route path="/tentang-pengadilan/alamat-pengadilan" element={<DynamicCMSPage customSlug="alamat-pengadilan" />} />
 
               <Route path="/tentang-pengadilan/profile-pengadilan" element={<Navigate to="/tentang-pengadilan/profile-pengadilan/profil-pegawai/ketua-wakil-ketua" replace />} />
-              <Route path="/tentang-pengadilan/profile-pengadilan/profil-pegawai/ketua-wakil-ketua" element={<DynamicCMSPage customSlug="ketua-wakil-ketua" fallbackComponent={KetuaWakilKetuaPage} />} />
-              <Route path="/tentang-pengadilan/profile-pengadilan/profil-pegawai/sdm-hakim" element={<DynamicCMSPage customSlug="sdm-hakim" fallbackComponent={SDMHakimPage} />} />
-              <Route path="/tentang-pengadilan/profile-pengadilan/profil-pegawai/kepaniteraann" element={<DynamicCMSPage customSlug="kepaniteraann" fallbackComponent={SDMKepaniteraanPage} />} />
-              <Route path="/tentang-pengadilan/profile-pengadilan/profil-pegawai/kesekretariatan" element={<DynamicCMSPage customSlug="kesekretariatan" fallbackComponent={SDMKesekretariatanPage} />} />
-              <Route path="/tentang-pengadilan/profile-pengadilan/profil-pegawai/fungsional-dan-pelaksana" element={<DynamicCMSPage customSlug="fungsional-dan-pelaksana" fallbackComponent={SDMFungsionalPage} />} />
-              <Route path="/tentang-pengadilan/profile-pengadilan/statistik-kepegawaian" element={<DynamicCMSPage customSlug="statistik-kepegawaian" fallbackComponent={StatistikKepegawaianPage} />} />
+              <Route path="/tentang-pengadilan/profile-pengadilan/profil-pegawai/ketua-wakil-ketua" element={<DynamicCMSPage customSlug="ketua-wakil-ketua" />} />
+              <Route path="/tentang-pengadilan/profile-pengadilan/profil-pegawai/sdm-hakim" element={<DynamicCMSPage customSlug="sdm-hakim" />} />
+              <Route path="/tentang-pengadilan/profile-pengadilan/profil-pegawai/kepaniteraann" element={<DynamicCMSPage customSlug="kepaniteraann" />} />
+              <Route path="/tentang-pengadilan/profile-pengadilan/profil-pegawai/kesekretariatan" element={<DynamicCMSPage customSlug="kesekretariatan" />} />
+              <Route path="/tentang-pengadilan/profile-pengadilan/profil-pegawai/fungsional-dan-pelaksana" element={<DynamicCMSPage customSlug="fungsional-dan-pelaksana" />} />
+              <Route path="/tentang-pengadilan/profile-pengadilan/statistik-kepegawaian" element={<DynamicCMSPage customSlug="statistik-kepegawaian" />} />
 
               <Route path="/p/:slug" element={<DynamicCMSPage />} />
               <Route path="/tentang-pengadilan/:slug" element={<DynamicCMSPage />} />
+              <Route path="/tentang-pengadilan/*" element={<DynamicCMSPage />} />
 
               <Route path="/informasi-umum" element={<Navigate to="/informasi-umum/standar-operasional-prosedur" replace />} />
               <Route path="/informasi-umum/standar-operasional-prosedur" element={<SOPPengadilanPage />} />

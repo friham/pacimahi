@@ -24,7 +24,7 @@ const defaultSettings = {
   footer_description: 'Mewujudkan peradilan agama yang agung, bersih, dan melayani dengan sepenuh hati untuk masyarakat Kota Cimahi dan sekitarnya.',
   footer_hours_weekday: '08.00 – 16.30 WIB',
   footer_hours_friday: '07.30 – 16.30 WIB',
-  video_url: 'https://youtu.be/62bIsvRcPv0?si=Fow524ngSa3DIkBs',
+  video_url: '',
   video_title: 'Video Profil Pengadilan Agama Kota Cimahi',
   video_subtitle: 'Mengenal lebih dekat komitmen integritas, tata kelola modern, dan inovasi pelayanan prima Pengadilan Agama Kota Cimahi bagi masyarakat.',
 };

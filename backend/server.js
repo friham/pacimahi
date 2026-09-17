@@ -50,31 +50,37 @@ app.use(cors({
   credentials: true
 }));
 
+const isDevOrLocal = (req) => {
+  if (process.env.NODE_ENV !== 'production') return true;
+  const ip = req.ip || req.connection?.remoteAddress || '';
+  return ip === '127.0.0.1' || ip === '::1' || ip.includes('127.0.0.1');
+};
+
 const publicReadLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 300,
+  max: 5000,
   standardHeaders: true,
   legacyHeaders: false,
   message: { success: false, message: 'Terlalu banyak request, coba lagi nanti.' },
-  skip: () => process.env.NODE_ENV === 'test'
+  skip: isDevOrLocal
 });
 
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 100,
+  max: 1000,
   standardHeaders: true,
   legacyHeaders: false,
   message: { success: false, message: 'Terlalu banyak request, coba lagi nanti.' },
-  skip: () => process.env.NODE_ENV === 'test'
+  skip: isDevOrLocal
 });
 
 const uploadLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 20,
+  max: 100,
   standardHeaders: true,
   legacyHeaders: false,
   message: { success: false, message: 'Batas upload tercapai, coba lagi nanti.' },
-  skip: () => process.env.NODE_ENV === 'test'
+  skip: isDevOrLocal
 });
 
 app.use(express.json({ limit: '1mb' }));
@@ -90,7 +96,7 @@ app.use('/api/news', publicReadLimiter, newsRoutes);
 app.use('/api/settings', publicReadLimiter, settingsRoutes);
 app.use('/api/menus', publicReadLimiter, menuRoutes);
 app.use('/api/upload', uploadLimiter, uploadRoutes);
-app.use('/api/pages', apiLimiter, pageRoutes);
+app.use('/api/pages', publicReadLimiter, pageRoutes);
 app.use('/api/media', apiLimiter, mediaRoutes);
 app.use('/api/documents', apiLimiter, documentRoutes);
 app.use('/api/audit-logs', apiLimiter, auditRoutes);
@@ -106,10 +112,23 @@ app.get('/api/health', (req, res) => {
 
 app.use((err, req, res, _next) => {
   console.error('Error:', err.stack);
+  if (res.headersSent) return;
   res.status(500).json({
     success: false,
     message: 'Terjadi kesalahan internal server.'
   });
+});
+
+// Tangani unhandled rejection agar server tidak crash
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('⚠️ Unhandled Rejection di:', promise, 'Alasan:', reason);
+  // Jangan exit process, hanya log agar server tetap jalan
+});
+
+// Tangani uncaught exception agar server tidak crash
+process.on('uncaughtException', (err) => {
+  console.error('⚠️ Uncaught Exception:', err.message);
+  // Jangan exit process, hanya log agar server tetap jalan
 });
 
 if (require.main === module) {

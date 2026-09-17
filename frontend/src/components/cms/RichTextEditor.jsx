@@ -8,49 +8,29 @@ import {
 import { SERVER_URL } from '../../config';
 import './RichTextEditor.css';
 
+// 9 warna teks sesuai permintaan
 const RTE_TEXT_COLORS = [
-  { label: 'Hitam',       color: '#000000' },
-  { label: 'Putih',       color: '#ffffff' },
-  { label: 'Abu',         color: '#6b7280' },
-  { label: 'Abu Gelap',   color: '#374151' },
-  { label: 'Coklat',      color: '#78350f' },
-  { label: 'Merah',       color: '#b91c1c' },
-  { label: 'Oranye',      color: '#c2410c' },
-  { label: 'Kuning',      color: '#a16207' },
-  { label: 'Hijau Tua',   color: '#15803d' },
-  { label: 'Hijau',       color: '#16a34a' },
-  { label: 'Teal',        color: '#0f766e' },
-  { label: 'Cyan',        color: '#0891b2' },
-  { label: 'Biru Tua',    color: '#1e40af' },
-  { label: 'Biru',        color: '#1d4ed8' },
-  { label: 'Biru Muda',   color: '#3b82f6' },
-  { label: 'Ungu',        color: '#6d28d9' },
-  { label: 'Merah Muda',  color: '#db2777' },
-  { label: 'Pink',        color: '#ec4899' },
-  { label: 'Abu Muda',    color: '#9ca3af' },
-  { label: 'Slate',       color: '#475569' },
+  { label: 'Hitam',   color: '#000000' },
+  { label: 'Putih',   color: '#ffffff' },
+  { label: 'Merah',   color: '#dc2626' },
+  { label: 'Kuning',  color: '#ca8a04' },
+  { label: 'Biru',    color: '#1d4ed8' },
+  { label: 'Hijau',   color: '#16a34a' },
+  { label: 'Abu',     color: '#6b7280' },
+  { label: 'Coklat',  color: '#92400e' },
+  { label: 'Oren',    color: '#ea580c' },
 ];
+// 9 warna latar sesuai permintaan
 const RTE_BG_COLORS = [
-  { label: 'Tanpa Latar',    color: 'transparent' },
-  { label: 'Putih',          color: '#ffffff' },
-  { label: 'Abu Sangat Muda',color: '#f9fafb' },
-  { label: 'Abu Muda',       color: '#f3f4f6' },
-  { label: 'Kuning Lembut',  color: '#fef9c3' },
-  { label: 'Oranye Muda',    color: '#ffedd5' },
-  { label: 'Merah Muda',     color: '#fee2e2' },
-  { label: 'Merah Muda 2',   color: '#fce7f3' },
-  { label: 'Ungu Muda',      color: '#f3e8ff' },
-  { label: 'Biru Muda',      color: '#dbeafe' },
-  { label: 'Cyan Muda',      color: '#cffafe' },
-  { label: 'Teal Muda',      color: '#ccfbf1' },
-  { label: 'Hijau Muda',     color: '#dcfce7' },
-  { label: 'Lime Muda',      color: '#ecfccb' },
-  { label: 'Kuning 2',       color: '#fef08a' },
-  { label: 'Abu Slate',      color: '#e2e8f0' },
-  { label: 'Biru Abu',       color: '#dde1e7' },
-  { label: 'Coklat Muda',    color: '#fef3c7' },
-  { label: 'Salmon',         color: '#fecaca' },
-  { label: 'Lavender',       color: '#e9d5ff' },
+  { label: 'Tanpa Latar', color: 'transparent' },
+  { label: 'Putih',       color: '#ffffff' },
+  { label: 'Merah Muda',  color: '#fee2e2' },
+  { label: 'Kuning',      color: '#fef9c3' },
+  { label: 'Biru Muda',   color: '#dbeafe' },
+  { label: 'Hijau Muda',  color: '#dcfce7' },
+  { label: 'Abu Muda',    color: '#f3f4f6' },
+  { label: 'Coklat Muda', color: '#fef3c7' },
+  { label: 'Oren Muda',   color: '#ffedd5' },
 ];
 
 function ColorPaletteInline({ colors, onSelect, title, children }) {
@@ -390,26 +370,6 @@ export default function RichTextEditor({ value = '', onChange, onOpenMediaLibrar
     { label: 'Reset Ukuran', value: 'default' },
   ];
 
-  const textColorSelect = [
-    { label: '⬛ Hitam', value: '#111827' },
-    { label: '🩶 Abu Gelap', value: '#374151' },
-    { label: '🔵 Biru', value: '#1d4ed8' },
-    { label: '🟢 Hijau', value: '#15803d' },
-    { label: '🔴 Merah', value: '#b91c1c' },
-    { label: '🟣 Ungu', value: '#6d28d9' },
-    { label: '🟡 Kuning Tua', value: '#d97706' },
-    { label: '🩵 Cyan', value: '#0891b2' },
-  ];
-
-  const bgColorSelect = [
-    { label: 'Tanpa Warna Latar', value: '' },
-    { label: '🟡 Kuning Lembut', value: '#fef9c3' },
-    { label: '⬜ Abu Muda', value: '#f3f4f6' },
-    { label: '🔵 Biru Muda', value: '#dbeafe' },
-    { label: '🟢 Hijau Muda', value: '#dcfce7' },
-    { label: '🔴 Merah Muda', value: '#fee2e2' },
-    { label: '🟣 Ungu Muda', value: '#f3e8ff' },
-  ];
 
   return (
     <div className="rich-text-editor">
@@ -487,7 +447,19 @@ export default function RichTextEditor({ value = '', onChange, onOpenMediaLibrar
             title="Warna Teks"
             onSelect={(color) => {
               ensureFocused();
-              executeCommand('foreColor', color);
+              const sel = window.getSelection();
+              if (!sel || sel.rangeCount === 0) return;
+              const range = sel.getRangeAt(0);
+              if (range.collapsed) return;
+              const span = document.createElement('span');
+              span.style.color = color;
+              try { range.surroundContents(span); } catch {
+                const frag = range.extractContents();
+                span.appendChild(frag);
+                range.insertNode(span);
+              }
+              sel.collapseToEnd();
+              handleInput();
             }}
           >
             <span style={{ display: 'flex', alignItems: 'center', gap: '3px', fontSize: '0.78rem', fontWeight: 600 }}>

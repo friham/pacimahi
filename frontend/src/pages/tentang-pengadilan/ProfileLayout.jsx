@@ -101,33 +101,63 @@ const defaultMenuLinks = [
   },
 ];
 
+let cachedProfilLinks = null;
+let fetchSidebarMenusPromise = null;
+
 function ProfileLayout({ title, subtitle, breadcrumb, children }) {
   const location = useLocation();
   const currentPath = location.pathname;
-  const [sidebarLinks, setSidebarLinks] = useState(defaultMenuLinks);
+  const [sidebarLinks, setSidebarLinks] = useState(() => cachedProfilLinks || defaultMenuLinks);
 
-  const fetchSidebarMenus = useCallback(async () => {
-    try {
-      const res = await axios.get(`${API_URL}/menus/tree?scope=public`);
-      if (res.data?.success && Array.isArray(res.data.data)) {
-        const profilNode = res.data.data.find(m => m.slug === 'profil-pengadilan' || m.title?.toLowerCase().includes('profil'));
-        if (profilNode && Array.isArray(profilNode.children) && profilNode.children.length > 0) {
-          const mapChild = (c) => ({
-            title: c.title,
-            path: c.url || `/tentang-pengadilan/${c.slug}`,
-            children: Array.isArray(c.children) && c.children.length > 0 ? c.children.map(mapChild) : undefined
-          });
-          setSidebarLinks(profilNode.children.map(mapChild));
+  const fetchSidebarMenus = useCallback(async (force = false) => {
+    if (cachedProfilLinks && !force) {
+      setSidebarLinks(cachedProfilLinks);
+      return;
+    }
+    if (fetchSidebarMenusPromise && !force) {
+      const data = await fetchSidebarMenusPromise;
+      if (data) setSidebarLinks(data);
+      return;
+    }
+
+    fetchSidebarMenusPromise = (async () => {
+      try {
+        const res = await axios.get(`${API_URL}/menus/tree?scope=public`);
+        if (res.data?.success && Array.isArray(res.data.data)) {
+          const profilNode = res.data.data.find(m => m.slug === 'profil-pengadilan' || m.title?.toLowerCase().includes('profil'));
+          if (profilNode && Array.isArray(profilNode.children) && profilNode.children.length > 0) {
+            const mapChild = (c) => ({
+              title: c.title,
+              path: c.url || `/tentang-pengadilan/${c.slug}`,
+              children: Array.isArray(c.children) && c.children.length > 0 ? c.children.map(mapChild) : undefined
+            });
+            const mapped = profilNode.children.map(mapChild);
+            cachedProfilLinks = mapped;
+            return mapped;
+          }
         }
+      } catch (e) {
+        // fallback to default
+      } finally {
+        fetchSidebarMenusPromise = null;
       }
-    } catch (e) {
-      
+      return null;
+    })();
+
+    const result = await fetchSidebarMenusPromise;
+    if (result) {
+      setSidebarLinks(result);
     }
   }, []);
 
   useEffect(() => {
-    fetchSidebarMenus();
-    const handleUpdate = () => fetchSidebarMenus();
+    if (!cachedProfilLinks) {
+      fetchSidebarMenus();
+    }
+    const handleUpdate = () => {
+      cachedProfilLinks = null;
+      fetchSidebarMenus(true);
+    };
     window.addEventListener('cms_menu_updated', handleUpdate);
     return () => window.removeEventListener('cms_menu_updated', handleUpdate);
   }, [fetchSidebarMenus]);

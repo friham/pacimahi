@@ -45,8 +45,11 @@ function HomePage() {
     setIsCaseModalOpen(true);
   };
 
-  const videoUrl = videoSettings.video_url || 'https://youtu.be/62bIsvRcPv0?si=Fow524ngSa3DIkBs';
-  const videoId = extractYouTubeId(videoUrl) || '62bIsvRcPv0';
+  const rawVideoUrl = videoSettings.video_url !== undefined && videoSettings.video_url !== null 
+    ? String(videoSettings.video_url).trim() 
+    : '';
+  const videoUrl = rawVideoUrl;
+  const videoId = videoUrl ? extractYouTubeId(videoUrl) : '';
 
   return (
     <div className="home-page">

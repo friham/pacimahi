@@ -191,11 +191,21 @@ export default function SettingsTab({
         </h3>
         <div className="crud-form__grid">
           <div className="crud-form__group col-span-2">
-            <label>URL Video YouTube (contoh: https://youtu.be/xxxxx)</label>
+            <label>URL Video YouTube (Kosongkan jika video tidak tersedia)</label>
             <input type="text"
+              placeholder="https://www.youtube.com/watch?v=... (kosongkan jika tidak ada video)"
               value={settings.video_url || ''}
               onChange={(e) => setSettings({ ...settings, video_url: e.target.value })}
             />
+            {settings.video_url && settings.video_url.trim() ? (
+              <div style={{ fontSize: '0.82rem', color: '#15803d', marginTop: '6px', fontWeight: 500 }}>
+                ✓ Video aktif terpasang dan akan diputar di homepage
+              </div>
+            ) : (
+              <div style={{ fontSize: '0.82rem', color: '#b45309', marginTop: '6px', fontWeight: 500 }}>
+                ℹ️ Link video kosong: Homepage otomatis menampilkan status <strong>"Video Tidak Tersedia"</strong>
+              </div>
+            )}
           </div>
           <div className="crud-form__group">
             <label>Judul Video</label>

@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { FaPlay, FaYoutube, FaExternalLinkAlt, FaTimes, FaShareAlt } from 'react-icons/fa';
+import { FaPlay, FaYoutube, FaExternalLinkAlt, FaTimes, FaShareAlt, FaVideoSlash, FaInfoCircle } from 'react-icons/fa';
 import useScrollReveal from '../hooks/useScrollReveal';
 import './VideoProfileSection.css';
 
 function VideoProfileSection({
-  videoUrl = 'https://youtu.be/62bIsvRcPv0?si=Fow524ngSa3DIkBs',
-  videoId = '62bIsvRcPv0',
+  videoUrl = '',
+  videoId = '',
   title = 'Video Profil Pengadilan Agama Kota Cimahi',
   subtitle = 'Mengenal lebih dekat komitmen integritas, tata kelola modern, dan inovasi pelayanan prima Pengadilan Agama Kota Cimahi bagi masyarakat.',
 }) {
@@ -14,9 +14,11 @@ function VideoProfileSection({
   const [isPlaying, setIsPlaying] = useState(false);
   const [copied, setCopied] = useState(false);
 
+  const hasVideo = Boolean(videoUrl && videoUrl.trim() && videoId);
+
   const handleShare = (e) => {
     e.stopPropagation();
-    if (navigator.clipboard) {
+    if (navigator.clipboard && videoUrl) {
       navigator.clipboard.writeText(videoUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
@@ -33,8 +35,26 @@ function VideoProfileSection({
         </div>
 
         <div ref={videoRef} className="video-card-wrapper scroll-reveal">
-          <div className="video-card">
-            {!isPlaying ? (
+          {!hasVideo ? (
+            <div className="video-card video-card--unavailable">
+              <div className="video-unavailable-content">
+                <div className="video-unavailable-icon-pulse">
+                  <div className="video-unavailable-icon">
+                    <FaVideoSlash />
+                  </div>
+                </div>
+                <div className="video-unavailable-badge">
+                  <FaInfoCircle /> Informasi Media
+                </div>
+                <h3 className="video-unavailable-title">Video Tidak Tersedia</h3>
+                <p className="video-unavailable-desc">
+                  Tautan video profil belum diatur pada Pengaturan Website atau saat ini sedang dinonaktifkan.
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div className="video-card">
+              {!isPlaying ? (
               /* Video Cover / Banner State */
               <div
                 className="video-cover"
@@ -170,6 +190,7 @@ function VideoProfileSection({
               </div>
             )}
           </div>
+          )}
         </div>
       </div>
     </section>

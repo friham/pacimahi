@@ -464,3 +464,93 @@
     display: none;
   }
 }
+
+/* ====================================================
+   VIDEO UNAVAILABLE (VIDEO TIDAK TERSEDIA)
+   ==================================================== */
+.video-card--unavailable {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+  min-height: 380px;
+}
+
+.video-unavailable-content {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.video-unavailable-icon-pulse {
+  position: relative;
+  margin-bottom: 1.25rem;
+}
+
+.video-unavailable-icon-pulse::before {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  background: rgba(239, 68, 68, 0.15);
+  animation: pulse-red 2.5s infinite;
+}
+
+@keyframes pulse-red {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 0.3; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.video-unavailable-icon {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 2rem;
+  box-shadow: 0 10px 25px rgba(239, 68, 68, 0.35);
+  position: relative;
+  z-index: 1;
+}
+
+.video-unavailable-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  color: #94a3b8;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.video-unavailable-title {
+  color: #ffffff;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.6rem 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.video-unavailable-desc {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+

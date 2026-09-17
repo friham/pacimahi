@@ -3,6 +3,7 @@ import { FaPlus, FaTrash, FaCopy, FaChevronUp, FaChevronDown, FaGripVertical, Fa
 import MediaLibraryModal from './MediaLibraryModal';
 import DocumentPickerModal from './DocumentPickerModal';
 import RichTextEditor from './RichTextEditor';
+import ImageUploader from '../ImageUploader';
 import { SERVER_URL } from '../../config';
 import './BlockEditor.css';
 
@@ -341,18 +342,17 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
 
                     {block.type === 'image' && (
                       <div className="cms-image-editor">
-                        <div className="cms-image-editor__preview">
-                          {block.content?.url ? (
-                            <img 
-                              src={block.content.url.startsWith('/') ? `${SERVER_URL}${block.content.url}` : block.content.url} 
-                              alt={block.content.alt || ''} 
-                            />
-                          ) : (
-                            <div className="cms-img-placeholder">Belum ada gambar dipilih</div>
-                          )}
+                        <div className="cms-image-editor__preview" style={{ width: '100%', maxWidth: '380px' }}>
+                          <ImageUploader
+                            value={block.content?.url}
+                            token={token}
+                            label="Wadah Foto (Upload & Crop)"
+                            onChange={(url) => updateBlock(index, 'content', { ...block.content, url })}
+                          />
                           <button 
                             type="button" 
-                            className="cms-btn cms-btn--primary"
+                            className="cms-btn cms-btn--secondary"
+                            style={{ marginTop: '8px', width: '100%' }}
                             onClick={() => openMediaPickerFor((url, alt) => {
                               updateBlock(index, 'content', { ...block.content, url, alt });
                             })}
