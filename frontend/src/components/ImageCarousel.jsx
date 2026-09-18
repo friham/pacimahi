@@ -1,6 +1,8 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import axios from 'axios';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import useScrollReveal from '../hooks/useScrollReveal';
+import { FaChevronLeft, FaChevronRight, FaTimes, FaExpand } from 'react-icons/fa';
 import banner1 from '../assets/banner-1.jpg';
 import banner2 from '../assets/banner-2.jpg';
 import banner3 from '../assets/banner-3.jpg';
@@ -54,20 +56,75 @@ const resolveImage = (slide, index) => {
   return defaults[index % defaults.length];
 };
 
+/* ── Lightbox Portal ─────────────────────────────── */
+function Lightbox({ slide, imgSrc, onClose, onPrev, onNext }) {
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowRight') onNext();
+      if (e.key === 'ArrowLeft') onPrev();
+    };
+    document.addEventListener('keydown', handler);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', handler);
+      document.body.style.overflow = '';
+    };
+  }, [onClose, onPrev, onNext]);
+
+  return createPortal(
+    <div className="carousel-lightbox" onClick={onClose} role="dialog" aria-modal="true">
+      <div className="carousel-lightbox__inner" onClick={e => e.stopPropagation()}>
+        {/* Blurred background */}
+        <img src={imgSrc} alt="" className="carousel-lightbox__bg" aria-hidden="true" />
+
+        {/* Main image */}
+        <img
+          src={imgSrc}
+          alt={slide?.title || 'Banner'}
+          className="carousel-lightbox__img"
+        />
+
+        {/* Caption */}
+        {(slide?.title || slide?.description) && (
+          <div className="carousel-lightbox__caption">
+            {slide.title && <h3 className="carousel-lightbox__title">{slide.title}</h3>}
+            {slide.description && <p className="carousel-lightbox__desc">{slide.description}</p>}
+          </div>
+        )}
+
+        {/* Controls */}
+        <button className="carousel-lightbox__close" onClick={onClose} aria-label="Tutup">
+          <FaTimes />
+        </button>
+        <button className="carousel-lightbox__prev" onClick={onPrev} aria-label="Sebelumnya">
+          <FaChevronLeft />
+        </button>
+        <button className="carousel-lightbox__next" onClick={onNext} aria-label="Berikutnya">
+          <FaChevronRight />
+        </button>
+      </div>
+    </div>,
+    document.body
+  );
+}
+
+/* ── Main Carousel ───────────────────────────────── */
 function ImageCarousel() {
-  const [slides, setSlides] = useState(defaultSlides);
-  const [current, setCurrent] = useState(0);
+  const [slides, setSlides]       = useState(defaultSlides);
+  const [current, setCurrent]     = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [dotKey, setDotKey]       = useState(0);
+  const [lightbox, setLightbox]   = useState(false);
+  const timerRef = useRef(null);
 
   useEffect(() => {
     const fetchSliders = async () => {
       try {
         const res = await axios.get(`${API_URL}/sliders`);
-        if (res.data.success && res.data.data.length > 0) {
-          setSlides(res.data.data);
-        }
-      } catch (err) {
-        console.warn('Using default banner slides due to API fallback:', err.message);
+        if (res.data.success && res.data.data.length > 0) setSlides(res.data.data);
+      } catch {
+        /* fallback to defaults */
       }
     };
     fetchSliders();
@@ -77,77 +134,147 @@ function ImageCarousel() {
     if (isAnimating) return;
     setIsAnimating(true);
     setCurrent(index);
-    setTimeout(() => setIsAnimating(false), 500);
+    setDotKey(k => k + 1);
+    setTimeout(() => setIsAnimating(false), 600);
   }, [isAnimating]);
 
-  const goNext = useCallback(() => {
-    goTo((current + 1) % slides.length);
-  }, [current, goTo, slides.length]);
+  const goNext = useCallback(() => goTo((current + 1) % slides.length), [current, goTo, slides.length]);
+  const goPrev = useCallback(() => goTo((current - 1 + slides.length) % slides.length), [current, goTo, slides.length]);
 
-  const goPrev = useCallback(() => {
-    goTo((current - 1 + slides.length) % slides.length);
-  }, [current, goTo, slides.length]);
-
-  useEffect(() => {
-    const timer = setInterval(goNext, 5000);
-    return () => clearInterval(timer);
+  /* Auto-play */
+  const startTimer = useCallback(() => {
+    clearInterval(timerRef.current);
+    timerRef.current = setInterval(goNext, 5000);
   }, [goNext]);
 
+  useEffect(() => { startTimer(); return () => clearInterval(timerRef.current); }, [startTimer]);
+
+  const pause = () => clearInterval(timerRef.current);
+  const resume = () => startTimer();
+
+  const openLightbox  = () => { setLightbox(true); pause(); };
+  const closeLightbox = () => { setLightbox(false); resume(); };
+
+  const lbNext = useCallback(() => setCurrent(c => (c + 1) % slides.length), [slides.length]);
+  const lbPrev = useCallback(() => setCurrent(c => (c - 1 + slides.length) % slides.length), [slides.length]);
+
+  const currentSlide = slides[current];
+  const currentImg   = resolveImage(currentSlide, current);
+
+  const carouselRef = useScrollReveal({ threshold: 0.08 });
+
   return (
-    <section className="carousel-section">
-      <div className="container">
-        <div className="carousel-header">
-          <div className="carousel-header__badge">INFORMASI PERADILAN</div>
-          <h2 className="carousel-header__title">Banner Informatif & Layanan Publik</h2>
-        </div>
-
-        <div className="carousel">
-          <div className="carousel__track">
-            {slides.map((slide, index) => {
-              const imgSrc = resolveImage(slide, index);
-              return (
-                <div
-                  key={slide.id || index}
-                  className={`carousel__slide ${index === current ? 'carousel__slide--active' : ''}`}
-                >
-                  <img
-                    src={imgSrc}
-                    alt={slide.title || `Banner Slide ${index + 1}`}
-                    className="carousel__slide-img"
-                  />
-                </div>
-              );
-            })}
+    <>
+      <section ref={carouselRef} className="carousel-section scroll-reveal">
+        <div className="container">
+          <div className="carousel-header">
+            <div className="carousel-header__badge">INFORMASI PERADILAN</div>
+            <h2 className="carousel-header__title">Banner Informatif &amp; Layanan Publik</h2>
           </div>
 
-          <button
-            className="carousel__arrow carousel__arrow--prev"
-            onClick={goPrev}
-            aria-label="Previous slide"
+          <div
+            className="carousel"
+            onMouseEnter={pause}
+            onMouseLeave={resume}
           >
-            <FaChevronLeft />
-          </button>
-          <button
-            className="carousel__arrow carousel__arrow--next"
-            onClick={goNext}
-            aria-label="Next slide"
-          >
-            <FaChevronRight />
-          </button>
+            <div className="carousel__track">
+              {slides.map((slide, index) => {
+                const imgSrc  = resolveImage(slide, index);
+                const isActive = index === current;
+                return (
+                  <div
+                    key={slide.id || index}
+                    className={`carousel__slide ${isActive ? 'carousel__slide--active' : ''}`}
+                  >
+                    {/* Blurred backdrop (same image, scaled up) */}
+                    <img
+                      src={imgSrc}
+                      alt=""
+                      className="carousel__slide-backdrop"
+                      aria-hidden="true"
+                    />
 
-          <div className="carousel__dots">
-            {slides.map((_, index) => (
-              <button
-                key={index}
-                className={`carousel__dot ${index === current ? 'carousel__dot--active' : ''}`}
-                onClick={() => goTo(index)}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
+                    {/* Main image — contain so nothing is cropped */}
+                    <img
+                      src={imgSrc}
+                      alt={slide.title || `Banner Slide ${index + 1}`}
+                      className="carousel__slide-img"
+                      onClick={isActive ? openLightbox : undefined}
+                      style={{ cursor: isActive ? 'zoom-in' : 'default' }}
+                    />
+
+                    {/* Expand hint */}
+                    {isActive && (
+                      <button
+                        className="carousel__expand-btn"
+                        onClick={openLightbox}
+                        aria-label="Lihat gambar penuh"
+                        title="Lihat gambar penuh"
+                      >
+                        <FaExpand size={13} />
+                        <span>Lihat Penuh</span>
+                      </button>
+                    )}
+
+                    {/* Gradient + text overlay */}
+                    {(slide.title || slide.description) && (
+                      <div className="carousel__slide-content">
+                        {slide.title && (
+                          <h3 className="carousel__slide-title" key={`t-${index}-${dotKey}`}>
+                            {slide.title}
+                          </h3>
+                        )}
+                        {slide.description && (
+                          <p className="carousel__slide-desc" key={`d-${index}-${dotKey}`}>
+                            {slide.description}
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Arrows */}
+            <button className="carousel__arrow carousel__arrow--prev" onClick={goPrev} aria-label="Slide sebelumnya">
+              <FaChevronLeft />
+            </button>
+            <button className="carousel__arrow carousel__arrow--next" onClick={goNext} aria-label="Slide berikutnya">
+              <FaChevronRight />
+            </button>
+
+            {/* Progress Dots */}
+            <div className="carousel__dots">
+              {slides.map((_, index) => (
+                <button
+                  key={index === current ? `dot-${index}-${dotKey}` : index}
+                  className={`carousel__dot ${index === current ? 'carousel__dot--active' : ''}`}
+                  onClick={() => goTo(index)}
+                  aria-label={`Ke slide ${index + 1}`}
+                />
+              ))}
+            </div>
+
+            {/* Counter */}
+            <div className="carousel__counter">
+              {String(current + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Lightbox */}
+      {lightbox && (
+        <Lightbox
+          slide={currentSlide}
+          imgSrc={currentImg}
+          onClose={closeLightbox}
+          onNext={lbNext}
+          onPrev={lbPrev}
+        />
+      )}
+    </>
   );
 }
 

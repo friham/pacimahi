@@ -21,9 +21,24 @@ const slugify = (text) => {
 
 const getNews = async (req, res) => {
   try {
-    const [rows] = await pool.execute(
-      'SELECT news.*, admins.name as author_name FROM news LEFT JOIN admins ON news.author_id = admins.id WHERE is_published = TRUE ORDER BY published_at DESC'
-    );
+    const { search, category } = req.query;
+    let query = 'SELECT news.*, admins.name as author_name FROM news LEFT JOIN admins ON news.author_id = admins.id WHERE is_published = TRUE';
+    const params = [];
+
+    if (category && category !== 'semua' && category !== 'Semua') {
+      query += ' AND news.category = ?';
+      params.push(category.toLowerCase());
+    }
+
+    if (search && search.trim()) {
+      query += ' AND (news.title LIKE ? OR news.content LIKE ?)';
+      const term = `%${search.trim()}%`;
+      params.push(term, term);
+    }
+
+    query += ' ORDER BY published_at DESC';
+
+    const [rows] = await pool.execute(query, params);
     res.json({ success: true, data: rows });
   } catch (error) {
     console.error('GetNews error:', error);

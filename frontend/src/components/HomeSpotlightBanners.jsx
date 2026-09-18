@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import useScrollReveal from '../hooks/useScrollReveal';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../config';
@@ -94,6 +95,13 @@ function HomeSpotlightBanners() {
   const [zoomImage, setZoomImage] = useState(null);
   const [sections, setSections] = useState(FALLBACK_SECTIONS);
 
+  // Scroll-reveal refs — satu per block, threshold rendah (0.08) agar elemen besar tidak nyangkut
+  const ziRef        = useScrollReveal({ threshold: 0.08 });
+  const priRef       = useScrollReveal({ threshold: 0.08 });
+  const dualRef      = useScrollReveal({ threshold: 0.08 });
+  const brosurRef    = useScrollReveal({ threshold: 0.08 });
+  const aktaRef      = useScrollReveal({ threshold: 0.08 });
+
   useEffect(() => {
     let cancelled = false;
     axios.get(`${API_URL}/homepage-sections`)
@@ -148,7 +156,7 @@ function HomeSpotlightBanners() {
         {/* ========================================================
             1. ZONA INTEGRITAS (WBK & WBBM) 7 CARDS
         ======================================================== */}
-        <div className="spotlight-block zi-block">
+        <div ref={ziRef} className="spotlight-block zi-block scroll-reveal">
           <div className="spotlight-block__header">
             <div className="spotlight-badge">
               <span>{zi.badge_text || FALLBACK_SECTIONS.zi_gallery.badge_text}</span>
@@ -159,12 +167,13 @@ function HomeSpotlightBanners() {
             </p>
           </div>
 
-          <div className="zi-cards-grid">
+          <div className="zi-cards-grid scroll-reveal-stagger">
             {ziCards.map((card, idx) => (
               <Link
                 key={card.id}
                 to="/layanan-publik/zona-integritas"
                 className="zi-card"
+                style={{ transitionDelay: `${idx * 0.08}s` }}
                 title={`${card.title} - Klik untuk selengkapnya`}
               >
                 <div className="zi-card__img-container">
@@ -190,7 +199,7 @@ function HomeSpotlightBanners() {
         {/* ========================================================
             2. ALUR PELAYANAN PRIORITAS PTSP (INFOGRAFIS LENGKAP)
         ======================================================== */}
-        <div className="spotlight-block prioritas-block">
+        <div ref={priRef} className="spotlight-block prioritas-block scroll-reveal">
           <div className="spotlight-block__header">
             <div className="spotlight-badge spotlight-badge--accent">
               <span>{pri.badge_text || FALLBACK_SECTIONS.prioritas_ptsp.badge_text}</span>
@@ -250,13 +259,14 @@ function HomeSpotlightBanners() {
         {/* ========================================================
             3. DUA BANNER LAYANAN: PROSEDUR BERPERKARA & LAYANAN INFORMASI
         ======================================================== */}
-        <div className="spotlight-block service-dual-block">
-          <div className="service-dual-grid">
+        <div ref={dualRef} className="spotlight-block service-dual-block scroll-reveal">
+          <div className="service-dual-grid scroll-reveal-stagger">
             {dualCards.map((card, idx) => (
               <Link
                 key={idx}
                 to={card.link_url}
                 className="service-dual-card"
+                style={{ transitionDelay: `${idx * 0.08}s` }}
                 title={card.hover_title || `Klik untuk melihat ${card.title} di PA Kota Cimahi`}
               >
                 <div className="service-dual-card__img-box">
@@ -286,7 +296,7 @@ function HomeSpotlightBanners() {
         {/* ========================================================
             4. BROSUR DIGITAL & QUICK SCAN BARCODE
         ======================================================== */}
-        <div className="spotlight-block brosur-block">
+        <div ref={brosurRef} className="spotlight-block brosur-block scroll-reveal">
           <div className="brosur-card">
             <div
               className="brosur-card__img-wrapper"
@@ -340,7 +350,7 @@ function HomeSpotlightBanners() {
         {/* ========================================================
             5. SOLUSI AKTA CERAI HILANG & LEGALISASI SECARA ONLINE
         ======================================================== */}
-        <div className="spotlight-block akta-cerai-block">
+        <div ref={aktaRef} className="spotlight-block akta-cerai-block scroll-reveal">
           <div className="akta-card">
             <div
               className="akta-card__img-wrapper"

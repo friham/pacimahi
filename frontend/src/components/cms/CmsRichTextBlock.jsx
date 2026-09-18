@@ -93,14 +93,17 @@ export default function CmsRichTextBlock({ value = '', onChange }) {
 
   const handleClearContent = (e) => {
     e.preventDefault();
+    if (!editorRef.current || !editorRef.current.innerHTML.trim()) return;
+    setShowClearConfirm(true);
+  };
+
+  const executeClearContent = () => {
+    setShowClearConfirm(false);
     if (!editorRef.current) return;
-    if (!editorRef.current.innerHTML.trim()) return;
-    if (window.confirm('Kosongkan semua isi teks pada wadah ini?')) {
-      editorRef.current.innerHTML = '';
-      savedRangeRef.current = null;
-      handleInput();
-      editorRef.current.focus();
-    }
+    editorRef.current.innerHTML = '';
+    savedRangeRef.current = null;
+    handleInput();
+    editorRef.current.focus();
   };
 
   const handleInsertLink = (e) => {
@@ -280,6 +283,15 @@ export default function CmsRichTextBlock({ value = '', onChange }) {
       <p className="cms-rte-hint">
         Pilih teks lalu pilih format di toolbar. Daftar bullet/nomor, ukuran, jenis, dan warna teks tersedia.
       </p>
+      <ConfirmModal
+        show={showClearConfirm}
+        title="Kosongkan Isi Teks"
+        message="Apakah Anda yakin ingin mengosongkan seluruh isi teks pada wadah ini?"
+        confirmText="Ya, Kosongkan"
+        type="warning"
+        onConfirm={executeClearContent}
+        onCancel={() => setShowClearConfirm(false)}
+      />
     </div>
   );
 }

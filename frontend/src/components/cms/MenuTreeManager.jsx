@@ -3,6 +3,7 @@ import axios from 'axios';
 import { FaPlus, FaEdit, FaTrash, FaCopy, FaChevronRight, FaChevronDown, FaGripVertical, FaFolder, FaFolderOpen, FaFileAlt, FaSearch, FaCheckCircle, FaEyeSlash } from 'react-icons/fa';
 import MenuFormModal from './MenuFormModal';
 import './MenuTreeManager.css';
+import ConfirmModal from '../admin/ConfirmModal';
 
 import { API_URL } from '../../config';
 
@@ -109,13 +110,13 @@ export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, t
       alert('Role Editor tidak diizinkan menghapus menu.');
       return;
     }
-    const hasChildren = menu.children && menu.children.length > 0;
-    const confirmMsg = hasChildren
-      ? `Menu "${menu.title}" memiliki ${menu.children.length} sub-menu. Hapus menu ini? Sub-menu akan dipindahkan ke tingkat atas.`
-      : `Yakin ingin menghapus menu "${menu.title}"?`;
+    setDeleteTargetMenu(menu);
+  };
 
-    if (!window.confirm(confirmMsg)) return;
-
+  const confirmDeleteMenuAction = async () => {
+    if (!deleteTargetMenu) return;
+    const menu = deleteTargetMenu;
+    setDeleteTargetMenu(null);
     try {
       await axios.delete(`${API_URL}/menus/${menu.id}`, {
         headers: { Authorization: `Bearer ${token}` }
@@ -359,6 +360,19 @@ export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, t
         menuData={editingMenu}
         allMenus={allMenus}
         parentDefaultId={parentDefaultId}
+      />
+      <ConfirmModal
+        show={Boolean(deleteTargetMenu)}
+        title="Hapus Menu Navigasi"
+        message={
+          deleteTargetMenu?.children && deleteTargetMenu.children.length > 0
+            ? `Menu "${deleteTargetMenu.title}" memiliki ${deleteTargetMenu.children.length} sub-menu. Hapus menu ini? Sub-menu akan dipindahkan ke tingkat atas.`
+            : `Apakah Anda yakin ingin menghapus menu "${deleteTargetMenu?.title}"?`
+        }
+        confirmText="Ya, Hapus Menu"
+        type="warning"
+        onConfirm={confirmDeleteMenuAction}
+        onCancel={() => setDeleteTargetMenu(null)}
       />
     </div>
   );

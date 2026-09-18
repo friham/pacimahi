@@ -18,6 +18,8 @@ const mediaRoutes = require('./routes/mediaRoutes');
 const documentRoutes = require('./routes/documentRoutes');
 const auditRoutes = require('./routes/auditRoutes');
 const homepageRoutes = require('./routes/homepageRoutes');
+const searchRoutes = require('./routes/searchRoutes');
+const analyticsRoutes = require('./routes/analyticsRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -101,6 +103,8 @@ app.use('/api/media', apiLimiter, mediaRoutes);
 app.use('/api/documents', apiLimiter, documentRoutes);
 app.use('/api/audit-logs', apiLimiter, auditRoutes);
 app.use('/api/homepage-sections', publicReadLimiter, homepageRoutes);
+app.use('/api/search', publicReadLimiter, searchRoutes);
+app.use('/api/analytics', publicReadLimiter, analyticsRoutes);
 
 app.get('/api/health', (req, res) => {
   res.json({

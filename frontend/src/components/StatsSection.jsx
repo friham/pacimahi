@@ -1,62 +1,78 @@
 import { useMemo } from 'react';
-import { FaGavel, FaCheckCircle, FaPercent, FaSmile, FaClock, FaHandshake } from 'react-icons/fa';
 import useScrollReveal from '../hooks/useScrollReveal';
 import { useSettings } from '../context/SettingsContext';
 import './StatsSection.css';
 
-const defaultStats = [
-  { icon: FaGavel, key: 'stat_diterima', number: '3.420', fallback: '3.420', label: 'Perkara Diterima', detail: 'Tahun Berjalan 2026', color: '#2e7d32' },
-  { icon: FaCheckCircle, key: 'stat_diputus', number: '3.365', fallback: '3.365', label: 'Perkara Diputus', detail: 'Berkekuatan Hukum Tetap', color: '#1565c0' },
-  { icon: FaPercent, key: 'stat_persentase', number: '98,4%', fallback: '98,4%', label: 'Tingkat Penyelesaian', detail: 'Standar Kinerja Mahkamah Agung', color: '#c69c3f' },
-  { icon: FaSmile, key: 'stat_ikm', number: '97,8%', fallback: '97,8%', label: 'Indeks Kepuasan (IKM)', detail: 'Predikat Sangat Baik', color: '#7b1fa2' },
-  { icon: FaClock, key: null, number: '< 30 Hari', fallback: '< 30 Hari', label: 'Rata-rata Waktu Putus', detail: 'Asas Cepat & Biaya Ringan', color: '#00838f' },
-  { icon: FaHandshake, key: null, number: '74,2%', fallback: '74,2%', label: 'Mediasi Berhasil / Damai', detail: 'Kamar Mediasi Terpadu', color: '#d84315' },
-];
-
-function StatsSection() {
+export default function StatsSection() {
   const headerRef = useScrollReveal();
   const gridRef = useScrollReveal({ threshold: 0.1 });
   const { settings } = useSettings();
 
-  const stats = useMemo(() => defaultStats.map(item => ({
-    ...item,
-    number: item.key && settings[item.key] ? settings[item.key] : item.number || item.fallback
-  })), [settings]);
+  const periodLabel = settings.survey_period || 'Triwulan II Tahun 2026';
+
+  const surveyCards = useMemo(() => [
+    {
+      abbr: 'IKM',
+      title: 'INDEKS KEPUASAN MASYARAKAT',
+      score: settings.survey_ikm_score || '3.97',
+      grade: settings.survey_ikm_grade || 'A (SANGAT BAIK)'
+    },
+    {
+      abbr: 'IPKP',
+      title: 'INDEKS PERSEPSI KUALITAS PELAYANAN',
+      score: settings.survey_ipkp_score || '3.97',
+      grade: settings.survey_ipkp_grade || 'A (SANGAT BAIK)'
+    },
+    {
+      abbr: 'IPAK',
+      title: 'INDEKS PERSEPSI ANTI KORUPSI',
+      score: settings.survey_ipak_score || '3.98',
+      grade: settings.survey_ipak_grade || 'A (SANGAT BAIK)'
+    }
+  ], [settings]);
 
   return (
-    <section className="stats-section">
+    <section className="stats-section" id="statistik">
       <div className="container">
+        {/* Header Bersih Tanpa Box Bingkai Bubble */}
         <div ref={headerRef} className="stats-section__header scroll-reveal">
-          <span className="stats-section__tag">Transparansi & Kinerja</span>
-          <h2 className="section-title">Statistik Penanganan Perkara</h2>
-          <p className="section-subtitle">
-            Komitmen Pengadilan Agama Kota Cimahi dalam mewujudkan peradilan yang cepat, sederhana, dan berbiaya ringan
-          </p>
+          <h2 className="stats-section__main-title">LAPORAN SURVEI PA KOTA CIMAHI</h2>
+          <div className="stats-section__sub-period">PERIODE {periodLabel.toUpperCase()}</div>
         </div>
 
+        {/* 3 Kartu Fokus Inti */}
         <div ref={gridRef} className="stats-section__grid scroll-reveal">
-          {stats.map((s, idx) => {
-            const Icon = s.icon;
-            return (
-              <div
-                key={idx}
-                className="stat-box"
-                style={{ '--stat-accent': s.color, transitionDelay: `${idx * 0.08}s` }}
-              >
-                <div className="stat-box__icon-wrapper">
-                  <Icon className="stat-box__icon" />
+          {surveyCards.map((item, idx) => (
+            <div
+              key={item.abbr}
+              className="survey-report-card"
+              style={{ transitionDelay: `${idx * 0.08}s` }}
+            >
+              {/* Header Kartu: Tab Label Kotak Sesuai Banner */}
+              <div className="survey-report-card__top">
+                <div className="survey-report-card__tab">
+                  {item.abbr}
                 </div>
-                <div className="stat-box__number">{s.number}</div>
-                <div className="stat-box__label">{s.label}</div>
-                <div className="stat-box__detail">{s.detail}</div>
-                <div className="stat-box__glow"></div>
               </div>
-            );
-          })}
+
+              {/* Judul Indeks */}
+              <div className="survey-report-card__title">
+                {item.title}
+              </div>
+
+              {/* Angka Skor Utama */}
+              <div className="survey-report-card__score">
+                {item.score}
+              </div>
+
+              {/* Grade / Predikat */}
+              <div className="survey-report-card__grade">
+                {item.grade.toUpperCase()}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
 }
-
-export default StatsSection;

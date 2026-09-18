@@ -328,7 +328,8 @@ input, select, textarea {
 .scroll-reveal-stagger.revealed > *:nth-child(7) { transition-delay: 0.35s; }
 .scroll-reveal-stagger.revealed > *:nth-child(8) { transition-delay: 0.4s; }
 
-.scroll-reveal-stagger.revealed > * {
+.scroll-reveal-stagger.revealed > *,
+.scroll-reveal.revealed .scroll-reveal-stagger > * {
   opacity: 1;
   transform: translateY(0);
 }
@@ -718,6 +719,15 @@ html[data-a11y-tooltip="true"] [aria-label]:not(.a11y-widget-root *):hover {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+  .scroll-reveal,
+  .scroll-reveal-left,
+  .scroll-reveal-right,
+  .scroll-reveal-scale,
+  .scroll-reveal-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
 

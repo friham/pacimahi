@@ -87,8 +87,81 @@ export default function SettingsTab({
           </div>
         </div>
 
+
         <h3 style={{ fontSize: '1rem', color: 'var(--primary-800)', marginTop: '1.5rem', marginBottom: '1rem', borderBottom: '2px solid var(--primary-100)', paddingBottom: '6px' }}>
-          3. Informasi Kontak Kantor & Layanan WhatsApp PTSP
+          3. Survei Kepuasan & Kinerja (IKM, IPKP, IPAK)
+        </h3>
+        <div className="crud-form__grid">
+          <div className="crud-form__group col-span-2">
+            <label>Periode Laporan Survei (contoh: Triwulan II Tahun 2026)</label>
+            <input
+              type="text"
+              value={settings.survey_period || ''}
+              onChange={(e) => setSettings({ ...settings, survey_period: e.target.value })}
+              placeholder="Triwulan II Tahun 2026"
+            />
+          </div>
+
+          <div className="crud-form__group">
+            <label>Skor IKM (Indeks Kepuasan Masyarakat, skala 1-4)</label>
+            <input
+              type="text"
+              value={settings.survey_ikm_score || ''}
+              onChange={(e) => setSettings({ ...settings, survey_ikm_score: e.target.value })}
+              placeholder="3.97"
+            />
+          </div>
+          <div className="crud-form__group">
+            <label>Grade & Predikat IKM</label>
+            <input
+              type="text"
+              value={settings.survey_ikm_grade || ''}
+              onChange={(e) => setSettings({ ...settings, survey_ikm_grade: e.target.value })}
+              placeholder="A (Sangat Baik)"
+            />
+          </div>
+
+          <div className="crud-form__group">
+            <label>Skor IPKP (Indeks Persepsi Kualitas Pelayanan, skala 1-4)</label>
+            <input
+              type="text"
+              value={settings.survey_ipkp_score || ''}
+              onChange={(e) => setSettings({ ...settings, survey_ipkp_score: e.target.value })}
+              placeholder="3.97"
+            />
+          </div>
+          <div className="crud-form__group">
+            <label>Grade & Predikat IPKP</label>
+            <input
+              type="text"
+              value={settings.survey_ipkp_grade || ''}
+              onChange={(e) => setSettings({ ...settings, survey_ipkp_grade: e.target.value })}
+              placeholder="A (Sangat Baik)"
+            />
+          </div>
+
+          <div className="crud-form__group">
+            <label>Skor IPAK (Indeks Persepsi Anti Korupsi, skala 1-4)</label>
+            <input
+              type="text"
+              value={settings.survey_ipak_score || ''}
+              onChange={(e) => setSettings({ ...settings, survey_ipak_score: e.target.value })}
+              placeholder="3.98"
+            />
+          </div>
+          <div className="crud-form__group">
+            <label>Grade & Predikat IPAK</label>
+            <input
+              type="text"
+              value={settings.survey_ipak_grade || ''}
+              onChange={(e) => setSettings({ ...settings, survey_ipak_grade: e.target.value })}
+              placeholder="A (Sangat Baik)"
+            />
+          </div>
+        </div>
+
+        <h3 style={{ fontSize: '1rem', color: 'var(--primary-800)', marginTop: '1.5rem', marginBottom: '1rem', borderBottom: '2px solid var(--primary-100)', paddingBottom: '6px' }}>
+          4. Informasi Kontak Kantor & Layanan WhatsApp PTSP
         </h3>
         <div className="crud-form__grid">
           <div className="crud-form__group col-span-2">
@@ -126,7 +199,7 @@ export default function SettingsTab({
         </div>
 
         <h3 style={{ fontSize: '1rem', color: 'var(--primary-800)', marginTop: '1.5rem', marginBottom: '1rem', borderBottom: '2px solid var(--primary-100)', paddingBottom: '6px' }}>
-          4. Media Sosial & Tautan Eksternal
+          5. Media Sosial & Tautan Eksternal
         </h3>
         <div className="crud-form__grid">
           <div className="crud-form__group">
@@ -160,7 +233,7 @@ export default function SettingsTab({
         </div>
 
         <h3 style={{ fontSize: '1rem', color: 'var(--primary-800)', marginTop: '1.5rem', marginBottom: '1rem', borderBottom: '2px solid var(--primary-100)', paddingBottom: '6px' }}>
-          5. Footer & Deskripsi Website
+          6. Footer & Deskripsi Website
         </h3>
         <div className="crud-form__grid">
           <div className="crud-form__group col-span-2">
@@ -187,7 +260,7 @@ export default function SettingsTab({
         </div>
 
         <h3 style={{ fontSize: '1rem', color: 'var(--primary-800)', marginTop: '1.5rem', marginBottom: '1rem', borderBottom: '2px solid var(--primary-100)', paddingBottom: '6px' }}>
-          6. Video Profil
+          7. Video Profil
         </h3>
         <div className="crud-form__grid">
           <div className="crud-form__group col-span-2">

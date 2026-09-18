@@ -5,17 +5,20 @@ import {
   FaFacebookF, FaInstagram, FaYoutube, FaWhatsapp,
   FaChevronRight, FaClock, FaExternalLinkAlt
 } from 'react-icons/fa';
+import useScrollReveal from '../hooks/useScrollReveal';
 import { useSettings } from '../context/SettingsContext';
+import VisitorStatsWidget from './VisitorStatsWidget';
 import './Footer.css';
 
 function Footer() {
+  const footerRef = useScrollReveal({ threshold: 0.05 });
   const { settings } = useSettings();
 
   const s = settings;
   const whatsappNum = s.social_whatsapp || '6281121111522';
 
   return (
-    <footer className="footer">
+    <footer ref={footerRef} className="footer scroll-reveal">
       <div className="footer__top-line"></div>
 
       <div className="container">
@@ -144,6 +147,10 @@ function Footer() {
                 </a>
               )}
             </div>
+          </div>
+
+          <div className="footer__col">
+            <VisitorStatsWidget />
           </div>
 
         </div>

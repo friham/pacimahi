@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from './context/AuthContext';
 import { AccessibilityProvider } from './context/AccessibilityContext';
 import { SettingsProvider } from './context/SettingsContext';
+import { SearchModalProvider } from './context/SearchModalContext';
 import ScrollToTop from './components/ScrollToTop';
 import './App.css';
 
@@ -103,6 +104,7 @@ function App() {
     <AuthProvider>
       <AccessibilityProvider>
         <SettingsProvider>
+          <SearchModalProvider>
           <Router>
           <ScrollToTop />
           <Suspense fallback={<PageLoader />}>
@@ -332,6 +334,7 @@ function App() {
             </Routes>
           </Suspense>
         </Router>
+          </SearchModalProvider>
         </SettingsProvider>
       </AccessibilityProvider>
     </AuthProvider>

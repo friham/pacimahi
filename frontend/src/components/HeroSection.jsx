@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { FaSearch, FaBullhorn, FaTimes, FaExpandAlt, FaCopy, FaCheck } from 'react-icons/fa';
+import GlobalSearchBox from './GlobalSearchBox';
 import { useSettings } from '../context/SettingsContext';
 import './HeroSection.css';
 
 function HeroSection({ onOpenCaseModal }) {
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeSearchTab, setActiveSearchTab] = useState('perkara');
   const [isTickerVisible, setIsTickerVisible] = useState(true);
   const [isAnnouncementModalOpen, setIsAnnouncementModalOpen] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
@@ -84,21 +86,71 @@ function HeroSection({ onOpenCaseModal }) {
           {heroSettings.hero_subtitle}
         </p>
 
-        <form className="hero__search animate-fade-in-up animate-delay-4" onSubmit={handleSearch}>
-          <div className="hero__search-wrapper">
-            <FaSearch className="hero__search-icon" />
-            <input
-              type="text"
-              className="hero__search-input"
-              placeholder="Cari informasi perkara (cth: 124/Pdt.G/2026/PA.Cmi) atau nama pihak..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <button type="submit" className="hero__search-btn">
-              Cari
+        <div className="hero__search-container animate-fade-in-up animate-delay-4">
+          <div className="hero__search-tabs" role="tablist" aria-label="Pilihan Pencarian">
+            <button
+              type="button"
+              role="tab"
+              aria-selected={activeSearchTab === 'perkara'}
+              className={`hero__search-tab ${activeSearchTab === 'perkara' ? 'hero__search-tab--active' : ''}`}
+              onClick={() => setActiveSearchTab('perkara')}
+            >
+              Lacak Perkara
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={activeSearchTab === 'global'}
+              className={`hero__search-tab ${activeSearchTab === 'global' ? 'hero__search-tab--active' : ''}`}
+              onClick={() => setActiveSearchTab('global')}
+            >
+              Cari Berita &amp; Layanan
             </button>
           </div>
-        </form>
+
+          {activeSearchTab === 'perkara' ? (
+            <div className="hero__global-search-wrap">
+              <div 
+                className="global-search-trigger"
+                onClick={() => {
+                  if (onOpenCaseModal) onOpenCaseModal('');
+                }}
+                role="button"
+                tabIndex={0}
+                aria-haspopup="dialog"
+                aria-label="Buka pelacakan perkara SIPP"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    if (onOpenCaseModal) onOpenCaseModal('');
+                  }
+                }}
+              >
+                <FaSearch className="global-search-trigger__icon" />
+                <input
+                  type="text"
+                  className="global-search-trigger__input"
+                  placeholder="Cari nomor perkara (cth: 124/Pdt.G/2026/PA.Cmi) atau nama pihak..."
+                  readOnly
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (onOpenCaseModal) onOpenCaseModal('');
+                  }}
+                  onFocus={() => {
+                    if (onOpenCaseModal) onOpenCaseModal('');
+                  }}
+                  value=""
+                  tabIndex={-1}
+                  aria-hidden="true"
+                />
+              </div>
+            </div>
+          ) : (
+            <div className="hero__global-search-wrap">
+              <GlobalSearchBox />
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="hero__wave">

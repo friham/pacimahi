@@ -82,7 +82,14 @@ INSERT INTO site_settings (setting_key, setting_value, setting_group) VALUES
 ('court_address', 'Jl. Encep Kartawiria No. 28, Cimahi Tengah, Kota Cimahi 40526', 'contact'),
 ('court_phone', '(022) 6631 334', 'contact'),
 ('court_email', 'info@pa-cimahi.go.id', 'contact'),
-('court_whatsapp', '6281121111522', 'contact')
+('court_whatsapp', '6281121111522', 'contact'),
+('survey_period', 'Triwulan II Tahun 2026', 'survey'),
+('survey_ikm_score', '3.97', 'survey'),
+('survey_ikm_grade', 'A (Sangat Baik)', 'survey'),
+('survey_ipkp_score', '3.97', 'survey'),
+('survey_ipkp_grade', 'A (Sangat Baik)', 'survey'),
+('survey_ipak_score', '3.98', 'survey'),
+('survey_ipak_grade', 'A (Sangat Baik)', 'survey')
 ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value);
 
 

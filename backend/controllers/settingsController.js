@@ -13,6 +13,11 @@ const ALLOWED_SETTINGS_KEYS = [
   'footer_description', 'footer_hours_weekday', 'footer_hours_friday',
   // Media
   'video_url', 'video_title', 'video_subtitle',
+  // Survey & Performance
+  'survey_period',
+  'survey_ikm_score', 'survey_ikm_grade',
+  'survey_ipkp_score', 'survey_ipkp_grade',
+  'survey_ipak_score', 'survey_ipak_grade',
 ];
 
 const getSettings = async (req, res) => {

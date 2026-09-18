@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 import { FaTimes, FaSearch, FaUpload, FaTrash, FaCheck, FaCopy, FaImage, FaFilm, FaSpinner } from 'react-icons/fa';
 import './MediaLibraryModal.css';
+import ConfirmModal from '../admin/ConfirmModal';
 
 import { API_URL, SERVER_URL } from '../../config';
 
@@ -14,6 +15,7 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelect, token }) 
   const [activeTab, setActiveTab] = useState('all'); // all, image, video
   const [copiedId, setCopiedId] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
+  const [deleteTargetId, setDeleteTargetId] = useState(null);
   const fileInputRef = useRef(null);
 
   const fetchMedia = useCallback(async () => {
@@ -114,9 +116,15 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelect, token }) 
     }
   };
 
-  const handleDelete = async (id, e) => {
+  const handleDelete = (id, e) => {
     e.stopPropagation();
-    if (!window.confirm('Yakin ingin menghapus file ini dari Media Library?')) return;
+    setDeleteTargetId(id);
+  };
+
+  const confirmDeleteMedia = async () => {
+    if (!deleteTargetId) return;
+    const id = deleteTargetId;
+    setDeleteTargetId(null);
     try {
       await axios.delete(`${API_URL}/media/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
@@ -124,7 +132,7 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelect, token }) 
       if (selectedItem?.id === id) setSelectedItem(null);
       fetchMedia();
     } catch (err) {
-      alert(err.response?.data?.message || 'Gagal menghapus file.');
+      setErrorMsg(err.response?.data?.message || 'Gagal menghapus file.');
     }
   };
 
@@ -346,6 +354,15 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelect, token }) 
           )}
         </div>
       </div>
+
+      <ConfirmModal
+        show={Boolean(deleteTargetId)}
+        title="Hapus Berkas Media"
+        message="Apakah Anda yakin ingin menghapus file ini dari Media Library? Konten yang menggunakan file ini mungkin tidak dapat menampilkannya lagi."
+        confirmText="Ya, Hapus Media"
+        onConfirm={confirmDeleteMedia}
+        onCancel={() => setDeleteTargetId(null)}
+      />
     </div>
   );
 }

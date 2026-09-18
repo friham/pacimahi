@@ -11,6 +11,7 @@ export default function DocumentPickerModal({ isOpen, onClose, onSelect, token }
   const [uploading, setUploading] = useState(false);
   const [search, setSearch] = useState('');
   const [selectedDoc, setSelectedDoc] = useState(null);
+  const [deleteTargetId, setDeleteTargetId] = useState(null);
   const [uploadForm, setUploadForm] = useState({
     doc_title: '',
     doc_number: '',
@@ -83,9 +84,15 @@ export default function DocumentPickerModal({ isOpen, onClose, onSelect, token }
     }
   };
 
-  const handleDelete = async (id, e) => {
+  const handleDelete = (id, e) => {
     e.stopPropagation();
-    if (!window.confirm('Hapus dokumen ini?')) return;
+    setDeleteTargetId(id);
+  };
+
+  const confirmDeleteDoc = async () => {
+    if (!deleteTargetId) return;
+    const id = deleteTargetId;
+    setDeleteTargetId(null);
     try {
       await axios.delete(`${API_URL}/documents/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
@@ -262,6 +269,15 @@ export default function DocumentPickerModal({ isOpen, onClose, onSelect, token }
           )}
         </div>
       </div>
+
+      <ConfirmModal
+        show={Boolean(deleteTargetId)}
+        title="Hapus Dokumen"
+        message="Apakah Anda yakin ingin menghapus file dokumen ini dari pustaka?"
+        confirmText="Ya, Hapus Dokumen"
+        onConfirm={confirmDeleteDoc}
+        onCancel={() => setDeleteTargetId(null)}
+      />
     </div>
   );
 }

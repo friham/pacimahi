@@ -6,6 +6,7 @@ import RichTextEditor from './RichTextEditor';
 import ImageUploader from '../ImageUploader';
 import { SERVER_URL } from '../../config';
 import './BlockEditor.css';
+import ConfirmModal from '../admin/ConfirmModal';
 
 const BLOCK_TYPES = [
   { type: 'heading', label: 'Heading', icon: FaHeading, desc: 'Judul seksi H1-H4' },
@@ -137,8 +138,13 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
   };
 
   const deleteBlock = (index) => {
-    if (!window.confirm('Hapus block ini?')) return;
-    const nextBlocks = blocks.filter((_, i) => i !== index);
+    setDeleteBlockIndex(index);
+  };
+
+  const confirmDeleteBlockAction = () => {
+    if (deleteBlockIndex === null) return;
+    const nextBlocks = blocks.filter((_, i) => i !== deleteBlockIndex);
+    setDeleteBlockIndex(null);
     onChange(nextBlocks);
   };
 

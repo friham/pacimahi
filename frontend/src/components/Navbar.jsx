@@ -1,16 +1,18 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { FaBars, FaTimes, FaChevronDown, FaChevronRight } from 'react-icons/fa';
+import { FaBars, FaTimes, FaChevronDown, FaChevronRight, FaSearch } from 'react-icons/fa';
 import logoImg from '../assets/logo.png';
 import './Navbar.css';
 
 import { API_URL } from '../config';
 
 import { defaultMenuItems } from '../data/defaultMenuTree';
+import { useSearchModal } from '../context/SearchModalContext';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { openSearchModal } = useSearchModal();
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [openSubMenus, setOpenSubMenus] = useState({});
@@ -223,6 +225,17 @@ function Navbar() {
             );
           })}
         </div>
+
+        {scrolled && (
+          <button
+            className="navbar__search-btn"
+            onClick={openSearchModal}
+            aria-label="Buka pencarian"
+            title="Cari berita & layanan"
+          >
+            <FaSearch size={16} />
+          </button>
+        )}
 
         <button
           className="navbar__toggle"

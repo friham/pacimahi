@@ -14,6 +14,7 @@ import './AdminDashboard.css';
 import { API_URL, SERVER_URL } from '../config';
 
 import LogoutConfirmModal from '../components/admin/LogoutConfirmModal';
+import ConfirmModal from '../components/admin/ConfirmModal';
 import AdminSidebar from '../components/admin/AdminSidebar';
 import AdminHeader from '../components/admin/AdminHeader';
 import OverviewTab from '../components/admin/tabs/OverviewTab';
@@ -266,6 +267,13 @@ function AdminDashboard() {
     stat_diputus: '3.365',
     stat_persentase: '98,4%',
     stat_ikm: '97,8%',
+    survey_period: 'Triwulan II Tahun 2026',
+    survey_ikm_score: '3.97',
+    survey_ikm_grade: 'A (Sangat Baik)',
+    survey_ipkp_score: '3.97',
+    survey_ipkp_grade: 'A (Sangat Baik)',
+    survey_ipak_score: '3.98',
+    survey_ipak_grade: 'A (Sangat Baik)',
     court_address: 'Jl. Encep Kartawiria No. 28, Cimahi Tengah, Kota Cimahi 40526',
     court_phone: '(022) 6631 334',
     court_email: 'info@pa-cimahi.go.id',
@@ -299,6 +307,40 @@ function AdminDashboard() {
 
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const logoutModalRef = useRef(null);
+
+  const [confirmDialog, setConfirmDialog] = useState({
+    show: false,
+    title: '',
+    message: '',
+    confirmText: 'Ya, Hapus',
+    cancelText: 'Batal',
+    type: 'danger',
+    onConfirm: null
+  });
+
+  const openConfirm = ({ title, message, confirmText = 'Ya, Hapus', cancelText = 'Batal', type = 'danger', onConfirm }) => {
+    setConfirmDialog({
+      show: true,
+      title,
+      message,
+      confirmText,
+      cancelText,
+      type,
+      onConfirm
+    });
+  };
+
+  const closeConfirm = () => {
+    setConfirmDialog(prev => ({ ...prev, show: false, onConfirm: null }));
+  };
+
+  const handleConfirmAction = async () => {
+    if (confirmDialog.onConfirm) {
+      const action = confirmDialog.onConfirm;
+      closeConfirm();
+      await action();
+    }
+  };
 
   const handleLogout = () => setShowLogoutModal(true);
 
@@ -466,17 +508,23 @@ function AdminDashboard() {
     }
   };
 
-  const deleteSlider = async (id) => {
-    if (!window.confirm('Yakin ingin menghapus slider ini?')) return;
-    try {
-      await axios.delete(`${API_URL}/sliders/${id}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      showMsg('Slider berhasil dihapus');
-      fetchSliders();
-    } catch (err) {
-      showMsg('Gagal menghapus slider', 'error');
-    }
+  const deleteSlider = (id) => {
+    openConfirm({
+      title: 'Hapus Slider',
+      message: 'Apakah Anda yakin ingin menghapus slider ini dari homepage?',
+      confirmText: 'Ya, Hapus Slider',
+      onConfirm: async () => {
+        try {
+          await axios.delete(`${API_URL}/sliders/${id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          showMsg('Slider berhasil dihapus');
+          fetchSliders();
+        } catch (err) {
+          showMsg('Gagal menghapus slider', 'error');
+        }
+      }
+    });
   };
 
   const handleServiceSubmit = async (e) => {
@@ -505,17 +553,23 @@ function AdminDashboard() {
     }
   };
 
-  const deleteService = async (id) => {
-    if (!window.confirm('Yakin ingin menghapus layanan ini?')) return;
-    try {
-      await axios.delete(`${API_URL}/services/${id}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      showMsg('Layanan berhasil dihapus');
-      fetchServices();
-    } catch (err) {
-      showMsg('Gagal menghapus layanan', 'error');
-    }
+  const deleteService = (id) => {
+    openConfirm({
+      title: 'Hapus Layanan',
+      message: 'Apakah Anda yakin ingin menghapus layanan ini?',
+      confirmText: 'Ya, Hapus Layanan',
+      onConfirm: async () => {
+        try {
+          await axios.delete(`${API_URL}/services/${id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          showMsg('Layanan berhasil dihapus');
+          fetchServices();
+        } catch (err) {
+          showMsg('Gagal menghapus layanan', 'error');
+        }
+      }
+    });
   };
 
   const handleNewsSubmit = async (e) => {
@@ -544,17 +598,23 @@ function AdminDashboard() {
     }
   };
 
-  const deleteNews = async (id) => {
-    if (!window.confirm('Yakin ingin menghapus berita ini?')) return;
-    try {
-      await axios.delete(`${API_URL}/news/${id}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      showMsg('Berita berhasil dihapus');
-      fetchNews();
-    } catch (err) {
-      showMsg('Gagal menghapus berita', 'error');
-    }
+  const deleteNews = (id) => {
+    openConfirm({
+      title: 'Hapus Berita',
+      message: 'Apakah Anda yakin ingin menghapus artikel berita ini?',
+      confirmText: 'Ya, Hapus Berita',
+      onConfirm: async () => {
+        try {
+          await axios.delete(`${API_URL}/news/${id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          showMsg('Berita berhasil dihapus');
+          fetchNews();
+        } catch (err) {
+          showMsg('Gagal menghapus berita', 'error');
+        }
+      }
+    });
   };
 
   const handleSettingsSubmit = async (e) => {
@@ -595,14 +655,21 @@ function AdminDashboard() {
     } finally { setLoading(false); }
   };
 
-  const deleteMenu = async (id) => {
-    if (!window.confirm('Yakin hapus menu ini? Sub-menu akan dinaikkan ke level atasnya.')) return;
-    try {
-      await axios.delete(`${API_URL}/menus/${id}`, { headers: { Authorization: `Bearer ${token}` } });
-      showMsg('Menu berhasil dihapus.');
-      fetchMenus(); fetchMenuTree();
-      window.dispatchEvent(new Event('cms_menu_updated'));
-    } catch (err) { showMsg('Gagal menghapus menu.', 'error'); }
+  const deleteMenu = (id) => {
+    openConfirm({
+      title: 'Hapus Menu Navigasi',
+      message: 'Yakin hapus menu ini? Sub-menu (jika ada) akan dinaikkan ke level atasnya.',
+      confirmText: 'Ya, Hapus Menu',
+      type: 'warning',
+      onConfirm: async () => {
+        try {
+          await axios.delete(`${API_URL}/menus/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+          showMsg('Menu berhasil dihapus.');
+          fetchMenus(); fetchMenuTree();
+          window.dispatchEvent(new Event('cms_menu_updated'));
+        } catch (err) { showMsg('Gagal menghapus menu.', 'error'); }
+      }
+    });
   };
 
   const toggleMenuStatus = async (id, currentStatus) => {
@@ -635,14 +702,20 @@ function AdminDashboard() {
     } finally { setLoading(false); }
   };
 
-  const deletePage = async (id) => {
-    if (!window.confirm('Yakin hapus halaman ini? Konten tidak bisa dikembalikan.')) return;
-    try {
-      await axios.delete(`${API_URL}/pages/${id}`, { headers: { Authorization: `Bearer ${token}` } });
-      showMsg('Halaman berhasil dihapus.');
-      fetchPages();
-      window.dispatchEvent(new Event('cms_page_updated'));
-    } catch (err) { showMsg('Gagal menghapus halaman.', 'error'); }
+  const deletePage = (id) => {
+    openConfirm({
+      title: 'Hapus Halaman Konten',
+      message: 'Yakin ingin menghapus halaman ini? Seluruh blok konten dan teks di dalamnya tidak dapat dikembalikan.',
+      confirmText: 'Ya, Hapus Halaman',
+      onConfirm: async () => {
+        try {
+          await axios.delete(`${API_URL}/pages/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+          showMsg('Halaman berhasil dihapus.');
+          fetchPages();
+          window.dispatchEvent(new Event('cms_page_updated'));
+        } catch (err) { showMsg('Gagal menghapus halaman.', 'error'); }
+      }
+    });
   };
 
   const togglePageStatus = async (id, currentStatus) => {
@@ -676,13 +749,19 @@ function AdminDashboard() {
     } finally { setMediaUploading(false); }
   };
 
-  const deleteMedia = async (id) => {
-    if (!window.confirm('Yakin hapus file media ini?')) return;
-    try {
-      await axios.delete(`${API_URL}/media/${id}`, { headers: { Authorization: `Bearer ${token}` } });
-      showMsg('Media berhasil dihapus.');
-      fetchMedia();
-    } catch (err) { showMsg('Gagal menghapus media.', 'error'); }
+  const deleteMedia = (id) => {
+    openConfirm({
+      title: 'Hapus Berkas Media',
+      message: 'Apakah Anda yakin ingin menghapus file media ini? Halaman atau komponen yang menggunakan file ini mungkin tidak dapat menampilkannya lagi.',
+      confirmText: 'Ya, Hapus Media',
+      onConfirm: async () => {
+        try {
+          await axios.delete(`${API_URL}/media/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+          showMsg('Media berhasil dihapus.');
+          fetchMedia();
+        } catch (err) { showMsg('Gagal menghapus media.', 'error'); }
+      }
+    });
   };
 
   const copyToClipboard = (text) => {
@@ -711,13 +790,19 @@ function AdminDashboard() {
     } finally { setLoading(false); }
   };
 
-  const deleteDocument = async (id) => {
-    if (!window.confirm('Yakin hapus dokumen ini?')) return;
-    try {
-      await axios.delete(`${API_URL}/documents/${id}`, { headers: { Authorization: `Bearer ${token}` } });
-      showMsg('Dokumen berhasil dihapus.');
-      fetchDocuments();
-    } catch (err) { showMsg('Gagal menghapus dokumen.', 'error'); }
+  const deleteDocument = (id) => {
+    openConfirm({
+      title: 'Hapus Dokumen',
+      message: 'Apakah Anda yakin ingin menghapus dokumen ini dari pustaka dokumen?',
+      confirmText: 'Ya, Hapus Dokumen',
+      onConfirm: async () => {
+        try {
+          await axios.delete(`${API_URL}/documents/${id}`, { headers: { Authorization: `Bearer ${token}` } });
+          showMsg('Dokumen berhasil dihapus.');
+          fetchDocuments();
+        } catch (err) { showMsg('Gagal menghapus dokumen.', 'error'); }
+      }
+    });
   };
 
   const renderMenuTreeItems = (items, depth = 0) => {
@@ -1135,6 +1220,17 @@ function AdminDashboard() {
         onCancel={cancelLogout}
         onConfirm={confirmLogout}
         modalRef={logoutModalRef}
+      />
+
+      <ConfirmModal
+        show={confirmDialog.show}
+        title={confirmDialog.title}
+        message={confirmDialog.message}
+        confirmText={confirmDialog.confirmText}
+        cancelText={confirmDialog.cancelText}
+        type={confirmDialog.type}
+        onConfirm={handleConfirmAction}
+        onCancel={closeConfirm}
       />
     </div>
   );

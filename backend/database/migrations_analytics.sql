@@ -1,0 +1,12 @@
+-- Migration for Visitor Tracking & Online Active Sessions
+CREATE TABLE IF NOT EXISTS page_visits (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  visited_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  path VARCHAR(255) NULL,
+  INDEX idx_visited_at (visited_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS active_sessions (
+  session_id VARCHAR(64) PRIMARY KEY,
+  last_ping_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
