@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import LayananPublikLayout from './LayananPublikLayout';
 import { 
   FaAward, 
@@ -23,8 +22,6 @@ const areaPerubahan = [
 ];
 
 function ZonaIntegritasPage() {
-  const [activeArea, setActiveArea] = useState(0);
-
   return (
     <LayananPublikLayout
       title="Zona Integritas (WBK / WBBM)"

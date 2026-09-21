@@ -77,7 +77,7 @@ export default function ImageCropModal({
         cropperRef.current = null;
       }
     };
-  }, [isOpen, imageSrc]);
+  }, [isOpen, imageSrc, selectedRatio]);
 
   if (!isOpen || !imageSrc) return null;
 

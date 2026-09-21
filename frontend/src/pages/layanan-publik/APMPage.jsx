@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import LayananPublikLayout from './LayananPublikLayout';
 import { FaAward, FaUserTie, FaHeart, FaCogs, FaCompass, FaBoxes, FaFolderOpen, FaChartLine, FaFilePdf } from 'react-icons/fa';
 
@@ -13,8 +12,6 @@ const apmCriteria = [
 ];
 
 function APMPage() {
-  const [selectedCriteria, setSelectedCriteria] = useState('all');
-
   return (
     <LayananPublikLayout
       title="Akreditasi Penjaminan Mutu (APM)"

@@ -109,7 +109,7 @@ async function seed() {
     const mProfil = await upsertMenu('Profil Pengadilan', 'profil-pengadilan', 'dropdown', null, null, 1, 'Informasi profil, visi misi, sejarah, struktur, dan aparatur pengadilan');
     const mInfo = await upsertMenu('Informasi Umum', 'informasi-umum', 'dropdown', null, null, 2, 'Standar operasional prosedur, program kerja dan laporan tahunan');
     const mPanitera = await upsertMenu('Kepaniteraan', 'kepaniteraan', 'dropdown', null, null, 3, 'Layanan perkara, posbakum, prodeo, mediasi, dan jadwal persidangan');
-    const mSekretariat = await upsertMenu('Kesekretariatan', 'bidang-kesekretariatan', 'dropdown', null, null, 4, 'DIPA, SAKIP, pengadaan barang jasa, dan inventaris pengadilan');
+    const mSekretariat = await upsertMenu('Kesekretariatan', 'kesekretariatan', 'dropdown', null, null, 4, 'DIPA, SAKIP, pengadaan barang jasa, dan inventaris pengadilan');
     const mLayanan = await upsertMenu('Layanan Publik', 'layanan-publik', 'dropdown', null, null, 5, 'PTSP, Zona Integritas, pengaduan masyarakat, dan layanan informasi PPID');
     const mPublikasi = await upsertMenu('Publikasi', 'publikasi', 'dropdown', null, null, 6, 'Berita terkini, artikel hukum, pengumuman resmi, dan galeri multimedia');
 

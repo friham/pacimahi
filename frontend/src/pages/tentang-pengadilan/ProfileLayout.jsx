@@ -136,7 +136,7 @@ function ProfileLayout({ title, subtitle, breadcrumb, children }) {
             return mapped;
           }
         }
-      } catch (e) {
+      } catch {
         // fallback to default
       } finally {
         fetchSidebarMenusPromise = null;

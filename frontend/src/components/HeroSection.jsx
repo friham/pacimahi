@@ -5,19 +5,11 @@ import { useSettings } from '../context/SettingsContext';
 import './HeroSection.css';
 
 function HeroSection({ onOpenCaseModal }) {
-  const [searchQuery, setSearchQuery] = useState('');
   const [activeSearchTab, setActiveSearchTab] = useState('perkara');
   const [isTickerVisible, setIsTickerVisible] = useState(true);
   const [isAnnouncementModalOpen, setIsAnnouncementModalOpen] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const { settings: heroSettings } = useSettings();
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (onOpenCaseModal) {
-      onOpenCaseModal(searchQuery);
-    }
-  };
 
   return (
     <section className="hero">

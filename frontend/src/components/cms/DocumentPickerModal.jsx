@@ -4,6 +4,7 @@ import { FaTimes, FaSearch, FaUpload, FaTrash, FaFilePdf, FaSpinner } from 'reac
 import './MediaLibraryModal.css';
 
 import { API_URL } from '../../config';
+import ConfirmModal from '../admin/ConfirmModal';
 
 export default function DocumentPickerModal({ isOpen, onClose, onSelect, token }) {
   const [documents, setDocuments] = useState([]);
@@ -99,7 +100,7 @@ export default function DocumentPickerModal({ isOpen, onClose, onSelect, token }
       });
       if (selectedDoc?.id === id) setSelectedDoc(null);
       fetchDocuments();
-    } catch (err) {
+    } catch {
       alert('Gagal menghapus dokumen.');
     }
   };

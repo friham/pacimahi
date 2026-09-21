@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { sanitizeHtml } from '../sanitize';
 import { FaCalendarAlt, FaUser, FaArrowRight, FaTimes, FaTag } from 'react-icons/fa';
 import useScrollReveal from '../hooks/useScrollReveal';
 import { API_URL, SERVER_URL } from '../config';
@@ -58,7 +59,7 @@ function NewsSection() {
     const fetchNews = async () => {
       try {
         const res = await axios.get(`${API_URL}/news`);
-        if (res.data.success && res.data.data.length > 0) {
+        if (res.data.success) {
           const nowIso = new Date().toISOString();
           const normalized = res.data.data.map(item => ({
             ...item,
@@ -125,15 +126,27 @@ function NewsSection() {
                       <span style={{ fontSize: '3rem' }}>📄</span>
                       <span style={{ fontSize: '0.85rem', fontWeight: 700, marginTop: '8px', color: '#9f1239' }}>Dokumen PDF Official</span>
                     </div>
+                  ) : fileUrl ? (
+                    <>
+                      <img
+                        src={fileUrl}
+                        alt={item.title}
+                        className="news-card__img"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextSibling.style.display = 'flex';
+                        }}
+                      />
+                      <div style={{ display: 'none', height: '180px', background: 'linear-gradient(135deg, #fef3c7, #fde68a)', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#92400e' }}>
+                        <span style={{ fontSize: '2rem' }}>⚠️</span>
+                        <span style={{ fontSize: '0.82rem', fontWeight: 600, marginTop: '6px' }}>Gambar tidak dapat dimuat</span>
+                      </div>
+                    </>
                   ) : (
-                    <img
-                      src={fileUrl || 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80'}
-                      alt={item.title}
-                      className="news-card__img"
-                      onError={(e) => {
-                        e.target.src = 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80';
-                      }}
-                    />
+                    <div style={{ height: '180px', background: 'linear-gradient(135deg, #f0fdf4, #dcfce7)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#059669' }}>
+                      <span style={{ fontSize: '2.5rem' }}>📰</span>
+                      <span style={{ fontSize: '0.82rem', fontWeight: 600, marginTop: '6px' }}>Gambar belum diunggah</span>
+                    </div>
                   )}
                   <span className={`news-card__badge news-card__badge--${item.category}`}>
                     {item.category}
@@ -155,7 +168,10 @@ function NewsSection() {
                   </h3>
 
                   <p className="news-card__excerpt">
-                    {item.content?.substring(0, 130)}...
+                    {(() => {
+                      const plainText = (item.content || '').replace(/<[^>]*>/g, '').substring(0, 130);
+                      return plainText || 'Ringkasan konten berita...';
+                    })()}...
                   </p>
 
                   <button
@@ -206,12 +222,27 @@ function NewsSection() {
                       Buka / Unduh File PDF
                     </a>
                   </div>
+                ) : selectedNews.image_url ? (
+                  <>
+                    <img
+                      src={selectedNews.image_url.startsWith('/') ? `${SERVER_URL}${selectedNews.image_url}` : selectedNews.image_url}
+                      alt={selectedNews.title}
+                      className="news-modal__header-img"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'flex';
+                      }}
+                    />
+                    <div style={{ display: 'none', height: '240px', background: 'linear-gradient(135deg, #fef3c7, #fde68a)', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#92400e' }}>
+                      <span style={{ fontSize: '2.5rem' }}>⚠️</span>
+                      <span style={{ fontSize: '0.9rem', fontWeight: 600, marginTop: '8px' }}>Gambar tidak dapat dimuat</span>
+                    </div>
+                  </>
                 ) : (
-                  <img
-                    src={selectedNews.image_url?.startsWith('/') ? `${SERVER_URL}${selectedNews.image_url}` : (selectedNews.image_url || 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80')}
-                    alt={selectedNews.title}
-                    className="news-modal__header-img"
-                  />
+                  <div style={{ height: '240px', background: 'linear-gradient(135deg, #f0fdf4, #dcfce7)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#059669' }}>
+                    <span style={{ fontSize: '3rem' }}>📰</span>
+                    <span style={{ fontSize: '0.9rem', fontWeight: 600, marginTop: '8px' }}>Gambar belum diunggah</span>
+                  </div>
                 )}
               </div>
 
@@ -230,9 +261,10 @@ function NewsSection() {
 
                 <h2 className="news-modal__title">{selectedNews.title}</h2>
 
-                <div className="news-modal__text">
-                  {selectedNews.content}
-                </div>
+                <div
+                  className="news-modal__text"
+                  dangerouslySetInnerHTML={{ __html: sanitizeHtml(selectedNews.content || '') }}
+                />
 
                 {selectedNews.image_url && selectedNews.image_url.toLowerCase().endsWith('.pdf') && (
                   <div style={{ marginTop: '1.5rem', padding: '1rem', background: '#f8fafc', border: '1px solid #cbd5e1', borderRadius: '8px' }}>

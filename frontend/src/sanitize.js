@@ -24,7 +24,7 @@ function isTrustedIframeUrl(src) {
     return TRUSTED_IFRAME_DOMAINS.some(
       domain => hostname === domain || hostname.endsWith('.' + domain)
     );
-  } catch (_err) {
+  } catch {
     return false;
   }
 }

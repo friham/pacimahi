@@ -1,5 +1,68 @@
-import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
-import DocumentUploader from '../../DocumentUploader';
+import { useState } from 'react';
+import { FaPlus, FaEdit, FaTrash, FaEye, FaCode } from 'react-icons/fa';
+import ImageUploader from '../../ImageUploader';
+import { sanitizeHtml } from '../../../sanitize';
+
+function NewsContentField({ value, onChange }) {
+  const [mode, setMode] = useState('visual');
+
+  return (
+    <div className="crud-form__group col-span-2">
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+        <label>Isi Konten Berita *</label>
+        <div style={{ display: 'flex', gap: '4px' }}>
+          <button
+            type="button"
+            onClick={() => setMode('visual')}
+            style={{
+              padding: '4px 10px', fontSize: '0.75rem', fontWeight: 600, border: '1px solid #d1d5db', borderRadius: '4px', cursor: 'pointer',
+              background: mode === 'visual' ? '#0b4619' : '#fff', color: mode === 'visual' ? '#fff' : '#374151'
+            }}
+          >
+            <FaEye size={10} /> Visual
+          </button>
+          <button
+            type="button"
+            onClick={() => setMode('html')}
+            style={{
+              padding: '4px 10px', fontSize: '0.75rem', fontWeight: 600, border: '1px solid #d1d5db', borderRadius: '4px', cursor: 'pointer',
+              background: mode === 'html' ? '#0b4619' : '#fff', color: mode === 'html' ? '#fff' : '#374151'
+            }}
+          >
+            <FaCode size={10} /> HTML
+          </button>
+        </div>
+      </div>
+      {mode === 'html' ? (
+        <textarea
+          rows="10"
+          value={value || ''}
+          onChange={(e) => onChange(e.target.value)}
+          required
+          style={{ fontFamily: 'monospace', fontSize: '0.85rem' }}
+          placeholder="<p>Tulis konten berita dalam HTML...</p>"
+        />
+      ) : (
+        <div>
+          <textarea
+            rows="10"
+            value={value || ''}
+            onChange={(e) => onChange(e.target.value)}
+            required
+            placeholder="Tulis konten berita di sini... (mendukung HTML)"
+          />
+          <div style={{ marginTop: '8px', padding: '12px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '6px' }}>
+            <div style={{ fontSize: '0.75rem', fontWeight: 600, color: '#6b7280', marginBottom: '6px' }}>Preview:</div>
+            <div
+              style={{ fontSize: '0.85rem', lineHeight: 1.6 }}
+              dangerouslySetInnerHTML={{ __html: sanitizeHtml(value || '<p style="color:#9ca3af">Belum ada konten...</p>') }}
+            />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function NewsTab({
   news,
@@ -19,7 +82,11 @@ export default function NewsTab({
       {!isAdding && !editingItem ? (
         <>
           <div className="crud-panel__actions">
-            <button className="crud-panel__btn crud-panel__btn--primary" onClick={() => setIsAdding(true)}>
+            <button className="crud-panel__btn crud-panel__btn--primary" onClick={() => {
+              setIsAdding(true);
+              setEditingItem(null);
+              setNewsForm({ title: '', content: '', image_url: '', category: 'berita', is_published: true });
+            }}>
               <FaPlus /> Tulis Berita Baru
             </button>
           </div>
@@ -90,17 +157,17 @@ export default function NewsTab({
               </select>
             </div>
             <div className="crud-form__group col-span-2">
-              <DocumentUploader
-                label="Lampiran File Berita / Dokumen PDF / Gambar *"
+              <ImageUploader
+                label="Gambar Berita *"
                 value={newsForm.image_url}
                 token={token}
                 onChange={(url) => setNewsForm({ ...newsForm, image_url: url })}
               />
             </div>
-            <div className="crud-form__group col-span-2">
-              <label>Isi Konten Berita *</label>
-              <textarea rows="8" value={newsForm.content} onChange={(e) => setNewsForm({ ...newsForm, content: e.target.value })} required />
-            </div>
+            <NewsContentField
+              value={newsForm.content}
+              onChange={(val) => setNewsForm({ ...newsForm, content: val })}
+            />
             <div className="crud-form__group checkbox">
               <label className="checkbox-label">
                 <input type="checkbox" checked={newsForm.is_published} onChange={(e) => setNewsForm({ ...newsForm, is_published: e.target.checked })} />

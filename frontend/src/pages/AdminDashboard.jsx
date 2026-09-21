@@ -519,10 +519,7 @@ function AdminDashboard() {
             headers: { Authorization: `Bearer ${token}` }
           });
           showMsg('Slider berhasil dihapus');
-          fetchSliders();
-        } catch (err) {
-          showMsg('Gagal menghapus slider', 'error');
-        }
+          fetchSliders();} catch { showMsg('Gagal menghapus slider', 'error'); }
       }
     });
   };
@@ -564,10 +561,7 @@ function AdminDashboard() {
             headers: { Authorization: `Bearer ${token}` }
           });
           showMsg('Layanan berhasil dihapus');
-          fetchServices();
-        } catch (err) {
-          showMsg('Gagal menghapus layanan', 'error');
-        }
+          fetchServices();} catch { showMsg('Gagal menghapus layanan', 'error'); }
       }
     });
   };
@@ -610,7 +604,7 @@ function AdminDashboard() {
           });
           showMsg('Berita berhasil dihapus');
           fetchNews();
-        } catch (err) {
+        } catch {
           showMsg('Gagal menghapus berita', 'error');
         }
       }
@@ -625,7 +619,7 @@ function AdminDashboard() {
         headers: { Authorization: `Bearer ${token}` }
       });
       showMsg('Pengaturan website berhasil disimpan & disinkronkan ke Homepage!');
-    } catch (err) {
+    } catch {
       showMsg('Gagal menyimpan pengaturan website', 'error');
     } finally {
       setLoading(false);
@@ -667,7 +661,7 @@ function AdminDashboard() {
           showMsg('Menu berhasil dihapus.');
           fetchMenus(); fetchMenuTree();
           window.dispatchEvent(new Event('cms_menu_updated'));
-        } catch (err) { showMsg('Gagal menghapus menu.', 'error'); }
+        } catch { showMsg('Gagal menghapus menu.', 'error'); }
       }
     });
   };
@@ -678,7 +672,7 @@ function AdminDashboard() {
       await axios.patch(`${API_URL}/menus/${id}/status`, { status: newStatus }, { headers: { Authorization: `Bearer ${token}` } });
       fetchMenus(); fetchMenuTree();
       window.dispatchEvent(new Event('cms_menu_updated'));
-    } catch (err) { showMsg('Gagal mengubah status menu.', 'error'); }
+    } catch { showMsg('Gagal mengubah status menu.', 'error'); }
   };
 
   const handlePageSubmit = async (e) => {
@@ -713,7 +707,7 @@ function AdminDashboard() {
           showMsg('Halaman berhasil dihapus.');
           fetchPages();
           window.dispatchEvent(new Event('cms_page_updated'));
-        } catch (err) { showMsg('Gagal menghapus halaman.', 'error'); }
+        } catch { showMsg('Gagal menghapus halaman.', 'error'); }
       }
     });
   };
@@ -725,7 +719,7 @@ function AdminDashboard() {
       showMsg(`Status halaman berhasil diubah ke ${newStatus}.`);
       fetchPages();
       window.dispatchEvent(new Event('cms_page_updated'));
-    } catch (err) { showMsg('Gagal mengubah status halaman.', 'error'); }
+    } catch { showMsg('Gagal mengubah status halaman.', 'error'); }
   };
 
   const handleMediaUpload = async (e) => {
@@ -759,7 +753,7 @@ function AdminDashboard() {
           await axios.delete(`${API_URL}/media/${id}`, { headers: { Authorization: `Bearer ${token}` } });
           showMsg('Media berhasil dihapus.');
           fetchMedia();
-        } catch (err) { showMsg('Gagal menghapus media.', 'error'); }
+        } catch { showMsg('Gagal menghapus media.', 'error'); }
       }
     });
   };
@@ -800,7 +794,7 @@ function AdminDashboard() {
           await axios.delete(`${API_URL}/documents/${id}`, { headers: { Authorization: `Bearer ${token}` } });
           showMsg('Dokumen berhasil dihapus.');
           fetchDocuments();
-        } catch (err) { showMsg('Gagal menghapus dokumen.', 'error'); }
+        } catch { showMsg('Gagal menghapus dokumen.', 'error'); }
       }
     });
   };
@@ -948,17 +942,17 @@ function AdminDashboard() {
 
   const navSections = [
     {
-      title: 'KONTEN WEBSITE',
+      title: 'HOMEPAGE',
       items: [
         { label: 'Dashboard', short: 'Beranda', icon: FaTachometerAlt },
         { label: 'Konten Homepage', short: 'Homepage', icon: FaThLarge },
-        { label: 'Kelola Berita', short: 'Berita', icon: FaNewspaper },
         { label: 'Kelola Slider', short: 'Slider', icon: FaImages },
         { label: 'Kelola Layanan', short: 'Layanan', icon: FaCog },
+        { label: 'Kelola Berita', short: 'Berita', icon: FaNewspaper },
       ]
     },
     {
-      title: 'CMS DINAMIS',
+      title: 'CMS',
       items: [
         { label: 'Kelola Menu', short: 'Menu', icon: FaSitemap },
         { label: 'Kelola Halaman', short: 'Halaman', icon: FaFileAlt },

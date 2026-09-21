@@ -11,7 +11,7 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   const tokenRef = useRef(token);
-  tokenRef.current = token;
+  useEffect(() => { tokenRef.current = token; }, [token]);
 
   const hasCheckedAuth = useRef(false);
 

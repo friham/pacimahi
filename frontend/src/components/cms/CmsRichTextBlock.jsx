@@ -1,9 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   FaAlignLeft, FaAlignCenter, FaAlignRight, FaAlignJustify,
   FaListUl, FaListOl, FaLink, FaUnlink
 } from 'react-icons/fa';
 import CmsColorPalette from './CmsColorPalette';
+import ConfirmModal from '../admin/ConfirmModal';
 import {
   saveSelection,
   restoreSelection,
@@ -17,6 +18,7 @@ import {
 export default function CmsRichTextBlock({ value = '', onChange }) {
   const editorRef = useRef(null);
   const savedRangeRef = useRef(null);
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
 
   useEffect(() => {
     if (editorRef.current) {
@@ -30,7 +32,7 @@ export default function CmsRichTextBlock({ value = '', onChange }) {
     if (editorRef.current && !editorRef.current.innerHTML && value) {
       editorRef.current.innerHTML = value;
     }
-  }, []);
+  }, [value]);
 
   const handleInput = () => {
     if (editorRef.current && onChange) {

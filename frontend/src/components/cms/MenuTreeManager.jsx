@@ -7,6 +7,24 @@ import ConfirmModal from '../admin/ConfirmModal';
 
 import { API_URL } from '../../config';
 
+const filterTree = (nodes, query) => {
+  if (!query) return nodes;
+  const lowerQuery = query.toLowerCase();
+
+  return nodes.reduce((acc, node) => {
+    const match = node.title.toLowerCase().includes(lowerQuery) || node.slug.toLowerCase().includes(lowerQuery);
+    const filteredChildren = node.children && node.children.length > 0 ? filterTree(node.children, query) : [];
+
+    if (match || filteredChildren.length > 0) {
+      acc.push({
+        ...node,
+        children: filteredChildren
+      });
+    }
+    return acc;
+  }, []);
+};
+
 export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, token, userRole }) {
   const [search, setSearch] = useState('');
   const [collapsedNodes, setCollapsedNodes] = useState({});
@@ -25,24 +43,6 @@ export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, t
   };
 
   const isCollapsed = (id) => !!collapsedNodes[id];
-
-  const filterTree = (nodes, query) => {
-    if (!query) return nodes;
-    const lowerQuery = query.toLowerCase();
-
-    return nodes.reduce((acc, node) => {
-      const match = node.title.toLowerCase().includes(lowerQuery) || node.slug.toLowerCase().includes(lowerQuery);
-      const filteredChildren = node.children && node.children.length > 0 ? filterTree(node.children, query) : [];
-
-      if (match || filteredChildren.length > 0) {
-        acc.push({
-          ...node,
-          children: filteredChildren
-        });
-      }
-      return acc;
-    }, []);
-  };
 
   const filteredTree = useMemo(() => {
     return filterTree(tree, search);
@@ -134,7 +134,7 @@ export default function MenuTreeManager({ tree = [], allMenus = [], onRefresh, t
         headers: { Authorization: `Bearer ${token}` }
       });
       onRefresh();
-    } catch (err) {
+    } catch {
       alert('Gagal mengubah status menu.');
     }
   };

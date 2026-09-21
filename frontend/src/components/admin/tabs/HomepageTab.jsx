@@ -95,7 +95,7 @@ const isValidUrl = (url) => {
   try {
     const u = new URL(url);
     return u.protocol === 'http:' || u.protocol === 'https:';
-  } catch (e) {
+  } catch {
     return false;
   }
 };
@@ -220,7 +220,7 @@ function HomepageTab({ token }) {
         if (typeof fullUrl === 'string' && fullUrl.startsWith(serverOrigin)) {
           value = fullUrl.slice(serverOrigin.length);
         }
-      } catch (e) { /* pakai fullUrl apa adanya */ }
+      } catch { /* pakai fullUrl apa adanya */ }
       setForm((prev) => {
         const next = { ...prev };
         const path = mediaPicker.path;

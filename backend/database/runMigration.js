@@ -138,31 +138,31 @@ async function run() {
       };
 
       const mProfil = await insertMenu('Profil Pengadilan', 'profil-pengadilan', 'dropdown', null, null, 1);
-      await insertMenu('Pengantar Ketua Pengadilan', 'pengantar-ketua', 'page', '/tentang-pengadilan/pengantar-dari-ketua-pengadilan', mProfil, 1);
+      await insertMenu('Pengantar Ketua Pengadilan', 'pengantar-dari-ketua-pengadilan', 'page', '/tentang-pengadilan/pengantar-dari-ketua-pengadilan', mProfil, 1);
       await insertMenu('Visi dan Misi Pengadilan', 'visi-dan-misi', 'page', '/tentang-pengadilan/visi-dan-misi', mProfil, 2);
-      await insertMenu('Tugas Pokok & Fungsi', 'tugas-pokok-fungsi', 'page', '/tentang-pengadilan/kekuasaan-dan-ruang-lingkup-pengadilan-agama', mProfil, 3);
+      await insertMenu('Tugas Pokok & Fungsi', 'kekuasaan-dan-ruang-lingkup-pengadilan-agama', 'page', '/tentang-pengadilan/kekuasaan-dan-ruang-lingkup-pengadilan-agama', mProfil, 3);
       await insertMenu('Wilayah Yurisdiksi', 'wilayah-yurisdiksi', 'page', '/tentang-pengadilan/wilayah-yurisdiksi', mProfil, 4);
       await insertMenu('Struktur Organisasi', 'struktur-organisasi', 'page', '/tentang-pengadilan/struktur-organisasi', mProfil, 5);
       
       const mSejarah = await insertMenu('Sejarah Pengadilan', 'sejarah-pengadilan', 'dropdown', '/tentang-pengadilan/sejarah-pengadilan-cmi/tgl-pembentukan-pengadilan', mProfil, 6);
-      await insertMenu('Tanggal Pembentukan Pengadilan', 'tanggal-pembentukan', 'page', '/tentang-pengadilan/sejarah-pengadilan-cmi/tgl-pembentukan-pengadilan', mSejarah, 1);
-      await insertMenu('SK Pembentukan Pengadilan', 'sk-pembentukan', 'page', '/tentang-pengadilan/sejarah-pengadilan-cmi/sk-pembentukan-pengadilan', mSejarah, 2);
+      await insertMenu('Tanggal Pembentukan Pengadilan', 'tgl-pembentukan-pengadilan', 'page', '/tentang-pengadilan/sejarah-pengadilan-cmi/tgl-pembentukan-pengadilan', mSejarah, 1);
+      await insertMenu('SK Pembentukan Pengadilan', 'sk-pembentukan-pengadilan', 'page', '/tentang-pengadilan/sejarah-pengadilan-cmi/sk-pembentukan-pengadilan', mSejarah, 2);
 
-      await insertMenu('Daftar Mantan Pimpinan', 'daftar-mantan-pimpinan', 'page', '/tentang-pengadilan/daftar-nama-mantan-pimpinan', mProfil, 7);
-      await insertMenu('Agenda Kegiatan Pimpinan', 'agenda-kegiatan-pimpinan', 'page', '/tentang-pengadilan/agenda-kerja-pimpinan', mProfil, 8);
-      await insertMenu('Alamat & Kontak Pengadilan', 'alamat-kontak-pengadilan', 'page', '/tentang-pengadilan/alamat-pengadilan', mProfil, 9);
+      await insertMenu('Daftar Mantan Pimpinan', 'daftar-nama-mantan-pimpinan', 'page', '/tentang-pengadilan/daftar-nama-mantan-pimpinan', mProfil, 7);
+      await insertMenu('Agenda Kegiatan Pimpinan', 'agenda-kerja-pimpinan', 'page', '/tentang-pengadilan/agenda-kerja-pimpinan', mProfil, 8);
+      await insertMenu('Alamat & Kontak Pengadilan', 'alamat-pengadilan', 'page', '/tentang-pengadilan/alamat-pengadilan', mProfil, 9);
 
       const mSdm = await insertMenu('Profil Pegawai & SDM', 'profil-pegawai-sdm', 'dropdown', '/tentang-pengadilan/profile-pengadilan/profil-pegawai/ketua-wakil-ketua', mProfil, 10);
       await insertMenu('Ketua & Wakil Ketua', 'ketua-wakil-ketua', 'page', '/tentang-pengadilan/profile-pengadilan/profil-pegawai/ketua-wakil-ketua', mSdm, 1);
       await insertMenu('SDM Hakim', 'sdm-hakim', 'page', '/tentang-pengadilan/profile-pengadilan/profil-pegawai/sdm-hakim', mSdm, 2);
-      await insertMenu('SDM Kepaniteraan', 'sdm-kepaniteraan', 'page', '/tentang-pengadilan/profile-pengadilan/profil-pegawai/kepaniteraann', mSdm, 3);
+      await insertMenu('SDM Kepaniteraan', 'kepaniteraann', 'page', '/tentang-pengadilan/profile-pengadilan/profil-pegawai/kepaniteraann', mSdm, 3);
       await insertMenu('SDM Kesekretariatan', 'sdm-kesekretariatan', 'page', '/tentang-pengadilan/profile-pengadilan/profil-pegawai/kesekretariatan', mSdm, 4);
-      await insertMenu('SDM Fungsional & Pelaksana', 'sdm-fungsional-pelaksana', 'page', '/tentang-pengadilan/profile-pengadilan/profil-pegawai/fungsional-dan-pelaksana', mSdm, 5);
+      await insertMenu('SDM Fungsional & Pelaksana', 'fungsional-dan-pelaksana', 'page', '/tentang-pengadilan/profile-pengadilan/profil-pegawai/fungsional-dan-pelaksana', mSdm, 5);
       await insertMenu('Statistik Kepegawaian', 'statistik-kepegawaian', 'page', '/tentang-pengadilan/profile-pengadilan/statistik-kepegawaian', mSdm, 6);
 
       const mInfo = await insertMenu('Informasi Umum', 'informasi-umum', 'dropdown', null, null, 2);
-      await insertMenu('Standar Operasional Prosedur (SOP)', 'sop-pengadilan', 'page', '/informasi-umum/standar-operasional-prosedur', mInfo, 1);
-      await insertMenu('Program Kerja Tahunan', 'program-kerja-tahunan', 'page', '/informasi-umum/program-kerja', mInfo, 2);
+      await insertMenu('Standar Operasional Prosedur (SOP)', 'standar-operasional-prosedur', 'page', '/informasi-umum/standar-operasional-prosedur', mInfo, 1);
+      await insertMenu('Program Kerja Tahunan', 'program-kerja', 'page', '/informasi-umum/program-kerja', mInfo, 2);
       await insertMenu('Laporan Tahunan', 'laporan-tahunan', 'page', '/informasi-umum/laporan-tahunan', mInfo, 3);
 
       const mPanitera = await insertMenu('Kepaniteraan', 'kepaniteraan', 'dropdown', null, null, 3);
@@ -175,33 +175,35 @@ async function run() {
       await insertMenu('Syarat & Dokumen Prodeo', 'syarat-prodeo', 'page', '/kepaniteraan/prodeo', mProdeo, 2);
 
       await insertMenu('Hak-Hak Para Pencari Keadilan', 'hak-pencari-keadilan', 'page', '/kepaniteraan/hak-pencari-keadilan', mPanitera, 3);
-      await insertMenu('e-Court (Berperkara Elektronik)', 'ecourt', 'page', '/kepaniteraan/ecourt', mPanitera, 4);
-      await insertMenu('Mediasi Pengadilan', 'mediasi-pengadilan', 'page', '/kepaniteraan/mediasi', mPanitera, 5);
-      await insertMenu('Jadwal & Agenda Persidangan', 'jadwal-sidang', 'page', '/kepaniteraan/jadwal-persidangan', mPanitera, 6);
-      await insertMenu('Biaya Proses Berperkara (Panjar)', 'biaya-perkara', 'page', '/kepaniteraan/biaya-perkara', mPanitera, 7);
+      await insertMenu('Prosedur Berperkara', 'prosedur-berperkara', 'page', '/kepaniteraan/prosedur-berperkara', mPanitera, 4);
+      await insertMenu('e-Court (Berperkara Elektronik)', 'ecourt', 'page', '/kepaniteraan/ecourt', mPanitera, 5);
+      await insertMenu('Mediasi Pengadilan', 'mediasi', 'page', '/kepaniteraan/mediasi', mPanitera, 6);
+      await insertMenu('Jadwal Persidangan', 'jadwal-persidangan', 'page', '/kepaniteraan/jadwal-persidangan', mPanitera, 7);
+      await insertMenu('Biaya Perkara', 'biaya-perkara', 'page', '/kepaniteraan/biaya-perkara', mPanitera, 8);
 
       const mSekretariat = await insertMenu('Kesekretariatan', 'kesekretariatan', 'dropdown', null, null, 4);
-      await insertMenu('Pengadaan Barang dan Jasa', 'pengadaan-barang-jasa', 'page', '/kesekretariatan/pengadaan-barang-dan-jasa', mSekretariat, 1);
-      await insertMenu('DIPA & Realisasi Anggaran', 'dipa', 'page', '/kesekretariatan/dipa', mSekretariat, 2);
-      await insertMenu('SAKIP & Laporan Kinerja', 'sakip', 'page', '/kesekretariatan/sakip', mSekretariat, 3);
-      await insertMenu('Daftar Aset dan Inventaris', 'aset-inventaris', 'page', '/kesekretariatan/daftar-aset-dan-inventaris', mSekretariat, 4);
-      await insertMenu('Survei Pelayanan Publik (SKM & IPK)', 'survei-pelayanan-publik', 'page', '/kesekretariatan/survei-pelayanan-publik', mSekretariat, 5);
+      await insertMenu('Pengadaan Barang dan Jasa', 'pengadaan-barang-dan-jasa', 'page', '/kesekretariatan/pengadaan-barang-dan-jasa', mSekretariat, 1);
+      await insertMenu('DIPA', 'dipa', 'page', '/kesekretariatan/dipa', mSekretariat, 2);
+      await insertMenu('SAKIP', 'sakip', 'page', '/kesekretariatan/sakip', mSekretariat, 3);
+      await insertMenu('Daftar Aset dan Inventaris', 'daftar-aset-dan-inventaris', 'page', '/kesekretariatan/daftar-aset-dan-inventaris', mSekretariat, 4);
+      await insertMenu('Survei Pelayanan Publik', 'survei-pelayanan-publik', 'page', '/kesekretariatan/survei-pelayanan-publik', mSekretariat, 5);
 
       const mLayanan = await insertMenu('Layanan Publik', 'layanan-publik', 'dropdown', null, null, 5);
       await insertMenu('Pelayanan Terpadu Satu Pintu (PTSP)', 'ptsp', 'page', '/layanan-publik/ptsp', mLayanan, 1);
       await insertMenu('Zona Integritas (WBK/WBBM)', 'zona-integritas', 'page', '/layanan-publik/zona-integritas', mLayanan, 2);
-      await insertMenu('Layanan Pengaduan & SIWAS', 'layanan-pengaduan', 'page', '/layanan-publik/layanan-pengaduan', mLayanan, 3);
-      await insertMenu('Layanan Informasi Publik (PPID)', 'layanan-ppid', 'page', '/layanan-publik/layanan-informasi', mLayanan, 4);
-      await insertMenu('Fasilitas Publik & Disabilitas', 'fasilitas-publik', 'page', '/layanan-publik/fasilitas-publik', mLayanan, 5);
-      await insertMenu('WhatsApp SILINCAH', 'wa-silincah', 'link', 'https://wa.me/6281121111522?text=Info%20Layanan', mLayanan, 6, true);
-      await insertMenu('CCTV Online (ACO Badilag)', 'cctv-online', 'link', 'https://cctv.badilag.net/display/satker/3f0217881b5ba82ead3967e1032f6421', mLayanan, 7, true);
+      await insertMenu('Layanan Pengaduan', 'layanan-pengaduan', 'page', '/layanan-publik/layanan-pengaduan', mLayanan, 3);
+      await insertMenu('Layanan Informasi Publik (PPID)', 'layanan-informasi', 'page', '/layanan-publik/layanan-informasi', mLayanan, 4);
+      await insertMenu('Fasilitas Publik & Jam Kerja', 'fasilitas-publik', 'page', '/layanan-publik/fasilitas-publik', mLayanan, 5);
+      await insertMenu('Brosur Digital', 'brosur-digital', 'page', '/layanan-publik/brosur-digital', mLayanan, 6);
+      await insertMenu('WhatsApp SILINCAH', 'wa-silincah', 'link', 'https://wa.me/6281121111522?text=Info%20Layanan', mLayanan, 7, true);
+      await insertMenu('CCTV Online (ACO Badilag)', 'cctv-online', 'link', 'https://cctv.badilag.net/display/satker/3f0217881b5ba82ead3967e1032f6421', mLayanan, 8, true);
 
       const mPublikasi = await insertMenu('Publikasi', 'publikasi', 'dropdown', null, null, 6);
-      await insertMenu('Berita Pengadilan', 'berita-pengadilan', 'page', '/publikasi/berita', mPublikasi, 1);
-      await insertMenu('Pengumuman Resmi', 'pengumuman-resmi', 'page', '/publikasi/pengumuman', mPublikasi, 2);
-      await insertMenu('Artikel Hukum', 'artikel-hukum', 'page', '/publikasi/artikel', mPublikasi, 3);
+      await insertMenu('Berita Pengadilan', 'berita', 'page', '/publikasi/berita', mPublikasi, 1);
+      await insertMenu('Pengumuman Resmi', 'pengumuman', 'page', '/publikasi/pengumuman', mPublikasi, 2);
+      await insertMenu('Artikel Hukum & Opini', 'artikel', 'page', '/publikasi/artikel', mPublikasi, 3);
       await insertMenu('Peraturan & Kebijakan', 'peraturan-kebijakan', 'page', '/publikasi/peraturan-kebijakan', mPublikasi, 4);
-      await insertMenu('Galeri Dokumentasi', 'galeri-foto', 'page', '/publikasi/galeri', mPublikasi, 5);
+      await insertMenu('Galeri Foto & Multimedia', 'galeri', 'page', '/publikasi/galeri', mPublikasi, 5);
 
       console.log('✅ Menu seeding complete!');
     }

@@ -114,7 +114,40 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Handle multer errors (file too large, unexpected field, etc.)
 app.use((err, req, res, _next) => {
+  if (err.code === 'LIMIT_FILE_SIZE') {
+    return res.status(413).json({
+      success: false,
+      message: 'Ukuran file melebihi batas maksimum.'
+    });
+  }
+  if (err.code === 'LIMIT_UNEXPECTED_FILE') {
+    return res.status(400).json({
+      success: false,
+      message: 'Field file tidak sesuai yang diharapkan server.'
+    });
+  }
+  if (err.code === 'LIMIT_FILE_COUNT') {
+    return res.status(400).json({
+      success: false,
+      message: 'Jumlah file melebihi batas yang diizinkan.'
+    });
+  }
+  if (err.code === 'LIMIT_FIELD_KEY') {
+    return res.status(400).json({
+      success: false,
+      message: 'Nama field terlalu panjang.'
+    });
+  }
+  if (err.name === 'MulterError') {
+    return res.status(400).json({
+      success: false,
+      message: err.message || 'Terjadi kesalahan saat mengunggah file.'
+    });
+  }
+
+  // General error handler
   console.error('Error:', err.stack);
   if (res.headersSent) return;
   res.status(500).json({
@@ -126,13 +159,13 @@ app.use((err, req, res, _next) => {
 // Tangani unhandled rejection agar server tidak crash
 process.on('unhandledRejection', (reason, promise) => {
   console.error('⚠️ Unhandled Rejection di:', promise, 'Alasan:', reason);
-  // Jangan exit process, hanya log agar server tetap jalan
+  if (isProduction) process.exit(1);
 });
 
 // Tangani uncaught exception agar server tidak crash
 process.on('uncaughtException', (err) => {
   console.error('⚠️ Uncaught Exception:', err.message);
-  // Jangan exit process, hanya log agar server tetap jalan
+  if (isProduction) process.exit(1);
 });
 
 if (require.main === module) {

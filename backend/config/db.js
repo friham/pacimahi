@@ -28,6 +28,10 @@ pool.getConnection()
   })
   .catch((err) => {
     console.error('❌ Database connection failed:', err.message);
+    if (process.env.NODE_ENV === 'production') {
+      console.error('❌ Exiting due to database connection failure in production.');
+      process.exit(1);
+    }
   });
 
 module.exports = pool;

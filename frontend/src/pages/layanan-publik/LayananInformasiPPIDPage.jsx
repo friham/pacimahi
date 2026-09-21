@@ -24,9 +24,11 @@ function LayananInformasiPPIDPage() {
     tujuan: '',
   });
   const [submitted, setSubmitted] = useState(false);
+  const [registrationCode, setRegistrationCode] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setRegistrationCode(Date.now().toString().slice(-6));
     setSubmitted(true);
   };
 
@@ -126,7 +128,7 @@ function LayananInformasiPPIDPage() {
                 <FaCheckCircle size={40} color="#059669" style={{ marginBottom: '12px' }} />
                 <h4 style={{ margin: '0 0 6px 0', color: '#065f46', fontSize: '1.1rem' }}>Permohonan Informasi Berhasil Terkirim!</h4>
                 <p style={{ margin: '0 0 16px 0', color: '#047857', fontSize: '0.85rem' }}>
-                  Petugas PPID PA Kota Cimahi akan memproses permohonan Anda maksimal 10 hari kerja. Kode registrasi: <strong>PPID-CMI-{Date.now().toString().slice(-6)}</strong>.
+                  Petugas PPID PA Kota Cimahi akan memproses permohonan Anda maksimal 10 hari kerja. Kode registrasi: <strong>PPID-CMI-{registrationCode}</strong>.
                 </p>
                 <button onClick={() => setSubmitted(false)} style={{ background: '#1b5e20', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '6px', fontSize: '0.82rem', cursor: 'pointer' }}>
                   Kirim Permohonan Baru

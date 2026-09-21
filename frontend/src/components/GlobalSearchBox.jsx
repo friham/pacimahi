@@ -17,6 +17,14 @@ export default function GlobalSearchBox() {
   const modalInputRef = useRef(null);
   const modalDialogRef = useRef(null);
 
+  const handleOpenModal = () => {
+    setIsOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpen(false);
+  };
+
   // Focus modal input and freeze background body scroll when modal opens
   useEffect(() => {
     if (isOpen) {
@@ -99,14 +107,6 @@ export default function GlobalSearchBox() {
 
     return () => clearTimeout(timer);
   }, [query]);
-
-  const handleOpenModal = () => {
-    setIsOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsOpen(false);
-  };
 
   const handleSelectResult = () => {
     handleCloseModal();

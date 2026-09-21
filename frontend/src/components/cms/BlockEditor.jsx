@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { FaPlus, FaTrash, FaCopy, FaChevronUp, FaChevronDown, FaGripVertical, FaHeading, FaParagraph, FaImage, FaImages, FaVideo, FaMousePointer, FaLink, FaFilePdf, FaTable, FaQuoteRight, FaListUl, FaCode, FaMapMarkerAlt, FaMinus, FaAngleDown, FaAngleRight } from 'react-icons/fa';
 import MediaLibraryModal from './MediaLibraryModal';
 import DocumentPickerModal from './DocumentPickerModal';
@@ -6,7 +6,6 @@ import RichTextEditor from './RichTextEditor';
 import ImageUploader from '../ImageUploader';
 import { SERVER_URL } from '../../config';
 import './BlockEditor.css';
-import ConfirmModal from '../admin/ConfirmModal';
 
 const BLOCK_TYPES = [
   { type: 'heading', label: 'Heading', icon: FaHeading, desc: 'Judul seksi H1-H4' },
@@ -36,6 +35,9 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
   const [mediaTargetCallback, setMediaTargetCallback] = useState(null);
   const [docModalOpen, setDocModalOpen] = useState(false);
   const [docTargetCallback, setDocTargetCallback] = useState(null);
+
+  const idCounterRef = useRef(0);
+  const generateBlockId = useCallback(() => `block-${Date.now()}-${++idCounterRef.current}`, []);
 
   const toggleExpand = (idx) => {
     setExpandedBlocks(prev => ({
@@ -116,7 +118,7 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
     }
 
     const newBlock = {
-      id: `block-${Date.now()}-${Math.round(Math.random() * 1000)}`,
+      id: generateBlockId(),
       type,
       content: initialContent,
       settings: initialSettings,
@@ -141,18 +143,11 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
     setDeleteBlockIndex(index);
   };
 
-  const confirmDeleteBlockAction = () => {
-    if (deleteBlockIndex === null) return;
-    const nextBlocks = blocks.filter((_, i) => i !== deleteBlockIndex);
-    setDeleteBlockIndex(null);
-    onChange(nextBlocks);
-  };
-
   const duplicateBlock = (index) => {
     const item = blocks[index];
     const cloned = {
       ...item,
-      id: `block-${Date.now()}-${Math.round(Math.random() * 1000)}`,
+      id: generateBlockId(),
       content: JSON.parse(JSON.stringify(item.content || {})),
       settings: JSON.parse(JSON.stringify(item.settings || {}))
     };

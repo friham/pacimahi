@@ -583,7 +583,7 @@ export default function PagesTab({
                           });
                           setEditingItem(page);
                           setIsAdding(true);
-                        } catch (err) {
+                        } catch {
                           showMsg('Gagal memuat data halaman.', 'error');
                         }
                       }}>

@@ -39,7 +39,7 @@ function Navbar() {
         };
         setNavItems(res.data.data.map(mapNode));
       }
-    } catch (err) {
+    } catch {
       console.warn('Menggunakan fallback menu navbar');
     }
   }, []);
