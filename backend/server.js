@@ -20,6 +20,7 @@ const auditRoutes = require('./routes/auditRoutes');
 const homepageRoutes = require('./routes/homepageRoutes');
 const searchRoutes = require('./routes/searchRoutes');
 const analyticsRoutes = require('./routes/analyticsRoutes');
+const codeSnippetRoutes = require('./routes/codeSnippetRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -105,6 +106,7 @@ app.use('/api/audit-logs', apiLimiter, auditRoutes);
 app.use('/api/homepage-sections', publicReadLimiter, homepageRoutes);
 app.use('/api/search', publicReadLimiter, searchRoutes);
 app.use('/api/analytics', publicReadLimiter, analyticsRoutes);
+app.use('/api/code-snippets', apiLimiter, codeSnippetRoutes);
 
 app.get('/api/health', (req, res) => {
   res.json({

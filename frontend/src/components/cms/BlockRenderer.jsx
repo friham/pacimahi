@@ -336,6 +336,24 @@ export default function BlockRenderer({ blocks = [] }) {
             return <hr key={blockId} className="cms-divider" />;
           }
 
+          case 'code': {
+            const html = content.html_code || '';
+            const css  = content.css_code  || '';
+            if (!html && !css) return null;
+            // Inject scoped <style> inside a wrapper div using a unique prefix
+            const scopeId = `cms-code-${blockId}`;
+            const scopedCss = css ? css.replace(/([^\r\n,{}]+)(,(?=[^}]*{)|\s*{)/g, (match, selector, brace) => {
+              if (selector.trim().startsWith('@') || selector.trim().startsWith('from') || selector.trim().startsWith('to')) return match;
+              return `#${scopeId} ${selector.trim()}${brace}`;
+            }) : '';
+            return (
+              <div key={blockId} id={scopeId} className="cms-code-block-output">
+                {scopedCss && <style>{scopedCss}</style>}
+                <div dangerouslySetInnerHTML={{ __html: html }} />
+              </div>
+            );
+          }
+
           default:
             return null;
         }

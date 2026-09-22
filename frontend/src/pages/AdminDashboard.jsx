@@ -7,7 +7,7 @@ import {
   FaSitemap, FaFileAlt, FaFolder, FaFilePdf, FaClipboardList, 
   FaSlidersH, FaUserShield, FaTimes, FaThLarge,
   FaAngleDown, FaAngleRight, FaEdit, FaToggleOn, FaToggleOff,
-  FaTrash
+  FaTrash, FaCode
 } from 'react-icons/fa';
 import logoPaCimahi from '../assets/logo-pa-cimahi.png';
 import './AdminDashboard.css';
@@ -29,6 +29,7 @@ import PagesTab from '../components/admin/tabs/PagesTab';
 import MediaTab from '../components/admin/tabs/MediaTab';
 import DocumentsTab from '../components/admin/tabs/DocumentsTab';
 import AuditLogsTab from '../components/admin/tabs/AuditLogsTab';
+import CodeLibraryTab from '../components/admin/tabs/CodeLibraryTab';
 
 const getAvatarUrl = (url) => {
   if (!url) return '';
@@ -956,6 +957,7 @@ function AdminDashboard() {
       items: [
         { label: 'Kelola Menu', short: 'Menu', icon: FaSitemap },
         { label: 'Kelola Halaman', short: 'Halaman', icon: FaFileAlt },
+        { label: 'Code Library', short: 'Code', icon: FaCode },
         { label: 'Media Library', short: 'Media', icon: FaFolder },
         { label: 'Pustaka Dokumen', short: 'Dokumen', icon: FaFilePdf },
         { label: 'Log Aktivitas', short: 'Log', icon: FaClipboardList },
@@ -1205,6 +1207,12 @@ function AdminDashboard() {
           <AuditLogsTab
             fetchAuditLogs={fetchAuditLogs}
             auditLogs={auditLogs}
+          />
+        )}
+
+        {activeTab === 'Code Library' && (
+          <CodeLibraryTab
+            token={token}
           />
         )}
       </main>

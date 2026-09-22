@@ -370,3 +370,78 @@
   font-size: 0.725rem;
   color: #6b7280;
 }
+
+/* ── Code Block Editor Widget ── */
+.cms-code-block-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #0f1117;
+  border-radius: 10px;
+  padding: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.cms-code-block-editor__info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+}
+.cms-code-block-editor__name {
+  color: #94a3b8;
+  font-size: 0.82rem;
+  font-style: italic;
+}
+.cms-code-block-editor__preview-wrap {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.cms-code-block-editor__preview-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  background: #131620;
+  color: #64748b;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+.cms-code-block-editor__iframe {
+  display: block;
+  width: 100%;
+  height: 180px;
+  border: none;
+  background: #fff;
+}
+.cms-code-block-editor__tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.cms-code-block-editor__tab-badge {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  font-family: monospace;
+}
+.cms-code-block-editor__pick-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #0b4619, #166534);
+  color: #fff;
+  border: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  align-self: flex-start;
+}
+.cms-code-block-editor__pick-btn:hover {
+  background: linear-gradient(135deg, #14532d, #15803d);
+  transform: translateY(-1px);
+}

@@ -1,9 +1,10 @@
 import { useState, useRef, useCallback } from 'react';
-import { FaPlus, FaTrash, FaCopy, FaChevronUp, FaChevronDown, FaGripVertical, FaHeading, FaParagraph, FaImage, FaImages, FaVideo, FaMousePointer, FaLink, FaFilePdf, FaTable, FaQuoteRight, FaListUl, FaCode, FaMapMarkerAlt, FaMinus, FaAngleDown, FaAngleRight } from 'react-icons/fa';
+import { FaPlus, FaTrash, FaCopy, FaChevronUp, FaChevronDown, FaGripVertical, FaHeading, FaParagraph, FaImage, FaImages, FaVideo, FaMousePointer, FaLink, FaFilePdf, FaTable, FaQuoteRight, FaListUl, FaCode, FaMapMarkerAlt, FaMinus, FaAngleDown, FaAngleRight, FaHtml5, FaEye } from 'react-icons/fa';
 import MediaLibraryModal from './MediaLibraryModal';
 import DocumentPickerModal from './DocumentPickerModal';
 import RichTextEditor from './RichTextEditor';
 import ImageUploader from '../ImageUploader';
+import CodeEditorModal from './CodeEditorModal';
 import { SERVER_URL } from '../../config';
 import './BlockEditor.css';
 
@@ -22,6 +23,7 @@ const BLOCK_TYPES = [
   { type: 'maps', label: 'Google Maps', icon: FaMapMarkerAlt, desc: 'Peta lokasi kantor' },
   { type: 'embed', label: 'Embed Iframe', icon: FaCode, desc: 'Widget pihak ketiga' },
   { type: 'html', label: 'HTML Kustom', icon: FaCode, desc: 'Kode HTML/JS khusus' },
+  { type: 'code', label: 'Code Library', icon: FaHtml5, desc: 'HTML+CSS dari Code Library' },
   { type: 'divider', label: 'Pemisah / Garis', icon: FaMinus, desc: 'Garis pemisah seksi' }
 ];
 
@@ -35,6 +37,9 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
   const [mediaTargetCallback, setMediaTargetCallback] = useState(null);
   const [docModalOpen, setDocModalOpen] = useState(false);
   const [docTargetCallback, setDocTargetCallback] = useState(null);
+  const [codeModalOpen, setCodeModalOpen] = useState(false);
+  const [codeModalTargetIndex, setCodeModalTargetIndex] = useState(null);
+  const [deleteBlockIndex, setDeleteBlockIndex] = useState(null);
 
   const idCounterRef = useRef(0);
   const generateBlockId = useCallback(() => `block-${Date.now()}-${++idCounterRef.current}`, []);
@@ -109,6 +114,9 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
       case 'embed':
       case 'html':
         initialContent = { html: '<div><!-- Masukkan kode HTML di sini --></div>' };
+        break;
+      case 'code':
+        initialContent = { html_code: '', css_code: '', js_code: '', snippet_name: '', snippet_id: null };
         break;
       case 'divider':
         initialSettings = { style: 'simple' };
@@ -246,6 +254,7 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
                     {block.type === 'video' && <span>{block.content?.title || block.content?.url || 'Video'}</span>}
                     {block.type === 'document' && <span>{block.content?.doc_title || 'File Dokumen'}</span>}
                     {block.type === 'button' && <span>{block.content?.text || 'Tombol'}</span>}
+                    {block.type === 'code' && <span>{block.content?.snippet_name || 'Code Block'}</span>}
                   </div>
 
                   <div className="cms-block-card__actions">
@@ -816,6 +825,44 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
                       </div>
                     )}
 
+                    {block.type === 'code' && (
+                      <div className="cms-code-block-editor">
+                        <div className="cms-code-block-editor__info">
+                          <FaHtml5 style={{ color: '#e34f26' }} />
+                          <span className="cms-code-block-editor__name">
+                            {block.content?.snippet_name ? `📦 ${block.content.snippet_name}` : 'Belum ada kode — klik tombol di bawah'}
+                          </span>
+                        </div>
+                        {(block.content?.html_code || block.content?.css_code) && (
+                          <div className="cms-code-block-editor__preview-wrap">
+                            <div className="cms-code-block-editor__preview-label"><FaEye /> Preview</div>
+                            <iframe
+                              title="code-preview"
+                              className="cms-code-block-editor__iframe"
+                              sandbox="allow-scripts"
+                              srcDoc={`<!DOCTYPE html><html><head><style>body{margin:0;padding:10px;font-family:system-ui,sans-serif;font-size:14px;}${block.content?.css_code||''}</style></head><body>${block.content?.html_code||''}</body></html>`}
+                            />
+                          </div>
+                        )}
+                        <div className="cms-code-block-editor__tabs">
+                          {[['HTML', block.content?.html_code, '#e34f26'], ['CSS', block.content?.css_code, '#264de4']].map(([lang, code]) => (
+                            code ? (
+                              <span key={lang} className="cms-code-block-editor__tab-badge" style={{ background: lang === 'HTML' ? 'rgba(227,79,38,0.15)' : 'rgba(38,77,228,0.15)', color: lang === 'HTML' ? '#e34f26' : '#264de4' }}>
+                                {lang}: {(code || '').split('\n').length} baris
+                              </span>
+                            ) : null
+                          ))}
+                        </div>
+                        <button
+                          type="button"
+                          className="cms-code-block-editor__pick-btn"
+                          onClick={() => { setCodeModalTargetIndex(index); setCodeModalOpen(true); }}
+                        >
+                          <FaCode /> {block.content?.html_code ? 'Ganti Kode' : 'Pilih / Tulis Kode'}
+                        </button>
+                      </div>
+                    )}
+
                     {block.type === 'divider' && (
                       <p style={{ color: '#6b7280', margin: 0 }}>Garis pemisah horizontal bersih akan ditampilkan di halaman.</p>
                     )}
@@ -882,6 +929,19 @@ export default function BlockEditor({ blocks = [], onChange, token }) {
         token={token}
         onSelect={(doc) => {
           if (docTargetCallback) docTargetCallback(doc);
+        }}
+      />
+
+      <CodeEditorModal
+        open={codeModalOpen}
+        onClose={() => setCodeModalOpen(false)}
+        onInsert={(codeData) => {
+          if (codeModalTargetIndex !== null) {
+            updateBlock(codeModalTargetIndex, 'content', {
+              ...blocks[codeModalTargetIndex]?.content,
+              ...codeData
+            });
+          }
         }}
       />
     </div>
