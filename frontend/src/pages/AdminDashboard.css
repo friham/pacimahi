@@ -5060,3 +5060,361 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ============================================================
+   MINI CODE EDITOR (mce-*) — dipakai di block 'code' PagesTab
+   ============================================================ */
+
+.mce-root {
+  background: #0d1117;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  flex-direction: column;
+  font-family: inherit;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+}
+
+/* ── Tab bar ── */
+.mce-tabs {
+  display: flex;
+  align-items: center;
+  background: #111520;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 0 4px;
+  gap: 2px;
+  min-height: 38px;
+  flex-shrink: 0;
+}
+.mce-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 11px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #475569;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-bottom: -1px;
+  font-family: inherit;
+}
+.mce-tab:hover { color: #94a3b8; }
+.mce-tab--active { color: #e2e8f0; }
+.mce-tab__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.85;
+}
+.mce-tabs__spacer { flex: 1; }
+
+.mce-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: rgba(255,255,255,0.04);
+  color: #4b5563;
+  border: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+  margin-left: 2px;
+}
+.mce-action-btn:hover { background: rgba(255,255,255,0.09); color: #94a3b8; }
+.mce-action-btn--active { background: rgba(14,165,233,0.12); color: #38bdf8; border-color: rgba(14,165,233,0.2); }
+
+/* ── Workspace: editor + preview split ── */
+.mce-workspace {
+  display: flex;
+  min-height: 220px;
+  max-height: 420px;
+  overflow: hidden;
+}
+.mce-workspace--split .mce-editor { flex: 1; }
+.mce-workspace:not(.mce-workspace--split) .mce-editor { flex: 1; }
+
+/* ── Editor ── */
+.mce-editor {
+  display: flex;
+  overflow: hidden;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 12.5px;
+  line-height: 1.65;
+  background: #0d1117;
+}
+.mce-editor__gutter {
+  padding: 10px 0;
+  min-width: 38px;
+  background: #080c12;
+  color: #283040;
+  text-align: right;
+  user-select: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-right: 1px solid rgba(255,255,255,0.03);
+  flex-shrink: 0;
+}
+.mce-editor__gutter::-webkit-scrollbar { display: none; }
+.mce-editor__gutter span {
+  display: block;
+  padding: 0 8px;
+  font-size: 11px;
+  line-height: 1.65;
+}
+.mce-editor__textarea {
+  flex: 1;
+  background: #0d1117;
+  color: #cdd6f4;
+  border: none;
+  outline: none;
+  resize: none;
+  padding: 10px 14px;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  tab-size: 2;
+  white-space: pre;
+  overflow-wrap: normal;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+.mce-editor__textarea::placeholder { color: #1e2535; font-size: 11.5px; }
+.mce-editor__textarea--html { caret-color: #f38ba8; }
+.mce-editor__textarea--css  { caret-color: #89b4fa; }
+.mce-editor__textarea--js   { caret-color: #f9e2af; }
+
+/* ── Live preview panel ── */
+.mce-preview {
+  width: 42%;
+  min-width: 220px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid rgba(255,255,255,0.05);
+  background: #fff;
+  overflow: hidden;
+}
+.mce-preview__bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #111520;
+  font-size: 0.72rem;
+  color: #475569;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  flex-shrink: 0;
+}
+.mce-preview__hint {
+  font-size: 0.65rem;
+  color: #283040;
+  font-weight: 400;
+  margin-left: auto;
+}
+
+/* ── Info bar ── */
+.mce-info-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 12px;
+  background: #080c12;
+  border-top: 1px solid rgba(255,255,255,0.03);
+  font-size: 0.68rem;
+  color: #283040;
+  flex-shrink: 0;
+}
+.mce-info-bar__hint { color: #1e2535; }
+
+/* ── Code Import Modal ── */
+.mce-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.mce-modal {
+  background: #fff;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 700px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.4);
+  overflow: hidden;
+  animation: mce-modal-in 0.2s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes mce-modal-in {
+  from { opacity: 0; transform: scale(0.93) translateY(12px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.mce-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e5e7eb;
+  flex-shrink: 0;
+}
+.mce-modal__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #111827;
+}
+.mce-modal__close {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  transition: all 0.15s;
+  font-size: 0.9rem;
+}
+.mce-modal__close:hover { background: #fee2e2; color: #dc2626; border-color: #fecaca; }
+
+.mce-modal__search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-bottom: 1px solid #f3f4f6;
+  flex-shrink: 0;
+}
+.mce-modal__search-icon { color: #9ca3af; font-size: 0.8rem; flex-shrink: 0; }
+.mce-modal__search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 0.875rem;
+  color: #111827;
+  background: transparent;
+  font-family: inherit;
+}
+.mce-modal__search input::placeholder { color: #9ca3af; }
+
+.mce-modal__body {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  gap: 0;
+}
+.mce-modal__list {
+  flex: 1;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+}
+.mce-modal__empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  font-size: 0.85rem;
+  padding: 32px;
+  text-align: center;
+}
+.mce-modal__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+  border: 1px solid transparent;
+}
+.mce-modal__item:hover { background: #f9fafb; border-color: #e5e7eb; }
+.mce-modal__item--selected { background: #eff6ff; border-color: #bfdbfe; }
+.mce-modal__item-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.mce-modal__item-body { flex: 1; min-width: 0; }
+.mce-modal__item-name {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #111827;
+  margin: 0 0 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mce-modal__item-tags {
+  font-size: 0.72rem;
+  color: #9ca3af;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mce-modal__import-btn {
+  padding: 5px 12px;
+  border-radius: 7px;
+  border: 1px solid #0b4619;
+  background: #0b4619;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  flex-shrink: 0;
+  font-family: inherit;
+}
+.mce-modal__import-btn:hover { background: #14532d; }
+.mce-modal__preview {
+  width: 300px;
+  flex-shrink: 0;
+  border-left: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+.mce-modal__preview-title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #6b7280;
+  padding: 8px 12px;
+  border-bottom: 1px solid #f3f4f6;
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .mce-workspace--split .mce-preview { display: none; }
+  .mce-modal__preview { display: none; }
+  .mce-modal { max-height: 90vh; }
+}

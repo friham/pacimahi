@@ -1,14 +1,283 @@
+import { useState, useRef, useCallback, useEffect } from 'react';
 import axios from 'axios';
 import {
   FaFileAlt, FaPlus, FaSearch, FaAlignLeft, FaImage, FaVideo,
   FaFilePdf, FaInfo, FaTable, FaCode, FaArrowUp, FaArrowDown, FaTrash,
-  FaEye, FaSave, FaTimes, FaEdit, FaToggleOn, FaToggleOff
+  FaEye, FaEyeSlash, FaSave, FaTimes, FaEdit, FaToggleOn, FaToggleOff,
+  FaHtml5, FaCss3Alt, FaJs, FaCheckCircle, FaCopy, FaDatabase, FaLayerGroup
 } from 'react-icons/fa';
 import ImageUploader from '../../ImageUploader';
 import DocumentUploader from '../../DocumentUploader';
 import CmsRichTextBlock from '../../cms/CmsRichTextBlock';
 import BlockRenderer from '../../cms/BlockRenderer';
 import { sanitizeHtml } from '../../../sanitize';
+import { API_URL as CONFIG_API_URL } from '../../../config';
+
+/* ─────────────────────────────────────────────────
+   MiniCodeEditor — dipakai di dalam blok 'code'
+───────────────────────────────────────────────── */
+const MINI_TABS = [
+  { key: 'html_code', label: 'HTML', Icon: FaHtml5,   color: '#e34f26',
+    placeholder: `<!-- HTML di sini -->
+<div class="komponen">
+  <h2>Judul</h2>
+  <p>Isi konten...</p>
+</div>` },
+  { key: 'css_code',  label: 'CSS',  Icon: FaCss3Alt, color: '#264de4',
+    placeholder: `.komponen {
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: #f0f4ff;
+}` },
+  { key: 'js_code',   label: 'JS',   Icon: FaJs,      color: '#ca8a04',
+    placeholder: `// JavaScript (opsional)
+document.querySelector('.komponen')?.addEventListener('click', () => {
+  console.log('clicked');
+});` },
+];
+
+function MiniLivePreview({ html, css, js }) {
+  const iframeRef = useRef(null);
+  useEffect(() => {
+    const iframe = iframeRef.current;
+    if (!iframe) return;
+    const doc = iframe.contentDocument || iframe.contentWindow?.document;
+    if (!doc) return;
+    doc.open();
+    doc.write(`<!DOCTYPE html><html><head><meta charset="utf-8">
+<style>*{box-sizing:border-box}body{margin:0;padding:14px;font-family:system-ui,sans-serif;font-size:14px}${css||''}</style>
+</head><body>${html||'<p style="color:#9ca3af;text-align:center;padding:32px 0;font-size:13px">Preview tampil di sini</p>'}
+<script>try{${js||''}}catch(e){console.error(e)}</script>
+</body></html>`);
+    doc.close();
+  }, [html, css, js]);
+  return <iframe ref={iframeRef} title="preview" sandbox="allow-scripts allow-same-origin" style={{ flex:1, border:'none', width:'100%', display:'block' }} />;
+}
+
+function MiniCodeEditor({ blockContent, onUpdate, token: editorToken, blockIdx }) {
+  const [activeTab, setActiveTab]     = useState('html_code');
+  const [showPreview, setShowPreview] = useState(false);
+  const [showImport, setShowImport]   = useState(false);
+  const [copied, setCopied]           = useState(false);
+  const textareaRef = useRef(null);
+  const gutterRef   = useRef(null);
+
+  const code = blockContent[activeTab] || '';
+  const lineCount = Math.max((code).split('\n').length, 1);
+
+  const handleKeyDown = (e) => {
+    if (e.key !== 'Tab') return;
+    e.preventDefault();
+    const ta = textareaRef.current;
+    const s = ta.selectionStart;
+    const next = code.slice(0, s) + '  ' + code.slice(ta.selectionEnd);
+    onUpdate(blockIdx, activeTab, next);
+    requestAnimationFrame(() => { ta.selectionStart = ta.selectionEnd = s + 2; });
+  };
+
+  const syncScroll = () => {
+    if (gutterRef.current && textareaRef.current)
+      gutterRef.current.scrollTop = textareaRef.current.scrollTop;
+  };
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch { /* ignore */ }
+  };
+
+  const cfg = MINI_TABS.find(t => t.key === activeTab);
+
+  return (
+    <div className="mce-root">
+      {/* Tab bar */}
+      <div className="mce-tabs">
+        {MINI_TABS.map(({ key, label, Icon, color }) => (
+          <button
+            key={key}
+            type="button"
+            className={`mce-tab ${activeTab === key ? 'mce-tab--active' : ''}`}
+            onClick={() => setActiveTab(key)}
+            style={activeTab === key ? { borderBottomColor: color } : {}}
+          >
+            <Icon style={{ color }} />{label}
+            {blockContent[key] && <span className="mce-tab__dot" style={{ background: color }} />}
+          </button>
+        ))}
+        <div className="mce-tabs__spacer" />
+        <button type="button" className="mce-action-btn" onClick={() => setShowImport(true)} title="Import dari Code Library">
+          <FaDatabase /> Import
+        </button>
+        <button type="button" className="mce-action-btn" onClick={handleCopy} title="Salin kode aktif">
+          {copied ? <FaCheckCircle style={{ color:'#22c55e' }} /> : <FaCopy />}
+          {copied ? 'Tersalin' : 'Salin'}
+        </button>
+        <button
+          type="button"
+          className={`mce-action-btn ${showPreview ? 'mce-action-btn--active' : ''}`}
+          onClick={() => setShowPreview(p => !p)}
+          title="Toggle live preview"
+        >
+          {showPreview ? <FaEyeSlash /> : <FaEye />} Preview
+        </button>
+      </div>
+
+      {/* Editor + Preview workspace */}
+      <div className={`mce-workspace ${showPreview ? 'mce-workspace--split' : ''}`}>
+        {/* Editor */}
+        <div className="mce-editor">
+          <div className="mce-editor__gutter" ref={gutterRef}>
+            {Array.from({ length: lineCount }, (_, i) => <span key={i}>{i + 1}</span>)}
+          </div>
+          <textarea
+            ref={textareaRef}
+            className={`mce-editor__textarea mce-editor__textarea--${activeTab.replace('_code', '')}`}
+            value={code}
+            onChange={e => onUpdate(blockIdx, activeTab, e.target.value)}
+            onKeyDown={handleKeyDown}
+            onScroll={syncScroll}
+            placeholder={cfg?.placeholder}
+            spellCheck={false}
+            autoCapitalize="off"
+            autoCorrect="off"
+            autoComplete="off"
+          />
+        </div>
+
+        {/* Live preview */}
+        {showPreview && (
+          <div className="mce-preview">
+            <div className="mce-preview__bar">
+              <span><FaEye /> Live Preview</span>
+              <span className="mce-preview__hint">HTML + CSS + JS</span>
+            </div>
+            <MiniLivePreview
+              html={blockContent.html_code}
+              css={blockContent.css_code}
+              js={blockContent.js_code}
+            />
+          </div>
+        )}
+      </div>
+
+      {/* Info bar */}
+      <div className="mce-info-bar">
+        <span>{lineCount} baris</span>
+        <span className="mce-info-bar__hint">Tab = 2 spasi · CSS di-scope otomatis · Sanitasi aktif</span>
+      </div>
+
+      {/* Import modal */}
+      {showImport && (
+        <CodeImportModal
+          token={editorToken}
+          onImport={(snippet) => {
+            if (snippet.html_code) onUpdate(blockIdx, 'html_code', snippet.html_code);
+            if (snippet.css_code)  onUpdate(blockIdx, 'css_code',  snippet.css_code);
+            if (snippet.js_code)   onUpdate(blockIdx, 'js_code',   snippet.js_code);
+            setShowImport(false);
+          }}
+          onClose={() => setShowImport(false)}
+        />
+      )}
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────
+   CodeImportModal — pilih snippet dari library
+───────────────────────────────────────────────── */
+const LANG_ICONS = { html: FaHtml5, css: FaCss3Alt, js: FaJs, combined: FaLayerGroup };
+const LANG_COLORS = { html: '#e34f26', css: '#264de4', js: '#ca8a04', combined: '#22c55e' };
+
+function CodeImportModal({ token, onImport, onClose }) {
+  const [snippets, setSnippets] = useState([]);
+  const [loading,  setLoading]  = useState(true);
+  const [search,   setSearch]   = useState('');
+  const [preview,  setPreview]  = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await axios.get(`${CONFIG_API_URL}/code-snippets`,
+          token ? { headers: { Authorization: `Bearer ${token}` } } : {}
+        );
+        setSnippets(res.data.data || []);
+      } catch { /* empty library */ }
+      setLoading(false);
+    })();
+  }, [token]);
+
+  const filtered = snippets.filter(s => {
+    const q = search.toLowerCase();
+    return !q || s.name?.toLowerCase().includes(q) || s.tags?.toLowerCase().includes(q);
+  });
+
+  return (
+    <div className="mce-modal-overlay" onClick={e => e.target === e.currentTarget && onClose()}>
+      <div className="mce-modal">
+        <div className="mce-modal__header">
+          <div className="mce-modal__title"><FaDatabase /> Import dari Code Library</div>
+          <button type="button" className="mce-modal__close" onClick={onClose}><FaTimes /></button>
+        </div>
+        <div className="mce-modal__search">
+          <FaDatabase className="mce-modal__search-icon" />
+          <input
+            type="text"
+            placeholder="Cari nama atau tag snippet..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            autoFocus
+          />
+        </div>
+        <div className="mce-modal__body">
+          {loading ? (
+            <div className="mce-modal__empty">Memuat library...</div>
+          ) : filtered.length === 0 ? (
+            <div className="mce-modal__empty">
+              {search ? `Tidak ada snippet "${search}"` : 'Library kosong — tambahkan snippet di tab Code Library.'}
+            </div>
+          ) : (
+            <div className="mce-modal__list">
+              {filtered.map(s => {
+                const Icon = LANG_ICONS[s.language] || FaCode;
+                const color = LANG_COLORS[s.language] || '#64748b';
+                const isSelected = preview?.id === s.id;
+                return (
+                  <div
+                    key={s.id}
+                    className={`mce-modal__item ${isSelected ? 'mce-modal__item--selected' : ''}`}
+                    onClick={() => setPreview(isSelected ? null : s)}
+                  >
+                    <div className="mce-modal__item-icon" style={{ color }}><Icon /></div>
+                    <div className="mce-modal__item-body">
+                      <p className="mce-modal__item-name">{s.name}</p>
+                      {s.tags && <p className="mce-modal__item-tags">{s.tags}</p>}
+                    </div>
+                    <button
+                      type="button"
+                      className="mce-modal__import-btn"
+                      onClick={e => { e.stopPropagation(); onImport(s); }}
+                    >
+                      Import
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+          {preview && (
+            <div className="mce-modal__preview">
+              <div className="mce-modal__preview-title">Preview: {preview.name}</div>
+              <MiniLivePreview html={preview.html_code} css={preview.css_code} js={preview.js_code} />
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function PagesTab({
   userRole,
@@ -48,20 +317,6 @@ export default function PagesTab({
   const canManageContent = userRole === 'superadmin' || userRole === 'admin';
   const slugify = (text) =>
     text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-
-  // Editor khusus code: Tab menyisipkan 2 spasi (bukan pindah fokus)
-  const handleCodeTab = (e, idx, field) => {
-    if (e.key !== 'Tab') return;
-    e.preventDefault();
-    const t = e.target;
-    const s = t.selectionStart;
-    const en = t.selectionEnd;
-    const next = t.value.slice(0, s) + '  ' + t.value.slice(en);
-    updateBlockContent(idx, field, next);
-    requestAnimationFrame(() => {
-      t.selectionStart = t.selectionEnd = s + 2;
-    });
-  };
 
   return (
     <div className="cms-panel animate-fade-in-up">
@@ -449,35 +704,12 @@ export default function PagesTab({
                             )}
 
                             {block.type === 'code' && (
-                              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-                                <div className="cms-form-group" style={{ marginBottom: 0 }}>
-                                  <label>HTML</label>
-                                  <textarea
-                                    className="cms-code-editor"
-                                    rows="8"
-                                    spellCheck={false}
-                                    value={bContent.html_code || ''}
-                                    placeholder="<div class='kartu'>\n  Konten HTML di sini...\n</div>"
-                                    onKeyDown={(e) => handleCodeTab(e, idx, 'html_code')}
-                                    onChange={e => updateBlockContent(idx, 'html_code', e.target.value)}
-                                  />
-                                </div>
-                                <div className="cms-form-group" style={{ marginBottom: 0 }}>
-                                  <label>CSS</label>
-                                  <textarea
-                                    className="cms-code-editor"
-                                    rows="6"
-                                    spellCheck={false}
-                                    value={bContent.css_code || ''}
-                                    placeholder=".kartu {\n  padding: 1rem;\n  border-radius: 8px;\n}"
-                                    onKeyDown={(e) => handleCodeTab(e, idx, 'css_code')}
-                                    onChange={e => updateBlockContent(idx, 'css_code', e.target.value)}
-                                  />
-                                </div>
-                                <p className="cms-rte-hint" style={{ margin: 0 }}>
-                                  CSS otomatis di-scope hanya untuk blok ini, dan HTML disanitasi sebelum ditampilkan. Gunakan tombol <strong>Preview</strong> di atas untuk melihat hasilnya.
-                                </p>
-                              </div>
+                              <MiniCodeEditor
+                                blockContent={block.content || {}}
+                                onUpdate={updateBlockContent}
+                                token={token}
+                                blockIdx={idx}
+                              />
                             )}
                           </div>
                         </div>
