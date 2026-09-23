@@ -349,7 +349,7 @@ export default function BlockRenderer({ blocks = [] }) {
             return (
               <div key={blockId} id={scopeId} className="cms-code-block-output">
                 {scopedCss && <style>{scopedCss}</style>}
-                <div dangerouslySetInnerHTML={{ __html: html }} />
+                <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(html) }} />
               </div>
             );
           }

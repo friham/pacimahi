@@ -6,6 +6,7 @@ import {
 } from 'react-icons/fa';
 import MediaLibraryModal from '../../cms/MediaLibraryModal';
 import resolveMediaUrl from '../../../utils/resolveMediaUrl';
+import { API_URL } from '../../../config';
 
 const SECTION_CONFIGS = {
   zi_gallery: {
@@ -137,7 +138,7 @@ function HomepageTab({ token }) {
 
   const fetchSections = useCallback(async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/homepage-sections/all`, {
+      const res = await axios.get(`${API_URL}/homepage-sections/all`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.data.success) setSections(res.data.data);
@@ -298,7 +299,7 @@ function HomepageTab({ token }) {
         status: form.status
       };
       await axios.put(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/homepage-sections/${editingKey}`,
+        `${API_URL}/homepage-sections/${editingKey}`,
         payload,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -316,7 +317,7 @@ function HomepageTab({ token }) {
     const next = section.status === 'published' ? 'draft' : 'published';
     try {
       await axios.put(
-        `${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/homepage-sections/${section.section_key}`,
+        `${API_URL}/homepage-sections/${section.section_key}`,
         { status: next },
         { headers: { Authorization: `Bearer ${token}` } }
       );

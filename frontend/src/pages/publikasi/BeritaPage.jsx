@@ -1,8 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import PublikasiLayout from './PublikasiLayout';
 import { FaCalendarAlt, FaUser, FaSearch, FaChevronRight, FaTimes, FaNewspaper, FaSpinner } from 'react-icons/fa';
 import { API_URL, SERVER_URL } from '../../config';
+import { sanitizeHtml } from '../../sanitize';
 
 const categories = ['Semua', 'Berita', 'Pengumuman', 'Artikel'];
 
@@ -13,11 +15,31 @@ const formatDate = (dateStr) => {
 };
 
 function BeritaPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlSearch = searchParams.get('search') || '';
   const [newsList, setNewsList] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState(urlSearch);
+  const [lastUrlSearch, setLastUrlSearch] = useState(urlSearch);
   const [selectedCategory, setSelectedCategory] = useState('Semua');
   const [selectedNews, setSelectedNews] = useState(null);
+
+  // Sinkron URL (?search=) -> input (pola "adjusting state when props change",
+  // tanpa useEffect): dipakai saat datang dari hasil pencarian global
+  // /publikasi/berita?search=kata
+  if (urlSearch !== lastUrlSearch) {
+    setLastUrlSearch(urlSearch);
+    setSearchTerm(urlSearch);
+  }
+
+  // Sinkron input -> URL (replace, agar bisa dibagikan & tombol clear konsisten)
+  const applySearch = (value) => {
+    setSearchTerm(value);
+    const next = new URLSearchParams(searchParams);
+    if (value) next.set('search', value);
+    else next.delete('search');
+    setSearchParams(next, { replace: true });
+  };
 
   const fetchNews = useCallback(async () => {
     try {
@@ -88,7 +110,7 @@ function BeritaPage() {
               type="text"
               placeholder="Cari judul atau isi berita..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => applySearch(e.target.value)}
               style={{
                 width: '100%',
                 padding: '8px 12px 8px 36px',
@@ -103,7 +125,7 @@ function BeritaPage() {
             {searchTerm && (
               <button
                 type="button"
-                onClick={() => setSearchTerm('')}
+                onClick={() => applySearch('')}
                 style={{
                   position: 'absolute',
                   right: '10px',
@@ -336,7 +358,7 @@ function BeritaPage() {
 
                 <div
                   style={{ fontSize: '0.95rem', color: '#334155', lineHeight: 1.7, whiteSpace: 'pre-line' }}
-                  dangerouslySetInnerHTML={{ __html: selectedNews.content }}
+                  dangerouslySetInnerHTML={{ __html: sanitizeHtml(selectedNews.content || '') }}
                 />
               </div>
             </div>

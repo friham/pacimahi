@@ -2,9 +2,9 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 import {
   FaCode, FaPlus, FaSave, FaTrash, FaCopy, FaSearch,
-  FaTimes, FaEdit, FaEye, FaTag, FaHtml5, FaCss3Alt,
+  FaTimes, FaEye, FaTag, FaHtml5, FaCss3Alt,
   FaJs, FaLayerGroup, FaCheckCircle, FaExclamationCircle,
-  FaSpinner, FaDatabase, FaShareAlt
+  FaSpinner, FaDatabase
 } from 'react-icons/fa';
 import { API_URL } from '../../../config';
 import './CodeLibraryTab.css';

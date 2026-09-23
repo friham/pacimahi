@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {
   FaFileAlt, FaPlus, FaSearch, FaAlignLeft, FaImage, FaVideo,
-  FaFilePdf, FaInfo, FaTable, FaArrowUp, FaArrowDown, FaTrash,
+  FaFilePdf, FaInfo, FaTable, FaCode, FaArrowUp, FaArrowDown, FaTrash,
   FaEye, FaSave, FaTimes, FaEdit, FaToggleOn, FaToggleOff
 } from 'react-icons/fa';
 import ImageUploader from '../../ImageUploader';
@@ -11,6 +11,7 @@ import BlockRenderer from '../../cms/BlockRenderer';
 import { sanitizeHtml } from '../../../sanitize';
 
 export default function PagesTab({
+  userRole,
   pages,
   isAdding,
   setIsAdding,
@@ -29,7 +30,6 @@ export default function PagesTab({
   menus,
   token,
   loading,
-  slugify,
   previewPage,
   setPreviewPage,
   moveBlock,
@@ -45,6 +45,24 @@ export default function PagesTab({
   showMsg,
   API_URL
 }) {
+  const canManageContent = userRole === 'superadmin' || userRole === 'admin';
+  const slugify = (text) =>
+    text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+  // Editor khusus code: Tab menyisipkan 2 spasi (bukan pindah fokus)
+  const handleCodeTab = (e, idx, field) => {
+    if (e.key !== 'Tab') return;
+    e.preventDefault();
+    const t = e.target;
+    const s = t.selectionStart;
+    const en = t.selectionEnd;
+    const next = t.value.slice(0, s) + '  ' + t.value.slice(en);
+    updateBlockContent(idx, field, next);
+    requestAnimationFrame(() => {
+      t.selectionStart = t.selectionEnd = s + 2;
+    });
+  };
+
   return (
     <div className="cms-panel animate-fade-in-up">
       <div className="cms-panel__header">
@@ -163,6 +181,7 @@ export default function PagesTab({
                               {block.type === 'document' && <><FaFilePdf style={{ color: '#ea580c' }} /> <span>Wadah Dokumen PDF</span></>}
                               {block.type === 'callout' && <><FaInfo style={{ color: '#ca8a04' }} /> <span>Wadah Kotak Informasi / Pengumuman</span></>}
                               {block.type === 'table' && <><FaTable style={{ color: '#7c3aed' }} /> <span>Wadah Tabel Data</span></>}
+                              {block.type === 'code' && <><FaCode style={{ color: '#0ea5e9' }} /> <span>Wadah Kode (HTML / CSS)</span></>}
                             </div>
                             <div className="cms-block-card__actions">
                               <button 
@@ -428,6 +447,38 @@ export default function PagesTab({
                                 <p className="cms-rte-hint">Klik sel untuk mengedit. Tambah/hapus baris dan kolom dengan tombol di atas.</p>
                               </div>
                             )}
+
+                            {block.type === 'code' && (
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                                <div className="cms-form-group" style={{ marginBottom: 0 }}>
+                                  <label>HTML</label>
+                                  <textarea
+                                    className="cms-code-editor"
+                                    rows="8"
+                                    spellCheck={false}
+                                    value={bContent.html_code || ''}
+                                    placeholder="<div class='kartu'>\n  Konten HTML di sini...\n</div>"
+                                    onKeyDown={(e) => handleCodeTab(e, idx, 'html_code')}
+                                    onChange={e => updateBlockContent(idx, 'html_code', e.target.value)}
+                                  />
+                                </div>
+                                <div className="cms-form-group" style={{ marginBottom: 0 }}>
+                                  <label>CSS</label>
+                                  <textarea
+                                    className="cms-code-editor"
+                                    rows="6"
+                                    spellCheck={false}
+                                    value={bContent.css_code || ''}
+                                    placeholder=".kartu {\n  padding: 1rem;\n  border-radius: 8px;\n}"
+                                    onKeyDown={(e) => handleCodeTab(e, idx, 'css_code')}
+                                    onChange={e => updateBlockContent(idx, 'css_code', e.target.value)}
+                                  />
+                                </div>
+                                <p className="cms-rte-hint" style={{ margin: 0 }}>
+                                  CSS otomatis di-scope hanya untuk blok ini, dan HTML disanitasi sebelum ditampilkan. Gunakan tombol <strong>Preview</strong> di atas untuk melihat hasilnya.
+                                </p>
+                              </div>
+                            )}
                           </div>
                         </div>
                       );
@@ -479,6 +530,13 @@ export default function PagesTab({
                       onClick={() => addBlock('table')}
                     >
                       <FaTable style={{ color: '#7c3aed' }} /> + Wadah Tabel
+                    </button>
+                    <button 
+                      type="button" 
+                      className="cms-btn-add-block" 
+                      onClick={() => addBlock('code')}
+                    >
+                      <FaCode style={{ color: '#0ea5e9' }} /> + Wadah Kode
                     </button>
                   </div>
                 </div>
@@ -589,16 +647,20 @@ export default function PagesTab({
                       }}>
                         <FaEdit /> Edit
                       </button>
-                      <button 
-                        className={`cms-btn cms-btn--icon ${page.status === 'published' ? 'cms-btn--toggle' : 'cms-btn--toggle-draft'}`} 
-                        title={page.status === 'published' ? 'Jadikan Draft' : 'Publish Halaman'} 
-                        onClick={() => togglePageStatus(page.id, page.status)}
-                      >
-                        {page.status === 'published' ? <><FaToggleOn /> Published</> : <><FaToggleOff /> Draft</>}
-                      </button>
-                      <button className="cms-btn cms-btn--icon cms-btn--delete" title="Hapus Halaman" onClick={() => deletePage(page.id)}>
-                        <FaTrash /> Hapus
-                      </button>
+                      {canManageContent && (
+                        <>
+                          <button 
+                            className={`cms-btn cms-btn--icon ${page.status === 'published' ? 'cms-btn--toggle' : 'cms-btn--toggle-draft'}`} 
+                            title={page.status === 'published' ? 'Jadikan Draft' : 'Publish Halaman'} 
+                            onClick={() => togglePageStatus(page.id, page.status)}
+                          >
+                            {page.status === 'published' ? <><FaToggleOn /> Published</> : <><FaToggleOff /> Draft</>}
+                          </button>
+                          <button className="cms-btn cms-btn--icon cms-btn--delete" title="Hapus Halaman" onClick={() => deletePage(page.id)}>
+                            <FaTrash /> Hapus
+                          </button>
+                        </>
+                      )}
                     </div>
                   </td>
                 </tr>

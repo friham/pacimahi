@@ -7,6 +7,7 @@ export default function AdminSidebar({
   setMobileSidebarOpen,
   toggleSidebar,
   navSections,
+  userRole,
   activeTab,
   setActiveTab,
   setIsAdding,
@@ -14,6 +15,8 @@ export default function AdminSidebar({
   handleLogout,
   logo
 }) {
+  const isSuperOrAdmin = userRole === 'superadmin' || userRole === 'admin';
+
   return (
     <>
       {mobileSidebarOpen && (
@@ -58,7 +61,9 @@ export default function AdminSidebar({
                 <p className="admin-sidebar__section-title">{section.title}</p>
               )}
               <div className="admin-sidebar__section-items">
-                {section.items.map((item, iIdx) => {
+                {section.items
+                  .filter((item) => isSuperOrAdmin || (item.label !== 'Log Aktivitas' && item.label !== 'Pengaturan Website'))
+                  .map((item, iIdx) => {
                   const Icon = item.icon;
                   const isActive = activeTab === item.label;
                   return (

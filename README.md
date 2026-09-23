@@ -107,10 +107,17 @@ JWT_SECRET=your_super_secret_key_here
 JWT_EXPIRES_IN=24h
 ```
 
-Import database (jika ada file SQL di folder `database/`):
+Import database — **ikuti urutan lengkapnya di [`backend/database/README.md`](backend/database/README.md)**.
+
+> ⚠️ Skema tersebar di beberapa file (15 tabel). Menjalankan `schema.sql` saja
+> **TIDAK cukup** — lihat panduannya di [`backend/database/README.md`](backend/database/README.md).
 
 ```bash
-mysql -u root -p pa_cimahi_db < backend/database/schema.sql
+# Urutan singkat (detail + penjelasan di backend/database/README.md):
+mysql -u root -p pa_cimahi_db < backend/database/schema.sql             # 1. core + admin default
+mysql -u root -p pa_cimahi_db < backend/database/migrations_cms.sql     # 2. CMS (menu/halaman/media/dokumen/audit/code)
+mysql -u root -p pa_cimahi_db < backend/database/migrations_homepage.sql # 3. section homepage
+mysql -u root -p pa_cimahi_db < backend/database/migrations_analytics.sql # 4. analytics pengunjung
 ```
 
 Jalankan server:

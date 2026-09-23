@@ -1,4 +1,5 @@
 const pool = require('../config/db');
+const { recordAuditLog } = require('./auditLogController');
 
 const ALLOWED_SETTINGS_KEYS = [
   // Hero section
@@ -64,6 +65,16 @@ const updateSettings = async (req, res) => {
         [key, valStr, valStr]
       );
     }
+
+    await recordAuditLog({
+      adminId: req.user?.id,
+      adminName: req.user?.name || req.user?.username,
+      action: 'UPDATE',
+      objectType: 'settings',
+      objectId: null,
+      details: `Mengubah pengaturan website: ${Object.keys(updates).join(', ')}`,
+      ip: req.ip
+    });
 
     res.json({
       success: true,

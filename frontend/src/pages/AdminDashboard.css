@@ -3929,6 +3929,36 @@
   border-left: 5px solid #ca8a04;
 }
 
+.cms-block-card--code {
+  border-left: 5px solid #0ea5e9;
+}
+
+/* Editor khusus code (wadah HTML/CSS) */
+.cms-code-editor {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1.5px solid #334155;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, Menlo, monospace;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  tab-size: 2;
+  resize: vertical;
+}
+
+.cms-code-editor:focus {
+  outline: none;
+  border-color: #0ea5e9;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+}
+
+.cms-code-editor::placeholder {
+  color: #64748b;
+  white-space: pre;
+}
+
 .cms-block-card__header {
   display: flex;
   align-items: center;

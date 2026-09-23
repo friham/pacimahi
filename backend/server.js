@@ -26,6 +26,15 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const isProduction = process.env.NODE_ENV === 'production';
 
+// Trust proxy: set TRUST_PROXY=true di .env HANYA jika backend berjalan di
+// belakang reverse proxy (nginx/Apache/load balancer) — supaya req.ip dan
+// rate limiter membaca IP client asli, bukan IP proxy.
+// Kalau backend menerima trafik publik langsung, biarkan default (false)
+// agar IP tidak bisa dipalsukan lewat header X-Forwarded-For.
+if (process.env.TRUST_PROXY === 'true') {
+  app.set('trust proxy', 1);
+}
+
 app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' }
 }));
@@ -41,11 +50,21 @@ const allowedOrigins = isProduction
       'http://localhost:3000'
     ];
 
+// CORS: daftar kosong hanya berarti "izinkan semua" di development.
+// Di production, CORS_ORIGIN kosong TIDAK dianggap wildcard (credentials: true
+// aktif), melainkan semua origin cross-origin ditolak sampai CORS_ORIGIN diisi.
+if (isProduction && allowedOrigins.length === 0) {
+  console.warn(
+    '⚠️ CORS_ORIGIN belum diatur di production — semua request cross-origin akan ditolak, set CORS_ORIGIN di .env'
+  );
+}
+const allowAnyOrigin = allowedOrigins.length === 0 && !isProduction;
+
 app.use(cors({
   origin: (origin, callback) => {
     
     if (!origin) return callback(null, true);
-    if (allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+    if (allowAnyOrigin || allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
     callback(new Error('CORS: Origin tidak diizinkan.'));

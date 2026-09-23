@@ -65,7 +65,15 @@ const createSnippet = async (req, res) => {
       [name.trim(), description, language, tags, html_code, css_code, js_code]
     );
 
-    await recordAuditLog(req, 'CREATE', 'code_snippet', result.insertId, `Snippet "${name}" ditambahkan`);
+    await recordAuditLog({
+      adminId: req.user?.id,
+      adminName: req.user?.name || req.user?.username,
+      action: 'CREATE',
+      objectType: 'code_snippet',
+      objectId: result.insertId,
+      details: `Snippet "${name}" ditambahkan`,
+      ip: req.ip
+    });
 
     res.status(201).json({
       success: true,
@@ -101,7 +109,15 @@ const updateSnippet = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Snippet tidak ditemukan.' });
     }
 
-    await recordAuditLog(req, 'UPDATE', 'code_snippet', id, `Snippet "${name}" diperbarui`);
+    await recordAuditLog({
+      adminId: req.user?.id,
+      adminName: req.user?.name || req.user?.username,
+      action: 'UPDATE',
+      objectType: 'code_snippet',
+      objectId: id,
+      details: `Snippet "${name}" diperbarui`,
+      ip: req.ip
+    });
 
     res.json({ success: true, message: 'Snippet berhasil diperbarui!' });
   } catch (error) {
@@ -120,7 +136,15 @@ const deleteSnippet = async (req, res) => {
     }
 
     await pool.execute('DELETE FROM code_snippets WHERE id = ?', [id]);
-    await recordAuditLog(req, 'DELETE', 'code_snippet', id, `Snippet "${rows[0].name}" dihapus`);
+    await recordAuditLog({
+      adminId: req.user?.id,
+      adminName: req.user?.name || req.user?.username,
+      action: 'DELETE',
+      objectType: 'code_snippet',
+      objectId: id,
+      details: `Snippet "${rows[0].name}" dihapus`,
+      ip: req.ip
+    });
 
     res.json({ success: true, message: 'Snippet berhasil dihapus dari library.' });
   } catch (error) {

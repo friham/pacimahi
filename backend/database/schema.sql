@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS admins (
   role ENUM('superadmin', 'admin', 'editor') DEFAULT 'admin',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Table: sliders
 CREATE TABLE IF NOT EXISTS sliders (
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS sliders (
   sort_order INT DEFAULT 0,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Table: services (quick access cards)
 CREATE TABLE IF NOT EXISTS services (
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS services (
   sort_order INT DEFAULT 0,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Table: news
 CREATE TABLE IF NOT EXISTS news (
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS news (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (author_id) REFERENCES admins(id) ON DELETE SET NULL
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Table: site_settings
 CREATE TABLE IF NOT EXISTS site_settings (
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS site_settings (
   setting_value LONGTEXT,
   setting_group VARCHAR(50) DEFAULT 'general',
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Default site settings
 INSERT INTO site_settings (setting_key, setting_value, setting_group) VALUES

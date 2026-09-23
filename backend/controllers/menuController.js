@@ -27,7 +27,10 @@ const getMenus = async (req, res) => {
     let query = 'SELECT * FROM menus';
     const params = [];
 
-    if (status) {
+    // Tanpa token valid (optionalAuth), hanya menu berstatus published.
+    if (!req.user) {
+      query += " WHERE status = 'published'";
+    } else if (status) {
       query += ' WHERE status = ?';
       params.push(status);
     }
@@ -44,8 +47,7 @@ const getMenus = async (req, res) => {
 const getMenuTree = async (req, res) => {
   try {
     
-    const hasAuth = !!(req.headers.authorization && req.headers.authorization.startsWith('Bearer '));
-    const isPublic = req.query.scope === 'public' || !hasAuth;
+    const isPublic = req.query.scope === 'public' || !req.user;
     let query = 'SELECT * FROM menus';
     const params = [];
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authMiddleware = require('../middleware/auth');
-const { checkRole } = require('../middleware/auth');
+const { checkRole, optionalAuth } = require('../middleware/auth');
 const {
   getMenus,
   getMenuTree,
@@ -12,14 +12,8 @@ const {
   toggleMenuStatus
 } = require('../controllers/menuController');
 
-router.get('/', (req, res, next) => {
-  
-  if (!req.headers.authorization) {
-    req.query.status = 'published';
-  }
-  next();
-}, getMenus);
-router.get('/tree', getMenuTree);
+router.get('/', optionalAuth, getMenus);
+router.get('/tree', optionalAuth, getMenuTree);
 
 router.post('/', authMiddleware, checkRole(['superadmin', 'admin']), createMenu);
 

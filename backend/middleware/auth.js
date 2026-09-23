@@ -41,7 +41,23 @@ const checkRole = (roles = []) => {
   };
 };
 
+// Optional auth: attach req.user if a valid token is present, but never reject.
+const optionalAuth = (req, _res, next) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      const token = authHeader.split(' ')[1];
+      req.user = jwt.verify(token, process.env.JWT_SECRET);
+    }
+  } catch {
+    // Token invalid — treat as unauthenticated, do not abort.
+  }
+  next();
+};
+
 authMiddleware.authMiddleware = authMiddleware;
 authMiddleware.checkRole = checkRole;
+authMiddleware.optionalAuth = optionalAuth;
 module.exports = authMiddleware;
 module.exports.checkRole = checkRole;
+module.exports.optionalAuth = optionalAuth;

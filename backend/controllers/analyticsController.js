@@ -92,7 +92,7 @@ const getStats = async (req, res, next) => {
         minggu_ini: Number(weekRows[0]?.count || 0),
         bulan_ini: Number(monthRows[0]?.count || 0),
         total: Number(totalRows[0]?.count || 0),
-        online: Math.max(1, Number(onlineRows[0]?.count || 0)) // minimum 1 when user requests
+        online: Number(onlineRows[0]?.count || 0)
       }
     });
   } catch (err) {

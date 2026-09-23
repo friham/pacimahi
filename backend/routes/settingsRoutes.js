@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { getSettings, updateSettings } = require('../controllers/settingsController');
 const authMiddleware = require('../middleware/auth');
+const { checkRole } = require('../middleware/auth');
 
 router.get('/', getSettings);
 
-router.put('/', authMiddleware, updateSettings);
+router.put('/', authMiddleware, checkRole(['superadmin', 'admin']), updateSettings);
 
 module.exports = router;

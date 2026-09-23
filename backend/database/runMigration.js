@@ -37,7 +37,7 @@ async function run() {
         slug VARCHAR(255) NOT NULL UNIQUE,
         excerpt TEXT NULL,
         content_html LONGTEXT NULL,
-        status ENUM('draft', 'published', 'archived') DEFAULT 'draft',
+        status ENUM('draft', 'published', 'archived') DEFAULT 'published',
         seo_title VARCHAR(255) NULL,
         meta_description TEXT NULL,
         meta_keywords VARCHAR(255) NULL,
