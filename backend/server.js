@@ -26,11 +26,6 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const isProduction = process.env.NODE_ENV === 'production';
 
-// Trust proxy: set TRUST_PROXY=true di .env HANYA jika backend berjalan di
-// belakang reverse proxy (nginx/Apache/load balancer) — supaya req.ip dan
-// rate limiter membaca IP client asli, bukan IP proxy.
-// Kalau backend menerima trafik publik langsung, biarkan default (false)
-// agar IP tidak bisa dipalsukan lewat header X-Forwarded-For.
 if (process.env.TRUST_PROXY === 'true') {
   app.set('trust proxy', 1);
 }
@@ -50,9 +45,6 @@ const allowedOrigins = isProduction
       'http://localhost:3000'
     ];
 
-// CORS: daftar kosong hanya berarti "izinkan semua" di development.
-// Di production, CORS_ORIGIN kosong TIDAK dianggap wildcard (credentials: true
-// aktif), melainkan semua origin cross-origin ditolak sampai CORS_ORIGIN diisi.
 if (isProduction && allowedOrigins.length === 0) {
   console.warn(
     '⚠️ CORS_ORIGIN belum diatur di production — semua request cross-origin akan ditolak, set CORS_ORIGIN di .env'
@@ -135,7 +127,6 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Handle multer errors (file too large, unexpected field, etc.)
 app.use((err, req, res, _next) => {
   if (err.code === 'LIMIT_FILE_SIZE') {
     return res.status(413).json({
@@ -168,7 +159,6 @@ app.use((err, req, res, _next) => {
     });
   }
 
-  // General error handler
   console.error('Error:', err.stack);
   if (res.headersSent) return;
   res.status(500).json({
@@ -177,13 +167,11 @@ app.use((err, req, res, _next) => {
   });
 });
 
-// Tangani unhandled rejection agar server tidak crash
 process.on('unhandledRejection', (reason, promise) => {
   console.error('⚠️ Unhandled Rejection di:', promise, 'Alasan:', reason);
   if (isProduction) process.exit(1);
 });
 
-// Tangani uncaught exception agar server tidak crash
 process.on('uncaughtException', (err) => {
   console.error('⚠️ Uncaught Exception:', err.message);
   if (isProduction) process.exit(1);

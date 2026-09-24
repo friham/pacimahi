@@ -1,6 +1,5 @@
 import DOMPurify from 'dompurify';
 
-// Whitelist domain terpercaya untuk iframe (misal: YouTube, Google Maps)
 const TRUSTED_IFRAME_DOMAINS = [
   'youtube.com',
   'www.youtube.com',
@@ -29,7 +28,6 @@ function isTrustedIframeUrl(src) {
   }
 }
 
-// Hook DOMPurify untuk memvalidasi atribut src pada tag iframe
 DOMPurify.removeHook('uponSanitizeElement');
 DOMPurify.addHook('uponSanitizeElement', (node, data) => {
   if (data.tagName === 'iframe') {

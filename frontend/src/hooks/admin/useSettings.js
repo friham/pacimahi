@@ -34,9 +34,6 @@ const DEFAULT_SETTINGS = {
   video_subtitle: 'Mengenal lebih dekat komitmen integritas, tata kelola modern, dan inovasi pelayanan prima Pengadilan Agama Kota Cimahi bagi masyarakat.',
 };
 
-/**
- * Domain: Pengaturan website (site_settings key/value).
- */
 export default function useSettings({ token, showMsg, setLoading }) {
   const [settings, setSettings] = useState(DEFAULT_SETTINGS);
 

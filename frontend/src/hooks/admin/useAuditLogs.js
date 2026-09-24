@@ -2,9 +2,6 @@ import { useState, useCallback } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../config';
 
-/**
- * Domain: Log aktivitas admin (audit_logs).
- */
 export default function useAuditLogs({ token }) {
   const [auditLogs, setAuditLogs] = useState([]);
 

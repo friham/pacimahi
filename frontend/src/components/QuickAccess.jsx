@@ -43,7 +43,6 @@ function QuickAccess({ onOpenCaseModal }) {
           setServices(res.data.data);
         }
       } catch {
-        // Gagal fetch: gunakan layanan fallback statis.
       }
     };
     fetchServices();

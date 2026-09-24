@@ -1,17 +1,3 @@
-/**
- * Script pemulihan password admin (jalankan di server secara manual).
- *
- * Untuk kasus admin lupa password dan tidak ada superadmin lain yang bisa
- * mereset lewat panel. Jalankan dari folder backend:
- *
- *   node database/resetAdminPassword.js <username> <passwordBaru>
- *
- * Contoh:
- *   node database/resetAdminPassword.js admin "SandiRahasia2026!"
- *
- * Script ini harus dijalankan oleh operator yang punya akses ke server
- * (dan environment database), bukan melalui API publik.
- */
 const bcrypt = require('bcryptjs');
 const pool = require('../config/db');
 

@@ -1,7 +1,6 @@
 const pool = require('../config/db');
 const { recordAuditLog } = require('./auditLogController');
 
-// GET /api/code-snippets - list all snippets
 const getSnippets = async (req, res) => {
   try {
     const { lang, search, tag } = req.query;
@@ -30,7 +29,6 @@ const getSnippets = async (req, res) => {
   }
 };
 
-// GET /api/code-snippets/:id - get single snippet
 const getSnippetById = async (req, res) => {
   try {
     const [rows] = await pool.execute(
@@ -47,7 +45,6 @@ const getSnippetById = async (req, res) => {
   }
 };
 
-// POST /api/code-snippets - create snippet
 const createSnippet = async (req, res) => {
   try {
     const {
@@ -86,7 +83,6 @@ const createSnippet = async (req, res) => {
   }
 };
 
-// PUT /api/code-snippets/:id - update snippet
 const updateSnippet = async (req, res) => {
   try {
     const { id } = req.params;
@@ -126,7 +122,6 @@ const updateSnippet = async (req, res) => {
   }
 };
 
-// DELETE /api/code-snippets/:id - delete snippet
 const deleteSnippet = async (req, res) => {
   try {
     const { id } = req.params;

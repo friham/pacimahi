@@ -224,7 +224,7 @@ function HomepageTab({ token }) {
         if (typeof fullUrl === 'string' && fullUrl.startsWith(serverOrigin)) {
           value = fullUrl.slice(serverOrigin.length);
         }
-      } catch { /* pakai fullUrl apa adanya */ }
+      } catch {  }
       setForm((prev) => {
         const next = { ...prev };
         const path = mediaPicker.path;

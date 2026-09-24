@@ -7,9 +7,6 @@ const EMPTY_MENU_FORM = {
   sort_order: 0, status: 'published', open_new_tab: false, description: ''
 };
 
-/**
- * Domain: Menu navigasi (flat list + tree) + aksi CRUD/status.
- */
 export default function useMenus({ token, showMsg, setLoading, setEditingItem, setIsAdding, openConfirm }) {
   const [menus, setMenus] = useState([]);
   const [menuTree, setMenuTree] = useState([]);

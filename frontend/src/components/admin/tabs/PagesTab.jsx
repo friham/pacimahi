@@ -13,9 +13,6 @@ import BlockRenderer from '../../cms/BlockRenderer';
 import { sanitizeHtml } from '../../../sanitize';
 import { API_URL as CONFIG_API_URL } from '../../../config';
 
-/* ─────────────────────────────────────────────────
-   MiniCodeEditor — dipakai di dalam blok 'code'
-───────────────────────────────────────────────── */
 const MINI_TABS = [
   { key: 'html_code', label: 'HTML', Icon: FaHtml5,   color: '#e34f26',
     placeholder: `<!-- HTML di sini -->
@@ -76,14 +73,13 @@ function MiniCodeEditor({ blockContent, onUpdate, token: editorToken, blockIdx }
       await navigator.clipboard.writeText(code);
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
-    } catch { /* ignore */ }
+    } catch {  }
   };
 
   const cfg = MINI_TABS.find(t => t.key === activeTab);
 
   return (
     <div className="mce-root">
-      {/* Tab bar */}
       <div className="mce-tabs">
         {MINI_TABS.map(({ key, label, Icon, color }) => (
           <button
@@ -115,9 +111,7 @@ function MiniCodeEditor({ blockContent, onUpdate, token: editorToken, blockIdx }
         </button>
       </div>
 
-      {/* Editor + Preview workspace */}
       <div className={`mce-workspace ${showPreview ? 'mce-workspace--split' : ''}`}>
-        {/* Editor */}
         <div className="mce-editor">
           <div className="mce-editor__gutter" ref={gutterRef}>
             {Array.from({ length: lineCount }, (_, i) => <span key={i}>{i + 1}</span>)}
@@ -137,7 +131,6 @@ function MiniCodeEditor({ blockContent, onUpdate, token: editorToken, blockIdx }
           />
         </div>
 
-        {/* Live preview */}
         {showPreview && (
           <div className="mce-preview">
             <div className="mce-preview__bar">
@@ -153,13 +146,11 @@ function MiniCodeEditor({ blockContent, onUpdate, token: editorToken, blockIdx }
         )}
       </div>
 
-      {/* Info bar */}
       <div className="mce-info-bar">
         <span>{lineCount} baris</span>
         <span className="mce-info-bar__hint">Tab = 2 spasi · CSS di-scope otomatis · Sanitasi aktif</span>
       </div>
 
-      {/* Import modal */}
       {showImport && (
         <CodeImportModal
           token={editorToken}
@@ -176,9 +167,6 @@ function MiniCodeEditor({ blockContent, onUpdate, token: editorToken, blockIdx }
   );
 }
 
-/* ─────────────────────────────────────────────────
-   CodeImportModal — pilih snippet dari library
-───────────────────────────────────────────────── */
 const LANG_ICONS = { html: FaHtml5, css: FaCss3Alt, js: FaJs, combined: FaLayerGroup };
 const LANG_COLORS = { html: '#e34f26', css: '#264de4', js: '#ca8a04', combined: '#22c55e' };
 
@@ -195,7 +183,7 @@ function CodeImportModal({ token, onImport, onClose }) {
           token ? { headers: { Authorization: `Bearer ${token}` } } : {}
         );
         setSnippets(res.data.data || []);
-      } catch { /* empty library */ }
+      } catch {  }
       setLoading(false);
     })();
   }, [token]);

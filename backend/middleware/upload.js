@@ -52,9 +52,6 @@ const allowedDocumentMimes = {
   '.rtf': ['application/rtf', 'text/rtf'],
 };
 
-// .docx and .zip often get reported as application/octet-stream by certain
-// OS/browser combinations (e.g. Windows Edge, some Linux DE file managers).
-// We allow it ONLY when the extension is already verified to be .docx or .zip.
 const octetStreamTolerantExts = new Set(['.docx', '.zip']);
 
 const documentFilter = (req, file, cb) => {

@@ -14,8 +14,6 @@ const recordAuditLog = async ({ adminId = null, adminName = 'Sistem', action, ob
 
 const getAuditLogs = async (req, res) => {
   try {
-    // HARUS integer (bukan string) — prepared statement MySQL menolak
-    // LIMIT/OFFSET bertipe string. Fallback ke default bila NaN/negatif.
     const parsedLimit = parseInt(req.query.limit, 10);
     const parsedPage = parseInt(req.query.page, 10);
     const limit = Number.isNaN(parsedLimit) || parsedLimit < 1 ? 50 : parsedLimit;

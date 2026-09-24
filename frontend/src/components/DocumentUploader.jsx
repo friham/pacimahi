@@ -4,15 +4,6 @@ import { FaFilePdf, FaFileImage, FaUpload, FaCheckCircle, FaExclamationCircle } 
 
 import { API_URL, SERVER_URL } from '../config';
 
-/**
- * Komponen upload dokumen (PDF & Gambar) untuk Admin Panel.
- * Props:
- * - value: string, URL file (misal /documents/123-file.pdf atau /images/uploads/123-img.jpg)
- * - onChange: (fileUrl: string) => void
- * - token: string, JWT Token auth
- * - label: string
- * - acceptTypes: string, default 'application/pdf,image/jpeg,image/png,image/webp'
- */
 function DocumentUploader({
   value,
   onChange,

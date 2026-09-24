@@ -44,7 +44,6 @@ export default function ImageCropModal({
     if (!isOpen || !imageSrc) return;
 
     let timer;
-    // Beri sedikit delay untuk memastikan DOM modal dan img sudah ter-render sempurna
     timer = setTimeout(() => {
       if (imageRef.current) {
         if (cropperRef.current) {
@@ -147,7 +146,6 @@ export default function ImageCropModal({
         setIsProcessing(false);
         if (!blob) return;
 
-        // Ambil ekstensi nama file asli atau default ke .jpg
         let name = fileName || 'cropped-image.jpg';
         if (!/\.(jpe?g|png|webp)$/i.test(name)) {
           name += '.jpg';
@@ -166,7 +164,6 @@ export default function ImageCropModal({
   return (
     <div className="crop-modal-overlay animate-fade-in" onClick={onClose}>
       <div className="crop-modal-container" onClick={(e) => e.stopPropagation()}>
-        {/* Header Modal */}
         <div className="crop-modal-header">
           <div className="crop-modal-title">
             <FaCrop className="crop-modal-title__icon" />
@@ -182,7 +179,6 @@ export default function ImageCropModal({
           </button>
         </div>
 
-        {/* Workspace Cropper */}
         <div className="crop-modal-body">
           <div className="crop-modal-canvas-wrapper">
             <img
@@ -194,9 +190,7 @@ export default function ImageCropModal({
             />
           </div>
 
-          {/* Toolbar Pengaturan */}
           <div className="crop-modal-toolbar">
-            {/* Pilihan Rasio */}
             <div className="crop-toolbar-section">
               <span className="crop-toolbar-label">Rasio Aspek:</span>
               <div className="crop-ratio-group">
@@ -217,7 +211,6 @@ export default function ImageCropModal({
               </div>
             </div>
 
-            {/* Transformasi & Navigasi */}
             <div className="crop-toolbar-section">
               <span className="crop-toolbar-label">Alat Penyesuaian:</span>
               <div className="crop-tools-group">
@@ -282,7 +275,6 @@ export default function ImageCropModal({
           </div>
         </div>
 
-        {/* Footer Actions */}
         <div className="crop-modal-footer">
           <button
             type="button"

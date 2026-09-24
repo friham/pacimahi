@@ -9,8 +9,6 @@ function CaseTrackingModal({ isOpen, onClose, initialQuery = '' }) {
   const [searchedTerm, setSearchedTerm] = useState('');
   const inputRef = useRef(null);
 
-  // Sync initialQuery when opened — setState ditempatkan di dalam timer
-  // agar tidak ada setState sinkron di body effect (hindari cascading render).
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -34,7 +32,6 @@ function CaseTrackingModal({ isOpen, onClose, initialQuery = '' }) {
     return () => clearTimeout(resetTimer);
   }, [isOpen, initialQuery]);
 
-  // Handle ESC key to close
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (!isOpen) return;

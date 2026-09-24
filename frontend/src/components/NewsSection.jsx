@@ -68,7 +68,6 @@ function NewsSection() {
           setNewsList(normalized);
         }
       } catch {
-        // Gagal fetch: gunakan daftar berita fallback statis.
       }
     };
     fetchNews();

@@ -13,7 +13,6 @@ const globalSearch = async (req, res) => {
 
     const searchTerm = `%${q}%`;
 
-    // 1. Search Published CMS Pages
     const pagesPromise = pool.execute(
       `SELECT id, title, slug, excerpt, content_html,
         (CASE WHEN title LIKE ? THEN 2 ELSE 1 END) AS relevance
@@ -25,7 +24,6 @@ const globalSearch = async (req, res) => {
       [searchTerm, searchTerm, searchTerm, searchTerm]
     );
 
-    // 2. Search Published News
     const newsPromise = pool.execute(
       `SELECT id, title, slug, content, category,
         (CASE WHEN title LIKE ? THEN 2 ELSE 1 END) AS relevance
@@ -37,7 +35,6 @@ const globalSearch = async (req, res) => {
       [searchTerm, searchTerm, searchTerm]
     );
 
-    // 3. Search Services
     const servicesPromise = pool.execute(
       `SELECT id, name, description, link,
         (CASE WHEN name LIKE ? THEN 2 ELSE 1 END) AS relevance
@@ -56,7 +53,6 @@ const globalSearch = async (req, res) => {
 
     const results = [];
 
-    // Format Pages
     pageRows.forEach((p) => {
       const cleanSnippet = p.excerpt 
         ? p.excerpt 
@@ -73,7 +69,6 @@ const globalSearch = async (req, res) => {
       });
     });
 
-    // Format News
     newsRows.forEach((n) => {
       const cleanSnippet = (n.content || '').replace(/<[^>]*>?/gm, '').substring(0, 110);
       results.push({
@@ -87,7 +82,6 @@ const globalSearch = async (req, res) => {
       });
     });
 
-    // Format Services
     serviceRows.forEach((s) => {
       results.push({
         type: 'layanan',
@@ -101,7 +95,6 @@ const globalSearch = async (req, res) => {
       });
     });
 
-    // Sort by relevance (title match first)
     results.sort((a, b) => (b.relevance || 0) - (a.relevance || 0));
 
     res.json({

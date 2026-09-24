@@ -4,9 +4,6 @@ import { API_URL } from '../../config';
 
 const EMPTY_FORM = { name: '', icon: '', description: '', link: '', sort_order: 0, is_active: true };
 
-/**
- * Domain: Layanan cepat (quick access) di homepage.
- */
 export default function useServices({ token, showMsg, setLoading, setEditingItem, setIsAdding, openConfirm }) {
   const [services, setServices] = useState([]);
   const [serviceForm, setServiceForm] = useState(EMPTY_FORM);

@@ -1,11 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-/**
- * ScrollToTop component
- * Memastikan setiap kali rute atau halaman berganti (melalui Navbar, Sidebar, Link, dsb.),
- * posisi scroll browser akan otomatis kembali ke bagian paling atas layar secara mulus/instan.
- */
 export default function ScrollToTop() {
   const { pathname, search } = useLocation();
 

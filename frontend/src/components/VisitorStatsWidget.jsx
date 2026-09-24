@@ -29,17 +29,14 @@ export default function VisitorStatsWidget() {
   });
   const sessionIdRef = useRef('');
 
-  // 1. Check if admin path
   const isAdminPath = location.pathname.startsWith('/admin');
 
-  // Initialize session_id
   useEffect(() => {
     if (!isAdminPath) {
       sessionIdRef.current = getOrCreateSessionId();
     }
   }, [isAdminPath]);
 
-  // 2. Fetch stats
   const fetchStats = useCallback(async () => {
     if (isAdminPath) return;
     try {
@@ -50,7 +47,6 @@ export default function VisitorStatsWidget() {
     } catch {}
   }, [isAdminPath]);
 
-  // 3. Heartbeat
   const sendHeartbeat = useCallback(async () => {
     if (isAdminPath || !sessionIdRef.current) return;
     try {
@@ -60,7 +56,6 @@ export default function VisitorStatsWidget() {
     } catch {}
   }, [isAdminPath]);
 
-  // 4. Track page visit on route change
   useEffect(() => {
     if (isAdminPath) return;
 
@@ -76,7 +71,6 @@ export default function VisitorStatsWidget() {
     track();
   }, [location.pathname, isAdminPath, fetchStats]);
 
-  // 5. Periodic stats fetch (every 30s) and heartbeat (every 60s)
   useEffect(() => {
     if (isAdminPath) return;
 
@@ -95,7 +89,6 @@ export default function VisitorStatsWidget() {
     };
   }, [isAdminPath, fetchStats, sendHeartbeat]);
 
-  // If in admin, do not render
   if (isAdminPath) return null;
 
   return (

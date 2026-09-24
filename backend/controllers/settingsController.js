@@ -2,19 +2,12 @@ const pool = require('../config/db');
 const { recordAuditLog } = require('./auditLogController');
 
 const ALLOWED_SETTINGS_KEYS = [
-  // Hero section
   'hero_badge', 'hero_title', 'hero_subtitle', 'running_text',
-  // Statistics
   'stat_diterima', 'stat_diputus', 'stat_persentase', 'stat_ikm',
-  // Contact info
   'court_address', 'court_phone', 'court_email', 'court_whatsapp',
-  // Social media
   'social_facebook', 'social_instagram', 'social_youtube', 'social_whatsapp',
-  // Footer
   'footer_description', 'footer_hours_weekday', 'footer_hours_friday',
-  // Media
   'video_url', 'video_title', 'video_subtitle',
-  // Survey & Performance
   'survey_period',
   'survey_ikm_score', 'survey_ikm_grade',
   'survey_ipkp_score', 'survey_ipkp_grade',

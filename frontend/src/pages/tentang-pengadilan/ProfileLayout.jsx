@@ -137,7 +137,6 @@ function ProfileLayout({ title, subtitle, breadcrumb, children }) {
           }
         }
       } catch {
-        // fallback to default
       } finally {
         fetchSidebarMenusPromise = null;
       }
@@ -167,13 +166,10 @@ function ProfileLayout({ title, subtitle, breadcrumb, children }) {
 
   return (
     <div className="profile-page-wrapper">
-      {}
       <Navbar />
 
-      {}
       <SocialSidebar />
 
-      {}
       <section className="profile-hero">
         <div className="profile-hero__container">
           <nav className="profile-breadcrumbs" aria-label="Breadcrumb">
@@ -191,11 +187,8 @@ function ProfileLayout({ title, subtitle, breadcrumb, children }) {
         </div>
       </section>
 
-      {}
       <div className="profile-body-container">
-        {}
         <aside className="profile-sidebar">
-          {}
           <div className="sidebar-card">
             <div className="sidebar-card__header">
               <FaBalanceScale className="sidebar-card__header-icon" />
@@ -238,7 +231,6 @@ function ProfileLayout({ title, subtitle, breadcrumb, children }) {
             </ul>
           </div>
 
-          {}
           <div className="sidebar-card">
             <div className="sidebar-card__header">
               <FaClock className="sidebar-card__header-icon" />
@@ -291,7 +283,6 @@ function ProfileLayout({ title, subtitle, breadcrumb, children }) {
             </div>
           </div>
 
-          {}
           <div className="sidebar-card">
             <div className="sidebar-card__header">
               <FaExternalLinkAlt className="sidebar-card__header-icon" />
@@ -329,18 +320,15 @@ function ProfileLayout({ title, subtitle, breadcrumb, children }) {
           </div>
         </aside>
 
-        {}
         <main className="profile-content-area">
           {children}
         </main>
       </div>
 
-      {}
       <VirtualAssistant />
       <AccessibilityWidget />
       <AcoFloatingButton cctvUrl="https://cctv.badilag.net/display/satker/3f0217881b5ba82ead3967e1032f6421" />
 
-      {}
       <Footer />
     </div>
   );

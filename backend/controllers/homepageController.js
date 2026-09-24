@@ -26,11 +26,6 @@ const validateItems = (items) => {
   return items;
 };
 
-/**
- * Public: GET /api/homepage-sections
- * Mengembalikan semua section berstatus published (urut berdasarkan id).
- * Kolom items (JSON) dipastikan sudah berupa array/objek, bukan string.
- */
 const parseItems = (row) => {
   if (typeof row.items === 'string') {
     try {
@@ -55,12 +50,6 @@ const getAllSections = async (req, res) => {
   }
 };
 
-/**
- * Admin only: GET /api/homepage-sections/all
- * Semua section termasuk draft (dengan auth). Konvensi sama dengan
- * sliders/services/news: endpoint /all untuk kebutuhan panel admin,
- * supaya section berstatus draft tetap terlihat dan bisa dipublish ulang.
- */
 const getAllSectionsAdmin = async (req, res) => {
   try {
     const [rows] = await pool.execute(
@@ -73,11 +62,6 @@ const getAllSectionsAdmin = async (req, res) => {
   }
 };
 
-/**
- * Admin only: PUT /api/homepage-sections/:sectionKey
- * Terima badge_text/title/description/image_url/link_url/link_text/items/status.
- * items harus JSON valid (objek JS, string JSON ter-parse, atau null).
- */
 const updateSection = async (req, res) => {
   try {
     const { sectionKey } = req.params;

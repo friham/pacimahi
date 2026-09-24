@@ -5,7 +5,6 @@ async function seedNews() {
   const conn = await pool.getConnection();
 
   try {
-    // Check if news already exist
     const [existing] = await conn.query('SELECT COUNT(*) as count FROM news');
     if (existing[0].count > 0) {
       console.log(`⚠️  Database already has ${existing[0].count} news items. Skipping insert.`);
@@ -13,7 +12,6 @@ async function seedNews() {
       return;
     }
 
-    // Get admin author_id (superadmin)
     const [admins] = await conn.query('SELECT id FROM admins LIMIT 1');
     const authorId = admins.length > 0 ? admins[0].id : 1;
 
@@ -128,7 +126,6 @@ async function seedNews() {
   }
 }
 
-// Run if called directly
 if (require.main === module) {
   seedNews()
     .then(() => process.exit(0))

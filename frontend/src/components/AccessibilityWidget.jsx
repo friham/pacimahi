@@ -241,7 +241,6 @@ function AccessibilityWidget() {
           )}
         </div>
       ) : (
-        /* Hidden state restore button */
         <button
           type="button"
           className="a11y-restore-trigger"

@@ -257,7 +257,6 @@ function Navbar() {
           return (
             <div key={index} className="navbar__mobile-item">
               {item.children && item.children.length > 0 ? (
-                /* Item punya sub-menu → tampilkan tombol dengan chevron */
                 <button
                   className="navbar__mobile-link"
                   onClick={() => setActiveDropdown(isTopOpen ? null : index)}
@@ -269,7 +268,6 @@ function Navbar() {
                   />
                 </button>
               ) : (
-                /* Item tidak punya sub-menu → tampilkan sebagai link biasa tanpa panah */
                 <Link
                   to={item.href || '#'}
                   className="navbar__mobile-link"

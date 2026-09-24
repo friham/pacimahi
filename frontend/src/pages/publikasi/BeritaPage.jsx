@@ -93,7 +93,6 @@ function BeritaPage() {
       breadcrumb="Berita"
     >
       <div className="pa-content-card">
-        {/* Filter & Search Bar */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
           <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
             {categories.map((cat) => (
@@ -158,7 +157,6 @@ function BeritaPage() {
           </div>
         </div>
 
-        {/* Content State: Loading, Empty, or Grid */}
         {loading ? (
           <div style={{ textAlign: 'center', padding: '4rem 1rem', color: '#1b5e20' }}>
             <FaSpinner className="spin" size={32} style={{ animation: 'spin 1s linear infinite' }} />
@@ -280,7 +278,6 @@ function BeritaPage() {
           </div>
         )}
 
-        {/* Pagination */}
         {!loading && totalPages > 1 && (
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px', marginTop: '28px', flexWrap: 'wrap' }}>
             <button
@@ -341,7 +338,6 @@ function BeritaPage() {
           </div>
         )}
 
-        {/* Modal Detail Berita */}
         {selectedNews && (
           <div
             className="news-modal-overlay"

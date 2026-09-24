@@ -95,7 +95,6 @@ function HomeSpotlightBanners() {
   const [zoomImage, setZoomImage] = useState(null);
   const [sections, setSections] = useState(FALLBACK_SECTIONS);
 
-  // Scroll-reveal refs — satu per block, threshold rendah (0.08) agar elemen besar tidak nyangkut
   const ziRef        = useScrollReveal({ threshold: 0.08 });
   const priRef       = useScrollReveal({ threshold: 0.08 });
   const dualRef      = useScrollReveal({ threshold: 0.08 });
@@ -114,7 +113,6 @@ function HomeSpotlightBanners() {
         }
       })
       .catch(() => {
-        // Gagal fetch: biarkan data fallback statis yang ditampilkan.
       });
     return () => { cancelled = true; };
   }, []);

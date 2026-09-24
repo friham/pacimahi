@@ -63,9 +63,6 @@ const createMedia = async (req, res) => {
       ip: req.ip
     });
 
-    // Ambil ulang baris yang baru dibuat supaya response ikut memuat created_at,
-    // yang dipakai panel "Detail Berkas" di modal Media Library (tanpa ini
-    // tanggal tampil sebagai "Invalid Date").
     const [createdRows] = await pool.execute('SELECT * FROM media WHERE id = ?', [result.insertId]);
     const created = createdRows[0] || {};
 

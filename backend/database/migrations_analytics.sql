@@ -1,4 +1,3 @@
--- Migration for Visitor Tracking & Online Active Sessions
 CREATE TABLE IF NOT EXISTS page_visits (
   id INT AUTO_INCREMENT PRIMARY KEY,
   visited_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

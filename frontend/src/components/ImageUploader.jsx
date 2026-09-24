@@ -5,16 +5,6 @@ import ImageCropModal from './ImageCropModal';
 
 import { API_URL, SERVER_URL } from '../config';
 
-/**
- * Komponen upload gambar melalui file explorer (drag & drop / klik pilih file)
- * dilengkapi dengan fitur potong / crop gambar interaktif sebelum dan sesudah diunggah.
- * Props:
- * - value: string, image_url yang sedang tersimpan (bisa path relatif "/images/uploads/xxx.jpg" atau URL penuh)
- * - onChange: (image_url: string) => void, dipanggil dengan URL gambar baru setelah upload berhasil
- * - token: string, JWT token untuk autentikasi request upload
- * - label: string, label field yang ditampilkan
- * - allowCrop: boolean, aktifkan fitur pemotong foto (default: true)
- */
 function ImageUploader({ value, onChange, token, label = 'Gambar', allowCrop = true }) {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState('');

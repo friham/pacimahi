@@ -25,7 +25,6 @@ export default function GlobalSearchBox() {
     setIsOpen(false);
   };
 
-  // Focus modal input and freeze background body scroll when modal opens
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -44,7 +43,6 @@ export default function GlobalSearchBox() {
     };
   }, [isOpen]);
 
-  // Handle ESC key to close modal and basic focus trapping
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (!isOpen) return;
@@ -54,7 +52,6 @@ export default function GlobalSearchBox() {
         handleCloseModal();
       }
 
-      // Tab key navigation within modal
       if (e.key === 'Tab' && modalDialogRef.current) {
         const focusableElements = modalDialogRef.current.querySelectorAll(
           'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
@@ -115,7 +112,6 @@ export default function GlobalSearchBox() {
   const news = results.filter((r) => r.type === 'berita');
   const services = results.filter((r) => r.type === 'layanan');
 
-  // Render modal dialog via React Portal into document.body
   const modalContent = isOpen ? (
     <div 
       className="search-modal-backdrop" 
@@ -130,7 +126,6 @@ export default function GlobalSearchBox() {
         ref={modalDialogRef}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Modal Input Header */}
         <div className="search-modal-header">
           <FaSearch className="search-modal-header__icon" />
           <input
@@ -171,9 +166,7 @@ export default function GlobalSearchBox() {
           </button>
         </div>
 
-        {/* Modal Content / Results */}
         <div className="search-modal-body">
-          {/* State 1: Typing / Loading */}
           {loading && (
             <div className="search-modal-status">
               <FaSpinner className="spin" />
@@ -181,7 +174,6 @@ export default function GlobalSearchBox() {
             </div>
           )}
 
-          {/* State 2: Untouched / query < 2 */}
           {!loading && query.trim().length < 2 && (
             <div className="search-modal-placeholder">
               <div className="search-modal-placeholder__icon-box">
@@ -212,7 +204,6 @@ export default function GlobalSearchBox() {
             </div>
           )}
 
-          {/* State 3: Query >= 2 but no results */}
           {!loading && query.trim().length >= 2 && results.length === 0 && (
             <div className="search-modal-empty">
               <p className="search-modal-empty__title">Tidak ada hasil ditemukan</p>
@@ -222,10 +213,8 @@ export default function GlobalSearchBox() {
             </div>
           )}
 
-          {/* State 4: Has Results */}
           {!loading && results.length > 0 && (
             <div className="search-modal-results">
-              {/* Group: Halaman */}
               {pages.length > 0 && (
                 <div className="search-group">
                   <div className="search-group__title">
@@ -252,7 +241,6 @@ export default function GlobalSearchBox() {
                 </div>
               )}
 
-              {/* Group: Layanan */}
               {services.length > 0 && (
                 <div className="search-group">
                   <div className="search-group__title">
@@ -300,7 +288,6 @@ export default function GlobalSearchBox() {
                 </div>
               )}
 
-              {/* Group: Berita */}
               {news.length > 0 && (
                 <div className="search-group">
                   <div className="search-group__title">
@@ -330,7 +317,6 @@ export default function GlobalSearchBox() {
           )}
         </div>
 
-        {/* Modal Footer / Keyboard tip */}
         <div className="search-modal-footer">
           <span className="search-modal-tip">
             Tekan <kbd>Esc</kbd> untuk menutup
@@ -345,7 +331,6 @@ export default function GlobalSearchBox() {
 
   return (
     <div className="global-search-wrapper">
-      {/* Search trigger bar in hero - purely click/focus trigger WITHOUT any submit button */}
       <div 
         className="global-search-trigger" 
         onClick={handleOpenModal}
@@ -374,7 +359,6 @@ export default function GlobalSearchBox() {
         />
       </div>
 
-      {/* Render modal directly into body so it escapes parent overflow & clipping */}
       {typeof document !== 'undefined' && createPortal(modalContent, document.body)}
     </div>
   );

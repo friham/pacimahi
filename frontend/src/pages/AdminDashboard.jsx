@@ -59,8 +59,6 @@ function AdminDashboard() {
     document.title = 'Admin Panel | Pengadilan Agama Kota Cimahi Kelas IA';
   }, []);
 
-
-
   const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
     return localStorage.getItem('admin_sidebar_collapsed') === 'true';
   });
@@ -78,22 +76,14 @@ function AdminDashboard() {
     }
   };
 
-
-
   const [previewPage, setPreviewPage] = useState(null);
-
-
-
 
   const [editingItem, setEditingItem] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ text: '', type: '' });
 
-
   const [sliderPreview, setSliderPreview] = useState(null); 
-
-
 
   const showMsg = (text, type = 'success') => {
     setMessage({ text, type });
@@ -160,7 +150,6 @@ function AdminDashboard() {
     return () => document.removeEventListener('keydown', onKey);
   }, [showLogoutModal]);
 
-  // ─── Data & aksi per-domain: custom hooks (state + fetch + CRUD per tab) ───
   const adminActions = { token, showMsg, setLoading, setEditingItem, setIsAdding, openConfirm };
 
   const {
@@ -201,7 +190,6 @@ function AdminDashboard() {
     handleUpdateProfile, handleChangePassword, handleAvatarFileChange
   } = useAccount({ user, token, updateUser, showMsg });
 
-  // Wrapper submit: `editingItem` tetap state cross-tab di komponen ini.
   const handleSliderSubmit = (e) => saveSlider(e, editingItem);
   const handleServiceSubmit = (e) => saveService(e, editingItem);
   const handleNewsSubmit = (e) => saveNews(e, editingItem);
@@ -221,7 +209,6 @@ function AdminDashboard() {
     if (activeTab === 'Pustaka Dokumen') fetchDocuments();
     if (activeTab === 'Log Aktivitas') fetchAuditLogs();
   }, [activeTab, fetchSliders, fetchServices, fetchNews, fetchSettings, fetchMenus, fetchMenuTree, fetchPages, fetchMedia, fetchDocuments, fetchAuditLogs]);
-
 
   const navSections = [
     {

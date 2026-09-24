@@ -68,7 +68,7 @@ export default function CmsRichTextBlock({ value = '', onChange }) {
 
   const handleRteSelect = (e, cmd) => {
     const val = e.target.value;
-    e.target.value = ''; // Reset dropdown segera
+    e.target.value = '';
     if (!val || val === '') return;
 
     if (!editorRef.current) return;

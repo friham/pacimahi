@@ -12,7 +12,7 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelect, token }) 
   const [uploading, setUploading] = useState(false);
   const [search, setSearch] = useState('');
   const [selectedItem, setSelectedItem] = useState(null);
-  const [activeTab, setActiveTab] = useState('all'); // all, image, video
+  const [activeTab, setActiveTab] = useState('all');
   const [copiedId, setCopiedId] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
   const [deleteTargetId, setDeleteTargetId] = useState(null);
@@ -45,7 +45,6 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelect, token }) 
     let isSubscribed = true;
 
     if (!isOpen) {
-      // Reset dilakukan via setTimeout agar bukan setState sinkron di body effect.
       const resetTimer = setTimeout(() => {
         setMediaList([]);
         setSelectedItem(null);
@@ -96,8 +95,6 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelect, token }) 
     if (!file) return;
 
     const formData = new FormData();
-    // Nama field HARUS 'image' agar cocok dengan uploadImage.single('image')
-    // di backend/routes/mediaRoutes.js (sebelumnya 'file' -> multer reject -> 500).
     formData.append('image', file);
     formData.append('alt_text', file.name);
 

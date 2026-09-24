@@ -8,10 +8,6 @@ const EMPTY_PAGE_FORM = {
   menu_id: '', blocks: []
 };
 
-/**
- * Domain: Halaman CMS (pages + content_blocks) — termasuk helper blok
- * (tambah/edit/pindah/hapus blok & tabel) yang mengoperasikan pageForm.blocks.
- */
 export default function usePages({ token, showMsg, setLoading, setEditingItem, setIsAdding, openConfirm }) {
   const [pages, setPages] = useState([]);
   const [pageForm, setPageForm] = useState(EMPTY_PAGE_FORM);

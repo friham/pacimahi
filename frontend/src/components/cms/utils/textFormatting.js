@@ -157,7 +157,6 @@ export function removeAllFormatting(editorEl, savedRange) {
       Array.from(fragment.childNodes).forEach(cleanNode);
       range.insertNode(fragment);
     } catch {
-      // Fallback pembersihan seleksi gagal; konten editor tetap utuh.
     }
   } else {
     try {
@@ -165,7 +164,6 @@ export function removeAllFormatting(editorEl, savedRange) {
       document.execCommand('unlink', false, null);
       document.execCommand('formatBlock', false, '<p>');
     } catch {
-      // execCommand tidak didukung: bersihkan manual lewat cleanNode di bawah.
     }
     Array.from(editorEl.childNodes).forEach(cleanNode);
   }

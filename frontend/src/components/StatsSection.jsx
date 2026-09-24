@@ -34,13 +34,11 @@ export default function StatsSection() {
   return (
     <section className="stats-section" id="statistik">
       <div className="container">
-        {/* Header Bersih Tanpa Box Bingkai Bubble */}
         <div ref={headerRef} className="stats-section__header scroll-reveal">
           <h2 className="stats-section__main-title">LAPORAN SURVEI PA KOTA CIMAHI</h2>
           <div className="stats-section__sub-period">PERIODE {periodLabel.toUpperCase()}</div>
         </div>
 
-        {/* 3 Kartu Fokus Inti */}
         <div ref={gridRef} className="stats-section__grid scroll-reveal">
           {surveyCards.map((item, idx) => (
             <div
@@ -48,24 +46,20 @@ export default function StatsSection() {
               className="survey-report-card"
               style={{ transitionDelay: `${idx * 0.08}s` }}
             >
-              {/* Header Kartu: Tab Label Kotak Sesuai Banner */}
               <div className="survey-report-card__top">
                 <div className="survey-report-card__tab">
                   {item.abbr}
                 </div>
               </div>
 
-              {/* Judul Indeks */}
               <div className="survey-report-card__title">
                 {item.title}
               </div>
 
-              {/* Angka Skor Utama */}
               <div className="survey-report-card__score">
                 {item.score}
               </div>
 
-              {/* Grade / Predikat */}
               <div className="survey-report-card__grade">
                 {item.grade.toUpperCase()}
               </div>

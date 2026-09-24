@@ -4,11 +4,6 @@ import { API_URL } from '../../config';
 
 const EMPTY_FORM = { title: '', image_url: '', description: '', link: '', sort_order: 0, is_active: true };
 
-/**
- * Domain: Slider homepage (kelola slider dari panel admin).
- * State data + form + aksi CRUD. `editingItem` dikirim saat dipanggil
- * oleh AdminDashboard agar state cross-tab tetap di komponen induk.
- */
 export default function useSliders({ token, showMsg, setLoading, setEditingItem, setIsAdding, openConfirm }) {
   const [sliders, setSliders] = useState([]);
   const [sliderForm, setSliderForm] = useState(EMPTY_FORM);

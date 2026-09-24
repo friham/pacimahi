@@ -1,12 +1,3 @@
--- ============================================
--- Migration & Seed: Homepage Sections (Spotlight Banners)
--- Pengadilan Agama Kota Cimahi
--- Generated for phpMyAdmin / MySQL Import
---
--- Seed data disalin PERSIS dari teks/gambar/link yang ada di
--- frontend/src/components/HomeSpotlightBanners.jsx agar saat frontend
--- dihubungkan ke database, tampilan homepage tidak berubah sama sekali.
--- ============================================
 
 CREATE DATABASE IF NOT EXISTS pa_cimahi_db;
 USE pa_cimahi_db;
@@ -26,11 +17,6 @@ CREATE TABLE IF NOT EXISTS homepage_sections (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ============================================
--- Seed Data (idempotent: aman dijalankan berulang)
--- ============================================
-
--- 1. Zona Integritas (WBK & WBBM) - 7 cards
 INSERT INTO homepage_sections (section_key, badge_text, title, description, items, status) VALUES
 ('zi_gallery', 'REFORMASI BIROKRASI', 'Pembangunan Zona Integritas (WBK & WBBM)',
  'Pengadilan Agama Kota Cimahi berkomitmen mewujudkan Wilayah Bebas dari Korupsi (WBK) dan Wilayah Birokrasi Bersih dan Melayani (WBBM) melalui 6 Area Perubahan.',
@@ -41,7 +27,6 @@ ON DUPLICATE KEY UPDATE
   image_url = VALUES(image_url), link_url = VALUES(link_url), link_text = VALUES(link_text),
   items = VALUES(items), status = VALUES(status);
 
--- 2. Alur Pelayanan Prioritas PTSP (infografis + 4 poin fitur)
 INSERT INTO homepage_sections (section_key, badge_text, title, description, image_url, link_url, items, status) VALUES
 ('prioritas_ptsp', 'RAMAH DISABILITAS & KAUM RENTAN', 'Alur Pelayanan Prioritas PTSP PA Kota Cimahi',
  'Layanan khusus bebas antrean panjang dan pendampingan penuh untuk penyandang disabilitas, lanjut usia, ibu hamil, serta ibu menyusui.',
@@ -54,9 +39,6 @@ ON DUPLICATE KEY UPDATE
   image_url = VALUES(image_url), link_url = VALUES(link_url), link_text = VALUES(link_text),
   items = VALUES(items), status = VALUES(status);
 
--- 3. Dua banner layanan: Prosedur Berperkara & Layanan Informasi
---     pill_text/alt_text/hover_title dipindah dari SERVICE_DUAL_META di
---     HomeSpotlightBanners.jsx agar bisa diedit admin tanpa sentuh kode.
 INSERT INTO homepage_sections (section_key, items, status) VALUES
 ('service_dual',
  '[{"image_url":"/images/prosedur-berperkara.png","title":"Prosedur Berperkara","subtitle":"Panduan lengkap tahapan beracara di tingkat pertama, banding, kasasi, hingga peninjauan kembali.","link_url":"/kepaniteraan/prosedur-berperkara","pill_text":"Buka Prosedur Berperkara","alt_text":"Prosedur Berperkara PA Cimahi","hover_title":"Klik untuk melihat Prosedur Berperkara di PA Kota Cimahi"},{"image_url":"/images/layanan-informasi.png","title":"Layanan Informasi & PPID","subtitle":"Permintaan informasi publik, biaya informasi, dan transparansi dokumentasi peradilan.","link_url":"/layanan-publik/layanan-informasi","pill_text":"Buka Layanan Informasi","alt_text":"Layanan Informasi PA Cimahi","hover_title":"Klik untuk mengakses Layanan Informasi PA Kota Cimahi"}]',
@@ -66,7 +48,6 @@ ON DUPLICATE KEY UPDATE
   image_url = VALUES(image_url), link_url = VALUES(link_url), link_text = VALUES(link_text),
   items = VALUES(items), status = VALUES(status);
 
--- 4. Brosur Digital & quick scan barcode
 INSERT INTO homepage_sections (section_key, image_url, link_url, items, status) VALUES
 ('brosur_digital',
  '/images/brosur-digital-banner.png',
@@ -78,7 +59,6 @@ ON DUPLICATE KEY UPDATE
   image_url = VALUES(image_url), link_url = VALUES(link_url), link_text = VALUES(link_text),
   items = VALUES(items), status = VALUES(status);
 
--- 5. Solusi Akta Cerai Hilang & Legalisasi Online
 INSERT INTO homepage_sections (section_key, title, description, image_url, items, status) VALUES
 ('akta_cerai', 'Butuh Duplikat atau Legalisasi Akta Cerai?',
  'Kini dapat diajukan secara online dengan mudah, cepat, dan transparan tanpa antrean panjang.',

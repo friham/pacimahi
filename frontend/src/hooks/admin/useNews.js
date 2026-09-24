@@ -4,9 +4,6 @@ import { API_URL } from '../../config';
 
 const EMPTY_FORM = { title: '', content: '', image_url: '', category: 'berita', is_published: true };
 
-/**
- * Domain: Berita / pengumuman / artikel.
- */
 export default function useNews({ token, showMsg, setLoading, setEditingItem, setIsAdding, openConfirm }) {
   const [news, setNews] = useState([]);
   const [newsForm, setNewsForm] = useState(EMPTY_FORM);

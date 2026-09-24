@@ -2,7 +2,6 @@ const request = require('supertest');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-// Mock pool sebelum server dimuat
 jest.mock('../config/db', () => ({
   execute: jest.fn(),
   getConnection: jest.fn().mockResolvedValue({

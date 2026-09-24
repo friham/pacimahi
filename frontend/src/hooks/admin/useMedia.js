@@ -2,9 +2,6 @@ import { useState, useCallback, useRef } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../config';
 
-/**
- * Domain: Media library (upload gambar, pencarian, hapus, salin URL).
- */
 export default function useMedia({ token, showMsg, openConfirm }) {
   const [mediaList, setMediaList] = useState([]);
   const [mediaSearch, setMediaSearch] = useState('');

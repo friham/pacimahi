@@ -340,7 +340,6 @@ export default function BlockRenderer({ blocks = [] }) {
             const html = content.html_code || '';
             const css  = content.css_code  || '';
             if (!html && !css) return null;
-            // Inject scoped <style> inside a wrapper div using a unique prefix
             const scopeId = `cms-code-${blockId}`;
             const scopedCss = css ? css.replace(/([^\r\n,{}]+)(,(?=[^}]*{)|\s*{)/g, (match, selector, brace) => {
               if (selector.trim().startsWith('@') || selector.trim().startsWith('from') || selector.trim().startsWith('to')) return match;

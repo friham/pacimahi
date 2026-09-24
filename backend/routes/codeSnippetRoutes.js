@@ -10,11 +10,9 @@ const {
   deleteSnippet
 } = require('../controllers/codeSnippetController');
 
-// Public read (for use in frontend CMS)
 router.get('/', getSnippets);
 router.get('/:id', getSnippetById);
 
-// Admin protected
 router.post('/', authMiddleware, checkRole(['superadmin', 'admin', 'editor']), createSnippet);
 router.put('/:id', authMiddleware, checkRole(['superadmin', 'admin', 'editor']), updateSnippet);
 router.delete('/:id', authMiddleware, checkRole(['superadmin', 'admin']), deleteSnippet);

@@ -21,7 +21,6 @@ const EMPTY_FORM = {
   tags: '', html_code: '', css_code: '', js_code: ''
 };
 
-/* ── Sub-komponen: Live Preview dalam iframe ── */
 function LivePreview({ htmlCode, cssCode, jsCode }) {
   const previewDoc = useMemo(() => `<!DOCTYPE html><html><head><meta charset="utf-8">
 <style>
@@ -49,14 +48,12 @@ try {
   );
 }
 
-/* ── Sub-komponen: Code Editor dengan line numbers ── */
 function CodeEditor({ value, onChange, language, placeholder, onTab }) {
   const textareaRef = useRef(null);
   const gutterRef   = useRef(null);
   const lines = (value || '').split('\n');
   const lineCount = Math.max(lines.length, 1);
 
-  /* Sync scroll gutter dengan textarea */
   const handleScroll = () => {
     if (gutterRef.current && textareaRef.current) {
       gutterRef.current.scrollTop = textareaRef.current.scrollTop;
@@ -102,7 +99,6 @@ function CodeEditor({ value, onChange, language, placeholder, onTab }) {
   );
 }
 
-/* ── Main Component ── */
 export default function CodeLibraryTab({ token }) {
   const [snippets,       setSnippets]       = useState([]);
   const [loading,        setLoading]        = useState(false);
@@ -116,17 +112,15 @@ export default function CodeLibraryTab({ token }) {
   const [showPreview,    setShowPreview]    = useState(true);
   const [isNew,          setIsNew]          = useState(false);
   const [toast,          setToast]          = useState(null);
-  const [copied,         setCopied]         = useState(null); // 'html'|'css'|'js'|null
+  const [copied,         setCopied]         = useState(null);
   const [confirmDelete,  setConfirmDelete]  = useState(false);
   const [metaOpen,       setMetaOpen]       = useState(false);
 
-  /* ── Toast ── */
   const showToast = useCallback((msg, type = 'success') => {
     setToast({ msg, type });
     setTimeout(() => setToast(null), 3500);
   }, []);
 
-  /* ── Fetch (hanya langFilter yang trigger refetch; search = client-side) ── */
   const fetchSnippets = useCallback(async () => {
     setLoading(true);
     try {
@@ -154,7 +148,6 @@ export default function CodeLibraryTab({ token }) {
     load();
   }, [fetchSnippets]);
 
-  /* ── Client-side filter ── */
   const filteredSnippets = snippets.filter(s => {
     const q = search.toLowerCase().trim();
     if (!q) return true;
@@ -165,7 +158,6 @@ export default function CodeLibraryTab({ token }) {
     );
   });
 
-  /* ── Handlers ── */
   const handleSelectSnippet = (snippet) => {
     setSelected(snippet.id);
     setForm({
@@ -268,7 +260,6 @@ export default function CodeLibraryTab({ token }) {
   return (
     <div className="cl-root">
 
-      {/* ── Toast ── */}
       {toast && (
         <div className={`cl-toast cl-toast--${toast.type}`}>
           {toast.type === 'success' ? <FaCheckCircle /> : <FaExclamationCircle />}
@@ -277,7 +268,6 @@ export default function CodeLibraryTab({ token }) {
         </div>
       )}
 
-      {/* ── Header ── */}
       <div className="cl-header">
         <div className="cl-header__left">
           <div className="cl-header__icon"><FaCode /></div>
@@ -296,13 +286,10 @@ export default function CodeLibraryTab({ token }) {
         </div>
       </div>
 
-      {/* ── Body ── */}
       <div className="cl-body">
 
-        {/* ── Sidebar: daftar snippet ── */}
         <aside className="cl-sidebar">
           <div className="cl-sidebar__controls">
-            {/* Search */}
             <div className="cl-search">
               <FaSearch className="cl-search__icon" />
               <input
@@ -316,7 +303,6 @@ export default function CodeLibraryTab({ token }) {
                 <button className="cl-search__clear" onClick={() => setSearch('')}><FaTimes /></button>
               )}
             </div>
-            {/* Lang filter */}
             <div className="cl-lang-filter">
               {['all', 'html', 'css', 'js', 'combined'].map(l => (
                 <button
@@ -333,7 +319,6 @@ export default function CodeLibraryTab({ token }) {
             </div>
           </div>
 
-          {/* Snippet list */}
           <div className="cl-snippet-list">
             {loading ? (
               <div className="cl-empty">
@@ -384,11 +369,9 @@ export default function CodeLibraryTab({ token }) {
           </div>
         </aside>
 
-        {/* ── Main editor panel ── */}
         <main className="cl-editor-panel">
           {!isNew && !selected ? (
 
-            /* Empty state */
             <div className="cl-editor-empty">
               <div className="cl-editor-empty__icon"><FaCode /></div>
               <h3>Pilih snippet atau buat baru</h3>
@@ -400,7 +383,6 @@ export default function CodeLibraryTab({ token }) {
 
           ) : (
             <>
-              {/* ── Editor header ── */}
               <div className="cl-editor-header">
                 <div className="cl-editor-header__fields">
                   <input
@@ -411,7 +393,6 @@ export default function CodeLibraryTab({ token }) {
                     onChange={e => setForm(p => ({ ...p, name: e.target.value }))}
                   />
 
-                  {/* Meta accordion */}
                   <button
                     type="button"
                     className="cl-meta-toggle"
@@ -452,7 +433,6 @@ export default function CodeLibraryTab({ token }) {
                   )}
                 </div>
 
-                {/* Action buttons */}
                 <div className="cl-editor-actions">
                   <button
                     className="cl-btn cl-btn--ghost cl-btn--sm"
@@ -492,12 +472,9 @@ export default function CodeLibraryTab({ token }) {
                 </div>
               </div>
 
-              {/* ── Workspace: editor + preview ── */}
               <div className={`cl-workspace ${showPreview ? 'cl-workspace--split' : ''}`}>
 
-                {/* Code Area */}
                 <div className="cl-code-area">
-                  {/* Tab bar */}
                   <div className="cl-tabs">
                     {EDITOR_TABS.map(({ key, label, Icon, color }) => (
                       <button
@@ -525,7 +502,6 @@ export default function CodeLibraryTab({ token }) {
                     <span className="cl-line-count">{lineCount} baris</span>
                   </div>
 
-                  {/* Editors */}
                   {EDITOR_TABS.map(({ key, placeholder }) =>
                     activeTab === key ? (
                       <CodeEditor
@@ -539,7 +515,6 @@ export default function CodeLibraryTab({ token }) {
                   )}
                 </div>
 
-                {/* Live Preview */}
                 {showPreview && (
                   <div className="cl-preview">
                     <div className="cl-preview__header">

@@ -7,7 +7,7 @@ export default function ConfirmModal({
   message = 'Apakah Anda yakin ingin menghapus item ini? Tindakan ini tidak dapat dibatalkan.',
   confirmText = 'Ya, Hapus',
   cancelText = 'Batal',
-  type = 'danger', // 'danger' | 'warning' | 'primary'
+  type = 'danger',
   onConfirm,
   onCancel,
   loading = false

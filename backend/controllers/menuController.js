@@ -27,7 +27,6 @@ const getMenus = async (req, res) => {
     let query = 'SELECT * FROM menus';
     const params = [];
 
-    // Tanpa token valid (optionalAuth), hanya menu berstatus published.
     if (!req.user) {
       query += " WHERE status = 'published'";
     } else if (status) {

@@ -56,7 +56,6 @@ const resolveImage = (slide, index) => {
   return defaults[index % defaults.length];
 };
 
-/* ── Lightbox Portal ─────────────────────────────── */
 function Lightbox({ slide, imgSrc, onClose, onPrev, onNext }) {
   useEffect(() => {
     const handler = (e) => {
@@ -75,17 +74,14 @@ function Lightbox({ slide, imgSrc, onClose, onPrev, onNext }) {
   return createPortal(
     <div className="carousel-lightbox" onClick={onClose} role="dialog" aria-modal="true">
       <div className="carousel-lightbox__inner" onClick={e => e.stopPropagation()}>
-        {/* Blurred background */}
         <img src={imgSrc} alt="" className="carousel-lightbox__bg" aria-hidden="true" />
 
-        {/* Main image */}
         <img
           src={imgSrc}
           alt={slide?.title || 'Banner'}
           className="carousel-lightbox__img"
         />
 
-        {/* Caption */}
         {(slide?.title || slide?.description) && (
           <div className="carousel-lightbox__caption">
             {slide.title && <h3 className="carousel-lightbox__title">{slide.title}</h3>}
@@ -93,7 +89,6 @@ function Lightbox({ slide, imgSrc, onClose, onPrev, onNext }) {
           </div>
         )}
 
-        {/* Controls */}
         <button className="carousel-lightbox__close" onClick={onClose} aria-label="Tutup">
           <FaTimes />
         </button>
@@ -109,7 +104,6 @@ function Lightbox({ slide, imgSrc, onClose, onPrev, onNext }) {
   );
 }
 
-/* ── Main Carousel ───────────────────────────────── */
 function ImageCarousel() {
   const [slides, setSlides]       = useState(defaultSlides);
   const [current, setCurrent]     = useState(0);
@@ -124,7 +118,6 @@ function ImageCarousel() {
         const res = await axios.get(`${API_URL}/sliders`);
         if (res.data.success && res.data.data.length > 0) setSlides(res.data.data);
       } catch {
-        /* fallback to defaults */
       }
     };
     fetchSliders();
@@ -141,7 +134,6 @@ function ImageCarousel() {
   const goNext = useCallback(() => goTo((current + 1) % slides.length), [current, goTo, slides.length]);
   const goPrev = useCallback(() => goTo((current - 1 + slides.length) % slides.length), [current, goTo, slides.length]);
 
-  /* Auto-play */
   const startTimer = useCallback(() => {
     clearInterval(timerRef.current);
     timerRef.current = setInterval(goNext, 5000);
@@ -186,7 +178,6 @@ function ImageCarousel() {
                     key={slide.id || index}
                     className={`carousel__slide ${isActive ? 'carousel__slide--active' : ''}`}
                   >
-                    {/* Blurred backdrop (same image, scaled up) */}
                     <img
                       src={imgSrc}
                       alt=""
@@ -194,7 +185,6 @@ function ImageCarousel() {
                       aria-hidden="true"
                     />
 
-                    {/* Main image — contain so nothing is cropped */}
                     <img
                       src={imgSrc}
                       alt={slide.title || `Banner Slide ${index + 1}`}
@@ -203,7 +193,6 @@ function ImageCarousel() {
                       style={{ cursor: isActive ? 'zoom-in' : 'default' }}
                     />
 
-                    {/* Expand hint */}
                     {isActive && (
                       <button
                         className="carousel__expand-btn"
@@ -216,7 +205,6 @@ function ImageCarousel() {
                       </button>
                     )}
 
-                    {/* Gradient + text overlay */}
                     {(slide.title || slide.description) && (
                       <div className="carousel__slide-content">
                         {slide.title && (
@@ -236,7 +224,6 @@ function ImageCarousel() {
               })}
             </div>
 
-            {/* Arrows */}
             <button className="carousel__arrow carousel__arrow--prev" onClick={goPrev} aria-label="Slide sebelumnya">
               <FaChevronLeft />
             </button>
@@ -244,7 +231,6 @@ function ImageCarousel() {
               <FaChevronRight />
             </button>
 
-            {/* Progress Dots */}
             <div className="carousel__dots">
               {slides.map((_, index) => (
                 <button
@@ -256,7 +242,6 @@ function ImageCarousel() {
               ))}
             </div>
 
-            {/* Counter */}
             <div className="carousel__counter">
               {String(current + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
             </div>
@@ -264,7 +249,6 @@ function ImageCarousel() {
         </div>
       </section>
 
-      {/* Lightbox */}
       {lightbox && (
         <Lightbox
           slide={currentSlide}

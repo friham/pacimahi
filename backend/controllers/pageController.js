@@ -36,7 +36,6 @@ const getPageBySlug = async (req, res) => {
   try {
     const { slug } = req.params;
 
-    // Preview is only allowed for authenticated admin/editor/superadmin users.
     const allowedRoles = ['superadmin', 'admin', 'editor'];
     const isPreview =
       req.query.preview === 'true' &&

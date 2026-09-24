@@ -16,7 +16,6 @@ export default function GlobalSearchModal({ isOpen, onClose }) {
   const modalInputRef = useRef(null);
   const modalDialogRef = useRef(null);
 
-  // Focus modal input and freeze background body scroll when modal opens
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -36,7 +35,6 @@ export default function GlobalSearchModal({ isOpen, onClose }) {
     }
   }, [isOpen]);
 
-  // Handle ESC key to close modal and basic focus trapping
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (!isOpen) return;
@@ -46,7 +44,6 @@ export default function GlobalSearchModal({ isOpen, onClose }) {
         onClose();
       }
 
-      // Tab key navigation within modal
       if (e.key === 'Tab' && modalDialogRef.current) {
         const focusableElements = modalDialogRef.current.querySelectorAll(
           'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
@@ -123,7 +120,6 @@ export default function GlobalSearchModal({ isOpen, onClose }) {
         ref={modalDialogRef}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Modal Input Header */}
         <div className="search-modal-header">
           <FaSearch className="search-modal-header__icon" />
           <input
@@ -164,9 +160,7 @@ export default function GlobalSearchModal({ isOpen, onClose }) {
           </button>
         </div>
 
-        {/* Modal Content / Results */}
         <div className="search-modal-body">
-          {/* State 1: Typing / Loading */}
           {loading && (
             <div className="search-modal-status">
               <FaSpinner className="spin" />
@@ -174,7 +168,6 @@ export default function GlobalSearchModal({ isOpen, onClose }) {
             </div>
           )}
 
-          {/* State 2: Untouched / query < 2 */}
           {!loading && query.trim().length < 2 && (
             <div className="search-modal-placeholder">
               <div className="search-modal-placeholder__icon-box">
@@ -205,7 +198,6 @@ export default function GlobalSearchModal({ isOpen, onClose }) {
             </div>
           )}
 
-          {/* State 3: Query >= 2 but no results */}
           {!loading && query.trim().length >= 2 && results.length === 0 && (
             <div className="search-modal-empty">
               <p className="search-modal-empty__title">Tidak ada hasil ditemukan</p>
@@ -215,10 +207,8 @@ export default function GlobalSearchModal({ isOpen, onClose }) {
             </div>
           )}
 
-          {/* State 4: Has Results */}
           {!loading && results.length > 0 && (
             <div className="search-modal-results">
-              {/* Group: Halaman */}
               {pages.length > 0 && (
                 <div className="search-group">
                   <div className="search-group__title">
@@ -245,7 +235,6 @@ export default function GlobalSearchModal({ isOpen, onClose }) {
                 </div>
               )}
 
-              {/* Group: Layanan */}
               {services.length > 0 && (
                 <div className="search-group">
                   <div className="search-group__title">
@@ -293,7 +282,6 @@ export default function GlobalSearchModal({ isOpen, onClose }) {
                 </div>
               )}
 
-              {/* Group: Berita */}
               {news.length > 0 && (
                 <div className="search-group">
                   <div className="search-group__title">
@@ -323,7 +311,6 @@ export default function GlobalSearchModal({ isOpen, onClose }) {
           )}
         </div>
 
-        {/* Modal Footer / Keyboard tip */}
         <div className="search-modal-footer">
           <span className="search-modal-tip">
             Tekan <kbd>Esc</kbd> untuk menutup

@@ -1,13 +1,7 @@
--- ============================================
--- Migration & Seed: CMS Dynamic Menus & Pages System
--- Pengadilan Agama Kota Cimahi
--- Generated for phpMyAdmin / MySQL Import
--- ============================================
 
 CREATE DATABASE IF NOT EXISTS pa_cimahi_db;
 USE pa_cimahi_db;
 
--- 1. Table: menus (Hierarchical menu structure)
 CREATE TABLE IF NOT EXISTS menus (
   id INT AUTO_INCREMENT PRIMARY KEY,
   parent_id INT NULL,
@@ -27,7 +21,6 @@ CREATE TABLE IF NOT EXISTS menus (
   FOREIGN KEY (parent_id) REFERENCES menus(id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- 2. Table: pages (CMS dynamic pages)
 CREATE TABLE IF NOT EXISTS pages (
   id INT AUTO_INCREMENT PRIMARY KEY,
   menu_id INT NULL,
@@ -52,7 +45,6 @@ CREATE TABLE IF NOT EXISTS pages (
   FOREIGN KEY (author_id) REFERENCES admins(id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- 3. Table: content_blocks (Modular content blocks)
 CREATE TABLE IF NOT EXISTS content_blocks (
   id INT AUTO_INCREMENT PRIMARY KEY,
   page_id INT NOT NULL,
@@ -66,7 +58,6 @@ CREATE TABLE IF NOT EXISTS content_blocks (
   FOREIGN KEY (page_id) REFERENCES pages(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- 4. Table: media (Media Library for images/videos)
 CREATE TABLE IF NOT EXISTS media (
   id INT AUTO_INCREMENT PRIMARY KEY,
   file_name VARCHAR(255) NOT NULL,
@@ -82,7 +73,6 @@ CREATE TABLE IF NOT EXISTS media (
   INDEX idx_created (created_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- 5. Table: documents (Document Library: PDF, DOCX, XLSX, etc.)
 CREATE TABLE IF NOT EXISTS documents (
   id INT AUTO_INCREMENT PRIMARY KEY,
   file_name VARCHAR(255) NOT NULL,
@@ -98,8 +88,6 @@ CREATE TABLE IF NOT EXISTS documents (
   INDEX idx_created (created_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
--- 6. Table: audit_logs (Audit trail for admin actions)
 CREATE TABLE IF NOT EXISTS audit_logs (
   id INT AUTO_INCREMENT PRIMARY KEY,
   admin_id INT NULL,
@@ -114,7 +102,6 @@ CREATE TABLE IF NOT EXISTS audit_logs (
   FOREIGN KEY (admin_id) REFERENCES admins(id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- 7. Table: code_snippets (Code Library - HTML/CSS/JS snippets)
 CREATE TABLE IF NOT EXISTS code_snippets (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
@@ -130,10 +117,6 @@ CREATE TABLE IF NOT EXISTS code_snippets (
   INDEX idx_created (created_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
--- ============================================
--- Data Inserts: Menus
--- ============================================
 INSERT INTO menus (id, parent_id, title, slug, type, url, icon, sort_order, status, open_new_tab, description) VALUES (1, NULL, 'Profil Pengadilan', 'profil-pengadilan', 'dropdown', NULL, NULL, 1, 'published', 0, 'Informasi profil, visi misi, sejarah, struktur, dan aparatur pengadilan') ON DUPLICATE KEY UPDATE title=VALUES(title), parent_id=VALUES(parent_id), type=VALUES(type), url=VALUES(url), sort_order=VALUES(sort_order), status=VALUES(status);
 INSERT INTO menus (id, parent_id, title, slug, type, url, icon, sort_order, status, open_new_tab, description) VALUES (2, NULL, 'Informasi Umum', 'informasi-umum', 'dropdown', NULL, NULL, 2, 'published', 0, 'Standar operasional prosedur, program kerja dan laporan tahunan') ON DUPLICATE KEY UPDATE title=VALUES(title), parent_id=VALUES(parent_id), type=VALUES(type), url=VALUES(url), sort_order=VALUES(sort_order), status=VALUES(status);
 INSERT INTO menus (id, parent_id, title, slug, type, url, icon, sort_order, status, open_new_tab, description) VALUES (3, NULL, 'Kepaniteraan', 'kepaniteraan', 'dropdown', NULL, NULL, 3, 'published', 0, 'Layanan perkara, posbakum, prodeo, mediasi, dan jadwal persidangan') ON DUPLICATE KEY UPDATE title=VALUES(title), parent_id=VALUES(parent_id), type=VALUES(type), url=VALUES(url), sort_order=VALUES(sort_order), status=VALUES(status);
@@ -186,9 +169,6 @@ INSERT INTO menus (id, parent_id, title, slug, type, url, icon, sort_order, stat
 INSERT INTO menus (id, parent_id, title, slug, type, url, icon, sort_order, status, open_new_tab, description) VALUES (51, NULL, 'Kesekretariatan', 'kesekretariatan', 'dropdown', NULL, NULL, 4, 'published', 0, 'DIPA, SAKIP, pengadaan barang jasa, dan inventaris pengadilan') ON DUPLICATE KEY UPDATE title=VALUES(title), parent_id=VALUES(parent_id), type=VALUES(type), url=VALUES(url), sort_order=VALUES(sort_order), status=VALUES(status);
 INSERT INTO menus (id, parent_id, title, slug, type, url, icon, sort_order, status, open_new_tab, description) VALUES (52, 18, 'SDM Kesekretariatan', 'sdm-kesekretariatan', 'page', '/tentang-pengadilan/profile-pengadilan/profil-pegawai/kesekretariatan', NULL, 4, 'published', 0, NULL) ON DUPLICATE KEY UPDATE title=VALUES(title), parent_id=VALUES(parent_id), type=VALUES(type), url=VALUES(url), sort_order=VALUES(sort_order), status=VALUES(status);
 
--- ============================================
--- Data Inserts: Pages (Profil Pengadilan & Sub-pages)
--- ============================================
 INSERT INTO pages (id, menu_id, title, subtitle, slug, excerpt, content_html, status, seo_title, meta_description, author_id) VALUES (1, 7, 'Pengantar Ketua Pengadilan', 'Sekapur Sirih dan Sambutan Resmi Ketua Pengadilan Agama Kota Cimahi Kelas IA', 'pengantar-dari-ketua-pengadilan', 'Sekapur sirih dan sambutan resmi Ketua Pengadilan Agama Kota Cimahi mengenai komitmen reformasi birokrasi, integritas yudisial, dan pelayanan prima bagi masyarakat pencari keadilan.', '\n        <div class=\"pa-callout\">\n          <h4>⚖️ Landasan Konstitusional Yudikatif</h4>\n          <p><em>\"Kekuasaan kehakiman dilakukan oleh sebuah Mahkamah Agung dan badan peradilan yang berada di bawahnya dalam Lingkungan Peradilan Umum, Lingkungan Peradilan Agama, Lingkungan Peradilan Militer, Lingkungan Peradilan Tata Usaha Negara, dan oleh sebuah Mahkamah Konstitusi.\"</em><br />\n          <strong>— Pasal 24 ayat (2) UUD Negara Republik Indonesia Tahun 1945</strong></p>\n        </div>\n\n        <p><strong>Assalamu’alaikum Warahmatullahi Wabarakatuh,</strong><br />\n        Salam sejahtera bagi kita semua, <em>Om Swastiastu, Namo Buddhaya, Salam Kebajikan.</em></p>\n\n        <p>Puji dan syukur senantiasa kita panjatkan ke hadirat Allah SWT, Tuhan Yang Maha Esa, atas limpahan rahmat, taufik, dan hidayah-Nya, sehingga website resmi Pengadilan Agama Kota Cimahi Kelas IA ini dapat terus hadir dan bertransformasi melayani masyarakat.</p>\n\n        <p>Pengadilan Agama Kota Cimahi berkomitmen mewujudkan peradilan agama yang <strong>Agung, Modern, Akuntabel, dan Transparan</strong>. Di era digital saat ini, keterbukaan informasi publik bukan lagi sekadar kewajiban administratif, melainkan wujud nyata dedikasi kami untuk mempermudah akses keadilan bagi seluruh lapisan masyarakat, khususnya warga Kota Cimahi.</p>\n\n        <h2>Pilar Reformasi dan Transformasi Digital</h2>\n        <p>Dalam menjalankan roda peradilan, kami senantiasa berpedoman pada prinsip keterbukaan dan modernisasi yang dicanangkan oleh Mahkamah Agung Republik Indonesia melalui berbagai inovasi unggulan:</p>\n        <ul>\n          <li><strong>Penerapan e-Court & e-Litigation:</strong> Pendaftaran perkara, pembayaran panjar biaya perkara secara virtual account, pemanggilan elektronik, hingga persidangan daring yang cepat dan berbiaya ringan.</li>\n          <li><strong>Pelayanan Terpadu Satu Pintu (PTSP):</strong> Memberikan layanan prima dengan standar operasional yang ramah, cepat, bebas pungutan liar, dan bebas calo peradilan.</li>\n          <li><strong>Pembangunan Zona Integritas (WBK & WBBM):</strong> Seluruh aparatur berkomitmen mewujudkan birokrasi yang bersih dan melayani secara tulus dan berintegritas.</li>\n          <li><strong>Layanan Inklusif dan Ramah Disabilitas:</strong> Menyediakan sarana prasarana khusus bagi kelompok rentan, lansia, ibu hamil, serta penyandang disabilitas demi menjamin asas <em>Justice for All</em>.</li>\n        </ul>\n\n        <div class=\"pa-quote\">\n          <blockquote>\"Keadilan bukan hanya harus ditegakkan di ruang sidang, namun juga harus dirasakan manfaat dan kemudahannya oleh setiap warga masyarakat dalam setiap tahapan pelayanan.\"</blockquote>\n        </div>\n\n        <p>Kami mengucapkan terima kasih yang sebesar-besarnya kepada seluruh pihak dan masyarakat atas kepercayaan dan dukungannya. Masukan, saran, dan kritik yang membangun senantiasa kami nantikan demi kesempurnaan pelayanan kami di masa yang akan datang.</p>\n\n        <p><strong>Wassalamu’alaikum Warahmatullahi Wabarakatuh.</strong></p>\n      ', 'published', 'Pengantar Ketua Pengadilan | PA Kota Cimahi', 'Sambutan resmi Ketua Pengadilan Agama Kota Cimahi menyongsong peradilan modern berbasis teknologi informasi.', 1) ON DUPLICATE KEY UPDATE title=VALUES(title), subtitle=VALUES(subtitle), excerpt=VALUES(excerpt), content_html=VALUES(content_html), status=VALUES(status), seo_title=VALUES(seo_title);
 INSERT INTO pages (id, menu_id, title, subtitle, slug, excerpt, content_html, status, seo_title, meta_description, author_id) VALUES (2, 8, 'Visi dan Misi Pengadilan', 'Komitmen Visi, Misi, dan 8 Nilai Utama Mahkamah Agung RI di PA Kota Cimahi', 'visi-dan-misi', 'Visi dan Misi Pengadilan Agama Kota Cimahi sebagai pedoman arah kebijakan peradilan yang agung, berintegritas, dan melayani.', '\n        <h2>Visi Pengadilan Agama Kota Cimahi</h2>\n        <div class=\"pa-callout\" style=\"text-align: center; font-size: 1.15rem; font-weight: 600; color: #0b4619;\">\n          \"Terwujudnya Pengadilan Agama Kota Cimahi yang Agung\"\n        </div>\n\n        <h2>Misi Pengadilan Agama Kota Cimahi</h2>\n        <ol>\n          <li><strong>Menjaga Kemandirian Pengadilan:</strong> Memastikan independensi badan peradilan dalam menegakkan hukum dan keadilan tanpa intervensi pihak manapun.</li>\n          <li><strong>Memberikan Pelayanan Hukum yang Berkeadilan:</strong> Menghadirkan putusan yang berkualitas, proses persidangan yang transparan, tepat waktu, dan berorientasi pada kepuasan pencari keadilan.</li>\n          <li><strong>Meningkatkan Kualitas Kepemimpinan Pengadilan:</strong> Mewujudkan tata kelola organisasi yang adaptif, profesional, visioner, dan akuntabel di seluruh jajaran peradilan.</li>\n          <li><strong>Meningkatkan Kredibilitas dan Transparansi:</strong> Menjamin akses keterbukaan informasi publik yang komprehensif, berbasis teknologi informasi modern, dan bebas dari praktik KKN.</li>\n        </ol>\n\n        <hr />\n\n        <h2>8 Nilai Utama Mahkamah Agung Republik Indonesia</h2>\n        <p>Seluruh aparatur Pengadilan Agama Kota Cimahi dalam bertugas senantiasa menjunjung tinggi 8 (delapan) Nilai Utama Badan Peradilan:</p>\n        <ul>\n          <li><strong>1. Kemandirian (Independence):</strong> Bebas dari campur tangan pihak luar dalam memeriksa dan memutus perkara.</li>\n          <li><strong>2. Integritas (Integrity):</strong> Bertindak konsisten, jujur, dan berpegang teguh pada kode etik serta prinsip moral.</li>\n          <li><strong>3. Kejujuran (Honesty):</strong> Senantiasa mengedepankan kebenaran dan keikhlasan dalam setiap pengabdian.</li>\n          <li><strong>4. Akuntabilitas (Accountability):</strong> Bertanggung jawab penuh atas setiap pelaksanaan tugas, program kerja, dan penggunaan anggaran negara.</li>\n          <li><strong>5. Responsibilitas (Responsibility):</strong> Cepat tanggap terhadap kebutuhan masyarakat dan perkembangan dinamika hukum.</li>\n          <li><strong>6. Keterbukaan (Transparency):</strong> Menjamin akses publik terhadap informasi perkara dan kebijakan pengadilan.</li>\n          <li><strong>7. Ketidakberpihakan (Impartiality):</strong> Memperlakukan semua pihak secara adil tanpa diskriminasi suku, agama, ras, maupun status sosial.</li>\n          <li><strong>8. Perlakuan yang Sama di Depan Hukum (Equality before the Law):</strong> Menjaga kesetaraan hak setiap warga negara dalam proses peradilan.</li>\n        </ul>\n\n        <h2>Maklumat Pelayanan</h2>\n        <div class=\"pa-callout\">\n          <p><em>\"Dengan ini kami menyatakan sanggup menyelenggarakan pelayanan sesuai standar pelayanan yang telah ditetapkan dan apabila tidak menepati janji ini, kami siap menerima sanksi sesuai peraturan perundang-undangan yang berlaku.\"</em></p>\n        </div>\n      ', 'published', 'Visi dan Misi | Pengadilan Agama Kota Cimahi', 'Visi, misi, dan nilai-nilai luhur kepemimpinan Pengadilan Agama Kota Cimahi Kelas IA.', 1) ON DUPLICATE KEY UPDATE title=VALUES(title), subtitle=VALUES(subtitle), excerpt=VALUES(excerpt), content_html=VALUES(content_html), status=VALUES(status), seo_title=VALUES(seo_title);
 INSERT INTO pages (id, menu_id, title, subtitle, slug, excerpt, content_html, status, seo_title, meta_description, author_id) VALUES (3, 9, 'Tugas Pokok & Fungsi Pengadilan Agama', 'Kekuasaan, Wewenang, dan Ruang Lingkup Peradilan Berdasarkan Undang-Undang', 'kekuasaan-dan-ruang-lingkup-pengadilan-agama', 'Tugas pokok dan fungsi yustisial serta ruang lingkup kewenangan absolut Pengadilan Agama berdasarkan UU No. 7 Tahun 1989 jo UU No. 50 Tahun 2009.', '\n        <h2>Landasan Hukum Pembentukan & Tugas Pokok</h2>\n        <p>Berdasarkan <strong>Undang-Undang Nomor 7 Tahun 1989</strong> tentang Peradilan Agama sebagaimana telah diubah dengan <strong>Undang-Undang Nomor 3 Tahun 2006</strong> dan perubahan kedua dengan <strong>Undang-Undang Nomor 50 Tahun 2009</strong>, Pengadilan Agama adalah salah satu pelaku kekuasaan kehakiman bagi rakyat pencari keadilan yang beragama Islam.</p>\n\n        <p><strong>Tugas Pokok Pengadilan Agama:</strong> Memeriksa, memutus, dan menyelesaikan perkara-perkara di tingkat pertama antara orang-orang yang beragama Islam di bidang hukum perdata tertentu.</p>\n\n        <h2>Kewenangan Absolut (Pasal 49 UU No. 3/2006)</h2>\n        <p>Pengadilan Agama bertugas dan berwenang memeriksa, memutus, dan menyelesaikan perkara di tingkat pertama antara orang-orang yang beragama Islam dalam bidang:</p>\n        <ol>\n          <li><strong>Perkawinan:</strong> Izin poligami, dispensasi kawin, gugatan cerai/talak, pembatalan nikah, nafkah iddah & mut\'ah, hak asuh anak (hadhanah), pengesahan nikah (itsbat nikah), dan asal usul anak.</li>\n          <li><strong>Kewarisan:</strong> Penentuan siapa yang menjadi ahli waris, penentuan harta peninggalan, dan pembagian harta warisan.</li>\n          <li><strong>Wasiat:</strong> Pengesahan dan pembatalan surat wasiat.</li>\n          <li><strong>Hibah:</strong> Sengketa atau pengesahan pemberian benda/harta secara cuma-cuma.</li>\n          <li><strong>Wakaf:</strong> Pengelolaan, pensertifikatan, dan penyelesaian sengketa harta benda wakaf.</li>\n          <li><strong>Zakat:</strong> Pengelolaan dan penyelesaian hak amil zakat.</li>\n          <li><strong>Infaq & Shadaqah:</strong> Sengketa kepemilikan dan pengelolaan dana infaq/shadaqah.</li>\n          <li><strong>Ekonomi Syariah:</strong> Sengketa perbankan syariah, asuransi syariah, reasuransi syariah, reksadana syariah, obligasi & sukuk syariah, pembiayaan syariah, pegadaian syariah, dan bisnis syariah lainnya.</li>\n        </ol>\n\n        <h2>Fungsi Strategis Pengadilan Agama</h2>\n        <ul>\n          <li><strong>Fungsi Mengadili (Judicial):</strong> Menerima, memeriksa, mengadili, dan menyelesaikan perkara yang diajukan ke pengadilan.</li>\n          <li><strong>Fungsi Pembinaan:</strong> Memberikan pengarahan, bimbingan, dan petunjuk kepada jajaran aparatur struktural maupun fungsional.</li>\n          <li><strong>Fungsi Pengawasan:</strong> Mengawasi jalannya peradilan dan tingkah laku aparat peradilan sesuai kode etik pedoman perilaku hakim dan pegawai.</li>\n          <li><strong>Fungsi Administratif:</strong> Menyelenggarakan administrasi umum, perencanaan, kepegawaian, keuangan, dan kearsipan peradilan.</li>\n          <li><strong>Fungsi Memberikan Keterangan / Hisab Rukyat:</strong> Memberikan pertimbangan hukum serta penetapan hisab rukyat hilal awal bulan qamariyah.</li>\n        </ul>\n      ', 'published', 'Tugas Pokok dan Fungsi | Pengadilan Agama Kota Cimahi', 'Tugas pokok, fungsi, dan wewenang mengadili perkara di Pengadilan Agama Kota Cimahi.', 1) ON DUPLICATE KEY UPDATE title=VALUES(title), subtitle=VALUES(subtitle), excerpt=VALUES(excerpt), content_html=VALUES(content_html), status=VALUES(status), seo_title=VALUES(seo_title);

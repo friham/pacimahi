@@ -1,7 +1,3 @@
-/**
- * Default Navigation Menu Tree (Fallback)
- * Digunakan sebagai fallback navigasi apabila API dinamis /menus/tree belum tersedia.
- */
 export const defaultMenuItems = [
   {
     label: 'Profil Pengadilan',

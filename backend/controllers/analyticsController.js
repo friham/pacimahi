@@ -1,10 +1,5 @@
 const pool = require('../config/db');
 
-/**
- * Track page visit
- * POST /api/analytics/track
- * Body: { path: string }
- */
 const trackVisit = async (req, res, next) => {
   try {
     let { path } = req.body;
@@ -15,7 +10,6 @@ const trackVisit = async (req, res, next) => {
       path = '/';
     }
 
-    // Exclude admin panel visits from public analytics
     if (path.startsWith('/admin')) {
       return res.json({ success: true, tracked: false });
     }
@@ -28,11 +22,6 @@ const trackVisit = async (req, res, next) => {
   }
 };
 
-/**
- * Heartbeat for online active sessions
- * POST /api/analytics/heartbeat
- * Body: { session_id: string }
- */
 const heartbeat = async (req, res, next) => {
   try {
     const { session_id } = req.body;
@@ -59,18 +48,11 @@ const heartbeat = async (req, res, next) => {
   }
 };
 
-/**
- * Get visitor statistics
- * GET /api/analytics/stats
- * Output: { hari_ini, minggu_ini, bulan_ini, total, online }
- */
 const getStats = async (req, res, next) => {
   try {
-    // 1. Routine cleanup: remove stale sessions older than 30 minutes
     pool.query('DELETE FROM active_sessions WHERE last_ping_at < NOW() - INTERVAL 30 MINUTE')
       .catch((err) => console.warn('Session cleanup error:', err.message));
 
-    // 2. Query stats using parallel queries
     const [
       [todayRows],
       [weekRows],

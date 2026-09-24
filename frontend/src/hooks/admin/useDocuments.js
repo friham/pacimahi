@@ -6,9 +6,6 @@ const EMPTY_DOC_FORM = {
   doc_title: '', doc_number: '', doc_date: '', description: '', file_url: ''
 };
 
-/**
- * Domain: Pustaka dokumen (documents) — tambah via URL, edit, hapus, cari.
- */
 export default function useDocuments({ token, showMsg, setLoading, setEditingItem, setIsAdding, openConfirm }) {
   const [documents, setDocuments] = useState([]);
   const [docSearch, setDocSearch] = useState('');

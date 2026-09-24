@@ -55,7 +55,6 @@ function VideoProfileSection({
           ) : (
             <div className="video-card">
               {!isPlaying ? (
-              /* Video Cover / Banner State */
               <div
                 className="video-cover"
                 onClick={() => setIsPlaying(true)}
@@ -153,7 +152,6 @@ function VideoProfileSection({
                 </div>
               </div>
             ) : (
-              /* Inline YouTube Iframe Player */
               <div className="video-player-container">
                 <div className="video-player__top-bar">
                   <span className="video-player__title">{title}</span>

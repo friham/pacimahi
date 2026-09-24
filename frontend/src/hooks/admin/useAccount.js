@@ -2,10 +2,6 @@ import { useState, useRef } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../config';
 
-/**
- * Domain: Pengaturan akun admin (profil, avatar, ganti password).
- * Menyinkronkan form dengan `user` dari AuthContext.
- */
 export default function useAccount({ user, token, updateUser, showMsg }) {
   const [accountForm, setAccountForm] = useState({
     username: user?.username || '',
