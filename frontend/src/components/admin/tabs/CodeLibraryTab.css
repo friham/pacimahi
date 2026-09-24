@@ -1,8 +1,4 @@
-/* ========================================
-   CODE LIBRARY TAB — Premium Dark-Theme UI
-   ======================================== */
 
-/* Root container */
 .cl-root {
   display: flex;
   flex-direction: column;
@@ -17,7 +13,6 @@
   box-shadow: 0 8px 32px rgba(0,0,0,0.4);
 }
 
-/* ── Toast ── */
 .cl-toast {
   position: absolute;
   top: 16px;
@@ -54,7 +49,6 @@
 }
 .cl-toast__close:hover { opacity: 1; }
 
-/* ── Header ── */
 .cl-header {
   display: flex;
   align-items: center;
@@ -100,14 +94,12 @@
   gap: 8px;
 }
 
-/* ── Body layout ── */
 .cl-body {
   display: flex;
   flex: 1;
   overflow: hidden;
 }
 
-/* ── Sidebar ── */
 .cl-sidebar {
   width: 272px;
   flex-shrink: 0;
@@ -130,7 +122,6 @@
   padding: 0 2px;
 }
 
-/* Search */
 .cl-search {
   position: relative;
   display: flex;
@@ -174,7 +165,6 @@
 }
 .cl-search__clear:hover { color: #94a3b8; }
 
-/* Lang filter pills */
 .cl-lang-filter {
   display: flex;
   gap: 4px;
@@ -195,7 +185,6 @@
 .cl-lang-pill:hover { background: #242d45; color: #94a3b8; }
 .cl-lang-pill--active { background: rgba(6,95,70,0.35); color: #34d399; border-color: rgba(6,95,70,0.6); }
 
-/* Snippet list */
 .cl-snippet-list {
   flex: 1;
   overflow-y: auto;
@@ -208,7 +197,6 @@
 .cl-snippet-list::-webkit-scrollbar-track { background: transparent; }
 .cl-snippet-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 4px; }
 
-/* Empty state */
 .cl-empty {
   display: flex;
   flex-direction: column;
@@ -221,7 +209,6 @@
   font-size: 0.82rem;
 }
 
-/* Snippet card */
 .cl-card {
   display: flex;
   align-items: center;
@@ -292,7 +279,6 @@
 }
 .cl-tag svg { font-size: 0.5rem; }
 
-/* ── Editor Panel ── */
 .cl-editor-panel {
   flex: 1;
   display: flex;
@@ -302,7 +288,6 @@
   min-width: 0;
 }
 
-/* Empty state editor */
 .cl-editor-empty {
   flex: 1;
   display: flex;
@@ -329,7 +314,6 @@
 .cl-editor-empty h3 { color: #64748b; margin: 0; font-size: 1.05rem; font-weight: 600; }
 .cl-editor-empty p  { color: #374151; font-size: 0.825rem; max-width: 340px; line-height: 1.65; margin: 0; }
 
-/* ── Editor header ── */
 .cl-editor-header {
   display: flex;
   align-items: flex-start;
@@ -348,7 +332,6 @@
 }
 .cl-editor-header__row { display: flex; gap: 7px; }
 
-/* Meta accordion toggle */
 .cl-meta-toggle {
   display: inline-flex;
   align-items: center;
@@ -366,7 +349,6 @@
 .cl-meta-toggle svg.rotated { transform: rotate(180deg); }
 .cl-meta-fields { display: flex; flex-direction: column; gap: 5px; }
 
-/* Inputs */
 .cl-input {
   background: #161b2a;
   border: 1px solid rgba(255,255,255,0.07);
@@ -407,7 +389,6 @@
 }
 .cl-select:focus { border-color: #065f46; }
 
-/* Action buttons column */
 .cl-editor-actions {
   display: flex;
   flex-direction: column;
@@ -416,7 +397,6 @@
   align-items: stretch;
 }
 
-/* Confirm delete inline */
 .cl-confirm-delete {
   display: flex;
   align-items: center;
@@ -429,7 +409,6 @@
   border: 1px solid rgba(239,68,68,0.2);
 }
 
-/* Buttons */
 .cl-btn {
   display: inline-flex;
   align-items: center;
@@ -481,7 +460,6 @@
 .cl-btn--outline-sm:hover { background: rgba(52,211,153,0.08); }
 .cl-btn-label { display: inline; }
 
-/* ── Workspace ── */
 .cl-workspace {
   flex: 1;
   display: flex;
@@ -490,7 +468,6 @@
 .cl-workspace--split .cl-code-area { flex: 1; border-right: 1px solid rgba(255,255,255,0.05); }
 .cl-workspace:not(.cl-workspace--split) .cl-code-area { flex: 1; }
 
-/* Code area */
 .cl-code-area {
   display: flex;
   flex-direction: column;
@@ -498,7 +475,6 @@
   min-width: 0;
 }
 
-/* Tab bar */
 .cl-tabs {
   display: flex;
   align-items: center;
@@ -562,7 +538,6 @@
   white-space: nowrap;
 }
 
-/* Code editor (gutter + textarea) */
 .cl-editor__wrap {
   display: flex;
   flex: 1;
@@ -614,7 +589,6 @@
 .cl-editor__textarea--css  { caret-color: #89b4fa; }
 .cl-editor__textarea--js   { caret-color: #f9e2af; }
 
-/* ── Live Preview ── */
 .cl-preview {
   width: 40%;
   min-width: 280px;
@@ -662,14 +636,12 @@
   width: 100%;
 }
 
-/* Spin animation */
 @keyframes spin {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
 }
 .spin { animation: spin 0.7s linear infinite; }
 
-/* Responsive */
 @media (max-width: 1024px) {
   .cl-workspace--split .cl-preview { width: 36%; }
 }

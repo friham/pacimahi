@@ -465,9 +465,6 @@
   }
 }
 
-/* ====================================================
-   VIDEO UNAVAILABLE (VIDEO TIDAK TERSEDIA)
-   ==================================================== */
 .video-card--unavailable {
   display: flex;
   align-items: center;

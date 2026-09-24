@@ -252,7 +252,6 @@
   border: 1px solid var(--gray-200);
   padding: 2.25rem;
   min-height: 500px;
-  /* Cegah konten meluber ke kanan */
   overflow-x: hidden;
   overflow-wrap: anywhere;
   word-break: break-word;

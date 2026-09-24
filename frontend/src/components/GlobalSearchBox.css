@@ -1,11 +1,9 @@
-/* GlobalSearchBox.css - Modal / Command Palette Search */
 
 .global-search-wrapper {
   position: relative;
   width: 100%;
 }
 
-/* Trigger button inside hero */
 .global-search-trigger {
   display: flex;
   align-items: center;
@@ -57,10 +55,6 @@
   color: rgba(255, 255, 255, 0.55);
 }
 
-/* =========================================================
-   SEARCH MODAL OVERLAY (Command Palette style)
-   ========================================================= */
-
 .search-modal-backdrop {
   position: fixed;
   top: 0;
@@ -109,7 +103,6 @@
   }
 }
 
-/* Modal Header & Input */
 .search-modal-header {
   display: flex;
   align-items: center;
@@ -192,7 +185,6 @@
   color: #0f172a;
 }
 
-/* Modal Body */
 .search-modal-body {
   flex: 1;
   overflow-y: auto;
@@ -200,7 +192,6 @@
   background: #ffffff;
 }
 
-/* Status Loading */
 .search-modal-status {
   display: flex;
   align-items: center;
@@ -212,7 +203,6 @@
   font-weight: 600;
 }
 
-/* Placeholder state */
 .search-modal-placeholder {
   padding: 2.75rem 2rem 2.25rem;
   text-align: center;
@@ -281,7 +271,6 @@
   color: var(--primary-700, #15803d);
 }
 
-/* Empty State */
 .search-modal-empty {
   padding: 3rem 2rem;
   text-align: center;
@@ -302,7 +291,6 @@
   line-height: 1.5;
 }
 
-/* Results Content */
 .search-modal-results {
   display: flex;
   flex-direction: column;
@@ -415,7 +403,6 @@
   color: #92400e;
 }
 
-/* Modal Footer */
 .search-modal-footer {
   display: flex;
   align-items: center;

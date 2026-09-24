@@ -1,14 +1,9 @@
-/* ═══════════════════════════════════════════════════
-   IMAGE CAROUSEL — Clean & Lightbox-Ready
-   ═══════════════════════════════════════════════════ */
 
-/* ── Section ─────────────────────────────────────── */
 .carousel-section {
   padding: 3rem 0 4rem;
   background: var(--surface-bg);
 }
 
-/* ── Header ─────────────────────────────────────── */
 .carousel-header {
   text-align: center;
   margin-bottom: 1.75rem;
@@ -31,7 +26,6 @@
   letter-spacing: -0.01em;
 }
 
-/* ── Wrapper ─────────────────────────────────────── */
 .carousel {
   position: relative;
   border-radius: 20px;
@@ -43,7 +37,6 @@
   border: 1px solid rgba(76, 175, 80, 0.18);
 }
 
-/* ── Track ───────────────────────────────────────── */
 .carousel__track {
   position: relative;
   width: 100%;
@@ -51,7 +44,6 @@
   overflow: hidden;
 }
 
-/* ── Slide ───────────────────────────────────────── */
 .carousel__slide {
   position: absolute;
   inset: 0;
@@ -70,11 +62,9 @@
   z-index: 2;
 }
 
-/* ── Blurred Backdrop (same image scaled & blurred) */
 .carousel__slide-backdrop {
   position: absolute;
-  inset: -20px;            /* slight bleed so blur edge not visible */
-  width: calc(100% + 40px);
+  inset: -20px;              width: calc(100% + 40px);
   height: calc(100% + 40px);
   object-fit: cover;
   object-position: center;
@@ -84,7 +74,6 @@
   z-index: 0;
 }
 
-/* ── Main Image — contain so nothing is cropped ──── */
 .carousel__slide-img {
   position: relative;
   z-index: 1;
@@ -93,8 +82,7 @@
   object-fit: contain;
   object-position: center;
   display: block;
-  /* no zoom/scale transition — natural display */
-  transition: filter 0.3s ease;
+    transition: filter 0.3s ease;
   filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.35));
 }
 
@@ -102,7 +90,6 @@
   filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.35)) brightness(1.04);
 }
 
-/* ── Expand Button ───────────────────────────────── */
 .carousel__expand-btn {
   position: absolute;
   top: 16px;
@@ -131,7 +118,6 @@
   transform: scale(1.05);
 }
 
-/* ── Bottom Gradient for text readability ─────────── */
 .carousel__slide::after {
   content: '';
   position: absolute;
@@ -147,7 +133,6 @@
   z-index: 2;
 }
 
-/* ── Text Overlay ────────────────────────────────── */
 .carousel__slide-content {
   position: absolute;
   bottom: 0;
@@ -186,7 +171,6 @@
   to   { opacity: 1; transform: translateY(0);    }
 }
 
-/* ── Arrow Buttons ───────────────────────────────── */
 .carousel__arrow {
   position: absolute;
   top: 50%;
@@ -223,7 +207,6 @@
 .carousel__arrow--prev { left: 18px; }
 .carousel__arrow--next { right: 18px; }
 
-/* ── Progress Dots ───────────────────────────────── */
 .carousel__dots {
   position: absolute;
   bottom: 18px;
@@ -280,7 +263,6 @@
   to   { transform: scaleX(1); }
 }
 
-/* ── Slide Counter ───────────────────────────────── */
 .carousel__counter {
   position: absolute;
   bottom: 20px;
@@ -293,9 +275,6 @@
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
 
-/* ════════════════════════════════════════════════════
-   LIGHTBOX
-   ════════════════════════════════════════════════════ */
 .carousel-lightbox {
   position: fixed;
   inset: 0;
@@ -330,7 +309,6 @@
   to   { opacity: 1; transform: scale(1);   }
 }
 
-/* Blurred backdrop behind lightbox image */
 .carousel-lightbox__bg {
   position: absolute;
   inset: -40px;
@@ -343,7 +321,6 @@
   pointer-events: none;
 }
 
-/* Main lightbox image */
 .carousel-lightbox__img {
   position: relative;
   z-index: 1;
@@ -355,7 +332,6 @@
   display: block;
 }
 
-/* Caption */
 .carousel-lightbox__caption {
   position: relative;
   z-index: 1;
@@ -382,7 +358,6 @@
   line-height: 1.5;
 }
 
-/* Close button */
 .carousel-lightbox__close {
   position: fixed;
   top: 20px;
@@ -408,7 +383,6 @@
   transform: scale(1.08) rotate(90deg);
 }
 
-/* Prev / Next in lightbox */
 .carousel-lightbox__prev,
 .carousel-lightbox__next {
   position: fixed;
@@ -436,7 +410,6 @@
 .carousel-lightbox__prev:hover { background: rgba(255,255,255,0.22); transform: translateY(-50%) scale(1.08); }
 .carousel-lightbox__next:hover { background: rgba(255,255,255,0.22); transform: translateY(-50%) scale(1.08); }
 
-/* ── Responsive ──────────────────────────────────── */
 @media (max-width: 1024px) {
   .carousel__track { height: 380px; }
   .carousel__slide-title { max-width: 85%; }

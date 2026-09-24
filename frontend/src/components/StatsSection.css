@@ -1,4 +1,3 @@
-/* Section Background: Hijau Pengadilan Elegan */
 .stats-section {
   padding: 4.5rem 0;
   background: linear-gradient(180deg, #0d381e 0%, #062312 100%);
@@ -8,7 +7,6 @@
   color: #ffffff;
 }
 
-/* Header Bersih Tanpa Box */
 .stats-section__header {
   text-align: center;
   margin-bottom: 3.25rem;
@@ -29,24 +27,20 @@
   font-size: 1.15rem;
   font-weight: 800;
   letter-spacing: 0.08em;
-  color: #ffffff; /* Putih bersih dan jelas */
-  text-transform: uppercase;
+  color: #ffffff;   text-transform: uppercase;
   opacity: 0.95;
 }
 
-/* Grid 3 Kartu */
 .stats-section__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 28px;
 }
 
-/* Kartu Survei Sederhana Sesuai Format Referensi Banner */
 .survey-report-card {
   background: #ffffff;
   border-radius: 18px;
-  border: 3px solid #111827; /* Garis outline solid tegas */
-  box-shadow: 0 10px 0px #091e11, 0 15px 30px rgba(0, 0, 0, 0.25);
+  border: 3px solid #111827;   box-shadow: 0 10px 0px #091e11, 0 15px 30px rgba(0, 0, 0, 0.25);
   padding: 1.75rem 1.75rem 2.25rem;
   text-align: center;
   display: flex;
@@ -61,7 +55,6 @@
   box-shadow: 0 14px 0px #091e11, 0 20px 35px rgba(0, 0, 0, 0.35);
 }
 
-/* Header Tab Kartu */
 .survey-report-card__top {
   width: 100%;
   display: flex;
@@ -71,10 +64,8 @@
   border-bottom: 2px solid #e5e7eb;
 }
 
-/* Tab Kotak Singkatan (IKM / IPKP / IPAK) */
 .survey-report-card__tab {
-  background: #e5c35e; /* Kuning/Emas Dokumen */
-  color: #111827;
+  background: #e5c35e;   color: #111827;
   font-size: 0.95rem;
   font-weight: 900;
   letter-spacing: 0.08em;
@@ -85,7 +76,6 @@
   box-shadow: 2px 2px 0px #111827;
 }
 
-/* Judul Indeks */
 .survey-report-card__title {
   font-size: 1.05rem;
   font-weight: 900;
@@ -100,18 +90,15 @@
   margin-bottom: 1rem;
 }
 
-/* Angka Skor Utama */
 .survey-report-card__score {
   font-family: var(--font-primary, 'Inter', sans-serif);
   font-size: 4rem;
   font-weight: 900;
-  color: #093b1d; /* Hijau brand pekat */
-  line-height: 1;
+  color: #093b1d;   line-height: 1;
   margin: 0.5rem 0 0.85rem;
   letter-spacing: -0.04em;
 }
 
-/* Grade & Predikat */
 .survey-report-card__grade {
   font-size: 1.15rem;
   font-weight: 900;
@@ -120,7 +107,6 @@
   text-transform: uppercase;
 }
 
-/* Responsive */
 @media (max-width: 1024px) {
   .stats-section__grid {
     grid-template-columns: repeat(2, 1fr);

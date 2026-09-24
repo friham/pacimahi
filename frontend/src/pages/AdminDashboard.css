@@ -3933,7 +3933,6 @@
   border-left: 5px solid #0ea5e9;
 }
 
-/* Editor khusus code (wadah HTML/CSS) */
 .cms-code-editor {
   width: 100%;
   padding: 0.75rem;
@@ -5061,10 +5060,6 @@
   }
 }
 
-/* ============================================================
-   MINI CODE EDITOR (mce-*) — dipakai di block 'code' PagesTab
-   ============================================================ */
-
 .mce-root {
   background: #0d1117;
   border-radius: 12px;
@@ -5076,7 +5071,6 @@
   box-shadow: 0 4px 20px rgba(0,0,0,0.25);
 }
 
-/* ── Tab bar ── */
 .mce-tabs {
   display: flex;
   align-items: center;
@@ -5133,7 +5127,6 @@
 .mce-action-btn:hover { background: rgba(255,255,255,0.09); color: #94a3b8; }
 .mce-action-btn--active { background: rgba(14,165,233,0.12); color: #38bdf8; border-color: rgba(14,165,233,0.2); }
 
-/* ── Workspace: editor + preview split ── */
 .mce-workspace {
   display: flex;
   min-height: 220px;
@@ -5143,7 +5136,6 @@
 .mce-workspace--split .mce-editor { flex: 1; }
 .mce-workspace:not(.mce-workspace--split) .mce-editor { flex: 1; }
 
-/* ── Editor ── */
 .mce-editor {
   display: flex;
   overflow: hidden;
@@ -5193,7 +5185,6 @@
 .mce-editor__textarea--css  { caret-color: #89b4fa; }
 .mce-editor__textarea--js   { caret-color: #f9e2af; }
 
-/* ── Live preview panel ── */
 .mce-preview {
   width: 42%;
   min-width: 220px;
@@ -5223,7 +5214,6 @@
   margin-left: auto;
 }
 
-/* ── Info bar ── */
 .mce-info-bar {
   display: flex;
   align-items: center;
@@ -5237,7 +5227,6 @@
 }
 .mce-info-bar__hint { color: #1e2535; }
 
-/* ── Code Import Modal ── */
 .mce-modal-overlay {
   position: fixed;
   inset: 0;

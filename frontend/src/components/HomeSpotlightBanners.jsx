@@ -153,9 +153,6 @@ function HomeSpotlightBanners() {
     <section className="home-spotlight-section">
       <div className="container">
 
-        {/* ========================================================
-            1. ZONA INTEGRITAS (WBK & WBBM) 7 CARDS
-        ======================================================== */}
         <div ref={ziRef} className="spotlight-block zi-block scroll-reveal">
           <div className="spotlight-block__header">
             <div className="spotlight-badge">
@@ -196,9 +193,6 @@ function HomeSpotlightBanners() {
           </div>
         </div>
 
-        {/* ========================================================
-            2. ALUR PELAYANAN PRIORITAS PTSP (INFOGRAFIS LENGKAP)
-        ======================================================== */}
         <div ref={priRef} className="spotlight-block prioritas-block scroll-reveal">
           <div className="spotlight-block__header">
             <div className="spotlight-badge spotlight-badge--accent">
@@ -256,9 +250,6 @@ function HomeSpotlightBanners() {
           </div>
         </div>
 
-        {/* ========================================================
-            3. DUA BANNER LAYANAN: PROSEDUR BERPERKARA & LAYANAN INFORMASI
-        ======================================================== */}
         <div ref={dualRef} className="spotlight-block service-dual-block scroll-reveal">
           <div className="service-dual-grid scroll-reveal-stagger">
             {dualCards.map((card, idx) => (
@@ -293,9 +284,6 @@ function HomeSpotlightBanners() {
           </div>
         </div>
 
-        {/* ========================================================
-            4. BROSUR DIGITAL & QUICK SCAN BARCODE
-        ======================================================== */}
         <div ref={brosurRef} className="spotlight-block brosur-block scroll-reveal">
           <div className="brosur-card">
             <div
@@ -347,9 +335,6 @@ function HomeSpotlightBanners() {
           </div>
         </div>
 
-        {/* ========================================================
-            5. SOLUSI AKTA CERAI HILANG & LEGALISASI SECARA ONLINE
-        ======================================================== */}
         <div ref={aktaRef} className="spotlight-block akta-cerai-block scroll-reveal">
           <div className="akta-card">
             <div
@@ -404,9 +389,6 @@ function HomeSpotlightBanners() {
 
       </div>
 
-      {/* ========================================================
-          IMAGE LIGHTBOX / ZOOM MODAL
-      ======================================================== */}
       {zoomImage && (
         <div className="spotlight-modal-overlay" onClick={handleCloseZoom}>
           <div className="spotlight-modal-content" onClick={(e) => e.stopPropagation()}>

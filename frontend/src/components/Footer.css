@@ -11,7 +11,6 @@
   overflow: hidden;
 }
 
-/* Semi-transparent dark green overlay to guarantee text contrast */
 .footer::before {
   content: '';
   position: absolute;
