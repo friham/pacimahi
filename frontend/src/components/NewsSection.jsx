@@ -67,8 +67,8 @@ function NewsSection() {
           }));
           setNewsList(normalized);
         }
-      } catch (err) {
-        console.warn('Using default fallback news:', err.message);
+      } catch {
+        // Gagal fetch: gunakan daftar berita fallback statis.
       }
     };
     fetchNews();

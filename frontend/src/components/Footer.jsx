@@ -6,7 +6,7 @@ import {
   FaChevronRight, FaClock, FaExternalLinkAlt
 } from 'react-icons/fa';
 import useScrollReveal from '../hooks/useScrollReveal';
-import { useSettings } from '../context/SettingsContext';
+import { useSettings } from '../hooks/useSettings';
 import VisitorStatsWidget from './VisitorStatsWidget';
 import './Footer.css';
 

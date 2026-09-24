@@ -1,14 +1,16 @@
-import { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
+import { createContext, useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 
 const AuthContext = createContext(null);
+
+export { AuthContext };
 
 import { API_URL } from '../config';
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem('token'));
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => Boolean(token));
 
   const tokenRef = useRef(token);
   useEffect(() => { tokenRef.current = token; }, [token]);
@@ -28,15 +30,10 @@ export function AuthProvider({ children }) {
       });
       setUser(response.data.data);
     } catch (error) {
-      
       if (error.response && error.response.status === 401) {
-        console.warn('Token expired or invalid, logging out.');
         localStorage.removeItem('token');
         setToken(null);
         setUser(null);
-      } else {
-        console.warn('Auth check failed (non-401), keeping session:', error.message);
-        
       }
     } finally {
       setLoading(false);
@@ -47,11 +44,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     if (token) {
       fetchUser();
-    } else {
-      setLoading(false);
-      hasCheckedAuth.current = true;
     }
-    // Including `token` ensures effect re-runs when token changes (e.g. login/logout).
   }, [fetchUser, token]);
 
   const login = async (username, password) => {
@@ -94,13 +87,3 @@ export function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
-
-export function useAuth() {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-}
-
-export default AuthContext;

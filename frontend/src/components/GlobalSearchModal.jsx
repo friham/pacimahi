@@ -28,13 +28,12 @@ export default function GlobalSearchModal({ isOpen, onClose }) {
       return () => clearTimeout(timer);
     } else {
       document.body.style.overflow = '';
-      setQuery('');
-      setResults([]);
+      const resetTimer = setTimeout(() => {
+        setQuery('');
+        setResults([]);
+      }, 0);
+      return () => clearTimeout(resetTimer);
     }
-
-    return () => {
-      document.body.style.overflow = '';
-    };
   }, [isOpen]);
 
   // Handle ESC key to close modal and basic focus trapping
@@ -71,16 +70,15 @@ export default function GlobalSearchModal({ isOpen, onClose }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
-  // Debounced search
   useEffect(() => {
-    if (!query || query.trim().length < 2) {
-      setResults([]);
-      setLoading(false);
-      return;
-    }
-
-    setLoading(true);
     const timer = setTimeout(async () => {
+      if (!query || query.trim().length < 2) {
+        setResults([]);
+        setLoading(false);
+        return;
+      }
+
+      setLoading(true);
       try {
         const res = await axios.get(`${API_URL}/search`, {
           params: { q: query.trim() }

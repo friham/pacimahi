@@ -150,7 +150,10 @@ function HomepageTab({ token }) {
   }, [token]);
 
   useEffect(() => {
-    fetchSections();
+    const load = async () => {
+      await fetchSections();
+    };
+    load();
   }, [fetchSections]);
 
   const openEdit = (section) => {

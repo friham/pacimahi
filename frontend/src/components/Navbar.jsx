@@ -8,7 +8,7 @@ import './Navbar.css';
 import { API_URL } from '../config';
 
 import { defaultMenuItems } from '../data/defaultMenuTree';
-import { useSearchModal } from '../context/SearchModalContext';
+import { useSearchModal } from '../hooks/useSearchModal';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,13 +39,14 @@ function Navbar() {
         };
         setNavItems(res.data.data.map(mapNode));
       }
-    } catch {
-      console.warn('Menggunakan fallback menu navbar');
-    }
+    } catch {}
   }, []);
 
   useEffect(() => {
-    fetchDynamicMenus();
+    const load = async () => {
+      await fetchDynamicMenus();
+    };
+    load();
     const handleMenuUpdate = () => fetchDynamicMenus();
     window.addEventListener('cms_menu_updated', handleMenuUpdate);
     return () => window.removeEventListener('cms_menu_updated', handleMenuUpdate);
@@ -60,9 +61,12 @@ function Navbar() {
   }, []);
 
   useEffect(() => {
-    setIsOpen(false);
-    setActiveDropdown(null);
-    setOpenSubMenus({});
+    const resetTimer = setTimeout(() => {
+      setIsOpen(false);
+      setActiveDropdown(null);
+      setOpenSubMenus({});
+    }, 0);
+    return () => clearTimeout(resetTimer);
   }, [location.pathname]);
 
   const openDropdown = useCallback((index) => {

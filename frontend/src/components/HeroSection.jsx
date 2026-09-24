@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FaSearch, FaBullhorn, FaTimes, FaExpandAlt, FaCopy, FaCheck } from 'react-icons/fa';
 import GlobalSearchBox from './GlobalSearchBox';
-import { useSettings } from '../context/SettingsContext';
+import { useSettings } from '../hooks/useSettings';
 import './HeroSection.css';
 
 function HeroSection({ onOpenCaseModal }) {

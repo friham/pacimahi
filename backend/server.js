@@ -80,7 +80,7 @@ const isDevOrLocal = (req) => {
 
 const publicReadLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 5000,
+  max: parseInt(process.env.RATE_LIMIT_PUBLIC_MAX, 10) || 600,
   standardHeaders: true,
   legacyHeaders: false,
   message: { success: false, message: 'Terlalu banyak request, coba lagi nanti.' },

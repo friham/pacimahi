@@ -1,5 +1,6 @@
 const request = require('supertest');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 // Mock pool sebelum server dimuat
 jest.mock('../config/db', () => ({
@@ -136,6 +137,83 @@ describe('PA Cimahi Backend API Tests', () => {
           .send({ username: 'admin', password: 'wrong' });
         expect(res.status).not.toBe(429);
       }
+    });
+  });
+
+  describe('Superadmin Reset Password — PUT /api/auth/reset-password/:id', () => {
+    const SECRET = process.env.JWT_SECRET || 'test-secret';
+    const signToken = (payload) => jwt.sign(payload, SECRET, { expiresIn: '1h' });
+
+    beforeAll(() => {
+      if (!process.env.JWT_SECRET) process.env.JWT_SECRET = 'test-secret';
+    });
+
+    it('harus mengembalikan 401 jika tanpa token', async () => {
+      const res = await request(app)
+        .put('/api/auth/reset-password/2')
+        .send({ newPassword: 'rahasia123' });
+
+      expect(res.status).toBe(401);
+      expect(res.body.success).toBe(false);
+    });
+
+    it('harus mengembalikan 403 jika bukan superadmin', async () => {
+      const token = signToken({ id: 3, username: 'editor1', role: 'editor' });
+      const res = await request(app)
+        .put('/api/auth/reset-password/2')
+        .set('Authorization', `Bearer ${token}`)
+        .send({ newPassword: 'rahasia123' });
+
+      expect(res.status).toBe(403);
+      expect(res.body.success).toBe(false);
+    });
+
+    it('harus mengembalikan 400 jika password baru kosong', async () => {
+      const token = signToken({ id: 1, username: 'admin', role: 'superadmin' });
+      const res = await request(app)
+        .put('/api/auth/reset-password/2')
+        .set('Authorization', `Bearer ${token}`)
+        .send({});
+
+      expect(res.status).toBe(400);
+      expect(res.body.success).toBe(false);
+    });
+
+    it('harus mengembalikan 400 jika reset password akun sendiri', async () => {
+      const token = signToken({ id: 1, username: 'admin', role: 'superadmin' });
+      const res = await request(app)
+        .put('/api/auth/reset-password/1')
+        .set('Authorization', `Bearer ${token}`)
+        .send({ newPassword: 'rahasia123' });
+
+      expect(res.status).toBe(400);
+      expect(res.body.message).toBe('Gunakan menu Ganti Password untuk mengubah password akun sendiri.');
+    });
+
+    it('harus mengembalikan 404 jika admin target tidak ada', async () => {
+      pool.execute.mockResolvedValueOnce([[]]);
+      const token = signToken({ id: 1, username: 'admin', role: 'superadmin' });
+      const res = await request(app)
+        .put('/api/auth/reset-password/99')
+        .set('Authorization', `Bearer ${token}`)
+        .send({ newPassword: 'rahasia123' });
+
+      expect(res.status).toBe(404);
+      expect(res.body.success).toBe(false);
+    });
+
+    it('harus berhasil reset password admin lain', async () => {
+      pool.execute.mockResolvedValueOnce([[{ id: 2 }]]);
+      const token = signToken({ id: 1, username: 'admin', role: 'superadmin' });
+      const res = await request(app)
+        .put('/api/auth/reset-password/2')
+        .set('Authorization', `Bearer ${token}`)
+        .send({ newPassword: 'rahasia123' });
+
+      expect(res.status).toBe(200);
+      expect(res.body.success).toBe(true);
+      const updateCall = pool.execute.mock.calls.find((c) => c[0].includes('UPDATE admins'));
+      expect(updateCall).toBeDefined();
     });
   });
 });

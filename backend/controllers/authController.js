@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const pool = require('../config/db');
+const { recordAuditLog } = require('./auditLogController');
 require('dotenv').config();
 
 const login = async (req, res) => {
@@ -212,4 +213,71 @@ const changePassword = async (req, res) => {
   }
 };
 
-module.exports = { login, getMe, updateProfile, changePassword };
+const adminResetPassword = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { newPassword } = req.body;
+
+    if (!newPassword) {
+      return res.status(400).json({
+        success: false,
+        message: 'Password baru wajib diisi.'
+      });
+    }
+
+    if (newPassword.length < 6) {
+      return res.status(400).json({
+        success: false,
+        message: 'Password baru minimal 6 karakter.'
+      });
+    }
+
+    if (Number(id) === Number(req.user.id)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Gunakan menu Ganti Password untuk mengubah password akun sendiri.'
+      });
+    }
+
+    const [rows] = await pool.execute(
+      'SELECT id FROM admins WHERE id = ?',
+      [id]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'Admin tidak ditemukan.'
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await pool.execute(
+      'UPDATE admins SET password = ? WHERE id = ?',
+      [hashedPassword, id]
+    );
+
+    await recordAuditLog({
+      adminId: req.user?.id,
+      adminName: req.user?.name || req.user?.username,
+      action: 'RESET_PASSWORD',
+      objectType: 'admin',
+      objectId: id,
+      details: `Superadmin mereset password admin ID ${id}`,
+      ip: req.ip
+    });
+
+    res.json({
+      success: true,
+      message: 'Password admin berhasil direset.'
+    });
+  } catch (error) {
+    console.error('AdminResetPassword error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Terjadi kesalahan server saat reset password.'
+    });
+  }
+};
+
+module.exports = { login, getMe, updateProfile, changePassword, adminResetPassword };

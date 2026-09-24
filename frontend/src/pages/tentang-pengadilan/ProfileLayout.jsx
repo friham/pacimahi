@@ -151,9 +151,12 @@ function ProfileLayout({ title, subtitle, breadcrumb, children }) {
   }, []);
 
   useEffect(() => {
-    if (!cachedProfilLinks) {
-      fetchSidebarMenus();
-    }
+    const load = async () => {
+      if (!cachedProfilLinks) {
+        await fetchSidebarMenus();
+      }
+    };
+    load();
     const handleUpdate = () => {
       cachedProfilLinks = null;
       fetchSidebarMenus(true);

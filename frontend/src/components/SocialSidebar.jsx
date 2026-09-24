@@ -1,5 +1,5 @@
 import { FaWhatsapp, FaInstagram, FaYoutube, FaFacebookF } from 'react-icons/fa';
-import { useSettings } from '../context/SettingsContext';
+import { useSettings } from '../hooks/useSettings';
 import './SocialSidebar.css';
 
 const defaultLinks = [

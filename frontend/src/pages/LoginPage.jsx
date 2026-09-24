@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 import { FaUser, FaLock, FaSignInAlt, FaHome, FaEye, FaEyeSlash } from 'react-icons/fa';
 import logoPaCimahi from '../assets/logo-pa-cimahi.png';
 import './LoginPage.css';

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import KepaniteraanLayout from './KepaniteraanLayout';
 import { FaHandHoldingHeart, FaDownload } from 'react-icons/fa';
@@ -8,12 +8,13 @@ function PosbakumPage() {
   const tabFromUrl = searchParams.get('tab');
   const [activeTab, setActiveTab] = useState(tabFromUrl || 'keberadaan');
 
-  useEffect(() => {
-    const tab = searchParams.get('tab');
-    if (tab) {
-      setActiveTab(tab);
+  const [prevTab, setPrevTab] = useState(tabFromUrl);
+  if (prevTab !== tabFromUrl) {
+    setPrevTab(tabFromUrl);
+    if (tabFromUrl) {
+      setActiveTab(tabFromUrl);
     }
-  }, [searchParams]);
+  }
 
   const handleTabSelect = (tabId) => {
     setActiveTab(tabId);

@@ -45,9 +45,15 @@ export default function MediaLibraryModal({ isOpen, onClose, onSelect, token }) 
     let isSubscribed = true;
 
     if (!isOpen) {
-      setMediaList([]);
-      setSelectedItem(null);
-      return;
+      // Reset dilakukan via setTimeout agar bukan setState sinkron di body effect.
+      const resetTimer = setTimeout(() => {
+        setMediaList([]);
+        setSelectedItem(null);
+      }, 0);
+      return () => {
+        clearTimeout(resetTimer);
+        isSubscribed = false;
+      };
     }
 
     const loadData = async () => {

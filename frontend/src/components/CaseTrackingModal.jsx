@@ -9,28 +9,29 @@ function CaseTrackingModal({ isOpen, onClose, initialQuery = '' }) {
   const [searchedTerm, setSearchedTerm] = useState('');
   const inputRef = useRef(null);
 
-  // Sync initialQuery when opened
+  // Sync initialQuery when opened — setState ditempatkan di dalam timer
+  // agar tidak ada setState sinkron di body effect (hindari cascading render).
   useEffect(() => {
     if (isOpen) {
-      setQuery(initialQuery);
-      setSearchedTerm(initialQuery);
-      setHasSubmitted(Boolean(initialQuery && initialQuery.trim()));
       document.body.style.overflow = 'hidden';
 
       const timer = setTimeout(() => {
+        setQuery(initialQuery);
+        setSearchedTerm(initialQuery);
+        setHasSubmitted(Boolean(initialQuery && initialQuery.trim()));
         if (inputRef.current) {
           inputRef.current.focus();
         }
       }, 60);
-      return () => clearTimeout(timer);
-    } else {
-      document.body.style.overflow = '';
-      setHasSubmitted(false);
+      return () => {
+        clearTimeout(timer);
+        document.body.style.overflow = '';
+      };
     }
 
-    return () => {
-      document.body.style.overflow = '';
-    };
+    document.body.style.overflow = '';
+    const resetTimer = setTimeout(() => setHasSubmitted(false), 0);
+    return () => clearTimeout(resetTimer);
   }, [isOpen, initialQuery]);
 
   // Handle ESC key to close

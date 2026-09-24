@@ -113,8 +113,8 @@ function HomeSpotlightBanners() {
           setSections((prev) => ({ ...prev, ...byKey }));
         }
       })
-      .catch((err) => {
-        if (!cancelled) console.warn('HomeSpotlightBanners: pakai data fallback', err.message);
+      .catch(() => {
+        // Gagal fetch: biarkan data fallback statis yang ditampilkan.
       });
     return () => { cancelled = true; };
   }, []);

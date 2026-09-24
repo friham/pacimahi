@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import axios from 'axios';
 import {
   FaCode, FaPlus, FaSave, FaTrash, FaCopy, FaSearch,
@@ -23,14 +23,7 @@ const EMPTY_FORM = {
 
 /* ── Sub-komponen: Live Preview dalam iframe ── */
 function LivePreview({ htmlCode, cssCode, jsCode }) {
-  const iframeRef = useRef(null);
-
-  useEffect(() => {
-    if (!iframeRef.current) return;
-    const doc = iframeRef.current.contentDocument || iframeRef.current.contentWindow?.document;
-    if (!doc) return;
-    doc.open();
-    doc.write(`<!DOCTYPE html><html><head><meta charset="utf-8">
+  const previewDoc = useMemo(() => `<!DOCTYPE html><html><head><meta charset="utf-8">
 <style>
   * { box-sizing: border-box; }
   body { margin: 0; padding: 16px; font-family: system-ui, -apple-system, sans-serif; font-size: 14px; background:#fff; }
@@ -43,16 +36,15 @@ try {
   ${jsCode || ''}
 } catch(e) { console.error('Preview JS error:', e); }
 </script>
-</body></html>`);
-    doc.close();
-  }, [htmlCode, cssCode, jsCode]);
+</body></html>`, [htmlCode, cssCode, jsCode]);
 
   return (
     <iframe
-      ref={iframeRef}
       className="cl-preview__iframe"
       title="Live Preview"
-      sandbox="allow-scripts allow-same-origin"
+      sandbox="allow-scripts"
+      srcDoc={previewDoc}
+      style={{ minHeight: '320px' }}
     />
   );
 }
@@ -155,7 +147,12 @@ export default function CodeLibraryTab({ token }) {
     }
   }, [langFilter, token, showToast]);
 
-  useEffect(() => { fetchSnippets(); }, [fetchSnippets]);
+  useEffect(() => {
+    const load = async () => {
+      await fetchSnippets();
+    };
+    load();
+  }, [fetchSnippets]);
 
   /* ── Client-side filter ── */
   const filteredSnippets = snippets.filter(s => {

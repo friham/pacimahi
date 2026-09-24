@@ -19,27 +19,55 @@ const slugify = (text) => {
     .replace(/-+$/, '');            
 };
 
+const DEFAULT_PAGE_LIMIT = 12;
+const MAX_PAGE_LIMIT = 100;
+
 const getNews = async (req, res) => {
   try {
     const { search, category } = req.query;
-    let query = 'SELECT news.*, admins.name as author_name FROM news LEFT JOIN admins ON news.author_id = admins.id WHERE is_published = TRUE';
+    let where = 'WHERE is_published = TRUE';
     const params = [];
 
     if (category && category !== 'semua' && category !== 'Semua') {
-      query += ' AND news.category = ?';
+      where += ' AND news.category = ?';
       params.push(category.toLowerCase());
     }
 
     if (search && search.trim()) {
-      query += ' AND (news.title LIKE ? OR news.content LIKE ?)';
+      where += ' AND (news.title LIKE ? OR news.content LIKE ?)';
       const term = `%${search.trim()}%`;
       params.push(term, term);
     }
 
-    query += ' ORDER BY published_at DESC';
+    const parsedLimit = parseInt(req.query.limit, 10);
+    const parsedPage = parseInt(req.query.page, 10);
+    const limit = Number.isNaN(parsedLimit) || parsedLimit < 1
+      ? DEFAULT_PAGE_LIMIT
+      : Math.min(parsedLimit, MAX_PAGE_LIMIT);
+    const page = Number.isNaN(parsedPage) || parsedPage < 1 ? 1 : parsedPage;
+    const offset = (page - 1) * limit;
 
-    const [rows] = await pool.execute(query, params);
-    res.json({ success: true, data: rows });
+    const [countResult] = await pool.execute(
+      `SELECT COUNT(*) as total FROM news ${where}`,
+      params
+    );
+    const total = countResult[0].total;
+
+    const [rows] = await pool.execute(
+      `SELECT news.*, admins.name as author_name FROM news LEFT JOIN admins ON news.author_id = admins.id ${where} ORDER BY published_at DESC LIMIT ? OFFSET ?`,
+      [...params, limit, offset]
+    );
+
+    res.json({
+      success: true,
+      data: rows,
+      meta: {
+        page,
+        limit,
+        total,
+        totalPages: Math.max(1, Math.ceil(total / limit))
+      }
+    });
   } catch (error) {
     console.error('GetNews error:', error);
     res.status(500).json({ success: false, message: 'Terjadi kesalahan server.' });

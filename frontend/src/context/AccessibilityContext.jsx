@@ -1,6 +1,8 @@
-import { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
+import { createContext, useState, useEffect, useCallback, useRef } from 'react';
 
 const AccessibilityContext = createContext(null);
+
+export { AccessibilityContext };
 
 const DEFAULT_SETTINGS = {
   voiceMode: false,
@@ -117,9 +119,7 @@ export function AccessibilityProvider({ children }) {
       };
 
       window.speechSynthesis.speak(utterance);
-    } catch (e) {
-      console.warn('TTS speak error:', e);
-    }
+    } catch {}
   }, []);
 
   const getElementSpeech = useCallback((target) => {
@@ -488,12 +488,4 @@ export function AccessibilityProvider({ children }) {
       {children}
     </AccessibilityContext.Provider>
   );
-}
-
-export function useAccessibility() {
-  const context = useContext(AccessibilityContext);
-  if (!context) {
-    throw new Error('useAccessibility must be used within an AccessibilityProvider');
-  }
-  return context;
 }

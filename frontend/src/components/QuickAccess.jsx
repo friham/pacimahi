@@ -42,8 +42,8 @@ function QuickAccess({ onOpenCaseModal }) {
         if (res.data.success && res.data.data.length > 0) {
           setServices(res.data.data);
         }
-      } catch (err) {
-        console.warn('Using default fallback services due to API error:', err.message);
+      } catch {
+        // Gagal fetch: gunakan layanan fallback statis.
       }
     };
     fetchServices();

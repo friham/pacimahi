@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import useScrollReveal from '../hooks/useScrollReveal';
-import { useSettings } from '../context/SettingsContext';
+import { useSettings } from '../hooks/useSettings';
 import './StatsSection.css';
 
 export default function StatsSection() {

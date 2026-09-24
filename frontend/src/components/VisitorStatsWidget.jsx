@@ -47,9 +47,7 @@ export default function VisitorStatsWidget() {
       if (res.data?.success && res.data.data) {
         setStats(res.data.data);
       }
-    } catch (err) {
-      console.warn('Failed to fetch visitor stats:', err.message);
-    }
+    } catch {}
   }, [isAdminPath]);
 
   // 3. Heartbeat
@@ -59,9 +57,7 @@ export default function VisitorStatsWidget() {
       await axios.post(`${API_URL}/analytics/heartbeat`, {
         session_id: sessionIdRef.current
       });
-    } catch (err) {
-      console.warn('Heartbeat error:', err.message);
-    }
+    } catch {}
   }, [isAdminPath]);
 
   // 4. Track page visit on route change
@@ -74,9 +70,7 @@ export default function VisitorStatsWidget() {
           path: location.pathname
         });
         fetchStats();
-      } catch (err) {
-        console.warn('Track visit error:', err.message);
-      }
+      } catch {}
     };
 
     track();
@@ -86,8 +80,11 @@ export default function VisitorStatsWidget() {
   useEffect(() => {
     if (isAdminPath) return;
 
-    fetchStats();
-    sendHeartbeat();
+    const startPeriodicSync = async () => {
+      await fetchStats();
+      await sendHeartbeat();
+    };
+    startPeriodicSync();
 
     const statsInterval = setInterval(fetchStats, 30000);
     const heartbeatInterval = setInterval(sendHeartbeat, 60000);

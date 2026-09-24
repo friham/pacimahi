@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useMemo, useEffect } from 'react';
 import axios from 'axios';
 import {
   FaFileAlt, FaPlus, FaSearch, FaAlignLeft, FaImage, FaVideo,
@@ -37,21 +37,12 @@ document.querySelector('.komponen')?.addEventListener('click', () => {
 ];
 
 function MiniLivePreview({ html, css, js }) {
-  const iframeRef = useRef(null);
-  useEffect(() => {
-    const iframe = iframeRef.current;
-    if (!iframe) return;
-    const doc = iframe.contentDocument || iframe.contentWindow?.document;
-    if (!doc) return;
-    doc.open();
-    doc.write(`<!DOCTYPE html><html><head><meta charset="utf-8">
+  const previewDoc = useMemo(() => `<!DOCTYPE html><html><head><meta charset="utf-8">
 <style>*{box-sizing:border-box}body{margin:0;padding:14px;font-family:system-ui,sans-serif;font-size:14px}${css||''}</style>
 </head><body>${html||'<p style="color:#9ca3af;text-align:center;padding:32px 0;font-size:13px">Preview tampil di sini</p>'}
 <script>try{${js||''}}catch(e){console.error(e)}</script>
-</body></html>`);
-    doc.close();
-  }, [html, css, js]);
-  return <iframe ref={iframeRef} title="preview" sandbox="allow-scripts allow-same-origin" style={{ flex:1, border:'none', width:'100%', display:'block' }} />;
+</body></html>`, [html, css, js]);
+  return <iframe title="preview" sandbox="allow-scripts" srcDoc={previewDoc} style={{ flex:1, border:'none', width:'100%', display:'block', minHeight:'320px' }} />;
 }
 
 function MiniCodeEditor({ blockContent, onUpdate, token: editorToken, blockIdx }) {

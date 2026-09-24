@@ -23,18 +23,17 @@ function BeritaPage() {
   const [lastUrlSearch, setLastUrlSearch] = useState(urlSearch);
   const [selectedCategory, setSelectedCategory] = useState('Semua');
   const [selectedNews, setSelectedNews] = useState(null);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  // Sinkron URL (?search=) -> input (pola "adjusting state when props change",
-  // tanpa useEffect): dipakai saat datang dari hasil pencarian global
-  // /publikasi/berita?search=kata
   if (urlSearch !== lastUrlSearch) {
     setLastUrlSearch(urlSearch);
     setSearchTerm(urlSearch);
   }
 
-  // Sinkron input -> URL (replace, agar bisa dibagikan & tombol clear konsisten)
   const applySearch = (value) => {
     setSearchTerm(value);
+    setPage(1);
     const next = new URLSearchParams(searchParams);
     if (value) next.set('search', value);
     else next.delete('search');
@@ -44,7 +43,7 @@ function BeritaPage() {
   const fetchNews = useCallback(async () => {
     try {
       setLoading(true);
-      const params = {};
+      const params = { page };
       if (selectedCategory !== 'Semua') {
         params.category = selectedCategory.toLowerCase();
       }
@@ -55,16 +54,19 @@ function BeritaPage() {
       const res = await axios.get(`${API_URL}/news`, { params });
       if (res.data?.success) {
         setNewsList(res.data.data || []);
+        setTotalPages(res.data.meta?.totalPages || 1);
       } else {
         setNewsList([]);
+        setTotalPages(1);
       }
     } catch (err) {
       console.error('Error fetching news:', err);
       setNewsList([]);
+      setTotalPages(1);
     } finally {
       setLoading(false);
     }
-  }, [selectedCategory, searchTerm]);
+  }, [selectedCategory, searchTerm, page]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -72,6 +74,17 @@ function BeritaPage() {
     }, 300);
     return () => clearTimeout(timer);
   }, [fetchNews]);
+
+  const pagerStart = Math.max(1, Math.min(page - 2, totalPages - 4));
+  const pagerEnd = Math.min(totalPages, pagerStart + 4);
+  const pageNumbers = [];
+  for (let i = pagerStart; i <= pagerEnd; i++) pageNumbers.push(i);
+
+  const changePage = (p) => {
+    if (p < 1 || p > totalPages || p === page) return;
+    setPage(p);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <PublikasiLayout
@@ -87,7 +100,7 @@ function BeritaPage() {
               <button
                 key={cat}
                 type="button"
-                onClick={() => setSelectedCategory(cat)}
+                onClick={() => { setSelectedCategory(cat); setPage(1); }}
                 style={{
                   padding: '6px 16px',
                   borderRadius: '20px',
@@ -264,6 +277,67 @@ function BeritaPage() {
                 </article>
               );
             })}
+          </div>
+        )}
+
+        {/* Pagination */}
+        {!loading && totalPages > 1 && (
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px', marginTop: '28px', flexWrap: 'wrap' }}>
+            <button
+              type="button"
+              onClick={() => changePage(page - 1)}
+              disabled={page <= 1}
+              style={{
+                padding: '8px 14px',
+                borderRadius: '8px',
+                border: '1px solid #e2e8f0',
+                background: '#fff',
+                color: page <= 1 ? '#cbd5e1' : '#334155',
+                fontWeight: 700,
+                fontSize: '0.82rem',
+                cursor: page <= 1 ? 'not-allowed' : 'pointer'
+              }}
+            >
+              ‹ Sebelumnya
+            </button>
+            {pageNumbers.map((p) => (
+              <button
+                key={p}
+                type="button"
+                onClick={() => changePage(p)}
+                style={{
+                  minWidth: '38px',
+                  padding: '8px 10px',
+                  borderRadius: '8px',
+                  border: '1px solid',
+                  borderColor: p === page ? '#1b5e20' : '#e2e8f0',
+                  background: p === page ? '#1b5e20' : '#fff',
+                  color: p === page ? '#fff' : '#334155',
+                  fontWeight: 800,
+                  fontSize: '0.82rem',
+                  cursor: 'pointer'
+                }}
+              >
+                {p}
+              </button>
+            ))}
+            <button
+              type="button"
+              onClick={() => changePage(page + 1)}
+              disabled={page >= totalPages}
+              style={{
+                padding: '8px 14px',
+                borderRadius: '8px',
+                border: '1px solid #e2e8f0',
+                background: '#fff',
+                color: page >= totalPages ? '#cbd5e1' : '#334155',
+                fontWeight: 700,
+                fontSize: '0.82rem',
+                cursor: page >= totalPages ? 'not-allowed' : 'pointer'
+              }}
+            >
+              Berikutnya ›
+            </button>
           </div>
         )}
 

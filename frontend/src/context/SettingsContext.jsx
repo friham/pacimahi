@@ -1,8 +1,10 @@
-import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { createContext, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { API_URL } from '../config';
 
 const SettingsContext = createContext(null);
+
+export { SettingsContext };
 
 const defaultSettings = {
   hero_badge: 'Zona Integritas WBK & WBBM',
@@ -46,15 +48,16 @@ export function SettingsProvider({ children }) {
       if (res.data.success && Object.keys(res.data.data).length > 0) {
         setSettings(prev => ({ ...prev, ...res.data.data }));
       }
-    } catch (err) {
-      console.warn('SettingsContext: using defaults', err.message);
-    } finally {
+    } catch {} finally {
       setLoaded(true);
     }
   }, []);
 
   useEffect(() => {
-    fetchSettings();
+    const load = async () => {
+      await fetchSettings();
+    };
+    load();
   }, [fetchSettings]);
 
   const refreshSettings = useCallback(() => {
@@ -67,13 +70,3 @@ export function SettingsProvider({ children }) {
     </SettingsContext.Provider>
   );
 }
-
-export function useSettings() {
-  const context = useContext(SettingsContext);
-  if (!context) {
-    throw new Error('useSettings must be used within a SettingsProvider');
-  }
-  return context;
-}
-
-export default SettingsContext;

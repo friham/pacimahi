@@ -17,7 +17,7 @@ import {
   FaCheck,
   FaUniversalAccess,
 } from 'react-icons/fa';
-import { useAccessibility } from '../context/AccessibilityContext';
+import { useAccessibility } from '../hooks/useAccessibility';
 import './AccessibilityWidget.css';
 
 function AccessibilityWidget() {

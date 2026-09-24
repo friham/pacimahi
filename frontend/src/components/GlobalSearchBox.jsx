@@ -78,16 +78,15 @@ export default function GlobalSearchBox() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen]);
 
-  // Debounced search
   useEffect(() => {
-    if (!query || query.trim().length < 2) {
-      setResults([]);
-      setLoading(false);
-      return;
-    }
-
-    setLoading(true);
     const timer = setTimeout(async () => {
+      if (!query || query.trim().length < 2) {
+        setResults([]);
+        setLoading(false);
+        return;
+      }
+
+      setLoading(true);
       try {
         const res = await axios.get(`${API_URL}/search`, {
           params: { q: query.trim() }

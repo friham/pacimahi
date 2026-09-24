@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../config';
 
@@ -30,7 +30,9 @@ export default function useAccount({ user, token, updateUser, showMsg }) {
   const [headerImgError, setHeaderImgError] = useState(false);
   const avatarFileInputRef = useRef(null);
 
-  useEffect(() => {
+  const [prevUser, setPrevUser] = useState(user);
+  if (prevUser !== user) {
+    setPrevUser(user);
     if (user) {
       setAccountForm({
         username: user.username || '',
@@ -40,11 +42,13 @@ export default function useAccount({ user, token, updateUser, showMsg }) {
       });
       setHeaderImgError(false);
     }
-  }, [user]);
+  }
 
-  useEffect(() => {
+  const [prevAvatar, setPrevAvatar] = useState(accountForm.avatar);
+  if (prevAvatar !== accountForm.avatar) {
+    setPrevAvatar(accountForm.avatar);
     setAvatarImgError(false);
-  }, [accountForm.avatar]);
+  }
 
   const handleUpdateProfile = async (e) => {
     e.preventDefault();

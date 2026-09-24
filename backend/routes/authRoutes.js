@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const rateLimit = require('express-rate-limit');
-const { login, getMe, updateProfile, changePassword } = require('../controllers/authController');
+const { login, getMe, updateProfile, changePassword, adminResetPassword } = require('../controllers/authController');
 const authMiddleware = require('../middleware/auth');
+const { checkRole } = require('../middleware/auth');
 
 const loginLimiter = rateLimit({
   windowMs: 60 * 1000, 
@@ -23,5 +24,7 @@ router.get('/me', authMiddleware, getMe);
 router.put('/profile', authMiddleware, updateProfile);
 
 router.put('/password', authMiddleware, changePassword);
+
+router.put('/reset-password/:id', authMiddleware, checkRole(['superadmin']), adminResetPassword);
 
 module.exports = router;

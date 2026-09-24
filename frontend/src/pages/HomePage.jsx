@@ -7,7 +7,7 @@ import SocialSidebar from '../components/SocialSidebar';
 import AccessibilityWidget from '../components/AccessibilityWidget';
 import AcoFloatingButton from '../components/AcoFloatingButton';
 import Footer from '../components/Footer';
-import { useSettings } from '../context/SettingsContext';
+import { useSettings } from '../hooks/useSettings';
 
 const ImageCarousel = lazy(() => import('../components/ImageCarousel'));
 const HomeSpotlightBanners = lazy(() => import('../components/HomeSpotlightBanners'));
